@@ -13,5 +13,5 @@ public class LuckBag {
     private String body;
     private boolean viewed;
     private String writer;
-
+    // test 중
 }

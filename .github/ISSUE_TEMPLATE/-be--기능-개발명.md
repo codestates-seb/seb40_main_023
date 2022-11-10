@@ -7,13 +7,13 @@ assignees: ''
 
 ---
 
-##기능 설명
+## 기능 설명
 ex) Member  CRUD 기능 구현  
 
 ## 기능 구현 마감일 
 ex) 11월 3일 14:00
 
-##상세 기능 내용
+## 상세 기능 내용
 1. Member  GET 기능 구현
 2. Member  POST 기능 구현 
 3. Member  PATCH 기능

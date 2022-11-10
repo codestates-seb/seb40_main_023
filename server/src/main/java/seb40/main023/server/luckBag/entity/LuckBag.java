@@ -1,11 +1,12 @@
 package seb40.main023.server.luckBag.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import seb40.main023.server.luckMango.entity.LuckMango;
+import seb40.main023.server.member.entity.Member;
 
-@Entity(name = "LUCKBAGS")
+import javax.persistence.*;
+
+@Entity
+@Table(name = "LUCKBAGS")
 public class LuckBag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,4 +15,7 @@ public class LuckBag {
     private boolean viewed;
     private String writer;
 
+    @ManyToOne
+    @JoinColumn(name = "luckMangoId")
+    private LuckMango luckMango;
 }

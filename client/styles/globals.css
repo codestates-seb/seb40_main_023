@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .mg-primary-button {
+    @apply px-10 py-3 text-white rounded-md bg-primary-400 hover:bg-primary-500;
+  }
+
+  .mg-secondary-button {
+    @apply px-10 py-3 text-white rounded-md bg-secondary-400 hover:bg-secondary-500;
+  }
+}

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "MEMBERS")
+@Entity(name = "member")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,9 @@ public class Member {
     private String since;
     private LocalDateTime lastLongin = LocalDateTime.now();
     private long nyMoney;
+
+
+    // 멤버 -> 복망고는 1:N 관계
 
     @OneToMany(mappedBy = "member")
     private List<LuckMango> luckMangos = new ArrayList<>();

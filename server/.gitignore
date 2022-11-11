@@ -1,9 +1,13 @@
-HELP.md
+### MacOS ###
+*.DS_Store
+
+# Gradle
 .gradle
-build/
+/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.gradletasknamecache
 
 ### STS ###
 .apt_generated
@@ -19,12 +23,16 @@ bin/
 
 ### IntelliJ IDEA ###
 .idea
+.idea/*.xml
 *.iws
 *.iml
 *.ipr
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+gen
+build
+rebel.xml
 
 ### NetBeans ###
 /nbproject/private/
@@ -35,3 +43,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+HELP.md

@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .mg-primary-button {
+    @apply px-10 py-3 text-white rounded-md bg-primary-400 hover:bg-primary-500;
+  }
+
+  .mg-secondary-button {
+    @apply px-10 py-3 text-white rounded-md bg-secondary-400 hover:bg-secondary-500;
+  }
+
+  .mg-white-button {
+    @apply px-10 py-3 bg-white border rounded-md text-primary-400 hover:bg-primary-100;
+  }
+
+  .mg-share-button {
+    @apply w-20 h-20 rounded-full;
+  }
+
+  .mg-input {
+    @apply border rounded border-[#CCCCCC] px-3;
+  }
+
+  .mg-layout {
+    @apply flex flex-col items-center w-full h-full py-9;
+  }
+
+  .mg-flex {
+    @apply flex flex-col;
+  }
+}

@@ -11,8 +11,8 @@ module.exports = {
         header: "0 4px 15px 0 rgba(0, 0, 0, 0.03)",
         context: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
         review: "2px 2px 10px rgba(0, 0, 0, 0.1)",
-        card: "1px 1px 4px 2px rgba(0, 0, 0, 0.05)",
-        cardHover: "2px 2px 10px 2px rgba(0, 0, 0, 0.15)",
+        card: "1px 1px 2px 2px rgba(0, 0, 0, 0.02)",
+        cardHover: "2px 2px 15px 2px rgba(0, 0, 0, 0.10)",
       },
     },
     colors: {

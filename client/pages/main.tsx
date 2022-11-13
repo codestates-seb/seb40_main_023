@@ -26,7 +26,22 @@ export default function Main() {
         <button className="mg-secondary-button-line mg-icon-card-url"></button>
       </div>
       <div>
-        <button className="mg-footer-github"></button>
+        <button className="flex items-center text-mono-textFooter">
+          <p className="mr-1 mg-footer-github"></p>김민아
+        </button>
+      </div>
+      <div>
+        <label htmlFor="" className="mg-default-label">
+          아이디
+        </label>
+        <input
+          type="text"
+          placeholder="아이디를 입력하세요"
+          className="mg-default-input w-[360px]"
+        />
+      </div>
+      <div className="flex flex-row col-span-1">
+        <div className="mg-default-card"></div>
       </div>
     </div>
   );

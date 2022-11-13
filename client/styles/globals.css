@@ -40,13 +40,23 @@
   }
 
   .mg-footer-github {
-    @apply w-[18px] h-[18px] bg-[url(/image/ico/ico-github.svg)] bg-no-repeat bg-center;
+    @apply w-[18px] h-[18px] bg-[url(/images/ico/ico-github.svg)] bg-no-repeat bg-center;
   }
 
-  /* card */
+  /* component */
+  .mg-default-label {
+    @apply block mb-2 font-medium text-mono-textNormal;
+  }
+
+  .mg-default-input {
+    @apply px-4 py-2 border rounded-md border-mono-borderLight placeholder:text-mono-textLight placeholder:font-light;
+  }
+
+  .mg-default-card {
+    @apply w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all;
+  }
 
   /* icons */
-
   .mg-icon-card-edit {
     @apply bg-[url(/images/ico/ico-card-edit.svg)] bg-no-repeat bg-center;
   }

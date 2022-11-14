@@ -10,4 +10,7 @@
   .mg-secondary-button {
     @apply px-10 py-3 text-white rounded-md bg-secondary-400 hover:bg-secondary-500;
   }
+  .mg-layout {
+    @apply flex flex-col items-center w-full h-full py-9;
+  }
 }

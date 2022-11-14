@@ -20,5 +20,6 @@ public class LuckMangoResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
+
     public void setMember(Member member){ this.memberId = member.getMemberId();}
 }

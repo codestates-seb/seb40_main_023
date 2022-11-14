@@ -7,10 +7,12 @@
 |FE|FE|FE|BE|BE|BE|
 |<img src="https://avatars.githubusercontent.com/u/36831218?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/96723716?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/107875003?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/90596545?v=4" width="100" height="99">|<img src="https://avatars.githubusercontent.com/u/107785861?v=4" width="100" height="99">|<img src="https://avatars.githubusercontent.com/u/54827741?v=4" width="100">
 
-### Commit Message
+### Commit 규칙 
+![스크린샷 2022-11-12 오전 9 36 20](https://user-images.githubusercontent.com/96723716/201447902-bd310989-2a5d-4d47-bfec-15a7f87e92d1.png)
+
+### PR 규칙 ( [feat]messages )
 |Tag Name|Description|
 |------|---|
-|예시|git commit -m “[Feat] commit messages”|
 |feat|새로운 기능 추가, 기존의 기능을 요구 사항에 맞추어 수정|
 |fix|기능에 대한 버그 수정|
 |build|빌드 관련 수정|
@@ -22,5 +24,3 @@
 |release|버전 릴리즈|
 |merge|병합|
 |remove|파일을 삭제하는 작업만 수행한 경우|
-
-![스크린샷 2022-11-12 오전 9 36 20](https://user-images.githubusercontent.com/96723716/201447902-bd310989-2a5d-4d47-bfec-15a7f87e92d1.png)

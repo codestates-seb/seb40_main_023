@@ -15,6 +15,7 @@ public class LuckBagPostDto {
     private String body;
 
     private boolean viewed;
+
     private String writer;
 
 

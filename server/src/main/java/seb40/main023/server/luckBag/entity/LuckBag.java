@@ -23,4 +23,7 @@ public class LuckBag {
     @Column(nullable = false)
     private String writer;
 
+    @Column(nullable = false)
+    private int bagStyle;
+
 }

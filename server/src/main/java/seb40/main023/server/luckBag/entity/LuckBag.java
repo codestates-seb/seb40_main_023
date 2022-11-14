@@ -1,6 +1,7 @@
 package seb40.main023.server.luckBag.entity;
 
 import seb40.main023.server.luckMango.entity.LuckMango;
+import seb40.main023.server.member.entity.Member;
 
 import javax.persistence.*;
 

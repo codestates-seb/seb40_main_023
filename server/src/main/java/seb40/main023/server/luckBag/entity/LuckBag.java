@@ -20,7 +20,7 @@ public class LuckBag {
     @Column
     private boolean viewed;
 
-    @Column
+    @Column(nullable = false)
     private String writer;
 
 }

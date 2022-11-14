@@ -51,9 +51,6 @@ public class LuckBagController {
 
     }
 
-
-
-
     // 복주머니 글 전체 조회
     @GetMapping("/{page}/{size}")
     public ResponseEntity getLuckBag(@PathVariable("page")  int page ,

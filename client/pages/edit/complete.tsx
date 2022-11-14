@@ -10,8 +10,8 @@ const complete = () => {
         친구들에게 링크를 공유해서 덕담을 나눠 보세요!
       </div>
       <div className="flex my-16">
-        <button className="mr-8 mg-share-button bg-primary-400"></button>
-        <button className="mr-8 mg-share-button bg-secondary-400"></button>
+        <button className="mr-8 mg-share-button bg-primary-normal"></button>
+        <button className="mr-8 mg-share-button bg-secondary-normal"></button>
         <button className="mg-share-button bg-[#F2DA00]"></button>
       </div>
 

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import seb40.main023.server.luckBag.entity.LuckBag;
-import seb40.main023.server.member.entity.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,7 +19,13 @@ public class LuckMango {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long luckMangoId;
+    public LuckMango(Long luckMangoId){
+        this.luckMangoId = luckMangoId;
+    }
+
     private String title;
+    private String bgm;
+    private String bgImage;
     private int likeCount;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime modifiedAt = LocalDateTime.now();

@@ -10,11 +10,11 @@ const edit = () => {
         초간단! 나만의 복망고 페이지를 생성해 보세요!
       </div>
       <div className="justify-center mg-width-size mg-flex">
-        <div className="flex items-center">
+        <div className="mg-flex-center">
           <div className="py-3 font-semibold text-s">
             복망고 제목을 입력해 주세요.
           </div>
-          <span className="ml-3 text-xs text-danger-400">
+          <span className="ml-3 text-xs text-danger-normal">
             * 최대 16자까지 입력할 수 있습니다.
           </span>
         </div>

@@ -3,13 +3,13 @@ import React from "react";
 const index = () => {
   return (
     <div className="mg-layout">
-      <div className="mg-width-size h-[600px] mg-border-2 bg-secondary-200 mg-flex items-center">
-        <div className="flex items-center w-full">
-          <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full flex justify-end items-center pr-5 my-5 truncate font-medium">
+      <div className="mg-width-size h-[600px] mg-border-2 bg-secondary-light mg-flex items-center">
+        <div className="w-full mg-flex-center">
+          <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 my-5 truncate font-medium">
             10,000,001원
           </div>
           <button className="mx-2">캡처</button>
-          <button className="flex items-center justify-center w-12 h-12 rounded-full bg-secondary-400">
+          <button className="justify-center w-12 h-12 rounded-full mg-flex-center bg-secondary-400">
             bgm
           </button>
         </div>

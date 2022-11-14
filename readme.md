@@ -22,3 +22,5 @@
 |release|버전 릴리즈|
 |merge|병합|
 |remove|파일을 삭제하는 작업만 수행한 경우|
+
+![스크린샷 2022-11-12 오전 9 36 20](https://user-images.githubusercontent.com/96723716/201447902-bd310989-2a5d-4d47-bfec-15a7f87e92d1.png)

@@ -88,4 +88,40 @@
   .mg-icon-share {
     @apply bg-[url(/images/ico/ico-share.svg)] bg-no-repeat bg-center;
   }
+
+  /* layout, flex */
+
+  .mg-layout {
+    @apply flex flex-col items-center w-full h-full py-9;
+  }
+
+  .mg-flex {
+    @apply flex flex-col;
+  }
+
+  .mg-flex-center {
+    @apply flex items-center;
+  }
+
+  .mg-width-size {
+    @apply max-w-[400px] w-full min-w-[300px];
+  }
+
+  /* edit page, luckbag page */
+
+  .mg-white-button {
+    @apply px-10 py-3 bg-white border rounded-md text-primary-normal;
+  }
+
+  .mg-share-button {
+    @apply w-20 h-20 rounded-full;
+  }
+
+  .mg-input {
+    @apply px-3 border rounded border-mono-borderNormal;
+  }
+
+  .mg-border-2 {
+    @apply border-mono-borderLight border-2 rounded-[10px];
+  }
 }

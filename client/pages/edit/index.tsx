@@ -9,7 +9,7 @@ const edit = () => {
       <div className="mt-4 mb-8">
         초간단! 나만의 복망고 페이지를 생성해 보세요!
       </div>
-      <div className=" max-w-[400px] w-full min-w-[300px] mg-flex justify-center">
+      <div className="justify-center mg-width-size mg-flex">
         <div className="flex items-center">
           <div className="py-3 font-semibold text-s">
             복망고 제목을 입력해 주세요.
@@ -30,12 +30,13 @@ const edit = () => {
 오래오래 보자!"
           className="py-3 text-sm resize-none h-18 mb-7 mg-input"
         ></textarea>
-        <div className="border-[#EEEEEE] border-2 h-[600px] rounded-[10px] relative mg-flex justify-center">
-          <div className="max-w-[400px] w-[101%] min-w-[300px] h-[60px] rounded-t-[10px] bg-[#EEEEEE] absolute top-[-2px] left-[-2px]"></div>
+        <div className="relative justify-center mg-border-2 h-[600px] mg-flex">
+          <div className="mg-width-size w-[101%] h-[60px] rounded-t-[10px] bg-[#EEEEEE] absolute top-[-2px] left-[-2px]"></div>
           <div className="items-center mg-flex">
-            <div className="border-2 p-4 text-sm w-5/6 border-dashed border-[#CCCCCC] rounded-[10px]">
-              얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래
-              보자!
+            <div className="mg-border-2 p-4 text-sm w-4/6 border-dashed border-[#CCCCCC]">
+              얘들아! 2023년에도 잘 부탁해~ 정말
+              <br />
+              고생 많았고, 우리 오래오래 보자!
             </div>
             <button className="w-8/12 my-20 font-bold mg-white-button">
               이미지 등록하기

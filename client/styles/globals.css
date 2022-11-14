@@ -30,4 +30,12 @@
   .mg-flex {
     @apply flex flex-col;
   }
+
+  .mg-width-size {
+    @apply max-w-[400px] w-full min-w-[300px];
+  }
+
+  .mg-border-2 {
+    @apply border-[#EEEEEE] border-2 rounded-[10px];
+  }
 }

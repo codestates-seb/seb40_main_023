@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import seb40.main023.server.member.dto.MemberPatchDto;
 import seb40.main023.server.member.dto.MemberPostDto;
 import seb40.main023.server.member.dto.MemberResponseDto;
+import seb40.main023.server.member.entity.Member;
 
 import java.util.List;
 

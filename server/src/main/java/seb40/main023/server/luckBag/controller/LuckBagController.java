@@ -12,6 +12,7 @@ import seb40.main023.server.luckBag.dto.LuckBagPatchDto;
 import seb40.main023.server.luckBag.dto.LuckBagPostDto;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.luckBag.mapper.LuckBagMapper;
+import seb40.main023.server.luckBag.repository.LuckBagRepository;
 import seb40.main023.server.luckBag.response.MultiResponseDto;
 import seb40.main023.server.luckBag.response.SingleResponseDto;
 import seb40.main023.server.luckBag.service.LuckBagService;
@@ -32,7 +33,7 @@ public class LuckBagController {
 
 
     // Created 복주머니 생성
-    @PostMapping("/createLuckBag") //복주머니 만들기
+    @PostMapping //복주머니 만들기
     public ResponseEntity postLuckBag(@Validated @RequestBody LuckBagPostDto luckBagPostDto){
 
 
@@ -52,7 +53,7 @@ public class LuckBagController {
     }
 
     // 복주머니 글 전체 조회
-    @GetMapping("/{page}/{size}")
+    @GetMapping
     public ResponseEntity getLuckBag(@PathVariable("page")  int page ,
                                      @PathVariable("size") int size){
 

@@ -1,39 +1,40 @@
 package seb40.main023.server.member.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.review.entity.Review;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
-@Getter
-@Setter
-@Entity(name = "member")
-public class Member {
+@Entity
+public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
-    private String name;
-    private String email;
-    private String password;
-    private String since;
-    private LocalDateTime lastLongin = LocalDateTime.now();
-    private long nyMoney;
 
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column
+    private int nyMoney = 0;
 
     // 멤버 -> 복망고는 1:N 관계
-
     @OneToMany(mappedBy = "member")
     private List<LuckMango> luckMangos = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     public List<Review> reviews = new ArrayList<>();
-
-
+    public Member(String name, String email, String password){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }

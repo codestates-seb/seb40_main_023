@@ -3,12 +3,90 @@
 @tailwind utilities;
 
 @layer components {
+  .mg-logo {
+    @apply bg-[url(/images/ico/logo.svg)] bg-no-repeat w-[144px] h-[44px] indent-[-100%] overflow-hidden;
+  }
+
   .mg-primary-button {
-    @apply px-10 py-3 text-white rounded-md bg-primary-400 hover:bg-primary-500;
+    @apply px-12 py-3 text-white rounded bg-primary-normal hover:bg-primary-hover;
   }
 
   .mg-secondary-button {
-    @apply px-10 py-3 text-white rounded-md bg-secondary-400 hover:bg-secondary-500;
+    @apply px-12 py-3 text-white rounded bg-secondary-normal hover:bg-secondary-hover;
+  }
+
+  .mg-primary-button-round {
+    @apply px-10 py-3 text-white rounded-full bg-primary-normal hover:bg-primary-hover;
+  }
+
+  .mg-negative-button-round {
+    @apply px-10 py-3 text-white rounded-full bg-negative-normal hover:bg-negative-hover;
+  }
+
+  .mg-transparent-button-circle {
+    @apply w-[48px] h-[48px] bg-transparent hover:bg-[rgba(0,0,0,.1)] rounded-full;
+  }
+
+  .mg-secondary-button-circle {
+    @apply w-[48px] h-[48px] bg-secondary-normal hover:bg-secondary-hover rounded-full;
+  }
+
+  .mg-secondary-button-line {
+    @apply w-[55px] h-[55px]  bg-transparent border-2 border-white rounded-full hover:bg-[rgba(0,0,0,.05)];
+  }
+
+  .mg-header-profile {
+    @apply w-[24px] h-[24px] bg-[url(/images/ico/ico-profile.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-footer-github {
+    @apply w-[18px] h-[18px] bg-[url(/images/ico/ico-github.svg)] bg-no-repeat bg-center;
+  }
+
+  /* component */
+  .mg-default-label {
+    @apply block mb-2 font-medium text-mono-textNormal;
+  }
+
+  .mg-default-input {
+    @apply px-4 py-2 border rounded-md border-mono-borderLight placeholder:text-mono-textLight placeholder:font-light;
+  }
+
+  .mg-default-card {
+    @apply w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all;
+  }
+
+  /* icons */
+  .mg-icon-card-edit {
+    @apply bg-[url(/images/ico/ico-card-edit.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-card-delete {
+    @apply bg-[url(/images/ico/ico-card-delete.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-card-url {
+    @apply bg-[url(/images/ico/ico-card-url.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-card-qr {
+    @apply bg-[url(/images/ico/ico-card-qr.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-sound-on {
+    @apply bg-[url(/images/content/ico-sound-on.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-sound-off {
+    @apply bg-[url(/images/content/ico-sound-off.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-capture {
+    @apply bg-[url(/images/content/ico-capture.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-share {
+    @apply bg-[url(/images/ico/ico-share.svg)] bg-no-repeat bg-center;
   }
   .mg-layout {
     @apply flex flex-col items-center w-full h-full py-9;

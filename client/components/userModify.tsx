@@ -11,6 +11,7 @@ const userModify = () => {
   const handleTextField = (e: any) => {
     setText(e.target.value);
   };
+
   return (
     <div className="relative max-w-[500px] flex w-full flex-col">
       <h1 className="">회원정보 수정</h1>

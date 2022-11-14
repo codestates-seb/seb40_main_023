@@ -20,7 +20,13 @@ public class LuckMango {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long luckMangoId;
+    public LuckMango(Long luckMangoId){
+        this.luckMangoId = luckMangoId;
+    }
+
     private String title;
+    private String bgm;
+    private String bgImage;
     private int likeCount;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime modifiedAt = LocalDateTime.now();

@@ -1,6 +1,6 @@
 ---
-name: "[BE] 기능 개발명"
-about: "[BE]기능 개발 할당 템플릿"
+name: "BE/기능 개발명"
+about: "BE/기능 개발 할당 템플릿"
 title: ''
 labels: BE
 assignees: ''

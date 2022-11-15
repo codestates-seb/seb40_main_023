@@ -1,6 +1,6 @@
 ---
-name: "[FE] 화면 구현"
-about: "[FE] 화면 구현 할당 템플릿"
+name: "FE/화면 구현"
+about: "FE/화면 구현 할당 템플릿"
 title: ''
 labels: FE
 assignees: ''

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BsFillPencilFill } from "react-icons/bs";
 import UserModify from "../../components/userModify";
 import BokCard from "../../components/BokCard";
 import Profile from "../../public/dummy/mypage-profile.png";
@@ -32,7 +31,7 @@ const mypage = () => {
           <UserModify />
         ) : (
           <div className="flex flex-col max-w-[500px] w-full">
-            <div className="flex mt-10">나의 복망고 리스트</div>
+            <div className="flex mt-10 text-xl">나의 복망고 리스트</div>
 
             <div className="grid grid-cols-2 gap-2">
               <BokCard data={dummy} />

@@ -1,14 +1,18 @@
 package seb40.main023.server.luckBag.entity;
 
 import lombok.Data;
-import lombok.Getter;
+
+import lombok.NoArgsConstructor;
+import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 
 import javax.persistence.*;
 
+
 @Entity(name = "LUCKBAGS")
 @Data
-public class LuckBag {
+@NoArgsConstructor
+public class LuckBag extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -28,6 +32,6 @@ public class LuckBag {
     private int bagStyle;
 
     @ManyToOne
-    @JoinColumn(name = "luckMangoId")
+    @JoinColumn(name = "LUCKMANGO_ID")
     private LuckMango luckMango;
 }

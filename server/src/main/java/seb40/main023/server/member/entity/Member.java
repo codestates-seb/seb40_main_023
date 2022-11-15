@@ -11,16 +11,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
+@Entity(name = "MEMBERS")
 public class Member extends Auditable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
     @Column(nullable = false)
@@ -35,12 +31,31 @@ public class Member extends Auditable {
     @Column
     private int nyMoney = 0;
 
-    // 멤버 -> 복망고는 1:N 관계
-    @OneToMany(mappedBy = "member")
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+    // 멤버 -> 복망고, 멤버 -> 리뷰는 1:N 관계
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<LuckMango> luckMangos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     public List<Review> reviews = new ArrayList<>();
+
+    public void addLuckMango(LuckMango luckMango) {
+        luckMangos.add(luckMango);
+        if(luckMango.getMember() != this){
+            luckMango.setMember(this);
+        }
+    }
+
+    public void addReview(Review review) {
+        reviews.add(review);
+        if(review.getMember() != this) {
+            review.setMember(this);
+        }
+    }
+
     public Member(String name, String email, String password){
         this.name = name;
         this.email = email;

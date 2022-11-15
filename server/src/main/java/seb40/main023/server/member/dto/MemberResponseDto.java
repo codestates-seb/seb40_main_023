@@ -2,7 +2,9 @@ package seb40.main023.server.member.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import seb40.main023.server.luckMango.dto.LuckMangoResponseDto;
 import seb40.main023.server.luckMango.entity.LuckMango;
+import seb40.main023.server.review.dto.ReviewResponseDto;
 import seb40.main023.server.review.entity.Review;
 
 import java.time.LocalDateTime;
@@ -16,9 +18,10 @@ public class MemberResponseDto {
     private String email;
     private String password;
     private int nyMoney;
+
+    private List<LuckMangoResponseDto> luckMangos;
+    private List<ReviewResponseDto> reviews;
+
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
-    private List<LuckMango> luckMangos;
-    private List<Review> reviews;
 }

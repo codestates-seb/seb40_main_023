@@ -3,10 +3,81 @@
 @tailwind utilities;
 
 @layer components {
+  /* Common */
+  /* Home */
   .mg-logo {
     @apply bg-[url(/images/ico/logo.svg)] bg-no-repeat w-[144px] h-[44px] indent-[-100%] overflow-hidden;
   }
 
+  .mg-main-section {
+    @apply w-full pt-[25px] pb-[40px] flex justify-center items-start;
+  }
+
+  .mg-main-section > div {
+    @apply px-[30px] tablet:px-0 w-full tablet:max-w-[800px];
+  }
+
+  .mg-main-countdown {
+    @apply flex items-center justify-center w-full py-2 text-center text-white border rounded bg-secondary-light border-secondary-normal;
+  }
+
+  .mg-howto-item {
+    @apply relative after:top-[50%] after:right-[-9px] after:mt-[-14px] flex flex-col items-center px-3 after:block after:absolute after:bg-[url('/images/ico/ico-howto-arrow.svg')] after:w-[9px] after:h-[14px];
+  }
+
+  /* For Slick (main) */
+  .mg-review-card .slick-slide {
+    @apply relative z-0 origin-center will-change-transform;
+  }
+
+  .mg-review-card .slick-slide.slick-current {
+    @apply z-10 scale-125;
+  }
+  /* End Slick */
+
+  .mg-gallery-filter {
+    @apply flex flex-row justify-center mb-8 max-w-[220px] w-full;
+  }
+
+  .mg-gallery-filter > li {
+    @apply flex justify-center w-[50%] py-2 border-2 border-primary-normal bg-white text-primary-normal items-center max-w-[220px] text-center;
+  }
+
+  .mg-gallery-filter > .active {
+    @apply font-semibold text-white bg-primary-normal;
+  }
+
+  /* Sidebar */
+  .mg-sidebar {
+    @apply fixed top-0 bottom-0 right-0 h-screen pt-[80px] px-6 text-right bg-white border-l shadow-context border-mono-borderLight z-10;
+  }
+
+  .mg-sidebar-show {
+    @apply translate-x-0;
+  }
+
+  .mg-sidebar-hide {
+    @apply translate-x-[100%];
+  }
+
+  .mg-gallery-card {
+    @apply flex justify-center w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all;
+  }
+
+  /* Footer */
+  .mg-footer-github-col {
+    @apply flex items-center justify-center w-full px-4 mb-3;
+  }
+
+  .mg-footer-github-title {
+    @apply px-2 mr-4 text-sm text-center border-2 rounded-full border-mono-textFooter;
+  }
+
+  .mg-footer-github-link {
+    @apply flex items-center hover:underline text-mono-textFooter hover:text-mono-400 hover:decoration-solid hover:font-medium;
+  }
+
+  /* Buttons */
   .mg-primary-button {
     @apply px-12 py-3 text-white rounded bg-primary-normal hover:bg-primary-hover;
   }
@@ -35,15 +106,7 @@
     @apply w-[55px] h-[55px]  bg-transparent border-2 border-white rounded-full hover:bg-[rgba(0,0,0,.05)];
   }
 
-  .mg-header-profile {
-    @apply w-[24px] h-[24px] bg-[url(/images/ico/ico-profile.svg)] bg-no-repeat bg-center;
-  }
-
-  .mg-footer-github {
-    @apply w-[18px] h-[18px] bg-[url(/images/ico/ico-github.svg)] bg-no-repeat bg-center;
-  }
-
-  /* component */
+  /* Forms */
   .mg-default-label {
     @apply block mb-2 font-medium text-mono-textNormal;
   }
@@ -56,7 +119,7 @@
     @apply w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all;
   }
 
-  /* icons */
+  /* Icons */
   .mg-icon-card-edit {
     @apply bg-[url(/images/ico/ico-card-edit.svg)] bg-no-repeat bg-center;
   }
@@ -92,7 +155,7 @@
   /* layout, flex */
 
   .mg-layout {
-    @apply flex flex-col items-center w-full h-full py-9;
+    @apply flex flex-col items-center justify-center w-full py-9;
   }
 
   .mg-flex {
@@ -104,7 +167,7 @@
   }
 
   .mg-width-size {
-    @apply max-w-[400px] w-full min-w-[300px];
+    @apply w-[400px];
   }
 
   /* edit page, luckbag page */
@@ -123,5 +186,9 @@
 
   .mg-border-2 {
     @apply border-mono-borderLight border-2 rounded-[10px];
+  }
+
+  .mg-icon-button-round {
+    @apply w-12 h-12 rounded-full bg-secondary-normal mg-flex-center;
   }
 }

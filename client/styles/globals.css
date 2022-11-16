@@ -92,7 +92,7 @@
   /* layout, flex */
 
   .mg-layout {
-    @apply flex flex-col items-center w-full h-full py-9;
+    @apply flex flex-col items-center justify-center w-screen h-screen py-9;
   }
 
   .mg-flex {
@@ -123,5 +123,9 @@
 
   .mg-border-2 {
     @apply border-mono-borderLight border-2 rounded-[10px];
+  }
+
+  .mg-icon-button-round {
+    @apply w-12 h-12 rounded-full bg-secondary-normal mg-flex-center;
   }
 }

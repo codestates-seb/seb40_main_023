@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Profile from "../public/dummy/mypage-profile.png";
-import { IoIosArrowBack } from "react-icons/io";
 
 type formProps = {
   onSubmit: (form: { name: string; password: string }) => void;
@@ -17,7 +16,6 @@ const userModify = () => {
   return (
     <div className="mg-layout">
       <div className="flex flex-row text-left w-[400px]">
-        <IoIosArrowBack className="mt-1" />
         <span>회원정보 수정</span>
       </div>
       <div className="relative flex items-center justify-center rounded-full w-36 h-36 bg-primary-400">

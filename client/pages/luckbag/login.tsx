@@ -2,19 +2,18 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Image from "next/image";
 
-const index = () => {
+const login = () => {
   const [bgmOn, setBgmOn] = useState(false);
   const handleBgm = () => {
     setBgmOn(!bgmOn);
   };
-
   return (
     <div className="mg-layout bg-center bg-[url(/images/content/pt-dots.png)]">
-      <div className="mg-width-size h-[600px] mg-border-2 bg-warning-light mg-flex items-center justify-between mb-8">
+      <div className="mg-width-size h-[600px] mg-border-2 bg-warning-light mg-flex items-center justify-between mb-6">
         <div className="w-full">
           <div className="relative mt-5 mg-flex-center mb-7">
-            <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">
-              10,000,001원
+            <div className="break-words ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">
+              10,000,001 원
             </div>
             <Image
               src="/images/content/ico-mg-money.svg"
@@ -119,37 +118,23 @@ const index = () => {
             height={79}
             className="absolute top-7 right-40"
           />
-          <div className="absolute flex bottom-9">
-            <button className="h-12 mr-4 mg-primary-button-round">
-              새해 덕담 남기기
+          <div className="absolute w-[212px] justify-center mg-flex-center bottom-9">
+            <button className="h-12 w-full mg-secondary-button rounded-[100px] relative">
+              <div className="justify-center w-full pl-3 mg-flex-center">
+                공유하기
+              </div>
             </button>
-            <button className="mg-icon-button-round mg-icon-share" />
+            <div className="absolute w-12 h-12 mg-icon-share left-2"></div>
           </div>
         </div>
       </div>
-      <div className="flex justify-end mr-12 mg-width-size">
-        복망고 소유주라면 로그인하세요!
+      <div className="justify-center mg-flex-center mg-width-size">
+        홍다희님의 새해 복망고입니다.
+        <br />
+        복주머니를 클릭하면 덕담을 볼 수 있어요!
       </div>
-      <Link href="/" className="mg-width-size">
-        <div className="h-[71.98px] relative rounded-[10px] mg-primary-button mg-width-size mg-flex-center justify-end cursor-pointer">
-          <Image
-            src="/images/char/char-banner.svg"
-            alt="mango banner"
-            width={117}
-            height={130}
-            className="absolute top-[-50px] left-2 w-3/12"
-          />
-          <div className="mg-flex-center justify-center mg-width-size h-[71.98px]">
-            <div className="ml-16 mr-9">
-              나도 새해 복망고 만들어볼까?
-              <div className="font-semibold">새해 복망고 메인으로 이동</div>
-            </div>
-            <div className="text-xl font-bold cursor-pointer">〉</div>
-          </div>
-        </div>
-      </Link>
     </div>
   );
 };
 
-export default index;
+export default login;

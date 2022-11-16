@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { AppState } from "./store";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -15,8 +15,6 @@ export const sidebarSlice = createSlice({
   initialState,
   reducers: {
     setSidebarState(state, action) {
-      console.log(state);
-      console.log(action);
       state.isOpenState = action.payload;
     },
 

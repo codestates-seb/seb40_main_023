@@ -17,8 +17,8 @@ const Header = () => {
       <button
         onClick={() =>
           sidebarState
-            ? dispatch(setSidebarState(true))
-            : dispatch(setSidebarState(false))
+            ? dispatch(setSidebarState(false))
+            : dispatch(setSidebarState(true))
         }
         className="mg-header-profile basis-[40px] shrink-0 grow-0 flex justify-center items-center"
       >

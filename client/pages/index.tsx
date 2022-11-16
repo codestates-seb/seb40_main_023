@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import Countdown from "../components/main/Countdown";
+import Countdown from "../components/main/info/Countdown";
 import Section from "../components/main/Section";
 import SectionTitle from "../components/main/SectionTitle";
-import ServiceIntro from "../components/main/ServiceIntro";
-import ServiceHowto from "../components/main/ServiceHowto";
-import ServiceChart from "../components/main/ServiceChart";
-import ServiceReview from "../components/main/ServiceReview";
-import ServiceGallery from "../components/main/ServiceGallery";
+import ServiceIntro from "../components/main/info/ServiceIntro";
+import ServiceHowto from "../components/main/howto/ServiceHowto";
+import ServiceChart from "../components/main/chart/ServiceChart";
+import ServiceReview from "../components/main/review/ServiceReview";
+import ServiceGallery from "../components/main/gallery/ServiceGallery";
 import Footer from "../components/Footer";
 
 export default function Home() {

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
+import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.member.repository.MemberRepository;
 
 import java.time.LocalDateTime;

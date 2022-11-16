@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb40.main023.server.member.dto.MemberPatchDto;
 import seb40.main023.server.member.dto.MemberPostDto;
+import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.member.mapper.MemberMapper;
 import seb40.main023.server.member.service.MemberService;
 import seb40.main023.server.response.MultiResponseDto;

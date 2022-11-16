@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import React, { useState } from "react";
 
 const edit = () => {
   const [title, setTitle] = useState("");
@@ -63,10 +63,10 @@ const edit = () => {
               이미지 등록하기
             </button>
             <Image
-              src="/images/content/img-basket.svg"
-              alt="basket"
-              width={352}
-              height={152}
+              src="/images/content/img-basket-guide.svg"
+              alt="basket guide"
+              width={350}
+              height={150}
             />
           </div>
         </div>

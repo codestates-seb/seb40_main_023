@@ -92,7 +92,7 @@
   /* layout, flex */
 
   .mg-layout {
-    @apply flex flex-col items-center justify-center w-screen h-screen py-9;
+    @apply flex flex-col items-center justify-center w-full py-9;
   }
 
   .mg-flex {
@@ -104,7 +104,7 @@
   }
 
   .mg-width-size {
-    @apply max-w-[400px] w-full min-w-[300px];
+    @apply w-[400px];
   }
 
   /* edit page, luckbag page */

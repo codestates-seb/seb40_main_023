@@ -1,0 +1,35 @@
+= 복주머니 POST
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+v1.0.0, 2022.04.08    // (3)
+
+// (4)
+***
+== LuckBag_Post
+.curl-request
+include::{snippets}/post-luckBag/curl-request.adoc[]
+
+.http-request
+include::{snippets}/post-luckBag/http-request.adoc[]
+
+.http-response
+include::{snippets}/post-luckBag/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/post-luckBag/httpie-request.adoc[]
+
+.request-body
+include::{snippets}/post-luckBag/request-body.adoc[]
+
+.request-fields
+include::{snippets}/post-luckBag/request-fields.adoc[]
+
+.response-body
+include::{snippets}/post-luckBag/response-body.adoc[]
+
+.response-fields
+include::{snippets}/post-luckBag/response-fields.adoc[]

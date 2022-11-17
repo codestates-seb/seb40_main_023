@@ -2,23 +2,34 @@ package seb40.main023.server.luckBag.dto;
 
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import seb40.main023.server.luckMango.entity.LuckMango;
+import seb40.main023.server.member.entity.Member;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
-@Data
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LuckBagPostDto {
-
-    private Long luckBagId;
-
+    @Positive
+    private long luckMangoId;
     @NotBlank(message = "내용을 작성해주세요!")
     private String body;
-
-    private boolean viewed;
-
     private String writer;
+    private boolean viewed;
+    private int bagStyle;
 
-
+    public LuckMango getLuckMango(){
+        LuckMango luckMango = new LuckMango();
+        luckMango.setLuckMangoId(luckMangoId);
+        return luckMango;
+    }
 
 
     // private String moneyName; 돈 보내는사람 이름

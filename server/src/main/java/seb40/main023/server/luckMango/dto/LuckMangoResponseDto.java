@@ -20,11 +20,9 @@ public class LuckMangoResponseDto {
     private String bgm;
     private String bgImage;
     private int likeCount;
-    private long memberId;
-    public void setMember(Member member){ this.memberId = member.getMemberId();}
-
-    private List<LuckBagResponseDto> luckBags;
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+
+    private List<LuckBagResponseDto> luckBags;
 }

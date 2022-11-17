@@ -18,7 +18,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/member")
 @RequiredArgsConstructor
 @Validated
 public class MemberController {
@@ -27,17 +27,17 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberPostDto requestBody) {
-        Member member =
-                memberService.createMember(mapper.memberPostToMember(requestBody));
+        Member member = memberService.createMember(mapper.memberPostToMember(requestBody));
         return new ResponseEntity<>(mapper.memberToMemberResponseDto(member), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")
-    public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId, @Valid @RequestBody MemberPatchDto requestBody) {
+    public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId,
+                                      @Valid @RequestBody MemberPatchDto requestBody) {
 
         requestBody.setMemberId(memberId);
 
-        Member member = memberService.updateMember(mapper.memberPatchToMemberDto(requestBody));
+        Member member = memberService.updateMember(mapper.memberPatchToMember(requestBody));
 
         return new ResponseEntity<>(mapper.memberToMemberResponseDto(member), HttpStatus.OK);
     }

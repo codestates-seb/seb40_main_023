@@ -1,15 +1,17 @@
 package seb40.main023.server.review.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import seb40.main023.server.member.entity.Member;
+import lombok.*;
 
-@Builder
+import java.time.LocalDateTime;
+
 @Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReviewResponseDto {
     private Long reviewId;
-    private long memberId;
     private String reviewBody;
 
-    public void setMember(Member member){this.memberId = member.getMemberId();}
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }

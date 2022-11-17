@@ -118,20 +118,7 @@ const login = () => {
             height={79}
             className="absolute top-7 right-40"
           />
-          <div className="absolute w-[212px] justify-center mg-flex-center bottom-9">
-            <button className="h-12 w-full mg-secondary-button rounded-[100px] relative">
-              <div className="justify-center w-full pl-3 mg-flex-center">
-                공유하기
-              </div>
-            </button>
-            <div className="absolute w-12 h-12 mg-icon-share left-2"></div>
-          </div>
         </div>
-      </div>
-      <div className="justify-center mg-flex-center mg-width-size">
-        홍다희님의 새해 복망고입니다.
-        <br />
-        복주머니를 클릭하면 덕담을 볼 수 있어요!
       </div>
     </div>
   );

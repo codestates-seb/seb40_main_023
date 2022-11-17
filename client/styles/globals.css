@@ -191,4 +191,8 @@
   .mg-icon-button-round {
     @apply w-12 h-12 rounded-full bg-secondary-normal mg-flex-center;
   }
+
+  .mg-icon-pagination {
+    @apply w-[10.5px] h-[10.5px] z-10 rounded-full mx-1;
+  }
 }

@@ -1,5 +1,6 @@
 package seb40.main023.server.luckMango.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -14,11 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class LuckMangoService {
     private final LuckMangoRepository luckMangoRepository;
-    public LuckMangoService(LuckMangoRepository luckMangoRepository) {
-        this.luckMangoRepository = luckMangoRepository;
-    }
 
     //복망고 생성하기
     public LuckMango createLuckMango(LuckMango luckMango) {

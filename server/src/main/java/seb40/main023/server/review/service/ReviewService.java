@@ -1,5 +1,6 @@
 package seb40.main023.server.review.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,12 +13,9 @@ import seb40.main023.server.review.repository.ReviewRepository;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
-
-    public ReviewService(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
 
     public Review createReview(Review review) {
         return reviewRepository.save(review);

@@ -3,6 +3,7 @@ package seb40.main023.server.luckMango.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.member.entity.Member;
 
@@ -15,30 +16,27 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "LUCKMANGO")
-public class LuckMango {
+@Entity(name = "LUCKMANGOS")
+public class LuckMango extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long luckMangoId;
-    public LuckMango(Long luckMangoId){
-        this.luckMangoId = luckMangoId;
-    }
-
     private String title;
     private String bgm;
     private String bgImage;
     private int likeCount;
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime modifiedAt = LocalDateTime.now();
-
-    @OneToMany(mappedBy = "luckMango")
-    private List<LuckBag> luckBags = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "memberId")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-   public void addMember(Member member){
-       this.member= member;
+    @OneToMany(mappedBy = "luckMango", cascade = CascadeType.ALL)
+    private List<LuckBag> luckBags = new ArrayList<>();
+
+   public void addLuckBag(LuckBag luckBag){
+       luckBags.add(luckBag);
+       if(luckBag.getLuckMango() != this){
+           luckBag.setLuckMango(this);
+       }
    }
 }

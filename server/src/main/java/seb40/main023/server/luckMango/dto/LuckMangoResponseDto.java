@@ -3,23 +3,26 @@ package seb40.main023.server.luckMango.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import seb40.main023.server.audit.Auditable;
+import seb40.main023.server.luckBag.dto.LuckBagResponseDto;
+import seb40.main023.server.luckBag.entity.LuckBag;
+import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.member.entity.Member;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Builder
 @Getter
-@Setter
+@Builder
 public class LuckMangoResponseDto {
-    private Long luckMangoId;
-    private long memberId;
+    private long luckMangoId;
     private String title;
     private String bgm;
     private String bgImage;
     private int likeCount;
+
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-
-    public void setMember(Member member){ this.memberId = member.getMemberId();}
+    private List<LuckBagResponseDto> luckBags;
 }

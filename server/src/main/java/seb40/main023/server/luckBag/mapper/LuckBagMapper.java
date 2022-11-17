@@ -12,8 +12,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface LuckBagMapper {
-    LuckBag luckBagPostToLuckBag(LuckBagPostDto luckBagPostDto);  //post
-    LuckBag luckBagPatchToLuckBag(LuckBagPatchDto luckBagPatchDto);  // patch
+    LuckBag luckBagPostDtoToLuckBag(LuckBagPostDto luckBagPostDto);  //post
+    LuckBag luckBagPatchDtoToLuckBag(LuckBagPatchDto luckBagPatchDto);  // patch
 
     LuckBagResponseDto luckBagToLuckBagResponseDto(LuckBag luckBag);
 

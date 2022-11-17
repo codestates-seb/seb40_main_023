@@ -1,12 +1,13 @@
 package seb40.main023.server.member.dto;
 
-import lombok.Getter;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Getter
+@AllArgsConstructor
 public class MemberPostDto {
     @NotBlank(message = "이름은 공백이 아니어야 합니다.")
     private String name;

@@ -1,5 +1,6 @@
 package seb40.main023.server.review.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -26,43 +27,32 @@ import java.util.List;
 @RequestMapping("/review")
 @Validated
 @Slf4j
+@RequiredArgsConstructor
 public class ReviewController {
-    private ReviewService reviewService;
-    private ReviewMapper reviewMapper;
-
-    public ReviewController(ReviewService reviewService, ReviewMapper reviewMapper){
-        this.reviewService = reviewService;
-        this.reviewMapper = reviewMapper;
-    }
+    private final ReviewService reviewService;
+    private final ReviewMapper mapper;
 
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto reviewPostDto){
-        Review review = reviewService.createReview(reviewMapper.reviewPostDtoToReview(reviewPostDto));
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(reviewMapper.reviewToReviewResponseDto(review)),
+        Review review = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDto));
+        return new ResponseEntity<>(mapper.reviewToReviewResponseDto(review),
                 HttpStatus.CREATED);
     }
 
     @PatchMapping("/{review-id}")
     public ResponseEntity patchReview(@PathVariable("review-id") long reviewId,
-                                         @Valid @RequestBody ReviewPatchDto reviewPatchDto) {
-        reviewPatchDto.setReviewId(reviewId);
-        Review review = reviewService.updateReview(reviewMapper.reviewPatchDtoToReview(reviewPatchDto));
+                                         @Valid @RequestBody ReviewPatchDto requestBody) {
+        requestBody.setReviewId(reviewId);
+        Review review = reviewService.updateReview(mapper.reviewPatchDtoToReview(requestBody));
 //        long memberId = content.getMemberId();   // 멤버 아이디가 동일하지 않으면 수정 불가
 //        if(nowMemberId != memberId){return new ResponseEntity(HttpStatus.BAD_REQUEST);}
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(reviewMapper.reviewToReviewResponseDto(review)),HttpStatus.OK);
+        return new ResponseEntity<>(mapper.reviewToReviewResponseDto(review),HttpStatus.OK);
     }
 
     @GetMapping("/{review-id}")
     public ResponseEntity getReview(@PathVariable("review-id") long reviewId){
         Review review = reviewService.findReview(reviewId);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(reviewMapper.reviewToReviewResponseDto(review)),
-                HttpStatus.OK);
+        return new ResponseEntity<>(mapper.reviewToReviewResponseDto(review), HttpStatus.OK);
     }
 
     @GetMapping
@@ -72,8 +62,8 @@ public class ReviewController {
         List<Review> reviews = pageReviews.getContent();
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(reviewMapper.reviewToReviewResponseDtos(reviews),
-                        pageReviews), HttpStatus.OK);
+                new MultiResponseDto<>(mapper.reviewToReviewResponseDtos(reviews), pageReviews),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/{review-id}")

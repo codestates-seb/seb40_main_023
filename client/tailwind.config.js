@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -22,6 +24,10 @@ module.exports = {
         review: "2px 2px 10px rgba(0, 0, 0, 0.1)",
         card: "1px 1px 2px 2px rgba(0, 0, 0, 0.02)",
         cardHover: "2px 2px 15px 2px rgba(0, 0, 0, 0.10)",
+      },
+      fontFamily: {
+        Pretendard: ["Pretendard", ...defaultTheme.fontFamily.sans],
+        HSS: ["HSS", ...defaultTheme.fontFamily.sans],
       },
     },
     colors: {

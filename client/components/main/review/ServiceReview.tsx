@@ -60,7 +60,7 @@ const ServiceReview = () => {
     },
   ];
   return (
-    <div className="px-8 py-4 mg-review-card">
+    <div className="w-full px-8 py-4 mg-review-card">
       <Slider {...settings}>
         {reviewData.map((review, idx) => (
           <ReviewItem key={idx} {...review} />

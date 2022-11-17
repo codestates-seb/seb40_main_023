@@ -30,7 +30,7 @@ const ServiceChart = () => {
           </dl>
         </div>
         <div className="p-4 mobile:pr-10">
-          <div className="relative h-full border-2 rounded-l border-mono-borderLight aspect-[4/2]">
+          <div className="relative h-full w-full border-2 rounded-l border-mono-borderLight aspect-[4/2]">
             <LineChart />
           </div>
         </div>

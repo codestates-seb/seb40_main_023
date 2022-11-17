@@ -24,4 +24,7 @@ public class Review {
     @JoinColumn(name = "memberId")
     private Member member;
 
+    public Review(long reviewId,long memberId,String reviewBody){
+        this.reviewBody = reviewBody;
+    }
 }

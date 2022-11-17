@@ -14,7 +14,7 @@ public class LuckMangoResponseDto {
     private Long luckMangoId;
     private long memberId;
     private String title;
-    private String bgm;
+    private String bgVideo;
     private String bgImage;
     private int likeCount;
     private LocalDateTime createdAt;

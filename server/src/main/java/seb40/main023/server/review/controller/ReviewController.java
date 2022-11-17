@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/v1/review")
 @Validated
 @Slf4j
 public class ReviewController {
@@ -77,7 +77,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/{review-id}")
-    public ResponseEntity deleteReview(@PathVariable("Review-id") long reviewId){
+    public ResponseEntity deleteReview(@PathVariable("review-id") long reviewId){
 //        Content content = contentService.findContent(contentId);      // 현재멤버아이디가 동일하지 않으면 삭제 안됨
 //        long memberId = content.getMemberId();
 //        if(nowMemberId != memberId){return new ResponseEntity(HttpStatus.BAD_REQUEST);}

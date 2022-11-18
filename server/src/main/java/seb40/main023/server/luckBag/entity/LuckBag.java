@@ -2,12 +2,14 @@ package seb40.main023.server.luckBag.entity;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import seb40.main023.server.luckMango.entity.LuckMango;
 
 import javax.persistence.*;
 
 @Entity(name = "LUCKBAGS")
-@Data
+@Getter
+@Setter
 public class LuckBag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,14 +20,17 @@ public class LuckBag {
     @Column(nullable = false)
     private String body;
 
-    @Column
-    private boolean viewed;
-
     @Column(nullable = false)
     private String writer;
 
     @Column(nullable = false)
     private int bagStyle;
+
+    @Column(nullable = false)
+    private int bagColor;
+
+    @Column
+    private boolean viewed;
 
     @ManyToOne
     @JoinColumn(name = "luckMangoId")

@@ -1,17 +1,23 @@
 package seb40.main023.server.luckBag.dto;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class LuckBagPatchDto {
 
-    @NotBlank(message = "내용을 작성해주세요!")
-    private String body;
-    private Long luckBagId;
-    private String writer;
-    private boolean viewed;
 
+    private Long luckBagId;
+    private String body;
+    private String writer;
+    private int bagStyle;
+    //private boolean viewed;
+    //여기도 럭망고 아이디 넣어주는게 좋음
 }

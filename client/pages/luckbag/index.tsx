@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import Image from "next/image";
-import ShareBtn from "../../components/ShareBtn";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+
   const handleBgm = () => {
     setBgmOn(!bgmOn);
   };
@@ -18,6 +18,7 @@ const index = () => {
   const loginTest = () => {
     setIsLogin(!isLogin);
   };
+  let money = 1000000001;
 
   return (
     <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">
@@ -26,7 +27,7 @@ const index = () => {
         <div className="w-full">
           <div className="relative mt-5 mg-flex-center mb-7">
             <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">
-              10,000,001원
+              {money > 999999999999999 ? "∞ " : money.toLocaleString()}원
             </div>
             <Image
               src="/images/content/ico-mg-money.svg"
@@ -130,34 +131,39 @@ const index = () => {
               <div className="absolute w-12 h-12 mg-icon-share left-2"></div>
             </div>
           ) : (
-            <>
-              {shareBtn ? (
-                <div className="absolute flex items-end bottom-4">
-                  <button className="h-12 mr-4 mg-primary-button-round">
-                    새해 덕담 남기기
-                  </button>
-                  <div className="relative mg-flex">
-                    <button className="absolute bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-url.svg)] mg-share-button bg-primary-normal"></button>
-                    <button className="absolute bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-qr.svg)]  mg-share-button bg-link"></button>
-                    <button className="absolute bg-[length:30px_30px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-kakao.svg)] mg-share-button bg-social-kakaoNormal"></button>
-                    <button
-                      className="mg-icon-button-round mg-icon-share"
-                      onClick={handleShareBtn}
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className="absolute flex bottom-4">
-                  <button className="h-12 mr-4 mg-primary-button-round">
-                    새해 덕담 남기기
-                  </button>
-                  <button
-                    className="mg-icon-button-round mg-icon-share"
-                    onClick={handleShareBtn}
-                  />
-                </div>
-              )}
-            </>
+            <div className="absolute flex items-end bottom-4">
+              <button className="h-12 mr-4 mg-primary-button-round">
+                새해 덕담 남기기
+              </button>
+
+              <div className="transition-all duration-300 mg-flex">
+                <button
+                  className={
+                    shareBtn
+                      ? "transition-all ease-in duration-200 bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-url.svg)] mg-share-button bg-primary-normal"
+                      : ""
+                  }
+                ></button>
+                <button
+                  className={
+                    shareBtn
+                      ? "transition-all ease-in duration-300 bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-qr.svg)]  mg-share-button bg-link"
+                      : ""
+                  }
+                ></button>
+                <button
+                  className={
+                    shareBtn
+                      ? "transition-all ease-in duration-400 bg-[length:30px_30px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-kakao.svg)] mg-share-button bg-social-kakaoNormal"
+                      : ""
+                  }
+                ></button>
+                <button
+                  className="z-30 mg-icon-button-round mg-icon-share"
+                  onClick={handleShareBtn}
+                />
+              </div>
+            </div>
           )}
         </div>
       </div>

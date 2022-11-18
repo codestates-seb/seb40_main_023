@@ -19,6 +19,6 @@ public class MemberResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    private List<LuckMango> luckMangos;
-    private List<Review> reviews;
+//    private List<LuckMango> luckMangos;
+//    private List<Review> reviews;
 }

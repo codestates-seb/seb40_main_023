@@ -1,11 +1,13 @@
 package seb40.main023.server.review.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import seb40.main023.server.member.entity.Member;
 
-@Builder
+
+@NoArgsConstructor
+//@Builder
 @Getter
+@Setter
 public class ReviewResponseDto {
     private Long reviewId;
     private long memberId;

@@ -1,8 +1,10 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
 	// id 'org.asciidoctor.convert' version '1.5.8'
 	// html 변경하는 과정에서 오류발생해 다른걸 사용
+
 	id "org.asciidoctor.jvm.convert" version "3.3.2"
 	id 'java'
 }
@@ -19,6 +21,7 @@ configurations {
 		extendsFrom annotationProcessor
 		asciidoctorExtensions
 	}
+	asciidoctorExtensions
 }
 
 repositories {
@@ -43,7 +46,9 @@ dependencies {
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
 	implementation 'com.google.code.gson:gson'
+
 
 
 
@@ -72,12 +77,13 @@ build {
 	dependsOn copyDocument
 }
 
-// (10)
+
 bootJar {
 	dependsOn copyDocument
 	from ("${asciidoctor.outputDir}") {
 		into 'static/docs'
 	}
+
 }
 
 
@@ -96,4 +102,5 @@ test {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
 	finalizedBy 'asciidoctor'
+
 }

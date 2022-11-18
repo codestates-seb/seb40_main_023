@@ -36,6 +36,7 @@ public class MemberService {
         Optional.ofNullable(member.getName()).ifPresent(name -> findMember.setName(name));
         Optional.ofNullable(member.getEmail()).ifPresent(email -> findMember.setEmail(email));
         Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(password));
+        Optional.ofNullable(member.getMemberStatus()).ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
 
         findMember.setModifiedAt(LocalDateTime.now());
 

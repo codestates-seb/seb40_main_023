@@ -27,7 +27,7 @@ public class Member extends Auditable {
     private String password;
 
     @Column
-    private String imgUrl;
+    private String imgUrl = "";
 
     @Column
     private int nyMoney = 0;

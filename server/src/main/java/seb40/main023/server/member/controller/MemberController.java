@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb40.main023.server.member.dto.MemberPatchDto;
 import seb40.main023.server.member.dto.MemberPostDto;
+import seb40.main023.server.member.dto.MemberResponseDto;
 import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.member.mapper.MemberMapper;
 import seb40.main023.server.member.service.MemberService;
@@ -18,17 +19,23 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/member")
 @RequiredArgsConstructor
 @Validated
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
 
+//    @PostMapping
+//    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto requestBody) {
+//        Member member = memberService.createMember(mapper.memberPostToMember(requestBody));
+//        return new ResponseEntity<>(mapper.memberToMemberResponseDto(member), HttpStatus.CREATED);
+//    }
+
     @PostMapping
-    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto requestBody) {
+    public ResponseEntity<MemberResponseDto> postMember(@Valid @RequestBody MemberPostDto requestBody) {
         Member member = memberService.createMember(mapper.memberPostToMember(requestBody));
-        return new ResponseEntity<>(mapper.memberToMemberResponseDto(member), HttpStatus.CREATED);
+        return new ResponseEntity<MemberResponseDto>(mapper.memberToMemberResponseDto(member), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")

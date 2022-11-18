@@ -72,12 +72,21 @@
 //
 //        LuckMangoResponseDto luckMangoResponseDto =
 //                LuckMangoResponseDto.builder()
+<<<<<<< Updated upstream
 //                        .memberId(1L)
 //                        .luckMangoId(1L)
 //                        .bgImage("bg.jpg")
 //                        .bgVideo("bgVideo.mp")
 //                        .title("제목")
 //                        .likeCount(0)
+=======
+//                        .luckMangoId(1L)
+//                        .bgImage("bg.jpg")
+//                        .bgVideo("bgVideo.mp4")
+//                        .title("제목")
+//                        .likeCount(0)
+//                        .memberId(1L)
+>>>>>>> Stashed changes
 //                        .createdAt(LocalDateTime.of(2022, 10, 31, 10, 0, 0))
 //                        .modifiedAt(LocalDateTime.of(2022, 10, 31, 10, 0, 0))
 //                        .build();

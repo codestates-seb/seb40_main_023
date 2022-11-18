@@ -15,6 +15,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class LuckMangoResponseDto {
@@ -23,7 +24,7 @@ public class LuckMangoResponseDto {
     private String bgVideo;
     private String bgImage;
     private int likeCount;
-
+    private long memberId;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 

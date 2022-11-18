@@ -1,6 +1,7 @@
 package seb40.main023.server.review.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import javax.validation.constraints.Positive;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
+@Builder
 public class ReviewPostDto {
     private String reviewBody;
     @Positive

@@ -47,6 +47,11 @@ dependencies {
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	implementation 'com.google.code.gson:gson'
+<<<<<<< Updated upstream
+=======
+
+	implementation 'mysql:mysql-connector-java'
+>>>>>>> Stashed changes
 }
 
 tasks.named('test') {

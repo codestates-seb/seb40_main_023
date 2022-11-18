@@ -17,10 +17,9 @@ public class MemberResponseDto {
     private String imgUrl;
     private int nyMoney;
     private MemberStatus memberStatus;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
 //    private List<LuckMangoResponseDto> luckMangos;
 //    private List<ReviewResponseDto> reviews;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
 }

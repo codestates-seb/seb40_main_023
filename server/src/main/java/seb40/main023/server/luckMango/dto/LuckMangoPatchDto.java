@@ -7,6 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 public class LuckMangoPatchDto {
     private long luckMangoId;
     private String title;

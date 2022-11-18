@@ -15,6 +15,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 import seb40.main023.server.member.dto.MemberPostDto;
 import seb40.main023.server.member.dto.MemberResponseDto;
 import seb40.main023.server.member.entity.Member;
@@ -23,12 +24,14 @@ import seb40.main023.server.member.mapper.MemberMapper;
 import seb40.main023.server.member.service.MemberService;
 import seb40.main023.server.review.controller.ReviewController;
 
+import javax.persistence.Access;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static seb40.main023.server.util.ApiDocumentUtils.getRequestPreProcessor;
@@ -52,8 +55,9 @@ public class MemberControllerTest {
 
     @Test
     void Member_PostTest() throws Exception {
+
         // Given
-        MemberPostDto memberPostDto = new MemberPostDto("hgd","hgd@gmail.com","qwer1234");
+        MemberPostDto memberPostDto = new MemberPostDto("hgd", "hgd@gmail.com", "qwer1234");
         String content = gson.toJson(memberPostDto);
 
         MemberResponseDto memberResponseDto = new MemberResponseDto(1L, "hgd", "hgd@gmail.com", "qwer1234",
@@ -82,6 +86,7 @@ public class MemberControllerTest {
                 .andExpect(jsonPath("$.data.name").value(memberPostDto.getName()))
                 .andExpect(jsonPath("$.data.email").value(memberPostDto.getEmail()))
                 .andExpect(jsonPath("$.data.password").value(memberPostDto.getPassword()))
+                // RestDocs 문서화
                 .andDo(document("Member_Post",
                         getRequestPreProcessor(),
                         getResponsePreProcessor(),
@@ -98,10 +103,11 @@ public class MemberControllerTest {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("회원 이름"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("회원 이메일"),
-                                        fieldWithPath("data.phone").type(JsonFieldType.STRING).description("회원 비밀번호"),
+                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호"),
+                                        fieldWithPath("data.nyMoney").type(JsonFieldType.STRING).description("세뱃돈"),
                                         fieldWithPath("data.memberStatus").type(JsonFieldType.STRING).description("회원 상태")
                                 )
                         )
-                        ));
+                ));
     }
 }

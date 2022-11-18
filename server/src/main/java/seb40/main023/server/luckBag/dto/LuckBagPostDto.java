@@ -31,11 +31,11 @@ public class LuckBagPostDto {
 
     private int bagColor;
 
-//    public LuckMango getLuckMango(){
-//        LuckMango luckMango = new LuckMango();
-//        luckMango.setLuckMangoId(luckMangoId);
-//        return luckMango;
-//    }
+    public LuckMango getLuckMango(){
+        LuckMango luckMango = new LuckMango();
+        luckMango.setLuckMangoId(luckMangoId);
+        return luckMango;
+    }
 
 
     //private boolean viewed;

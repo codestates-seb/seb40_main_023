@@ -31,17 +31,16 @@ public class LuckBagService {
     }
 
      //복주머니 전체 조회 페이지
-    public Page<LuckBag> findLuckBagList( Long luckMangoId, int page, int size){
+    public Page<LuckBag> findLuckBagList( long luckMangoId, int page, int size){
 
         PageRequest pageRequest = PageRequest.of(page,size,Sort.by("luckBagId").descending());
-        List<LuckBag> Result = luckBagRepository.searchLuckBagByluckMango(luckMangoId);
+        List<LuckBag> Result = luckBagRepository.searchLuckBagByLuckMango(luckMangoId);
 
         int start = (int)pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), Result.size());
         Page<LuckBag> luckBag = new PageImpl<>(Result.subList(start, end), pageRequest, Result.size());
 
         return luckBag;
-
 
         //        이전에 짰던거
 //        return luckBagRepository.findByLuckMangoId(
@@ -51,8 +50,7 @@ public class LuckBagService {
 //         page = 게시판 게시글 넘기는 페이지
 //         size = 게시글 보여줄 갯수
 //
-//         매개변수로 럭망고 아이디가 하나더 필요
-//         리파지토리에 뭔가 하나 더 필요한듯? 몰?루?
+
     }
 
 //    복주머니 하나만 조회
@@ -67,11 +65,7 @@ public class LuckBagService {
     }
 
     //optional.isPresent() : 여기에 객체가 존재하는가 /  / boolean 타입으로 반환
-    
     // get()
-
-
-
 
     // 복주머니 글 수정
     public LuckBag patchLuckBag(LuckBag luckBag){
@@ -83,6 +77,8 @@ public class LuckBagService {
                 .ifPresent(body -> findDeleteLuckBag.setBody(body));
         Optional.ofNullable(luckBag.getWriter())
                 .ifPresent(writer -> findDeleteLuckBag.setWriter(writer));
+        Optional.ofNullable(luckBag.getBagStyle())
+                .ifPresent(bagStyle -> findDeleteLuckBag.setBagStyle(bagStyle));
 
         return luckBagRepository.save(findDeleteLuckBag);
 
@@ -105,9 +101,6 @@ public class LuckBagService {
         LuckBag luckbag =
                 optionalLuckBag.orElseThrow(() ->
                     new BusinessLogicException(ExceptionCode.LUCKBAG_NOT_FOUND));
-
         return luckbag;
     }
 }
-
-

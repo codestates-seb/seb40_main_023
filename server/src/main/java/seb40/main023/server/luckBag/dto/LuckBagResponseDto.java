@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import seb40.main023.server.luckMango.entity.LuckMango;
+import seb40.main023.server.member.entity.Member;
 
 import javax.validation.constraints.NotNull;
 
 
 @Getter
 @Setter
-
+@AllArgsConstructor
 public class LuckBagResponseDto {
 
 
@@ -27,5 +29,6 @@ public class LuckBagResponseDto {
     private int bagColor;
 
     private boolean viewed;
+
 
 }

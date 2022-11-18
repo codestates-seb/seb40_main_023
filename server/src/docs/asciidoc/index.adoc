@@ -5,9 +5,9 @@
 :toc-title: Table of Contents
 :source-highlighter: prettify
 
-v1.0.0, 2022.04.08    // (3)
+v1.0.1, 2022.11.17
 
-// (4)
+
 ***
 == LuckBag_Post
 .curl-request
@@ -33,3 +33,91 @@ include::{snippets}/post-luckBag/response-body.adoc[]
 
 .response-fields
 include::{snippets}/post-luckBag/response-fields.adoc[]
+
+
+***
+== LuckBag_Patch
+.curl-request
+include::{snippets}/patch-luckBag/curl-request.adoc[]
+
+.http-request
+include::{snippets}/patch-luckBag/http-request.adoc[]
+
+.http-response
+include::{snippets}/patch-luckBag/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/patch-luckBag/httpie-request.adoc[]
+
+.path-parameters
+include::{snippets}/patch-luckBag/path-parameters.adoc[]
+
+.request-body
+include::{snippets}/patch-luckBag/request-body.adoc[]
+
+.request-fields
+include::{snippets}/patch-luckBag/request-fields.adoc[]
+
+.response-body
+include::{snippets}/patch-luckBag/response-body.adoc[]
+
+.response-fields
+include::{snippets}/patch-luckBag/response-fields.adoc[]
+
+
+***
+== LuckBag_get ( 복주머니 하나만 조회 )
+.curl-request
+include::{snippets}/get-luckBag/curl-request.adoc[]
+
+.http-response
+include::{snippets}/get-luckBag/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/get-luckBag/httpie-request.adoc[]
+
+.response-body
+include::{snippets}/get-luckBag/response-body.adoc[]
+
+.response-fields
+include::{snippets}/get-luckBag/response-fields.adoc[]
+
+
+***
+== LuckBag_getAll ( 복주머니 전체 조회 )
+.curl-request
+include::{snippets}/getAll-luckBag/curl-request.adoc[]
+
+.http-request
+include::{snippets}/getAll-luckBag/http-request.adoc[]
+
+.http-response
+include::{snippets}/getAll-luckBag/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/getAll-luckBag/httpie-request.adoc[]
+
+.request-parameters
+include::{snippets}/getAll-luckBag/request-parameters.adoc[]
+
+.response-body
+include::{snippets}/getAll-luckBag/response-body.adoc[]
+
+.response-fields
+include::{snippets}/getAll-luckBag/response-fields.adoc[]
+
+
+
+***
+== LuckBag_delete
+.curl-request
+include::{snippets}/delete-luckBag/curl-request.adoc[]
+
+.http-request
+include::{snippets}/delete-luckBag/http-request.adoc[]
+
+.http-response
+include::{snippets}/delete-luckBag/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/delete-luckBag/httpie-request.adoc[]

@@ -51,9 +51,10 @@ public class LuckBagController {
 
     // 복주머니 글 전체 조회
     @GetMapping
-    public ResponseEntity getLuckBag(@PathVariable("page")  int page ,
-                                     @PathVariable("size") int size,
-                                     @PathVariable("luckMangoId") long luckMangoId ){
+    public ResponseEntity getLuckBag(@RequestParam("luckMangoId") long luckMangoId,
+                                     @RequestParam("page")  int page ,
+                                     @RequestParam("size") int size
+                                      ){
         Page<LuckBag> luckBagPage = luckBagService.findLuckBagList(luckMangoId,page - 1, size );
         List<LuckBag> luckBags = luckBagPage.getContent();
 

@@ -10,10 +10,10 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-
+@AllArgsConstructor
 public class LuckBagPatchDto {
 
-    @NotBlank(message = "내용을 작성해주세요!")
+
     private Long luckBagId;
     private String body;
     private String writer;

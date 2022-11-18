@@ -26,12 +26,6 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
 
-//    @PostMapping
-//    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto requestBody) {
-//        Member member = memberService.createMember(mapper.memberPostToMember(requestBody));
-//        return new ResponseEntity<>(mapper.memberToMemberResponseDto(member), HttpStatus.CREATED);
-//    }
-
     @PostMapping
     public ResponseEntity<MemberResponseDto> postMember(@Valid @RequestBody MemberPostDto requestBody) {
         Member member = memberService.createMember(mapper.memberPostToMember(requestBody));

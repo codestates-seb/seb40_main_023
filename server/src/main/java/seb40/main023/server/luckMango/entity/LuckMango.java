@@ -11,14 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-<<<<<<< Updated upstream
-@NoArgsConstructor
-@AllArgsConstructor
-=======
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
->>>>>>> Stashed changes
 @Entity(name = "LUCKMANGOS")
 public class LuckMango extends Auditable {
     @Id
@@ -42,10 +36,7 @@ public class LuckMango extends Auditable {
             luckBag.setLuckMango(this);
         }
     }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 //    public LuckMango(long memberId, String title, String bgVideo, String bgImage, int likeCount, LocalDateTime createdAt, LocalDateTime modifiedAt){
 //        this.title = title;
 //        this.bgVideo = bgVideo;

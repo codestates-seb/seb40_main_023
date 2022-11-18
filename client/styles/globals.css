@@ -2,8 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "HSS";
+  src: url("../public/fonts/HSSaemaul-Regular.ttf");
+}
+
 @layer components {
   /* Common */
+  body {
+    @apply font-light font-Pretendard;
+  }
+
   /* Home */
   .mg-logo {
     @apply bg-[url(/images/ico/logo.svg)] bg-no-repeat w-[144px] h-[44px] indent-[-100%] overflow-hidden;
@@ -14,11 +23,11 @@
   }
 
   .mg-main-section > div {
-    @apply px-[30px] tablet:px-0 w-full tablet:max-w-[800px];
+    @apply flex flex-col items-center px-[30px] tablet:px-0 w-full tablet:max-w-[800px];
   }
 
   .mg-main-countdown {
-    @apply flex items-center justify-center w-full py-2 text-center text-white border rounded bg-secondary-light border-secondary-normal;
+    @apply flex justify-center w-full py-2 mx-10 text-center text-white border rounded bg-secondary-light border-secondary-normal;
   }
 
   .mg-howto-item {

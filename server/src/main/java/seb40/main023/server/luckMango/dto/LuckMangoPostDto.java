@@ -13,6 +13,7 @@ public class LuckMangoPostDto {
     private String title;
     private String bgImage;
     private String bgm;
+    private String bgVideo;
     @Positive
     private long memberId;
 

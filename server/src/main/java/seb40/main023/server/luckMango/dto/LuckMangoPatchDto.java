@@ -11,6 +11,6 @@ public class LuckMangoPatchDto {
     private long luckMangoId;
     private String title;
     private String bgImage;
-    private String bgm;
+    private String bgVideo;
     private int likeCount;
 }

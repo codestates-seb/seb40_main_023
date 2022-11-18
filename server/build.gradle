@@ -38,6 +38,7 @@ dependencies {
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	implementation 'com.google.code.gson:gson'
+
 }
 
 tasks.named('test') {

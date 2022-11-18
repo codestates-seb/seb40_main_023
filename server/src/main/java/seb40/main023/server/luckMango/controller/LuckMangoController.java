@@ -20,7 +20,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/luckMango")
+@RequestMapping("/v1/luckMango")
 @Validated
 @Slf4j
 @RequiredArgsConstructor

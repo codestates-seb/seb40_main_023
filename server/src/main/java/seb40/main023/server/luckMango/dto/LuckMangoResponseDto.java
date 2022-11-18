@@ -20,7 +20,7 @@ import java.util.List;
 public class LuckMangoResponseDto {
     private long luckMangoId;
     private String title;
-    private String bgm;
+    private String bgVideo;
     private String bgImage;
     private int likeCount;
 

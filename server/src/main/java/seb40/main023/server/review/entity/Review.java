@@ -1,5 +1,6 @@
 package seb40.main023.server.review.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,9 +9,9 @@ import seb40.main023.server.member.entity.Member;
 
 import javax.persistence.*;
 
+@Getter @Setter
 @NoArgsConstructor
-@Getter
-@Setter
+@AllArgsConstructor
 @Entity(name = "REVIEWS")
 public class Review extends Auditable {
     @Id

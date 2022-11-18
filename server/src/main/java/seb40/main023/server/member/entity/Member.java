@@ -1,5 +1,6 @@
 package seb40.main023.server.member.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 @Entity(name = "MEMBERS")
 public class Member extends Auditable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,9 @@ public class Member extends Auditable {
 
     @Column(nullable = false)
     private String password;
+
+    @Column
+    private String imgUrl;
 
     @Column
     private int nyMoney = 0;
@@ -56,9 +59,11 @@ public class Member extends Auditable {
         }
     }
 
-    public Member(String name, String email, String password){
+    @Builder
+    public Member(String name, String email, String password, String imgUrl) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.imgUrl = imgUrl;
     }
 }

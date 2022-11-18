@@ -14,14 +14,6 @@ import Footer from "../components/Footer";
 export default function Home() {
   return (
     <div>
-      <Head>
-        <title>새해 복망고</title>
-        <meta
-          name="description"
-          content="코드스테이츠 애플망고팀의 메인 프로젝트 새해복망고 페이지입니다."
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Header />
       <aside>
         <Sidebar />
@@ -30,7 +22,7 @@ export default function Home() {
         <Section>
           <Countdown />
           <SectionTitle
-            title={`새해 복망고로 따뜻한\n새해 인사를 전해보세요!`}
+            title={`새해복망고로 따뜻한\n 새해 인사를 전해보세요!`}
           />
           <ServiceIntro />
         </Section>

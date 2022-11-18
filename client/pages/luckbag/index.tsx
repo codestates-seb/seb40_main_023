@@ -7,6 +7,46 @@ const index = () => {
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
+  const LUCKBAG_IMAGE_LIST = [
+    {
+      img: "img-bok2-1",
+      yPosition: "top-[-10px]",
+      xPosition: "left-12",
+    },
+    {
+      img: "img-bok2-4",
+      yPosition: "top-[-30px]",
+      xPosition: "left-32",
+    },
+    {
+      img: "img-bok1-3",
+      yPosition: "top-6",
+      xPosition: "left-24",
+    },
+    {
+      img: "img-bok1-2",
+      yPosition: "top-[-25px]",
+      xPosition: "right-28",
+    },
+    {
+      img: "img-bok2-3",
+      yPosition: "top-[16px]",
+      xPosition: "right-40",
+    },
+    {
+      img: "img-bok2-5",
+      yPosition: "top-[-20px]",
+      xPosition: "right-12",
+    },
+    {
+      img: "img-bok1-1",
+      yPosition: "top-5",
+      xPosition: "right-20",
+    },
+  ];
+
+  let money = 1000000001;
+
   const handleBgm = () => {
     setBgmOn(!bgmOn);
   };
@@ -18,7 +58,6 @@ const index = () => {
   const loginTest = () => {
     setIsLogin(!isLogin);
   };
-  let money = 1000000001;
 
   return (
     <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">
@@ -44,7 +83,7 @@ const index = () => {
                   : "ml-3 mg-icon-button-round mg-icon-sound-off"
               }
               onClick={handleBgm}
-            ></button>
+            />
           </div>
           <div className="flex justify-center">
             <div className="w-4/6 p-4 text-sm border-white mg-border-2 bg-[#FFFFFFCC]">
@@ -55,14 +94,14 @@ const index = () => {
           </div>
         </div>
         <div className="relative flex-col w-full mg-flex-center">
-          <button className="scale-[-1] left-3 top-16 z-10 absolute bg-no-repeat bg-center bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"></button>
-          <button className="right-3 top-16 z-10 absolute bg-no-repeat bg-center bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"></button>
+          <button className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]" />
+          <button className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]" />
           <div className="mg-flex-center justify-center top-[117px] z-10 absolute rounded-full bg-[#0000004D] px-3 h-[19px]">
-            <div className="bg-[#FF9B53] mg-icon-pagination"></div>
-            <div className="bg-[#D9D9D9] mg-icon-pagination"></div>
-            <div className="bg-[#D9D9D9] mg-icon-pagination"></div>
-            <div className="bg-[#D9D9D9] mg-icon-pagination"></div>
-            <div className="bg-[#D9D9D9] mg-icon-pagination"></div>
+            <div className="bg-[#FF9B53] mg-icon-pagination" />
+            <div className="bg-[#D9D9D9] mg-icon-pagination" />
+            <div className="bg-[#D9D9D9] mg-icon-pagination" />
+            <div className="bg-[#D9D9D9] mg-icon-pagination" />
+            <div className="bg-[#D9D9D9] mg-icon-pagination" />
           </div>
           <Image
             src="/images/content/img-basket.svg"
@@ -71,56 +110,15 @@ const index = () => {
             height={152}
             className="mb-[74px]"
           />
-          <Image
-            src="/images/content/img-bok2-1.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="cursor-pointer absolute top-[-10px] left-12"
-          />
-          <Image
-            src="/images/content/img-bok2-4.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute cursor-pointer top-[-30px] left-32"
-          />
-          <Image
-            src="/images/content/img-bok1-3.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute cursor-pointer top-6 left-24"
-          />
-          <Image
-            src="/images/content/img-bok1-2.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute cursor-pointer top-[-25px] right-28"
-          />
-          <Image
-            src="/images/content/img-bok2-3.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="cursor-pointer absolute top-[16px] right-40"
-          />
-          <Image
-            src="/images/content/img-bok2-5.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="cursor-pointer absolute top-[-20px] right-12"
-          />
-          <Image
-            src="/images/content/img-bok1-1.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute cursor-pointer top-5 right-20"
-          />
-
+          {LUCKBAG_IMAGE_LIST.map(el => (
+            <Image
+              src={`/images/content/${el.img}.svg`}
+              alt="luckbag"
+              width={65}
+              height={79}
+              className={`cursor-pointer absolute ${el.yPosition} ${el.xPosition}`}
+            />
+          ))}
           {isLogin ? (
             <div className="absolute w-[212px] justify-center mg-flex-center bottom-9">
               <button className="h-12 w-full mg-secondary-button rounded-[100px] relative">
@@ -128,7 +126,7 @@ const index = () => {
                   공유하기
                 </div>
               </button>
-              <div className="absolute w-12 h-12 mg-icon-share left-2"></div>
+              <div className="absolute w-12 h-12 mg-icon-share left-2" />
             </div>
           ) : (
             <div className="absolute flex items-end bottom-4">
@@ -140,21 +138,21 @@ const index = () => {
                 <button
                   className={
                     shareBtn
-                      ? "transition-all ease-in duration-200 bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-url.svg)] mg-share-button bg-primary-normal"
+                      ? "mg-floating-button duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
                       : ""
                   }
                 ></button>
                 <button
                   className={
                     shareBtn
-                      ? "transition-all ease-in duration-300 bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-qr.svg)]  mg-share-button bg-link"
+                      ? "mg-floating-button duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
                       : ""
                   }
                 ></button>
                 <button
                   className={
                     shareBtn
-                      ? "transition-all ease-in duration-400 bg-[length:30px_30px] my-1 w-12 h-12 bg-center bg-no-repeat bg-[url(/images/ico/ico-share-kakao.svg)] mg-share-button bg-social-kakaoNormal"
+                      ? "mg-floating-button duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
                       : ""
                   }
                 ></button>
@@ -192,7 +190,7 @@ const index = () => {
                   나도 새해 복망고 만들어볼까?
                   <div className="font-semibold">새해 복망고 메인으로 이동</div>
                 </div>
-                <div className="bg-[url(/images/ico/ico-banner-arrow.svg)] w-6 h-6 bg-no-repeat bg-center"></div>
+                <div className="bg-[url(/images/ico/ico-banner-arrow.svg)] w-6 h-6 mg-background" />
               </div>
             </div>
           </Link>

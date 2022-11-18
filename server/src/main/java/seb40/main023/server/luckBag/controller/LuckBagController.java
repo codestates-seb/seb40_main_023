@@ -2,6 +2,9 @@ package seb40.main023.server.luckBag.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -47,16 +50,16 @@ public class LuckBagController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(luckBag)), HttpStatus.OK);
     }
-
-    // 복주머니 한개만 조회
-    @GetMapping("/{LuckBagId}")
-    public ResponseEntity findByIdLuckBag(@PathVariable("LuckBagId") Long luckBagId){
-
-        LuckBag findLuckBagId = luckBagService.findLuckBag(luckBagId);
-
-        return new ResponseEntity<>(new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(findLuckBagId)),
-                HttpStatus.OK);
-    }
+//
+//    // 복주머니 한개만 조회
+//    @GetMapping("/{LuckBagId}")
+//    public ResponseEntity findByIdLuckBag(@PathVariable("LuckBagId") Long luckBagId){
+//
+//        LuckBag findLuckBagId = luckBagService.findLuckBag(luckBagId);
+//
+//        return new ResponseEntity<>(new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(findLuckBagId)),
+//                HttpStatus.OK);
+//    }
 
     // 복주머니 글 전체 조회
     @GetMapping
@@ -68,6 +71,20 @@ public class LuckBagController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDtos(luckBags),
                         (luckBagPage)), HttpStatus.OK);
+    }
+
+    @GetMapping("/luckMango")
+    public ResponseEntity getLuckBag(@RequestParam("luckMangoId") long luckMangoId,
+                                     @RequestParam("page")  int page ,
+                                     @RequestParam("size") int size
+    ){
+        Page<LuckBag> luckBagPage = luckBagService.findLuckBagList(luckMangoId,page - 1, size );
+        List<LuckBag> luckBags = luckBagPage.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDtos(luckBags),
+                        (luckBagPage)), HttpStatus.OK);
+        // 프론트에 url 주소에 /luckMangoId를 추가해야 한다.
     }
 
     //복주머니 글 수정

@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Getter @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class LuckBagResponseDto {

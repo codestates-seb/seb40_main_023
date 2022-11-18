@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface LuckMangoRepository extends JpaRepository<LuckMango, Long> {
 
-    @Query(value = "SELECT * FROM LuckMango WHERE member_Id = :memberId",nativeQuery = true)
+    @Query(value = "SELECT * FROM LuckMangos WHERE member_Id = :memberId",nativeQuery = true)
     List<LuckMango> searchLuckMangoByMemberId(@Param("memberId") long memberId);
 }

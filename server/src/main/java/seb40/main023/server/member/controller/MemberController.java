@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/member")
 @RequiredArgsConstructor
 @Validated
-public class MemberController {
+public class    MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
 

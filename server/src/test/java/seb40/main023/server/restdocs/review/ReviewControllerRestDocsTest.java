@@ -7,12 +7,8 @@
 //import org.springframework.restdocs.payload.JsonFieldType;
 //import org.springframework.test.web.servlet.MvcResult;
 //import org.springframework.test.web.servlet.ResultActions;
-<<<<<<< Updated upstream
 //import org.springframework.util.LinkedMultiValueMap;
 //import org.springframework.util.MultiValueMap;
-=======
-//
->>>>>>> Stashed changes
 //import seb40.main023.server.review.controller.ReviewController;
 //import seb40.main023.server.review.dto.ReviewPatchDto;
 //import seb40.main023.server.review.dto.ReviewPostDto;
@@ -30,20 +26,15 @@
 //import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 //import org.springframework.test.web.servlet.MockMvc;
 //
-<<<<<<< Updated upstream
+
 //import java.net.URI;
 //import java.util.ArrayList;
 //import java.util.List;
 //
 //import static Singleton.server.util.ApiDocumentUtils.getRequestPreProcessor;
 //import static Singleton.server.util.ApiDocumentUtils.getResponsePreProcessor;
-=======
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//
->>>>>>> Stashed changes
+
+
 //import static org.mockito.BDDMockito.given;
 //import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 //import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -55,11 +46,7 @@
 //import static org.springframework.restdocs.request.RequestDocumentation.*;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-<<<<<<< Updated upstream
-=======
-//import static seb40.main023.server.restdocs.util.ApiDocumentUtils.getRequestPreProcessor;
-//import static seb40.main023.server.restdocs.util.ApiDocumentUtils.getResponsePreProcessor;
->>>>>>> Stashed changes
+
 //
 //@WebMvcTest(ReviewController.class)
 //@MockBean(JpaMetamodelMappingContext.class)
@@ -97,14 +84,10 @@
 //    public void postReviewTest() throws Exception {
 //        // given
 //        ReviewPostDto post = ReviewPostDto.builder()
-<<<<<<< Updated upstream
 //                .reviewId(1L)
 //                .memberId(1L)
 //                .reviewBody("내용")
-=======
-//                .reviewBody("내용")
 //                .memberId(1L)
->>>>>>> Stashed changes
 //                .build();
 //
 //        String content = gson.toJson(post);
@@ -123,14 +106,9 @@
 //        // then
 //        actions
 //                .andExpect(status().isCreated())
-<<<<<<< Updated upstream
 //                .andExpect(jsonPath("$.data.reviewId").value(post.getReviewId()))
 //                .andExpect(jsonPath("$.data.memberId").value(post.getMemberId()))
 //                .andExpect(jsonPath("$.data.reviewBody").value(post.getReviewBody()))
-=======
-//                .andExpect(jsonPath("$.data.reviewBody").value(post.getReviewBody()))
-//                .andExpect(jsonPath("$.data.memberId").value(post.getMemberId()))
->>>>>>> Stashed changes
 //                .andDo(document("post-review",
 //                        getRequestPreProcessor(),
 //                        getResponsePreProcessor(),

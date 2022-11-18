@@ -1,34 +1,24 @@
 package seb40.main023.server.luckBag.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
-import seb40.main023.server.member.entity.Member;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import java.time.LocalDateTime;
 
-
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class LuckBagResponseDto {
-
-
-    private Long luckBagId;
-
-    private long luckMangoId;
-
+    private long luckBagId;
     private String body;
-
     private String writer;
-
-    private int bagStyle;
-
-    private int bagColor;
-
     private boolean viewed;
-
-
+    private int bagStyle;
+    private long luckMangoId;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }

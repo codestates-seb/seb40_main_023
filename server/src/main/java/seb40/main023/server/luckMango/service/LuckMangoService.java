@@ -1,5 +1,6 @@
 package seb40.main023.server.luckMango.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -14,17 +15,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class LuckMangoService {
     private final LuckMangoRepository luckMangoRepository;
-    public LuckMangoService(LuckMangoRepository luckMangoRepository) {
-        this.luckMangoRepository = luckMangoRepository;
-    }
 
     //복망고 생성하기
     public LuckMango createLuckMango(LuckMango luckMango) {
         return luckMangoRepository.save(luckMango);
     }
-
     //특정 복망고 가져오기
     public LuckMango findLuckMango(long luckMangoId) {return findVerifiedLuckMango(luckMangoId);}
 
@@ -32,6 +30,18 @@ public class LuckMangoService {
     public Page<LuckMango> findLuckMangos(int page, int size){
         return luckMangoRepository.findAll(PageRequest.of(page, size,
                 Sort.by("luckMangoId").descending()));
+    }
+
+    // 입력한 멤버 아이디를 가진 복망고 가져오기
+    public Page<LuckMango> searchLuckMango(long memberId, int page, int size, String sort){
+        PageRequest pageRequest = PageRequest.of(page,size,Sort.by(sort).descending());
+        List<LuckMango> Result = luckMangoRepository.searchLuckMangoByMemberId(memberId);
+
+        int start = (int)pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), Result.size());
+        Page<LuckMango> luckMangos = new PageImpl<>(Result.subList(start, end), pageRequest, Result.size());
+
+        return luckMangos;
     }
 
     //복망고 수정하기
@@ -63,17 +73,4 @@ public class LuckMangoService {
                         new BusinessLogicException(ExceptionCode.LUCKMANGO_NOT_FOUND));
         return findLuckMango;
     }
-
-    // 입력한 멤버 아이디를 가진 복망고 가져오기
-    public Page<LuckMango> searchLuckMango(long memberId, int page, int size, String sort){
-        PageRequest pageRequest = PageRequest.of(page,size,Sort.by(sort).descending());
-        List<LuckMango> Result = luckMangoRepository.searchLuckMangoByMemberId(memberId);
-
-        int start = (int)pageRequest.getOffset();
-        int end = Math.min((start + pageRequest.getPageSize()), Result.size());
-        Page<LuckMango> luckMangos = new PageImpl<>(Result.subList(start, end), pageRequest, Result.size());
-
-        return luckMangos;
-    }
-
 }

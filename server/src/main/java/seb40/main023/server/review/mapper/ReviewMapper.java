@@ -1,6 +1,7 @@
 package seb40.main023.server.review.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import seb40.main023.server.review.dto.ReviewPatchDto;
 import seb40.main023.server.review.dto.ReviewPostDto;
 import seb40.main023.server.review.dto.ReviewResponseDto;

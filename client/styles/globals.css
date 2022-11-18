@@ -210,9 +210,13 @@
   }
 
   .mg-floating-button {
-    @apply transition-all ease-in bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat mg-share-button;
+    @apply z-10 transition-all ease-in bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat mg-share-button;
   }
   .mg-floating-button-long {
     @apply text-white pl-4 h-12 w-[212px] mg-flex-center justify-center bg-[center_left_1rem] rounded-[100px] relative transition-all ease-in bg-[length:25px_25px] my-1 bg-no-repeat;
+  }
+
+  .mg-arrow-button {
+    @apply bg-[url(/images/ico/ico-banner-arrow.svg)] w-6 h-6 mg-background;
   }
 }

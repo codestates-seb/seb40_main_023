@@ -2,12 +2,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
+import Greeting from "../../components/Greeting";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
+  const greeting =
+    "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
   let money = 1000000001;
 
   const handleBgm = () => {
@@ -48,12 +51,8 @@ const index = () => {
               onClick={handleBgm}
             />
           </div>
-          <div className="flex justify-center">
-            <div className="w-4/6 p-4 text-sm border-white mg-border-2 bg-[#FFFFFFCC]">
-              얘들아! 2023년에도 잘 부탁해~ 정말
-              <br />
-              고생 많았고, 우리 오래오래 보자!
-            </div>
+          <div className="absolute flex justify-center mg-width-size">
+            <Greeting content={greeting} />
           </div>
         </div>
         <div className="relative flex-col w-full mg-flex-center">
@@ -71,15 +70,18 @@ const index = () => {
             alt="basket"
             width={352}
             height={152}
+            priority={true}
             className="mb-[74px]"
           />
           {LUCKBAG_IMAGE_LIST.map(el => (
             <Image
+              key={el.img}
+              priority={true}
               src={`/images/content/${el.img}.svg`}
               alt="luckbag"
               width={65}
               height={79}
-              className={`cursor-pointer absolute ${el.yPos} ${el.xPos}`}
+              className={`priority cursor-pointer absolute ${el.yPos} ${el.xPos}`}
             />
           ))}
           {isLogin ? (

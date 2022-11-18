@@ -122,5 +122,5 @@ module.exports = {
       "9xl": ["8rem", { lineHeight: "1" }],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

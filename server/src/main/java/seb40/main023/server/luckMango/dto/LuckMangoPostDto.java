@@ -9,12 +9,12 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LuckMangoPostDto {
-    @Positive
-    private long memberId;
     @NonNull
     private String title;
     private String bgImage;
     private String bgm;
+    @Positive
+    private long memberId;
 
     public Member getMember(){
         Member member = new Member();

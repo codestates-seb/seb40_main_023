@@ -1,6 +1,7 @@
 package seb40.main023.server.member.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import seb40.main023.server.member.dto.MemberPatchDto;
 import seb40.main023.server.member.dto.MemberPostDto;
 import seb40.main023.server.member.dto.MemberResponseDto;

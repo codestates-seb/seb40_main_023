@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class MemberPatchDto {
     private long memberId;
     private String name;
     private String email;
     private String password;
-    private LocalDateTime modifiedAt;
 }

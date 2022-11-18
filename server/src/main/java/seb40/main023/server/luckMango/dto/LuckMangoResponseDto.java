@@ -1,19 +1,22 @@
 package seb40.main023.server.luckMango.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckBag.dto.LuckBagResponseDto;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.member.entity.Member;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Builder
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LuckMangoResponseDto {
     private long luckMangoId;
     private String title;
@@ -24,5 +27,5 @@ public class LuckMangoResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    private List<LuckBagResponseDto> luckBags;
+//    private List<LuckBagResponseDto> luckBags;
 }

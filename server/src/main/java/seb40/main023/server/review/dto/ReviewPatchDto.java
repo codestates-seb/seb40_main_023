@@ -8,6 +8,4 @@ import lombok.Setter;
 public class ReviewPatchDto {
     private Long reviewId;
     private String reviewBody;
-
-    public void setReviewId(long reviewId){ this.reviewId = reviewId;}
 }

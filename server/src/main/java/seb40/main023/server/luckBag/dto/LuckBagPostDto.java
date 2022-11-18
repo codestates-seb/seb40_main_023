@@ -15,15 +15,15 @@ import javax.validation.constraints.Positive;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class LuckBagPostDto {
-    @Positive
-    private long luckMangoId;
     @NotBlank(message = "내용을 작성해주세요!")
     private String body;
     private String writer;
     private boolean viewed;
     private int bagStyle;
+
+    @Positive
+    private long luckMangoId;
 
     public LuckMango getLuckMango(){
         LuckMango luckMango = new LuckMango();

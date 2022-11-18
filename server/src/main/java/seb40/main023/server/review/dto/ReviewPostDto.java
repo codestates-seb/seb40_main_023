@@ -12,9 +12,9 @@ import javax.validation.constraints.Positive;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewPostDto {
+    private String reviewBody;
     @Positive
     private long memberId;
-    private String reviewBody;
 
     public Member getMember(){
         Member member = new Member();

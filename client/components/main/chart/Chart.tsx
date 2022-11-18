@@ -1,63 +1,106 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
-// const data = {
-//   labels: ["January", "February", "March", "April", "May", "June", "July"],
-//   datasets: [
-//     {
-//       label: "My First dataset",
-//       fill: false,
-//       lineTension: 0.1,
-//       backgroundColor: "rgba(75,192,192,0.4)",
-//       borderColor: "rgba(75,192,192,1)",
-//       borderCapStyle: "butt",
-//       borderDash: [],
-//       borderDashOffset: 0.0,
-//       borderJoinStyle: "miter",
-//       pointBorderColor: "rgba(75,192,192,1)",
-//       pointBackgroundColor: "#fff",
-//       pointBorderWidth: 1,
-//       pointHoverRadius: 5,
-//       pointHoverBackgroundColor: "rgba(75,192,192,1)",
-//       pointHoverBorderColor: "rgba(220,220,220,1)",
-//       pointHoverBorderWidth: 2,
-//       pointRadius: 1,
-//       pointHitRadius: 10,
-//       data: [65, 59, 80, 81, 56, 55, 40],
-//     },
-//   ],
-// };
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+  TooltipItem,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 const LineChart = () => {
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-
   const data = {
-    labels,
+    labels: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
     datasets: [
       {
-        label: "Dataset 1",
-        data: [0, 40, 100, 500, 700, 900, 1000],
-        backgroundColor: "#E46841",
-        borderColor: "#FF7246",
+        label: "",
+        data: [200, 300, 350, 700, 1200, 3500, 5000],
+        fill: true,
         borderWidth: 1,
+        backgroundColor: "#F29E87",
+        borderColor: "#FF7246",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointRadius: 1,
+        pointHitRadius: 10,
+      },
+      {
+        label: "",
+        data: [500, 1050, 2000, 3500, 5000, 7500, 9000],
+        fill: false,
+        borderWidth: 1,
+        backgroundColor: "transparent",
+        borderColor: "#95DA02",
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointRadius: 1,
+        pointHitRadius: 10,
       },
     ],
   };
 
-  return (
-    <div>
-      <h2>Line Example</h2>
-      <Line data={data} />
-    </div>
-  );
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scaleShowLabels: false,
+    plugins: {
+      title: {
+        display: false,
+      },
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          color: "#fefefe",
+        },
+        ticks: {
+          display: false,
+        },
+      },
+      y: {
+        grid: {
+          color: "#eeeeee",
+        },
+        ticks: {
+          display: false,
+          beginAtZero: false,
+          stepSize: 1000,
+        },
+        min: 0,
+        max: 10000,
+      },
+    },
+  };
+
+  return <Line data={data} options={options} />;
 };
 
 export default LineChart;

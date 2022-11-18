@@ -25,7 +25,7 @@ public class LuckMango {
     }
 
     private String title;
-    private String bgm;
+    private String bgVideo;
     private String bgImage;
     private int likeCount;
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -37,6 +37,24 @@ public class LuckMango {
     @ManyToOne
     @JoinColumn(name = "memberId")
     private Member member;
+
+    public LuckMango(String title, String bgVideo, String bgImage){
+        this.title = title;
+        this.bgVideo = bgVideo;
+        this.bgImage = bgImage;
+
+    }
+
+    public LuckMango(long memberId, String title, String bgVideo, String bgImage, int likeCount, LocalDateTime createdAt, LocalDateTime modifiedAt){
+        this.title = title;
+        this.bgVideo = bgVideo;
+        this.bgImage = bgImage;
+        this.likeCount = likeCount;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+    }
+
+
 
    public void addMember(Member member){
        this.member= member;

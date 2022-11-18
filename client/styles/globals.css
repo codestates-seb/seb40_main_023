@@ -2,8 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "HSS";
+  src: url("../public/fonts/HSSaemaul-Regular.ttf");
+}
+
 @layer components {
   /* Common */
+  body {
+    @apply font-light font-Pretendard;
+  }
+
   /* Home */
   .mg-logo {
     @apply bg-[url(/images/ico/logo.svg)] bg-no-repeat w-[144px] h-[44px] indent-[-100%] overflow-hidden;
@@ -14,11 +23,11 @@
   }
 
   .mg-main-section > div {
-    @apply px-[30px] tablet:px-0 w-full tablet:max-w-[800px];
+    @apply flex flex-col items-center px-[30px] tablet:px-0 w-full tablet:max-w-[800px];
   }
 
   .mg-main-countdown {
-    @apply flex items-center justify-center w-full py-2 text-center text-white border rounded bg-secondary-light border-secondary-normal;
+    @apply flex justify-center w-full py-2 mx-10 text-center text-white border rounded bg-secondary-light border-secondary-normal;
   }
 
   .mg-howto-item {
@@ -153,7 +162,7 @@
   }
   /* background */
   .mg-background {
-    @apply bg-no-repeat bg-center;
+    @apply bg-center bg-no-repeat;
   }
 
   /* layout, flex */
@@ -202,5 +211,8 @@
 
   .mg-floating-button {
     @apply transition-all ease-in bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat mg-share-button;
+  }
+  .mg-floating-button-long {
+    @apply text-white pl-4 h-12 w-[212px] mg-flex-center justify-center bg-[center_left_1rem] rounded-[100px] relative transition-all ease-in bg-[length:25px_25px] my-1 bg-no-repeat;
   }
 }

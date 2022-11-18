@@ -15,7 +15,7 @@ public class LuckMangoPostDto {
     @NonNull
     private String title;
     private String bgImage;
-    private String bgm;
+    private String bgVideo;
 
     public Member getMember(){
         Member member = new Member();

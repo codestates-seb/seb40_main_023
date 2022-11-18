@@ -1,6 +1,10 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
+	// id 'org.asciidoctor.convert' version '1.5.8'
+	// html 변경하는 과정에서 오류발생해 다른걸 사용
+
 	id "org.asciidoctor.jvm.convert" version "3.3.2"
 	id 'java'
 }
@@ -10,8 +14,10 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
+	asciidoctorExtensions
 	compileOnly {
 		extendsFrom annotationProcessor
+		asciidoctorExtensions
 	}
 	asciidoctorExtensions
 }
@@ -25,6 +31,9 @@ ext {
 }
 
 dependencies {
+	implementation 'org.jetbrains:annotations:23.0.0'
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -38,7 +47,6 @@ dependencies {
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	implementation 'com.google.code.gson:gson'
-
 }
 
 tasks.named('test') {
@@ -66,4 +74,18 @@ bootJar {
 	from ("${asciidoctor.outputDir}") {
 		into 'static/docs'
 	}
+}
+
+// 이 아래 부분을 작성하니 html 로 정상적으로 만들어준다
+// https://im-developer.tistory.com/182 참고
+asciidoctor {
+	dependsOn test
+	configurations 'asciidoctorExtensions' // 이부분!
+	inputs.dir snippetsDir
+}
+
+test {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+	finalizedBy 'asciidoctor'
 }

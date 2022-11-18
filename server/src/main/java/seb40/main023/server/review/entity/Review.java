@@ -10,8 +10,8 @@ import seb40.main023.server.member.entity.Member;
 import javax.persistence.*;
 
 @Getter @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "REVIEWS")
 public class Review extends Auditable {
     @Id

@@ -9,8 +9,7 @@ import seb40.main023.server.luckMango.entity.LuckMango;
 import javax.persistence.Column;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class LuckBagResponseDto {
@@ -19,7 +18,7 @@ public class LuckBagResponseDto {
     private String writer;
     private boolean viewed;
     private int bagStyle;
-
+    private long luckMangoId;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

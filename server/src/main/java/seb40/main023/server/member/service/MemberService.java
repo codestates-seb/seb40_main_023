@@ -24,6 +24,12 @@ public class MemberService {
         return savedMember;
     }
 
+    public Member findMember(long memberId) { return  findVerifiedMember(memberId); }
+
+    public List<Member> findMembers() {
+        return memberRepository.findAll(Sort.by("memberId").descending());
+    }
+
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
@@ -36,15 +42,8 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
 
-    public Member findMember(long memberId) { return  findVerifiedMember(memberId); }
-
-    public List<Member> findMembers() {
-        return memberRepository.findAll(Sort.by("memberId").descending());
-    }
-
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
-
         memberRepository.delete(findMember);
     }
 

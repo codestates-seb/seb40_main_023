@@ -20,9 +20,8 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/luckMango")
+@RequestMapping("/luckMango")
 @Validated
-@Slf4j
 @RequiredArgsConstructor
 public class LuckMangoController {
     private final LuckMangoService luckMangoService;
@@ -36,6 +35,7 @@ public class LuckMangoController {
         return new ResponseEntity<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango),
                 HttpStatus.CREATED);
     }
+
     //복망고 수정
     @PatchMapping("/{luckMango-id}")
     public ResponseEntity patchLuckMango(@PathVariable("luckMango-id") long luckMangoId,
@@ -54,8 +54,7 @@ public class LuckMangoController {
     public ResponseEntity getLuckMango(@PathVariable("luckMango-id") long luckMangoId){
         LuckMango luckMango = luckMangoService.findLuckMango(luckMangoId);
         return new ResponseEntity<>(
-                new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)),
-                HttpStatus.OK);
+                new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)), HttpStatus.OK);
     }
 
     //회원이 가진 복망고 출력하기

@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "LUCKMANGOS")
 public class LuckMango extends Auditable {
     @Id
@@ -36,9 +37,6 @@ public class LuckMango extends Auditable {
         }
     }
 
-    public LuckMango(String title) {
-        this.title = title;
-    }
 //    public LuckMango(long memberId, String title, String bgVideo, String bgImage, int likeCount, LocalDateTime createdAt, LocalDateTime modifiedAt){
 //        this.title = title;
 //        this.bgVideo = bgVideo;

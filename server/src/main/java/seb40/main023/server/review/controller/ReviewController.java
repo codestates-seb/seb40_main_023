@@ -35,7 +35,8 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto reviewPostDto){
         Review review = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDto));
-        return new ResponseEntity<>(mapper.reviewToReviewResponseDto(review),
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)),
                 HttpStatus.CREATED);
     }
 
@@ -46,13 +47,17 @@ public class ReviewController {
         Review review = reviewService.updateReview(mapper.reviewPatchDtoToReview(requestBody));
 //        long memberId = content.getMemberId();   // 멤버 아이디가 동일하지 않으면 수정 불가
 //        if(nowMemberId != memberId){return new ResponseEntity(HttpStatus.BAD_REQUEST);}
-        return new ResponseEntity<>(mapper.reviewToReviewResponseDto(review),HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)),
+                HttpStatus.OK);
     }
 
     @GetMapping("/{review-id}")
     public ResponseEntity getReview(@PathVariable("review-id") long reviewId){
         Review review = reviewService.findReview(reviewId);
-        return new ResponseEntity<>(mapper.reviewToReviewResponseDto(review), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)),
+                HttpStatus.OK);
     }
 
     @GetMapping

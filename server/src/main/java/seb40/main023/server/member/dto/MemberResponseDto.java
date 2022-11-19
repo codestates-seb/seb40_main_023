@@ -6,7 +6,9 @@ import seb40.main023.server.member.entity.MemberStatus;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberResponseDto {

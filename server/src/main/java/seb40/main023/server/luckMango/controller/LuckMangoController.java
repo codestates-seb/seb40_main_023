@@ -29,10 +29,11 @@ public class LuckMangoController {
 
     //복망고 생성
     @PostMapping
-    public ResponseEntity postLuckMango(@Valid @RequestBody LuckMangoPostDto luckMangoPostDto){
+    public ResponseEntity postLuckMango(@Valid @RequestBody LuckMangoPostDto luckMangoPostDto) {
         LuckMango luckMango = luckMangoService.createLuckMango(luckMangoMapper.luckMangoPostDtoToluckMango(luckMangoPostDto));
 
-        return new ResponseEntity<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango),
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)),
                 HttpStatus.CREATED);
     }
 

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
+//@AllArgsConstructor
 @Builder
 public class MemberPatchDto {
     private long memberId;

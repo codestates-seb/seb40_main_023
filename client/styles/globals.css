@@ -227,4 +227,12 @@
   .mg-modal-input {
     @apply w-[303px] rounded border border-mono-borderNormal p-3;
   }
+  /* Validation */
+
+  .mg-vaild-success {
+    @apply text-success-normal;
+  }
+  .mg-vaild-error {
+    @apply text-danger-normal;
+  }
 }

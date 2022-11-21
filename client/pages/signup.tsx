@@ -1,10 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import Footer from "../components/Footer";
+import Header from "../components/header";
+import Sidebar from "../components/sidebar";
 
 const signup = () => {
+  //이름, 비밀번호, 비밀번호 확인 상태
+  const [name, setName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+  //오류메시지 상태
+  const [nameMessage, setNameMessage] = useState<string>("");
+  const [passwordMessage, setPasswordMessage] = useState<string>("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] =
+    useState<string>("");
+  //유효성 검사
+  const [isName, setIsName] = useState<boolean>(false);
+  const [isPassword, setIsPassword] = useState<boolean>(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
+
   return (
     <>
+      <Header />
+      <aside>
+        <Sidebar />
+      </aside>
       <div className="mg-layout">
-        <h1 className="flex mg-logo">logo</h1>
         <h1 className="flex justify-center mt-20 text-4xl w-[500px]">
           10초 안에 가입하고 <br />
           복망고 만들러 가기!
@@ -23,10 +43,16 @@ const signup = () => {
           <label htmlFor="" className="mg-default-label">
             아이디
           </label>
+
           <input
             type="text"
             placeholder="4자 이상 입력해 주세요"
-            className="mg-default-input w-[360px]"
+            className="mg-default-input w-[360px] focus:ring-2 focus:ring-primary-darker"
+            input
+            ring
+            작업
+            진행해야
+            함
           />
         </div>
         <div className="mt-3">
@@ -45,12 +71,15 @@ const signup = () => {
           </label>
           <input
             type="text"
-            placeholder=""
+            placeholder="비밀번호 확인"
             className="mg-default-input w-[360px]"
           />
         </div>
-        <button className="mg-primary-button mt-5 w-[320px]">가입하기</button>
+        <button className="mg-primary-button mt-9 w-[320px]">가입하기</button>
       </div>
+      <footer className="absolute bottom-0 flex w-full">
+        <Footer />
+      </footer>
     </>
   );
 };

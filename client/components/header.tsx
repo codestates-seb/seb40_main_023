@@ -8,7 +8,7 @@ const Header = () => {
   const sidebarState = useSelector(selectSidebarState);
 
   return (
-    <header className="border-b border-mono-borderLight bg-white z-50 fixed h-[58px] px-3 shadow-header flex items-center w-full justify-between">
+    <header className="border-b border-mono-borderLight bg-white z-50 fixed h-[58px] px-3 shadow-header flex items-center w-full justify-between z-2">
       <div className="ml-[40px] flex justify-center w-full">
         <Link href="/">
           <h1 className="mg-logo">새해복망고 로고</h1>

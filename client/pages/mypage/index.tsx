@@ -7,6 +7,9 @@ import { dummy } from "./dummy";
 import { useDispatch, useSelector } from "react-redux";
 import { selectModalState, setModalState } from "../../store/modalSlice";
 import DefaultModal from "../../components/Modal/DefaultModal";
+import Header from "../../components/header";
+import Sidebar from "../../components/sidebar";
+import Footer from "../../components/Footer";
 
 const mypage = () => {
   const [click, setClick] = useState(false);
@@ -20,6 +23,14 @@ const mypage = () => {
 
   return (
     <>
+      {!modalState && (
+        <div>
+          <Header />
+          <aside>
+            <Sidebar />
+          </aside>
+        </div>
+      )}
       <div className="mg-layout">
         {modalState && (
           <DefaultModal
@@ -33,7 +44,7 @@ const mypage = () => {
           />
         )}
         {!modalState && (
-          <div className="max-w-[400px] w-full relative flex">
+          <div className="max-w-[500px] w-full relative flex mt-16">
             <div>
               <Image src={Profile} alt="" />
             </div>
@@ -72,6 +83,11 @@ const mypage = () => {
           )}
         </div>
       </div>
+      {!modalState && (
+        <footer className="absolute bottom-0 flex w-full">
+          <Footer />
+        </footer>
+      )}
     </>
   );
 };

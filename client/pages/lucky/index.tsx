@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
+import LongModal from "../../components/Modal/LongModal";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const greeting =
     "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
@@ -23,6 +25,10 @@ const index = () => {
 
   const loginTest = () => {
     setIsLogin(!isLogin);
+  };
+
+  const handleModal = () => {
+    setModal(!modal);
   };
 
   return (
@@ -81,7 +87,7 @@ const index = () => {
               alt="luckbag"
               width={65}
               height={79}
-              className={`priority cursor-pointer absolute ${el.yPos} ${el.xPos}`}
+              className={`cursor-pointer absolute ${el.yPos} ${el.xPos}`}
             />
           ))}
           {isLogin ? (
@@ -125,9 +131,13 @@ const index = () => {
             </div>
           ) : (
             <div className="absolute flex items-end bottom-4">
-              <button className="h-12 mr-4 mg-primary-button-round">
+              <button
+                className="h-12 mr-4 mg-primary-button-round"
+                onClick={handleModal}
+              >
                 새해 덕담 남기기
               </button>
+              {modal && <LongModal modal={modal} setModal={setModal} />}
               <div className="transition-all duration-300 mg-flex">
                 <button
                   className={

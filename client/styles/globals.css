@@ -219,4 +219,12 @@
   .mg-arrow-button {
     @apply bg-[url(/images/ico/ico-banner-arrow.svg)] w-6 h-6 mg-background;
   }
+
+  .mg-modal-title {
+    @apply text-base font-semibold text-left w-[303px];
+  }
+
+  .mg-modal-input {
+    @apply w-[303px] rounded border border-mono-borderNormal p-3;
+  }
 }

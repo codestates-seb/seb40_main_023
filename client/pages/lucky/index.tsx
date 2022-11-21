@@ -3,11 +3,15 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
+import LongModal from "../../components/Modal/LongModal";
+import LetterModal from "../../components/Modal/letterModal";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [letterModal, setLetterModal] = useState(false);
 
   const greeting =
     "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
@@ -25,6 +29,14 @@ const index = () => {
     setIsLogin(!isLogin);
   };
 
+  const handleModal = () => {
+    setModal(!modal);
+  };
+
+  const handleLetterModal = () => {
+    setLetterModal(!letterModal);
+  };
+
   return (
     <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">
       <button onClick={loginTest}>login</button>
@@ -36,7 +48,7 @@ const index = () => {
             </div>
             <Image
               src="/images/content/ico-mg-money.svg"
-              alt="basket"
+              alt="money icon"
               width={57}
               height={58}
               className="absolute left-3 bottom-[0.3px]"
@@ -81,7 +93,8 @@ const index = () => {
               alt="luckbag"
               width={65}
               height={79}
-              className={`priority cursor-pointer absolute ${el.yPos} ${el.xPos}`}
+              className={`cursor-pointer absolute ${el.yPos} ${el.xPos}`}
+              onClick={handleLetterModal}
             />
           ))}
           {isLogin ? (
@@ -114,8 +127,8 @@ const index = () => {
                 <button
                   className={
                     shareBtn
-                      ? "pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
-                      : "text-white"
+                      ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
+                      : "text-[#3B1C1D]"
                   }
                 >
                   {shareBtn && "카톡으로 공유하기"}
@@ -125,9 +138,13 @@ const index = () => {
             </div>
           ) : (
             <div className="absolute flex items-end bottom-4">
-              <button className="h-12 mr-4 mg-primary-button-round">
+              <button
+                className="h-12 mr-4 mg-primary-button-round"
+                onClick={handleModal}
+              >
                 새해 덕담 남기기
               </button>
+              {modal && <LongModal modal={modal} setModal={setModal} />}
               <div className="transition-all duration-300 mg-flex">
                 <button
                   className={
@@ -159,36 +176,32 @@ const index = () => {
           )}
         </div>
       </div>
-      {isLogin ? (
-        <div className="justify-center mg-flex-center mg-width-size">
-          홍다희님의 새해 복망고입니다.
-          <br />
-          복주머니를 클릭하면 덕담을 볼 수 있어요!
-        </div>
-      ) : (
-        <>
-          <div className="flex justify-end mr-12 mg-width-size">
-            복망고 소유주라면 로그인하세요!
-          </div>
-          <Link href="/" className="mg-width-size">
-            <div className="h-[71.98px] relative rounded-[10px] mg-primary-button mg-width-size mg-flex-center justify-end cursor-pointer">
-              <Image
-                src="/images/char/char-banner.svg"
-                alt="mango banner"
-                width={117}
-                height={130}
-                className="absolute top-[-50px] left-2 w-3/12"
-              />
-              <div className="mg-flex-center justify-center h-[71.98px]">
-                <div className="ml-16 mr-6">
-                  나도 새해 복망고 만들어볼까?
-                  <div className="font-semibold">새해 복망고 메인으로 이동</div>
-                </div>
-                <div className="bg-[url(/images/ico/ico-banner-arrow.svg)] w-6 h-6 mg-background" />
-              </div>
+      <div className="flex justify-end mr-12 mg-width-size">
+        복망고 소유주라면 로그인하세요!
+      </div>
+      <Link href="/" className="mg-width-size">
+        <div className="h-[71.98px] relative rounded-[10px] mg-primary-button mg-width-size mg-flex-center justify-end cursor-pointer">
+          <Image
+            src="/images/char/char-banner.svg"
+            alt="mango banner"
+            width={117}
+            height={130}
+            className="absolute top-[-50px] left-2 w-3/12"
+          />
+          <div className="mg-flex-center justify-center mg-width-size h-[71.98px]">
+            <div className="ml-16 mr-9">
+              나도 새해 복망고 만들어볼까?
+              <div className="font-semibold">새해 복망고 메인으로 이동</div>
             </div>
-          </Link>
-        </>
+            <div className="text-xl font-bold cursor-pointer">〉</div>
+          </div>
+        </div>
+      </Link>
+      {letterModal && (
+        <LetterModal
+          letterModal={letterModal}
+          setLetterModal={setLetterModal}
+        />
       )}
     </div>
   );

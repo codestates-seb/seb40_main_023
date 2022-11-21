@@ -219,4 +219,12 @@
   .mg-arrow-button {
     @apply bg-[url(/images/ico/ico-banner-arrow.svg)] w-6 h-6 mg-background;
   }
+
+  /* Validation */
+  .mg-vaild-success {
+    @apply text-success-normal;
+  }
+  .mg-vaild-error {
+    @apply text-danger-normal;
+  }
 }

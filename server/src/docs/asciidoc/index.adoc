@@ -1,0 +1,117 @@
+***
+== MemberController
+=== 회원 등록(Member_Post)
+.curl-request
+include::{snippets}/Member_Post/curl-request.adoc[]
+
+.http-request
+include::{snippets}/Member_Post/http-request.adoc[]
+
+.http-response
+include::{snippets}/Member_Post/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/Member_Post/httpie-request.adoc[]
+
+.request-body
+include::{snippets}/Member_Post/request-body.adoc[]
+
+.request-fields
+include::{snippets}/Member_Post/request-body.adoc[]
+
+.response-body
+include::{snippets}/Member_Post/response-body.adoc[]
+
+.response-fields
+include::{snippets}/Member_Post/response-fields.adoc[]
+
+=== 회원 정보 조회(단일)(Member_Get)
+.curl-request
+include::{snippets}/Member_Get/curl-request.adoc[]
+
+.http-request
+include::{snippets}/Member_Get/http-request.adoc[]
+
+.http-response
+include::{snippets}/Member_Get/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/Member_Get/httpie-request.adoc[]
+
+.path-parameters
+include::{snippets}/Member_Get/path-parameters.adoc[]
+
+.response-body
+include::{snippets}/Member_Get/response-body.adoc[]
+
+.response-fields
+include::{snippets}/Member_Get/response-fields.adoc[]
+
+=== 회원 정보 조회(전체)(Member_Gets)
+.curl-request
+include::{snippets}/Member_Gets/curl-request.adoc[]
+
+.http-request
+include::{snippets}/Member_Gets/http-request.adoc[]
+
+.http-response
+include::{snippets}/Member_Gets/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/Member_Gets/httpie-request.adoc[]
+
+// .request-body
+// include::{snippets}/Member_Gets/request-body.adoc[]
+
+.request-parameters
+include::{snippets}/Member_Gets/request-parameters.adoc[]
+
+// .response-body
+// include::{snippets}/Member_Gets/response-body.adoc[]
+
+.response-fields
+include::{snippets}/Member_Gets/response-fields.adoc[]
+
+=== 회원 정보 수정(Member_Patch)
+.curl-request
+include::{snippets}/Member_Patch/curl-request.adoc[]
+
+.http-request
+include::{snippets}/Member_Patch/http-request.adoc[]
+
+.http-response
+include::{snippets}/Member_Patch/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/Member_Patch/httpie-request.adoc[]
+
+.path-parameters
+include::{snippets}/Member_Patch/path-parameters.adoc[]
+
+.request-body
+include::{snippets}/Member_Patch/request-body.adoc[]
+
+.request-fields
+include::{snippets}/Member_Patch/request-fields.adoc[]
+
+.response-body
+include::{snippets}/Member_Patch/response-body.adoc[]
+
+.response-fields
+include::{snippets}/Member_Patch/response-fields.adoc[]
+
+=== 회원 정보 삭제(Member_Delete)
+.curl-request
+include::{snippets}/Member_Delete/curl-request.adoc[]
+
+.http-request
+include::{snippets}/Member_Delete/http-request.adoc[]
+
+.http-response
+include::{snippets}/Member_Delete/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/Member_Delete/httpie-request.adoc[]
+
+.path-parameters
+include::{snippets}/Member_Delete/path-parameters.adoc[]

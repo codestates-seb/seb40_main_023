@@ -1,25 +1,21 @@
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { NotifyProps } from "../../types/basic";
 
-type NorifyProps = {
-  message: string;
-  icon?: any;
-};
-
-export const notifyWarning = ({ message, icon }: NorifyProps) => {
+export const notifyWarning = ({ message, icon }: NotifyProps) => {
   toast(message, { type: "warning", icon });
 };
 
-export const notifyInfo = ({ message, icon }: NorifyProps) => {
+export const notifyInfo = ({ message, icon }: NotifyProps) => {
   toast(message, { type: "info", icon });
 };
 
-export const notifySuccess = ({ message, icon }: NorifyProps) => {
+export const notifySuccess = ({ message, icon }: NotifyProps) => {
   toast(message, { type: "success", icon });
 };
 
-export const notifyError = ({ message, icon }: NorifyProps) => {
+export const notifyError = ({ message, icon }: NotifyProps) => {
   toast(message, { type: "error", icon });
 };
 

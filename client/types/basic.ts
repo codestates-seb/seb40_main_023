@@ -1,5 +1,15 @@
-export interface mango {
+import type { ReactElement } from "react";
+export interface Mango {
   title: string;
 }
-
-//이렇게 interface 작성해주세요
+export interface NotifyProps {
+  message: string;
+  icon?: any;
+}
+export interface SectionProps {
+  children: ReactElement[] | ReactElement;
+  color?: boolean;
+}
+export interface TitleProps {
+  title: string;
+}

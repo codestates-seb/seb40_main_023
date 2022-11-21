@@ -50,12 +50,12 @@ public class LuckMangoService {
 
         Optional.ofNullable(luckMango.getTitle())
                 .ifPresent(title -> findLuckMango.setTitle(title));
-        Optional.ofNullable(luckMango.getTitle())
-                .ifPresent(bgImage -> findLuckMango.setTitle(bgImage));
-        Optional.ofNullable(luckMango.getTitle())
-                .ifPresent(bgm -> findLuckMango.setTitle(bgm));
-        Optional.ofNullable(luckMango.getTitle())
-                .ifPresent(likeCount -> findLuckMango.setTitle(likeCount));
+        Optional.ofNullable(luckMango.getBgImage())
+                .ifPresent(bgImage -> findLuckMango.setBgImage(bgImage));
+        Optional.ofNullable(luckMango.getBgVideo())
+                .ifPresent(BgVideo -> findLuckMango.setBgVideo(BgVideo));
+        Optional.ofNullable(luckMango.getLikeCount())
+                .ifPresent(likeCount -> findLuckMango.setLikeCount(likeCount));
 
         return luckMangoRepository.save(findLuckMango);
     }

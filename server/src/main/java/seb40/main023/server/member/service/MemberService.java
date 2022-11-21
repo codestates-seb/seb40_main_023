@@ -1,6 +1,8 @@
 package seb40.main023.server.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import seb40.main023.server.exception.BusinessLogicException;
@@ -26,8 +28,9 @@ public class MemberService {
 
     public Member findMember(long memberId) { return  findVerifiedMember(memberId); }
 
-    public List<Member> findMembers() {
-        return memberRepository.findAll(Sort.by("memberId").descending());
+    public Page<Member> findMembers(int page, int size){
+        return memberRepository.findAll(PageRequest.of(page, size,
+                Sort.by("memberId")));
     }
 
     public Member updateMember(Member member) {

@@ -6,9 +6,9 @@ import Image from "next/image";
 import { dummy } from "./dummy";
 import { useDispatch, useSelector } from "react-redux";
 import { selectModalState, setModalState } from "../../store/modalSlice";
-import DefaultModal from "../../components/Modal/DefaultModal";
+import DefaultModal from "../../components/modal/DefaultModal";
 
-const mypage = () => {
+const Mypage = () => {
   const [click, setClick] = useState(false);
   const dispatch = useDispatch();
   const modalState = useSelector(selectModalState);
@@ -76,4 +76,4 @@ const mypage = () => {
   );
 };
 
-export default mypage;
+export default Mypage;

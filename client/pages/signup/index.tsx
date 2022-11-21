@@ -1,6 +1,6 @@
 import React from "react";
 
-const signup = () => {
+const SignUp = () => {
   return (
     <>
       <div className="mg-layout">
@@ -55,4 +55,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default SignUp;

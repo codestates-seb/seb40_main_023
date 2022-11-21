@@ -12,7 +12,6 @@ export default function Footer() {
               href="https://github.com/Exist95"
               className="mg-footer-github-link"
             >
-              {/* bg-[url(/images/ico/ico-github.svg)] mr-1 */}
               <Image
                 width={18}
                 height={18}

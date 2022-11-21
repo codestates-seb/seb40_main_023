@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
 
 const LongModal = ({ modal, setModal }: any) => {
   const handleModal = () => {
@@ -53,39 +54,21 @@ const LongModal = ({ modal, setModal }: any) => {
               </div>
             </div>
             <form className="w-full gap-6 justify-evenly mg-flex-center">
-              <label className="flex-col justify-center gap-2 mg-flex-center">
-                <Image
-                  priority={true}
-                  src={`/images/content/img-bok1-1.svg`}
-                  alt="luckbag"
-                  width={65}
-                  height={79}
-                  className={`cursor-pointer h-[74px]`}
-                />
-                <input name="luckbag" type="radio" value="type1" />
-              </label>
-              <label className="flex-col justify-center gap-2 mg-flex-center">
-                <Image
-                  priority={true}
-                  src={`/images/content/img-bok2-1.svg`}
-                  alt="luckbag"
-                  width={65}
-                  height={79}
-                  className={`cursor-pointer h-[74px]`}
-                />
-                <input name="luckbag" type="radio" value="type2" />
-              </label>
-              <label className="flex-col justify-center gap-2 mg-flex-center">
-                <Image
-                  priority={true}
-                  src={`/images/content/img-bok3-1.svg`}
-                  alt="luckbag"
-                  width={65}
-                  height={79}
-                  className={`cursor-pointer h-[74px]`}
-                />
-                <input name="luckbag" type="radio" value="type3" />
-              </label>
+              {LUCKBAG_OPTION.map((el, i) => {
+                return (
+                  <label className="flex-col justify-center gap-2 mg-flex-center">
+                    <Image
+                      priority={true}
+                      src={`/images/content/img-bok${i + 1}-1.svg`}
+                      alt="luckbag"
+                      width={65}
+                      height={79}
+                      className="cursor-pointer h-[74px]"
+                    />
+                    <input name="luckbag" type="radio" value={el} />
+                  </label>
+                );
+              })}
             </form>
           </main>
           <div className="flex justify-around p-2 mt-3">

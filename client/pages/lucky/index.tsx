@@ -4,12 +4,14 @@ import Image from "next/image";
 import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
 import LongModal from "../../components/Modal/LongModal";
+import LetterModal from "../../components/Modal/letterModal";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [modal, setModal] = useState(false);
+  const [letterModal, setLetterModal] = useState(false);
 
   const greeting =
     "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
@@ -31,6 +33,10 @@ const index = () => {
     setModal(!modal);
   };
 
+  const handleLetterModal = () => {
+    setLetterModal(!letterModal);
+  };
+
   return (
     <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">
       <button onClick={loginTest}>login</button>
@@ -42,7 +48,7 @@ const index = () => {
             </div>
             <Image
               src="/images/content/ico-mg-money.svg"
-              alt="basket"
+              alt="money icon"
               width={57}
               height={58}
               className="absolute left-3 bottom-[0.3px]"
@@ -88,6 +94,7 @@ const index = () => {
               width={65}
               height={79}
               className={`cursor-pointer absolute ${el.yPos} ${el.xPos}`}
+              onClick={handleLetterModal}
             />
           ))}
           {isLogin ? (
@@ -120,8 +127,8 @@ const index = () => {
                 <button
                   className={
                     shareBtn
-                      ? "pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
-                      : "text-white"
+                      ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
+                      : "text-[#3B1C1D]"
                   }
                 >
                   {shareBtn && "카톡으로 공유하기"}
@@ -190,6 +197,12 @@ const index = () => {
           </div>
         </div>
       </Link>
+      {letterModal && (
+        <LetterModal
+          letterModal={letterModal}
+          setLetterModal={setLetterModal}
+        />
+      )}
     </div>
   );
 };

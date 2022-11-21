@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserModify from "../../components/userModify";
+import UserModify from "../../components/UserModify";
 import BokCard from "../../components/BokCard";
 import Profile from "../../public/dummy/mypage-profile.png";
 import Image from "next/image";
@@ -11,7 +11,7 @@ import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import Footer from "../../components/Footer";
 
-const mypage = () => {
+const Mypage = () => {
   const [click, setClick] = useState(false);
   const dispatch = useDispatch();
   const modalState = useSelector(selectModalState);
@@ -92,4 +92,4 @@ const mypage = () => {
   );
 };
 
-export default mypage;
+export default Mypage;

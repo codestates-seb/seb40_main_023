@@ -1,6 +1,9 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
+import { AppProps } from "next/app";
+import { useEffect } from "react";
 import { wrapper } from "../store/store";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import Head from "next/head";
 
 function App({ Component, pageProps }: AppProps) {
@@ -11,6 +14,15 @@ function App({ Component, pageProps }: AppProps) {
     ></meta>
     <title>새해복망고로 새해 복 많이 받고!</title>
   </Head>;
+
+  useEffect(() => {
+    AOS.init({
+      easing: "ease-out-cubic",
+      once: false,
+      offset: 100,
+    });
+  }, []);
+
   return <Component {...pageProps} />;
 }
 

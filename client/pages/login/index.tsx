@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 
-const login = () => {
+const Login = () => {
   return (
     <>
       <Header />
@@ -60,4 +60,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

@@ -1,4 +1,4 @@
-package Singleton.server.util;
+package seb40.main023.server.restdocs.util;
 
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;

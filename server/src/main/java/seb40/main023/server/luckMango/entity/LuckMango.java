@@ -1,8 +1,7 @@
 package seb40.main023.server.luckMango.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.member.entity.Member;
 
@@ -11,52 +10,41 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Getter @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Entity(name = "LUCKMANGO")
-public class LuckMango {
+@Entity(name = "LUCKMANGOS")
+public class LuckMango extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long luckMangoId;
-    public LuckMango(Long luckMangoId){
-        this.luckMangoId = luckMangoId;
-    }
-
     private String title;
     private String bgVideo;
     private String bgImage;
-    private int likeCount;
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime modifiedAt = LocalDateTime.now();
-
-    @OneToMany(mappedBy = "luckMango")
-    private List<LuckBag> luckBags = new ArrayList<>();
+    private int likeCount = 0;
 
     @ManyToOne
-    @JoinColumn(name = "memberId")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    public LuckMango(String title, String bgVideo, String bgImage){
-        this.title = title;
-        this.bgVideo = bgVideo;
-        this.bgImage = bgImage;
+    @OneToMany(mappedBy = "luckMango", cascade = CascadeType.ALL)
+    private List<LuckBag> luckBags = new ArrayList<>();
 
+    public void addLuckBag(LuckBag luckBag) {
+        luckBags.add(luckBag);
+        if (luckBag.getLuckMango() != this) {
+            luckBag.setLuckMango(this);
+        }
     }
 
-    public LuckMango(long memberId, String title, String bgVideo, String bgImage, int likeCount, LocalDateTime createdAt, LocalDateTime modifiedAt){
-        this.title = title;
-        this.bgVideo = bgVideo;
-        this.bgImage = bgImage;
-        this.likeCount = likeCount;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
-    }
-
-
-
-   public void addMember(Member member){
-       this.member= member;
-   }
+//    public LuckMango(long memberId, String title, String bgVideo, String bgImage, int likeCount, LocalDateTime createdAt, LocalDateTime modifiedAt){
+//        this.title = title;
+//        this.bgVideo = bgVideo;
+//        this.bgImage = bgImage;
+//        this.likeCount = likeCount;
+//    }
+//
+//   public void addMember(Member member){
+//       this.member= member;
+//   }
 }

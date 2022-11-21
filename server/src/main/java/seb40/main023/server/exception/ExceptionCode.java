@@ -10,7 +10,8 @@ public enum ExceptionCode {
     LUCKMANGO_NOT_FOUND(404, "LuckMango not found"),
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),
-    INVALID_MEMBER_STATUS(400, "Invalid member status");
+    INVALID_MEMBER_STATUS(400, "Invalid member status"),
+    LUCKBAG_NOT_FOUND(404,"LuckBag not found" );
 
     @Getter
     private int status;

@@ -209,6 +209,10 @@
   .mg-icon-share {
     @apply bg-[url(/images/ico/ico-share.svg)] bg-no-repeat bg-center;
   }
+  /* background */
+  .mg-background {
+    @apply bg-center bg-no-repeat;
+  }
 
   /* layout, flex */
 
@@ -248,5 +252,37 @@
 
   .mg-icon-button-round {
     @apply w-12 h-12 rounded-full bg-secondary-normal mg-flex-center;
+  }
+
+  .mg-icon-pagination {
+    @apply w-[10.5px] h-[10.5px] z-10 rounded-full mx-1;
+  }
+
+  .mg-floating-button {
+    @apply z-10 transition-all ease-in bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat mg-share-button;
+  }
+  .mg-floating-button-long {
+    @apply text-white pl-4 h-12 w-[212px] mg-flex-center justify-center bg-[center_left_1rem] rounded-[100px] relative transition-all ease-in bg-[length:25px_25px] my-1 bg-no-repeat;
+  }
+
+  .mg-arrow-button {
+    @apply bg-[url(/images/ico/ico-banner-arrow.svg)] w-6 h-6 mg-background;
+  }
+
+  .mg-modal-title {
+    @apply text-base font-semibold text-left w-[303px];
+  }
+
+  .mg-modal-input {
+    @apply w-[303px] rounded border border-mono-borderNormal p-3;
+  }
+  
+  /* Validation */
+  .mg-vaild-success {
+    @apply text-success-normal;
+  }
+  
+  .mg-vaild-error {
+    @apply text-danger-normal;
   }
 }

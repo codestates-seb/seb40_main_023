@@ -10,7 +10,7 @@ type formProps = {
   onSubmit: (form: { name: string; password: string }) => void;
 };
 
-const userModify = ({ handle }: any): React.ReactElement => {
+const UserModify = ({ handle }: any): React.ReactElement => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const modalState = useSelector(selectModalState);
@@ -20,19 +20,19 @@ const userModify = ({ handle }: any): React.ReactElement => {
 
   return (
     <div className="mg-layout">
-      <div className="flex flex-row text-left w-[400px]">
+      <div className="flex flex-row text-left w-[400px] ">
         <Image
           src={previous}
           alt=""
           className="cursor-pointer"
           onClick={() => handle(false)}
         />
-        <span>회원정보 수정</span>
+        <span className="flex pt-1 text-center">회원정보 수정</span>
       </div>
       {!modalState && (
         <div className="relative flex items-center justify-center rounded-full w-36 h-36 bg-primary-400">
           <Image src={Profile} alt="" />
-          <button className="absolute w-11 h-11 top-[90px] left-[110px]  mg-icon-card-edit mg-secondary-button-line bg-mono-700 hover:bg-mono-600"></button>
+          <button className="absolute w-11 h-11 top-[90px] left-[110px] mg-icon-card-edit mg-secondary-button-line bg-mono-700 hover:bg-mono-600"></button>
         </div>
       )}
       <div>
@@ -70,4 +70,4 @@ const userModify = ({ handle }: any): React.ReactElement => {
   );
 };
 
-export default userModify;
+export default UserModify;

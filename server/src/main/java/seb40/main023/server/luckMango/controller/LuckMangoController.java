@@ -1,5 +1,6 @@
 package seb40.main023.server.luckMango.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -19,27 +20,22 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/luckMango")
+@RequestMapping("/luckMango")
 @Validated
-@Slf4j
+@RequiredArgsConstructor
 public class LuckMangoController {
-    private LuckMangoService luckMangoService;
-    private LuckMangoMapper luckMangoMapper;
+    private final LuckMangoService luckMangoService;
+    private final LuckMangoMapper luckMangoMapper;
 
-    public LuckMangoController(LuckMangoService luckMangoService, LuckMangoMapper luckMangoMapper){
-        this.luckMangoService = luckMangoService;
-        this.luckMangoMapper = luckMangoMapper;
-
-    }
     //복망고 생성
     @PostMapping
     public ResponseEntity postLuckMango(@Valid @RequestBody LuckMangoPostDto luckMangoPostDto){
         LuckMango luckMango = luckMangoService.createLuckMango(luckMangoMapper.luckMangoPostDtoToluckMango(luckMangoPostDto));
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)),
+        return new ResponseEntity<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango),
                 HttpStatus.CREATED);
     }
+
     //복망고 수정
     @PatchMapping("/{luckMango-id}")
     public ResponseEntity patchLuckMango(@PathVariable("luckMango-id") long luckMangoId,
@@ -58,13 +54,12 @@ public class LuckMangoController {
     public ResponseEntity getLuckMango(@PathVariable("luckMango-id") long luckMangoId){
         LuckMango luckMango = luckMangoService.findLuckMango(luckMangoId);
         return new ResponseEntity<>(
-                new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)),
-                HttpStatus.OK);
+                new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)), HttpStatus.OK);
     }
 
     //회원이 가진 복망고 출력하기
     @GetMapping("/member")
-    public ResponseEntity getMeberLuckMango(@Positive @RequestParam("memberId") long memberId,@Positive @RequestParam("page") int page,
+    public ResponseEntity getMemberLuckMango(@Positive @RequestParam("memberId") long memberId,@Positive @RequestParam("page") int page,
                                             @Positive @RequestParam("size") int size,@RequestParam ("sort") String sort) {
         Page<LuckMango> pageLuckMangos = luckMangoService.searchLuckMango(memberId,page - 1, size,sort);
         List<LuckMango> luckMangos = pageLuckMangos.getContent();
@@ -74,7 +69,7 @@ public class LuckMangoController {
                         pageLuckMangos), HttpStatus.OK);
     }
 
-    //모든 복망고 가져오가
+    //모든 복망고 가져오기
     @GetMapping
     public ResponseEntity getLuckMangos(@Positive @RequestParam int page,
                                       @Positive @RequestParam int size) {
@@ -95,7 +90,4 @@ public class LuckMangoController {
         luckMangoService.deleteLuckMango(luckMangoId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-
-
 }

@@ -1,6 +1,7 @@
 package seb40.main023.server.luckMango.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 import seb40.main023.server.luckMango.dto.LuckMangoPatchDto;
 import seb40.main023.server.luckMango.dto.LuckMangoPostDto;
 import seb40.main023.server.luckMango.dto.LuckMangoResponseDto;

@@ -1,30 +1,27 @@
 package seb40.main023.server.review.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.member.entity.Member;
 
 import javax.persistence.*;
 
+@Getter @Setter
+@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Entity(name = "REVIEWS")
-public class Review {
+public class Review extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    public Review(Long reviewId){this.reviewId = reviewId;}
-
+    @Column(nullable = false)
     private String reviewBody;
 
     @ManyToOne
-    @JoinColumn(name = "memberId")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
-    public Review(long reviewId,long memberId,String reviewBody){
-        this.reviewBody = reviewBody;
-    }
 }

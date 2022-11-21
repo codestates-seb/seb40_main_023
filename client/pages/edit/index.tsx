@@ -1,15 +1,23 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import BokPreview from "../../components/BokPreview";
+import EditModal from "../../components/Modal/EditModal";
 
 const edit = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
+  const [modal, setModal] = useState(false);
+
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
   const handleGreetingChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setGreeting(e.target.value);
+  };
+
+  const handleModal = () => {
+    setModal(!modal);
   };
 
   return (
@@ -50,28 +58,20 @@ const edit = () => {
             handleGreetingChange(e);
           }}
           className="py-3 text-sm resize-none h-18 mb-7 mg-input"
-        ></textarea>
-        <div className="bg-center relative justify-center mg-border-2 h-[600px] mg-flex bg-[url(/images/content/pt-dots.png)]">
-          <div className="mg-width-size w-[101%] h-[60px] rounded-t-[10px] bg-mono-borderLight absolute top-[-2px] left-[-2px]"></div>
-          <div className="items-center mg-flex">
-            <div className="bg-white w-4/6 p-[0.8em] break-all text-sm border-dashed mg-border-2 border-mono-borderNormal">
-              {greeting
-                ? greeting
-                : "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자!"}
-            </div>
-            <button className="w-8/12 my-20 font-bold mg-white-button">
-              이미지 등록하기
-            </button>
-            <Image
-              src="/images/content/img-basket-guide.svg"
-              alt="basket guide"
-              width={350}
-              height={150}
-            />
-          </div>
-        </div>
+        />
+        <BokPreview greeting={greeting} />
       </div>
-      <button className="mt-8 mg-primary-button">완성!</button>
+      <button className="mt-8 mg-primary-button" onClick={handleModal}>
+        완성!
+      </button>
+      {modal && (
+        <EditModal
+          modal={modal}
+          setModal={setModal}
+          greeting={greeting}
+          title={title}
+        />
+      )}
     </div>
   );
 };

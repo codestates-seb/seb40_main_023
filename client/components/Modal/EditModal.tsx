@@ -3,14 +3,7 @@ import Image from "next/image";
 import BokPreview from "../BokPreview";
 import Link from "next/link";
 
-const EditModal = ({
-  modal,
-  setModal,
-  greeting,
-  title,
-  bgUrl,
-  handler,
-}: any) => {
+const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
   const handleModal = () => {
     setModal(!modal);
   };
@@ -35,7 +28,7 @@ const EditModal = ({
               </div>
             </div>
             <div>{title}</div>
-            <BokPreview greeting={greeting} bgUrl={bgUrl} handler={handler} />
+            <BokPreview greeting={greeting} bgUrl={bgUrl} />
           </main>
           <div className="flex justify-around p-2 mt-1">
             <button className="mg-negative-button-round" onClick={handleModal}>

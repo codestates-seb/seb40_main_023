@@ -8,12 +8,11 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement | null>) => {
     // if (!e.target.files && bgImg) {
     //   window.URL.revokeObjectURL(bgImg);
-
     // }
 
     if (e.target.files?.length) {
       setBgImg(URL.createObjectURL(e.target.files[0]));
-      setBgUrl(bgImg);
+      setBgUrl(URL.createObjectURL(e.target.files[0]));
     }
   };
 

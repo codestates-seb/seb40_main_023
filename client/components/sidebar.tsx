@@ -2,23 +2,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectSidebarState, setSidebarState } from "../store/sidebarSlice";
 import Link from "next/link";
 
-const Sidebar = () => {
+const Sidebar = ({ toggleHandler, toggleState }: any) => {
   const dispatch = useDispatch();
   const sidebarState = useSelector(selectSidebarState);
-
-  const hideSidebar = () => {
-    dispatch(setSidebarState(false));
-  };
 
   return (
     <>
       <div
-        className={sidebarState ? "mg-sidebar-dim" : "hidden"}
-        onClick={hideSidebar}
+        className={toggleState ? "mg-sidebar-dim" : "hidden"}
+        onClick={toggleHandler}
       ></div>
       <div
         className={
-          sidebarState
+          toggleState
             ? "mg-sidebar mg-sidebar-show"
             : "mg-sidebar mg-sidebar-hide"
         }

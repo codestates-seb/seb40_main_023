@@ -107,7 +107,7 @@
 
   /* Sidebar */
   .mg-sidebar {
-    @apply fixed top-0 bottom-0 right-0 h-screen pt-[80px] px-6 text-right bg-white border-l shadow-context border-mono-borderLight z-10;
+    @apply fixed min-w-[150px] top-0 bottom-0 right-0 h-screen pt-[80px] px-6 text-right bg-white border-l shadow-context border-mono-borderLight z-10;
   }
 
   .mg-sidebar-show {
@@ -276,12 +276,12 @@
   .mg-modal-input {
     @apply w-[303px] rounded border border-mono-borderNormal p-3;
   }
-  
+
   /* Validation */
   .mg-vaild-success {
     @apply text-success-normal;
   }
-  
+
   .mg-vaild-error {
     @apply text-danger-normal;
   }

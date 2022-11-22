@@ -16,6 +16,9 @@ function MyDocument() {
           crossOrigin="true"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css"
         />
+        <noscript>
+          <link href="./styles/aos-noscript.css" rel="stylesheet" />
+        </noscript>
       </Head>
       <body>
         <Main />

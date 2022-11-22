@@ -7,6 +7,13 @@
   src: url("../public/fonts/HSSaemaul-Regular.ttf");
 }
 
+/* For Toast */
+.Toastify__toast-body {
+  font-family: "Pretendard";
+  white-space: pre-line;
+}
+/* For Toast */
+
 @layer components {
   /* Common */
   body {
@@ -35,14 +42,56 @@
   }
 
   /* For Slick (main) */
+  .mg-review-card .slick-list {
+    @apply flex w-full flex-col items-center justify-center min-h-[250px];
+  }
+
   .mg-review-card .slick-slide {
-    @apply relative z-0 origin-center will-change-transform;
+    @apply z-0 h-full;
   }
 
   .mg-review-card .slick-slide.slick-current {
-    @apply z-10 scale-125;
+    @apply relative z-10;
   }
-  /* End Slick */
+
+  .mg-review-card .slide {
+    @apply w-full transition-transform duration-300 scale-75 will-change-transform opacity-70;
+  }
+
+  .mg-review-card .active-slide {
+    @apply w-[90%] ml-[5%] mobile:w-[140%] mobile:ml-[-20%];
+  }
+
+  .mg-review-card .mg-slide-wrapper {
+    @apply pb-6 justify-between min-h-[220px] flex flex-col bg-white p-8 rounded-[20px] shadow-review;
+  }
+
+  .mg-review-card .slick-slide .mg-slide-wrapper > div:first-child {
+    @apply line-clamp-5;
+  }
+
+  .mg-review-card
+    .slick-slide.slick-current
+    .mg-slide-wrapper
+    > div:first-child {
+    @apply line-clamp-none;
+  }
+
+  .mg-review-card .mg-slick-prev {
+    @apply absolute top-[50%] translate-y-[-100%] left-0 z-50 cursor-pointer text-xl;
+  }
+
+  .mg-review-card .mg-slick-next {
+    @apply absolute top-[50%] translate-y-[-100%] right-0 z-50 cursor-pointer text-xl;
+  }
+
+  .mg-review-card .slick-dots li.slick-active button:before {
+    @apply text-primary-normal;
+  }
+  .mg-review-card .slick-dots li button:before {
+    @apply text-[14px] opacity-10;
+  }
+  /* // For Slick (main) */
 
   .mg-gallery-filter {
     @apply flex flex-row justify-center mb-8 max-w-[220px] w-full;
@@ -69,8 +118,32 @@
     @apply translate-x-[100%];
   }
 
-  .mg-gallery-card {
-    @apply flex justify-center w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all;
+  .mg-sidebar-dim {
+    @apply fixed z-10 w-full h-full bg-transparent;
+  }
+
+  .mg-default-card {
+    @apply cursor-pointer relative flex justify-center w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
+  }
+
+  .mg-card-contents {
+    @apply flex flex-col w-full;
+  }
+
+  .mg-card-desc {
+    @apply px-4 py-3 text-base text-right text-ellipsis;
+  }
+
+  .mg-card-image {
+    @apply w-full bg-[url(/dummy/user1.png)] bg-cover h-[150px] bg-center group-hover:blur-sm;
+  }
+
+  .mg-card-overlay {
+    @apply py-[2rem] px-[2.6rem] duration-300 absolute top-0 bottom-0 left-0 right-0 grid items-center w-full h-full grid-cols-2 p-8 transition-all opacity-0 will-change-auto bg-primary-normal/90 group-hover:opacity-100;
+  }
+
+  .mg-card-button {
+    @apply m-auto border border-white w-[55px] h-[55px] bg-transparent hover:bg-[rgba(0,0,0,.02)] rounded-full bg-no-repeat bg-center;
   }
 
   /* Footer */
@@ -103,10 +176,6 @@
     @apply px-10 py-3 text-white rounded-full bg-negative-normal hover:bg-negative-hover;
   }
 
-  .mg-transparent-button-circle {
-    @apply w-[48px] h-[48px] bg-transparent hover:bg-[rgba(0,0,0,.1)] rounded-full;
-  }
-
   .mg-secondary-button-circle {
     @apply w-[48px] h-[48px] bg-secondary-normal hover:bg-secondary-hover rounded-full;
   }
@@ -124,27 +193,7 @@
     @apply px-4 py-2 border rounded-md border-mono-borderLight placeholder:text-mono-textLight placeholder:font-light;
   }
 
-  .mg-default-card {
-    @apply w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all;
-  }
-
   /* Icons */
-  .mg-icon-card-edit {
-    @apply bg-[url(/images/ico/ico-card-edit.svg)] bg-no-repeat bg-center;
-  }
-
-  .mg-icon-card-delete {
-    @apply bg-[url(/images/ico/ico-card-delete.svg)] bg-no-repeat bg-center;
-  }
-
-  .mg-icon-card-url {
-    @apply bg-[url(/images/ico/ico-card-url.svg)] bg-no-repeat bg-center;
-  }
-
-  .mg-icon-card-qr {
-    @apply bg-[url(/images/ico/ico-card-qr.svg)] bg-no-repeat bg-center;
-  }
-
   .mg-icon-sound-on {
     @apply bg-[url(/images/content/ico-sound-on.svg)] bg-no-repeat bg-center;
   }
@@ -227,11 +276,17 @@
   .mg-modal-input {
     @apply w-[303px] rounded border border-mono-borderNormal p-3;
   }
+
+  .mg-bok-layout {
+    @apply w-[400px] bg-center relative justify-center mg-border-2 h-[600px] mg-flex;
+  }
+
   /* Validation */
 
   .mg-vaild-success {
     @apply text-success-normal;
   }
+
   .mg-vaild-error {
     @apply text-danger-normal;
   }

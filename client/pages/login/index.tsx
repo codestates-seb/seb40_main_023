@@ -1,10 +1,10 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import Footer from "../../components/Footer";
-import Header from "../../components/header";
-import Sidebar from "../../components/sidebar";
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
 
-const login = () => {
+const Login = () => {
   return (
     <>
       <Header />
@@ -60,4 +60,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

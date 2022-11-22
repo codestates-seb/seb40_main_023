@@ -10,7 +10,7 @@ type formProps = {
   onSubmit: (form: { name: string; password: string }) => void;
 };
 
-const userModify = ({ handle }: any): React.ReactElement => {
+const UserModify = ({ handle }: any): React.ReactElement => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const modalState = useSelector(selectModalState);
@@ -70,4 +70,4 @@ const userModify = ({ handle }: any): React.ReactElement => {
   );
 };
 
-export default userModify;
+export default UserModify;

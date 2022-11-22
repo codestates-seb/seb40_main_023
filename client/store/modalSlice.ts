@@ -22,3 +22,5 @@ export const modalSlice = createSlice({
 export const { setModalState } = modalSlice.actions;
 export const selectModalState = (state: AppState) => state.modal.isOpenState;
 export default modalSlice.reducer;
+
+//전역 상태 보류

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import Profile from "../public/dummy/mypage-profile.png";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { selectModalState, setModalState } from "../store/modalSlice";
+import Edit from "../public/images/ico/ico-card-edit.svg";
 
 type formProps = {
   onSubmit: (form: { name: string; password: string }) => void;
@@ -19,23 +20,27 @@ const UserModify = ({ handle }: any): React.ReactElement => {
   };
 
   return (
-    <div className="mg-layout">
-      <div className="flex flex-row text-left w-[400px] ">
+    <div className="mg-layout w-[500px]">
+      <div className="flex flex-row w-full pt-4 text-left">
         <Image
           src={previous}
           alt=""
           className="cursor-pointer"
           onClick={() => handle(false)}
         />
-        <span className="flex pt-1 text-center">회원정보 수정</span>
+        <span className="flex pt-1">회원정보 수정</span>
       </div>
-      {!modalState && (
-        <div className="relative flex items-center justify-center rounded-full w-36 h-36 bg-primary-400">
-          <Image src={Profile} alt="" />
-          <button className="absolute w-11 h-11 top-[90px] left-[110px] mg-icon-card-edit mg-secondary-button-line bg-mono-700 hover:bg-mono-600"></button>
-        </div>
-      )}
-      <div>
+      <div className="pt-10">
+        {!modalState && (
+          <div className="relative flex items-center justify-center rounded-full w-36 h-36 bg-primary-400">
+            <Image src={Profile} alt="" />
+            <button className="absolute w-11 h-11 top-[90px] left-[110px] mg-secondary-button-line bg-mono-700 hover:bg-mono-600">
+              <Image src={Edit} alt="" className="ml-2" />
+            </button>
+          </div>
+        )}
+      </div>
+      <div className="pt-5">
         <label htmlFor="" className="mg-default-label">
           이름
         </label>
@@ -45,7 +50,7 @@ const UserModify = ({ handle }: any): React.ReactElement => {
           className="mg-default-input w-[360px]"
         />
       </div>
-      <div>
+      <div className="pt-4">
         <label htmlFor="" className="mg-default-label">
           비밀번호
         </label>
@@ -55,7 +60,7 @@ const UserModify = ({ handle }: any): React.ReactElement => {
           className="mg-default-input w-[360px]"
         />
       </div>
-      <div>
+      <div className="pt-4">
         <label htmlFor="" className="mg-default-label">
           비밀번호 확인
         </label>

@@ -198,6 +198,10 @@
     @apply bg-[url(/images/content/ico-sound-on.svg)] bg-no-repeat bg-center;
   }
 
+  .mg-icon-card-edit {
+    @apply bg-[url(/images/content/ico-card-edit.svg)] bg-no-repeat bg-center;
+  }
+
   .mg-icon-sound-off {
     @apply bg-[url(/images/content/ico-sound-off.svg)] bg-no-repeat bg-center;
   }
@@ -276,12 +280,12 @@
   .mg-modal-input {
     @apply w-[303px] rounded border border-mono-borderNormal p-3;
   }
-  
+
   /* Validation */
   .mg-vaild-success {
     @apply text-success-normal;
   }
-  
+
   .mg-vaild-error {
     @apply text-danger-normal;
   }

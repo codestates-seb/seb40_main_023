@@ -75,35 +75,35 @@ const Signup = () => {
   );
 
   return (
-    <>
+    <div>
       <Header />
       <aside>
         <Sidebar />
       </aside>
-      <div className="mg-layout">
-        <div className="flex flex-col max-w-[360px] justify-center text-center">
-          <div className="mt-[80px] text-3xl whitespace-pre-line">
+      <div className="flex flex-col items-center w-full h-full min-h-screen">
+        <div className="flex flex-col max-w-[360px] justify-center text-center mb-10">
+          <div className="mt-[100px] text-4xl whitespace-pre-line">
             {"10초 안에 가입하고 \n 복망고 만들러 가기!"}
           </div>
-          <h2 className="mt-4">
+          <div className="mt-4 text-lg">
             1분 안에 나만의 복망고 페이지를 생성해 보세요!
-          </h2>
+          </div>
           <div className="px-[20px]">
-            <button className="w-[210px] px-20 py-3 mt-5 text-black rounded bg-social-kakaoNormal hover:bg-social-kakaoHover">
+            <button className="w-[230px] py-3 mt-6 text-black rounded bg-social-kakaoNormal hover:bg-social-kakaoHover">
               카카오톡 회원가입
             </button>
-            <button className="w-[210px] px-20 py-3 mt-3 text-white rounded bg-social-githubNormal hover:bg-social-githubHover">
+            <button className="w-[230px] py-3 mt-4 text-white rounded bg-social-githubNormal hover:bg-social-githubHover">
               깃허브 회원가입
             </button>
-            <button className="w-[210px] px-20 py-3 mt-3 text-white rounded bg-social-naverNormal hover:bg-social-naverHover">
+            <button className="w-[230px] py-3 mt-4 text-white rounded bg-social-naverNormal hover:bg-social-naverHover">
               네이버 회원가입
             </button>
-            <form className="mt-10">
-              <div>
+            <form>
+              <div className="mt-11">
                 <label htmlFor="id" className="text-left mg-default-label">
                   아이디
                 </label>
-                <div className="flex flex-col">
+                <div className="flex flex-col ">
                   <input
                     id="id"
                     type="text"
@@ -120,7 +120,7 @@ const Signup = () => {
                   />
                   {id.length > 0 && (
                     <span
-                      className={`${
+                      className={`text-left text-sm ${
                         isId ? "mg-vaild-success" : "mg-vaild-error"
                       }`}
                     >
@@ -128,10 +128,10 @@ const Signup = () => {
                     </span>
                   )}
                 </div>
-                <div className="mt-3">
+                <div className="mt-5">
                   <label
                     htmlFor="password"
-                    className="text-left mg-default-label "
+                    className="text-left mg-default-label"
                   >
                     비밀번호
                   </label>
@@ -152,7 +152,7 @@ const Signup = () => {
                     />
                     {password.length > 0 && (
                       <span
-                        className={`${
+                        className={`text-left text-sm ${
                           isPassword ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >
@@ -161,7 +161,7 @@ const Signup = () => {
                     )}
                   </div>
                 </div>
-                <div className="mt-3">
+                <div className="mt-5">
                   <label
                     htmlFor="passwordconfirm"
                     className="text-left mg-default-label "
@@ -185,7 +185,7 @@ const Signup = () => {
                     />
                     {passwordConfirm.length > 0 && (
                       <span
-                        className={`${
+                        className={`text-left text-sm ${
                           isPasswordConfirm
                             ? "mg-vaild-success"
                             : "mg-vaild-error"
@@ -199,7 +199,7 @@ const Signup = () => {
               </div>
             </form>
             <button
-              className={`mt-9 mb-5 w-full ${
+              className={`mt-10 w-full ${
                 !(isId && isPassword && isPasswordConfirm)
                   ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"
                   : "mg-primary-button"
@@ -211,10 +211,8 @@ const Signup = () => {
           </div>
         </div>
       </div>
-      <footer className="relative flex w-full">
-        <Footer />
-      </footer>
-    </>
+      <Footer />
+    </div>
   );
 };
 

@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import UserModify from "../../components/UserModify";
 import BokCard from "../../components/BokCard";
 import Profile from "../../public/dummy/mypage-profile.png";
+import Edit from "../../public/images/ico/ico-card-edit.svg";
 import Image from "next/image";
-import { dummy } from "./dummy";
 import { useDispatch, useSelector } from "react-redux";
 import { selectModalState, setModalState } from "../../store/modalSlice";
 import DefaultModal from "../../components/Modal/DefaultModal";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
+import GalleryItem from "../../components/main/gallery/GalleryItem";
 
 const Mypage = () => {
+  //나중에 카운트 바꾸기 (한 유저 복망고 숫자로)
+  const count = 12;
   const [click, setClick] = useState(false);
   const dispatch = useDispatch();
   const modalState = useSelector(selectModalState);
@@ -22,7 +25,7 @@ const Mypage = () => {
   };
 
   return (
-    <>
+    <div>
       {!modalState && (
         <div>
           <Header />
@@ -31,7 +34,7 @@ const Mypage = () => {
           </aside>
         </div>
       )}
-      <div className="mg-layout">
+      <div className="flex flex-col items-center w-full h-full min-h-screen pt-10">
         {modalState && (
           <DefaultModal
             title={"지금까지 받은 덕담도 모두 삭제됩니다."}
@@ -49,10 +52,10 @@ const Mypage = () => {
               <Image src={Profile} alt="" />
             </div>
             {!click ? (
-              <button
-                className="absolute w-11 h-11 top-[90px] left-[100px] mg-icon-card-edit mg-secondary-button-line bg-mono-700 hover:bg-mono-600"
+              <div
+                className="absolute w-11 h-11 top-[90px] left-[100px] mg-secondary-button-line bg-mono-700 hover:bg-mono-600"
                 onClick={handleClick}
-              />
+              ></div>
             ) : null}
 
             <div className="flex flex-col justify-center pl-4">
@@ -70,25 +73,25 @@ const Mypage = () => {
             </div>
           </div>
         )}
-        <div className="flex flex-row col-span-1 z-1">
+        <div className="flex flex-row col-span-1">
           {click ? (
             <UserModify handle={handleClick} />
           ) : (
-            <div className="flex flex-col max-w-[500px] w-full">
-              <div className="flex mt-10 text-xl">나의 복망고 리스트</div>
-              <div className="grid grid-cols-2 gap-2">
-                <BokCard data={dummy} />
+            <div className="flex flex-col max-w-[500px] w-full mb-5">
+              <div className="flex mt-[40px] mb-[10px] text-2xl">
+                나의 복망고 리스트
+              </div>
+              <div className="grid w-full grid-cols-2 gap-2 tablet:grid-cols-2">
+                {Array.from({ length: count }).map((el, idx) => (
+                  <GalleryItem key={idx} />
+                ))}
               </div>
             </div>
           )}
         </div>
       </div>
-      {!modalState && (
-        <footer className="absolute bottom-0 flex w-full">
-          <Footer />
-        </footer>
-      )}
-    </>
+      {!modalState && <Footer />}
+    </div>
   );
 };
 

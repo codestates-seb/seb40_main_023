@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useState } from "react";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/Modal/EditModal";
@@ -7,6 +6,7 @@ const edit = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
   const [modal, setModal] = useState(false);
+  const [bgUrl, setBgUrl] = useState("");
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -59,7 +59,7 @@ const edit = () => {
           }}
           className="py-3 text-sm resize-none h-18 mb-7 mg-input"
         />
-        <BokPreview greeting={greeting} />
+        <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
       </div>
       <button className="mt-8 mg-primary-button" onClick={handleModal}>
         완성!
@@ -70,6 +70,7 @@ const edit = () => {
           setModal={setModal}
           greeting={greeting}
           title={title}
+          bgUrl={bgUrl}
         />
       )}
     </div>

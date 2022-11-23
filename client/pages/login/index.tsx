@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import Sidebar from "../../components/sidebar";
+import Sidebar from "../../components/Sidebar";
 
 const Login = () => {
   return (

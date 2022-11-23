@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectModalState, setModalState } from "../../store/modalSlice";
 import DefaultModal from "../../components/Modal/DefaultModal";
 import Header from "../../components/Header";
-import Sidebar from "../../components/sidebar";
+import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import GalleryItem from "../../components/main/gallery/GalleryItem";
 

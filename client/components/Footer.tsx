@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="w-full px-4 py-6 pb-8 border-t  border-mono-borderNormal bg-mono-bgFooter">
+    <footer className="w-full px-4 py-6 pb-8 border-t border-mono-borderNormal bg-mono-bgFooter">
       <ul className="grid grid-cols-1 tablet:grid-cols-2 text-mono-textFooter">
         <div className="mg-footer-github-col tablet:justify-end">
           <p className="mg-footer-github-title">FE</p>

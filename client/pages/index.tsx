@@ -1,4 +1,4 @@
-import Header from "../components/header";
+import Header from "../components/Header";
 import Sidebar from "../components/sidebar";
 import Countdown from "../components/main/info/Countdown";
 import Section from "../components/main/Section";

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectSidebarState, setSidebarState } from "../store/sidebarSlice";
-import Sidebar from "./sidebar";
+import Sidebar from "./Sidebar";
 import Link from "next/link";
 import Image from "next/image";
 

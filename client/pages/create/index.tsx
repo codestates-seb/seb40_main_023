@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/Modal/EditModal";
 
-const edit = () => {
+const create = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
   const [modal, setModal] = useState(false);
@@ -77,4 +77,4 @@ const edit = () => {
   );
 };
 
-export default edit;
+export default create;

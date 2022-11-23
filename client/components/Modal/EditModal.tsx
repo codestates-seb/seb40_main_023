@@ -7,6 +7,8 @@ const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
   const handleModal = () => {
     setModal(!modal);
   };
+
+  const createLuckMg = () => {};
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-50 bg-mono-400 ">
       <div className="w-[437px] h-[780px] absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border">
@@ -27,7 +29,7 @@ const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
                 제목은 노출되지 않아요
               </div>
             </div>
-            <div>{title}</div>
+            <div className="w-[400px]">{title}</div>
             <BokPreview greeting={greeting} bgUrl={bgUrl} />
           </main>
           <div className="flex justify-around p-2 mt-1">
@@ -35,7 +37,10 @@ const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
               취소
             </button>
             <Link href="/edit/complete">
-              <button className="rounded-full mg-primary-button">
+              <button
+                className="rounded-full mg-primary-button"
+                onClick={createLuckMg}
+              >
                 복망고 만들기
               </button>
             </Link>

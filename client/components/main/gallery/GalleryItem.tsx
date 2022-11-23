@@ -1,9 +1,12 @@
 import React from "react";
 import Link from "next/link";
 
-const GalleryItem = ({ ...items }) => {
+const GalleryItem = ({ mypage, ...items }: any) => {
   return (
-    <Link href={"https://www.naver.com"} className="group mg-default-card">
+    <Link
+      href={"https://www.naver.com"}
+      className={`group ${mypage} mg-default-card`}
+    >
       <div className="mg-card-contents">
         <div className="mg-card-image"></div>
         <div className="mg-card-desc">

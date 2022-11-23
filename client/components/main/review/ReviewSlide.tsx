@@ -3,7 +3,7 @@ import ReviewItem from "./ReviewItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ReviewDataProps } from "../../../types/basic";
+import { ReviewDataProps } from "../../../types/main";
 
 function ReviewSlide({ reviewData }: any) {
   const NextArrow = ({ onClick }: any) => {

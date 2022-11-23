@@ -1,13 +1,29 @@
 import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AppProps } from "next/app";
+import { useEffect } from "react";
+import { wrapper } from "../store/store";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Head from "next/head";
 
-const reactQueryClient = new QueryClient();
+function App({ Component, pageProps }: AppProps) {
+  <Head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    ></meta>
+    <title>새해복망고로 새해 복 많이 받고!</title>
+  </Head>;
 
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <QueryClientProvider client={reactQueryClient}>
-      <Component {...pageProps} />
-    </QueryClientProvider>
-  );
+  useEffect(() => {
+    AOS.init({
+      easing: "ease-out-cubic",
+      once: false,
+      offset: 100,
+    });
+  }, []);
+
+  return <Component {...pageProps} />;
 }
+
+export default wrapper.withRedux(App);

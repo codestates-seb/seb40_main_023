@@ -1,23 +1,17 @@
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import Profile from "../public/dummy/mypage-profile.png";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { selectModalState, setModalState } from "../store/modalSlice";
 
-type formProps = {
-  onSubmit: (form: { name: string; password: string }) => void;
-};
-
 const UserModify = ({ handle }: any): React.ReactElement => {
-  const [text, setText] = useState("");
-  const dispatch = useDispatch();
-  const modalState = useSelector(selectModalState);
-  const handleTextField = (e: any) => {
-    setText(e.target.value);
-  };
+  //프로필 사진 영역
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [bgImg, setBgImg] = useState("");
+  const [bgUrl, setBgUrl] = useState("");
 
+  //모달 영역
+  const modalState = useSelector(selectModalState);
   //폼 영역
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -26,6 +20,17 @@ const UserModify = ({ handle }: any): React.ReactElement => {
     useState<string>("");
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
+
+  const uploadProfile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
+    if (e.target.files?.length) {
+      setBgImg(URL.createObjectURL(e.target.files[0]));
+      setBgUrl(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  const uploadImageButtonClick = () => {
+    inputRef.current?.click();
+  };
 
   const onChangePassword = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,10 +83,31 @@ const UserModify = ({ handle }: any): React.ReactElement => {
         {!modalState && (
           <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
             <div>
-              <Image src={Profile} alt="프로필" />
-            </div>
-            <div className="flex justify-center mg-mypage-overlay">
-              <button className="bg-[url(/images/ico/ico-mypage-edit.svg)] mg-mypage-button"></button>
+              <input
+                type="file"
+                accept="image/*"
+                ref={inputRef}
+                onChange={uploadProfile}
+                className="hidden"
+              />
+              <div
+                style={
+                  bgUrl
+                    ? { backgroundImage: `url(${bgUrl})` }
+                    : { backgroundImage: `url(${bgImg})` }
+                }
+                className={
+                  bgImg || bgUrl
+                    ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
+                    : "bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                }
+              ></div>
+              <div className="flex justify-center mg-mypage-overlay">
+                <button
+                  className="bg-[url(/images/ico/ico-mypage-edit.svg)] mg-mypage-button"
+                  onClick={uploadImageButtonClick}
+                ></button>
+              </div>
             </div>
           </div>
         )}

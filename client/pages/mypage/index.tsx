@@ -47,28 +47,29 @@ const Mypage = () => {
           />
         )}
         {!modalState && (
-          <div className="max-w-[500px] w-full relative flex mt-16">
+          <div className="max-w-[400px] w-full relative flex mt-16">
             <div>
-              <Image src={Profile} alt="" />
+              <Image src={Profile} alt="프로필" />
             </div>
-            {!click ? (
-              <div
-                className="absolute w-11 h-11 top-[90px] left-[100px] mg-secondary-button-line bg-mono-700 hover:bg-mono-600"
-                onClick={handleClick}
-              ></div>
-            ) : null}
-
             <div className="flex flex-col justify-center pl-4">
-              <div className="text-3xl">카리나</div>
-              <div
-                className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
-                onClick={() =>
-                  modalState
-                    ? dispatch(setModalState(false))
-                    : dispatch(setModalState(true))
-                }
-              >
-                회원탈퇴
+              <div className="text-3xl">유저 아이디</div>
+              <div className="flex gap-5 text-xl">
+                <div
+                  className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
+                  onClick={handleClick}
+                >
+                  정보수정
+                </div>
+                <div
+                  className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
+                  onClick={() =>
+                    modalState
+                      ? dispatch(setModalState(false))
+                      : dispatch(setModalState(true))
+                  }
+                >
+                  회원탈퇴
+                </div>
               </div>
             </div>
           </div>
@@ -77,15 +78,17 @@ const Mypage = () => {
           {click ? (
             <UserModify handle={handleClick} />
           ) : (
-            <div className="flex flex-col max-w-[500px] w-full mb-5">
+            <div className="flex flex-col min-w-[400px] w-full mb-5">
               <div className="flex mt-[40px] mb-[10px] text-2xl">
                 나의 복망고 리스트
               </div>
-              <div className="grid w-full grid-cols-2 gap-2 tablet:grid-cols-2">
-                {Array.from({ length: count }).map((el, idx) => (
-                  <GalleryItem key={idx} />
-                ))}
-              </div>
+              {!modalState && (
+                <div className="grid w-full grid-cols-2 gap-2 tablet:grid-cols-2">
+                  {Array.from({ length: count }).map((el, idx) => (
+                    <GalleryItem key={idx} mypage={"mg-mypage-card"} />
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>

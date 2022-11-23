@@ -126,6 +126,10 @@
     @apply cursor-pointer relative flex justify-center w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
   }
 
+  .mg-mypage-card {
+    @apply cursor-pointer relative flex justify-center w-[190px] h-[170px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
+  }
+
   .mg-card-contents {
     @apply flex flex-col w-full;
   }
@@ -142,8 +146,16 @@
     @apply py-[2rem] px-[2.6rem] duration-300 absolute top-0 bottom-0 left-0 right-0 grid items-center w-full h-full grid-cols-2 p-8 transition-all opacity-0 will-change-auto bg-primary-normal/90 group-hover:opacity-100;
   }
 
+  .mg-mypage-overlay {
+    @apply absolute top-0 bottom-0 left-0 right-0 grid items-center grid-cols-2 p-8 text-center transition-all duration-300 rounded-full opacity-0 w-36 h-36 will-change-auto bg-mono-500/90 group-hover:opacity-100;
+  }
+
   .mg-card-button {
     @apply m-auto border border-white w-[55px] h-[55px] bg-transparent hover:bg-[rgba(0,0,0,.02)] rounded-full bg-no-repeat bg-center;
+  }
+
+  .mg-mypage-button {
+    @apply border border-white w-[40px] h-[40px] bg-transparent hover:bg-[rgba(0,0,0,.02)] rounded-full bg-no-repeat bg-center;
   }
 
   /* Footer */
@@ -204,6 +216,10 @@
 
   .mg-icon-sound-off {
     @apply bg-[url(/images/content/ico-sound-off.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-mypage-edit {
+    @apply bg-[url(/images/content/ico-mypage-edit.svg)] bg-no-repeat bg-center;
   }
 
   .mg-icon-capture {

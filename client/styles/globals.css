@@ -297,7 +297,12 @@
     @apply w-[303px] rounded border border-mono-borderNormal p-3;
   }
 
+  .mg-bok-layout {
+    @apply w-[400px] bg-center relative justify-center mg-border-2 h-[600px] mg-flex;
+  }
+
   /* Validation */
+
   .mg-vaild-success {
     @apply text-success-normal;
   }

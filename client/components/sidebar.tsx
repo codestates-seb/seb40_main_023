@@ -6,6 +6,10 @@ const Sidebar = ({ toggleHandler, toggleState }: any) => {
   const dispatch = useDispatch();
   const sidebarState = useSelector(selectSidebarState);
 
+  const hideSidebar = () => {
+    dispatch(setSidebarState(false));
+  };
+
   return (
     <>
       <div

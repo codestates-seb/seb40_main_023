@@ -4,7 +4,7 @@ import Image from "next/image";
 import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
 import LongModal from "../../components/Modal/LongModal";
-import LetterModal from "../../components/Modal/letterModal";
+import LetterModal from "../../components/Modal/LetterModal";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);

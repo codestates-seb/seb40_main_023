@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const useFetch = async (endpoint: string) => {
+export const useFetch = async (url: string) => {
   try {
-    const response = await axios.get(endpoint);
+    const response = await axios.get(url);
     console.log(response);
     return response.data;
   } catch (error) {

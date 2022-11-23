@@ -6,23 +6,13 @@ import { useFetch } from "../../../api/useFetch";
 
 const ServiceReview = () => {
   const [reviewData, setReviewData] = useState([]);
-  // const reviewData = [
-  //   {
-  //     reviewId: 1,
-  //     reviewBody: "후기내용",
-  //     memberId: 0,
-  //     createdAt: "2022-11-21T06:08:40.561186",
-  //     modifiedAt: "2022-11-21T06:08:40.561186",
-  //   },
-  // ];
-
-  const getReview = async () => {
-    const res = await useFetch("/api/review?page=1&size=10");
-    console.log(res);
-    setReviewData(res?.data);
-  };
 
   useEffect(() => {
+    const getReview = async () => {
+      const res = await useFetch("/api/review?page=1&size=10");
+      console.log(res);
+      setReviewData(res.data);
+    };
     getReview();
   }, []);
 

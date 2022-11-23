@@ -3,10 +3,9 @@ import ReviewItem from "./ReviewItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { ReviewDataProps } from "../../../types/basic";
 
 function ReviewSlide({ reviewData }: any) {
-  const [imageIndex, setImageIndex] = useState(0);
-
   const NextArrow = ({ onClick }: any) => {
     return (
       <div
@@ -36,7 +35,6 @@ function ReviewSlide({ reviewData }: any) {
     focusOnSelect: true,
     nextArrow: <NextArrow onClick />,
     prevArrow: <PrevArrow onClick />,
-    beforeChange: (current: any, next: any) => setImageIndex(next),
     adaptiveHeight: true,
     draggable: true,
     responsive: [
@@ -59,8 +57,9 @@ function ReviewSlide({ reviewData }: any) {
 
   return (
     <Slider {...settings} className="flex flex-col items-center justify-center">
-      {reviewData.map((review: any, idx: number) => (
-        <ReviewItem key={idx} {...review} currentIdx={imageIndex} />
+      {console.log(reviewData)}
+      {reviewData.map((review: ReviewDataProps, idx: number) => (
+        <ReviewItem key={idx} {...review} />
       ))}
     </Slider>
   );

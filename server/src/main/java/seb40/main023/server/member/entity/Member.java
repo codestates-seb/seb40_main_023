@@ -1,6 +1,7 @@
 package seb40.main023.server.member.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.review.entity.Review;

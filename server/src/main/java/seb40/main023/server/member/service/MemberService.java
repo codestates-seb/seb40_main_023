@@ -30,16 +30,14 @@ public class MemberService {
 
     public Page<Member> findMembers(int page, int size){
         return memberRepository.findAll(PageRequest.of(page, size,
-                Sort.by("memberId")));
+                Sort.by("memberId").descending()));
     }
 
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getName()).ifPresent(name -> findMember.setName(name));
-        Optional.ofNullable(member.getEmail()).ifPresent(email -> findMember.setEmail(email));
         Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(password));
-        Optional.ofNullable(member.getMemberStatus()).ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
         Optional.ofNullable(member.getImgUrl()).ifPresent(imgUrl -> findMember.setImgUrl(imgUrl));
 
         findMember.setModifiedAt(LocalDateTime.now());

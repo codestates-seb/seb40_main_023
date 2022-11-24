@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Greeting from "./Greeting";
 
 const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
   const [bgImg, setBgImg] = useState("");
@@ -38,18 +39,28 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
         }
       >
         <div className="mg-width-size w-[101%] h-[60px] rounded-t-[10px] bg-mono-borderLight absolute top-[-2px] left-[-2px]"></div>
-        <div className="items-center mg-flex">
-          <div className="bg-white w-4/6 p-[0.8em] break-all text-sm border-dashed mg-border-2 border-mono-borderNormal">
-            {greeting
-              ? greeting
-              : "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자!"}
+        <div className="items-center justify-between mg-flex mg-width-size h-[600px]">
+          {/* <div className="bg-white w-4/6 p-[0.8em] break-all text-sm border-dashed mg-border-2 border-mono-borderNormal"> */}
+          <div className="absolute flex justify-center mg-width-size mt-[95.99px]">
+            <Greeting
+              content={
+                greeting
+                  ? greeting
+                  : "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자!"
+              }
+              edit={edit}
+            />
           </div>
+          {/* {greeting
+              ? greeting
+              : "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자!"} */}
+          {/* </div> */}
 
           <button
             className={
               edit
-                ? "w-8/12 my-20 font-bold mg-white-button"
-                : "w-8/12 my-20 font-bold mg-white-button invisible"
+                ? "w-8/12 font-bold mg-white-button mt-[241px] bg-[center_left_1rem] mg-background bg-[url(/images/content/ico-upload-image.svg)] pl-14"
+                : "w-8/12 font-bold mg-white-button invisible mt-[241px]"
             }
             onClick={uploadImageButtonClick}
           >
@@ -67,6 +78,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
             alt="basket guide"
             width={350}
             height={150}
+            className="mb-[74px]"
           />
         </div>
       </div>

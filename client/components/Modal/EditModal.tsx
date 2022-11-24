@@ -2,10 +2,21 @@ import React, { useState } from "react";
 import Image from "next/image";
 import BokPreview from "../BokPreview";
 import Link from "next/link";
+import { createMg } from "../../api/create";
 
 const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
   const handleModal = () => {
     setModal(!modal);
+  };
+
+  const createLuckMg = async () => {
+    const res = await createMg("/api/luckMango", {
+      memberId: 1,
+      title: title,
+      bgImage: "aaa",
+      bgVideo: "bbb",
+    });
+    console.log(res);
   };
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-50 bg-mono-400 ">
@@ -27,15 +38,18 @@ const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
                 제목은 노출되지 않아요
               </div>
             </div>
-            <div>{title}</div>
+            <div className="w-[400px]">{title}</div>
             <BokPreview greeting={greeting} bgUrl={bgUrl} />
           </main>
           <div className="flex justify-around p-2 mt-1">
             <button className="mg-negative-button-round" onClick={handleModal}>
               취소
             </button>
-            <Link href="/edit/complete">
-              <button className="rounded-full mg-primary-button">
+            <Link href="/create/complete">
+              <button
+                className="rounded-full mg-primary-button"
+                onClick={createLuckMg}
+              >
                 복망고 만들기
               </button>
             </Link>

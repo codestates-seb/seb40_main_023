@@ -1,1 +1,1 @@
-export const LUCKBAG_OPTION = ["type1", "type2", "type3"];
+export const LUCKBAG_OPTION = [1, 2, 3];

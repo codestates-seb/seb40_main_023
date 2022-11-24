@@ -27,12 +27,12 @@ const index = () => {
     setTitle(res?.data.title);
   };
   const getLuckyBag = async () => {
-    const res = await useFetch(`api/luckBag/${luckyBagId}`);
+    const res = await useFetch(`/api/luckBag/${luckyBagId}`);
     setBag(res.data);
   };
   const getAllLuckyBags = async () => {
     const res = await useFetch(
-      `api/luckBag/luckMango?luckMangoId=${luckyMangoId}&page=1&size=5`,
+      `/api/luckBag/luckMango?luckMangoId=${luckyMangoId}&page=1&size=5`,
     );
     setBagList(res.data);
   };
@@ -98,7 +98,7 @@ const index = () => {
             />
           </div>
           <div className="absolute flex justify-center mg-width-size">
-            <Greeting content={greeting} />
+            <Greeting content={greeting} edit={false} />
           </div>
         </div>
         <div className="relative flex-col w-full mg-flex-center">
@@ -232,6 +232,7 @@ const index = () => {
           </div>
         </div>
       </Link>
+      {/* 배너 */}
       {letterModal && (
         <LetterModal
           letterModal={letterModal}

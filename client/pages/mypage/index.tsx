@@ -4,7 +4,7 @@ import Profile from "../../public/dummy/mypage-profile.png";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { selectModalState, setModalState } from "../../store/modalSlice";
-import DefaultModal from "../../components/Modal/DefaultModal";
+import DefaultModal from "../../components/modal/DefaultModal";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";

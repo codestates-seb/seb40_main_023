@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BokPreview from "../../components/BokPreview";
-import EditModal from "../../components/Modal/EditModal";
+import EditModal from "../../components/modal/EditModal";
 
 const edit = () => {
   const [title, setTitle] = useState("");

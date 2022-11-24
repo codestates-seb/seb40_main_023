@@ -210,6 +210,10 @@
     @apply bg-[url(/images/content/ico-sound-on.svg)] bg-no-repeat bg-center;
   }
 
+  .mg-icon-lucky-money {
+    @apply bg-[url(/images/content/ico-mg-money.svg)] bg-no-repeat bg-center;
+  }
+
   .mg-icon-card-edit {
     @apply bg-[url(/images/content/ico-card-edit.svg)] bg-no-repeat bg-center;
   }

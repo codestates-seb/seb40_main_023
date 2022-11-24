@@ -4,7 +4,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
 
   async rewrites() {
     console.log(BASE_URL);

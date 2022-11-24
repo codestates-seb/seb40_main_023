@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserModify from "../../components/UserInfo";
 import Profile from "../../public/dummy/mypage-profile.png";
 import Image from "next/image";
@@ -9,11 +9,12 @@ import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import GalleryItem from "../../components/main/gallery/GalleryItem";
+import { useFetch } from "../../api/useFetch";
 
 const Mypage = () => {
-  //나중에 카운트 바꾸기 (한 유저 복망고 숫자로)
-  const count = 12;
   const [click, setClick] = useState(false);
+  const [LuckMango, setLuckMango]: any = useState([]);
+  const [length, setLength] = useState(0);
   const dispatch = useDispatch();
   const modalState = useSelector(selectModalState);
 
@@ -21,6 +22,18 @@ const Mypage = () => {
     setClick(!click);
     dispatch(setModalState(false));
   };
+
+  const getLuckMango = async () => {
+    const res = await useFetch(
+      `/api/luckMango/member?memberId=1&page=1&size=5&sort=desc`,
+    );
+    setLuckMango(res.data);
+    setLength(res.data.length);
+  };
+
+  useEffect(() => {
+    getLuckMango();
+  }, []);
 
   return (
     <div>
@@ -82,8 +95,18 @@ const Mypage = () => {
               </div>
               {!modalState && (
                 <div className="grid w-full grid-cols-2 gap-2 tablet:grid-cols-2">
-                  {Array.from({ length: count }).map((el, idx) => (
-                    <GalleryItem key={idx} mypage={"mg-mypage-card"} />
+                  {LuckMango.map((el: any, idx: any) => (
+                    <GalleryItem
+                      key={idx}
+                      userId={el.luckMangoId}
+                      duckdam={131}
+                      MangoId={el.luckMangoId}
+                      mypage={"mg-mypage-card"}
+                      mypageGap={"gap-3"}
+                      setLuckMango={setLuckMango}
+                      LuckMango={el.LuckMango}
+                      setLength={setLength}
+                    />
                   ))}
                 </div>
               )}

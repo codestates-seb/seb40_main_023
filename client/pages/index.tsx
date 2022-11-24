@@ -1,5 +1,4 @@
 import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
 import Countdown from "../components/main/info/Countdown";
 import Section from "../components/main/Section";
 import SectionTitle from "../components/main/SectionTitle";

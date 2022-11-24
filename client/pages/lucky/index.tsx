@@ -1,10 +1,11 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
 import LongModal from "../../components/Modal/LongModal";
 import LetterModal from "../../components/Modal/LetterModal";
+import { useFetch } from "../../api/useFetch";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
@@ -13,6 +14,39 @@ const index = () => {
   const [modal, setModal] = useState(false);
   const [letterModal, setLetterModal] = useState(false);
 
+  //패치 구역
+  const [title, setTitle] = useState("");
+  const [bag, setBag] = useState([]);
+  const [bagList, setBagList] = useState([]);
+
+  //유저 아이디 가져와서 then으로 엮기
+  const luckyMangoId = 45;
+  const luckyBagId = 3;
+  const getLuckyMango = async () => {
+    const res = await useFetch(`/api/luckMango/${luckyMangoId}`);
+    setTitle(res?.data.title);
+  };
+  const getLuckyBag = async () => {
+    const res = await useFetch(`/api/luckBag/${luckyBagId}`);
+    setBag(res.data);
+  };
+  const getAllLuckyBags = async () => {
+    const res = await useFetch(
+      `/api/luckBag/luckMango?luckMangoId=${luckyMangoId}&page=1&size=5`,
+    );
+    setBagList(res.data);
+  };
+
+  useEffect(() => {
+    getLuckyMango();
+    getLuckyBag();
+    getAllLuckyBags();
+  }, []);
+
+  console.log("title", title);
+  console.log("asdasd", bagList);
+
+  //한 줄 글 남기기 구역
   const greeting =
     "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
   let money = 1000000001;
@@ -85,6 +119,7 @@ const index = () => {
             priority={true}
             className="mb-[74px]"
           />
+
           {LUCKBAG_IMAGE_LIST.map(el => (
             <Image
               key={el.img}

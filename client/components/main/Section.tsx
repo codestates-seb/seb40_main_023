@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionProps } from "../../types/basic";
+import { SectionProps } from "../../types/main";
 
 const Section = ({ children, color }: SectionProps) => {
   return (

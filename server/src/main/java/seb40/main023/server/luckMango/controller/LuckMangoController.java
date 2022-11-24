@@ -82,6 +82,17 @@ public class LuckMangoController {
                         pageLuckMangos), HttpStatus.OK);
     }
 
+    @GetMapping("/public")
+    public ResponseEntity getPublicLuckMangos(@RequestParam("reveal") boolean reveal,@Positive @RequestParam int page,
+                                        @Positive @RequestParam int size, @RequestParam ("sort") String sort) {
+        Page<LuckMango> pageLuckMangos = luckMangoService.publicLuckMango(reveal, page - 1, size,sort);
+        List<LuckMango> luckMangos = pageLuckMangos.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDtos(luckMangos),
+                        pageLuckMangos), HttpStatus.OK);
+    }
+
     //복망고 삭제하기
     @DeleteMapping("/{luckMango-id}")
     public ResponseEntity deleteLuckMango(@PathVariable("luckMango-id") long luckMangoId){

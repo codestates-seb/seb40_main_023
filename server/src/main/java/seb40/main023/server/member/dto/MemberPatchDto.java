@@ -13,7 +13,7 @@ public class MemberPatchDto {
     private String email;
     private String password;
     private String imgUrl;
-    private int nyMoney;
+    private long tot_Money;
     private MemberStatus memberStatus;
     private LocalDateTime modifiedAt;
     public void setMemberId(long memberId) {

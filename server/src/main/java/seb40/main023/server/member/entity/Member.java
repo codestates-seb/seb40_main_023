@@ -33,7 +33,10 @@ public class Member extends Auditable {
 
     @Column
     @Builder.Default
-    private int nyMoney = 0;
+    private long tot_Money = 0;
+
+//    @Column
+//    private List<String> roles;
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)

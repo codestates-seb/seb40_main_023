@@ -19,7 +19,8 @@ public class LuckBagPostDto {
     private String writer;
     private boolean viewed;
     private int bagStyle;
-
+    private int bagColor;
+    private long NYMoney;
     @Positive
     private long luckMangoId;
 

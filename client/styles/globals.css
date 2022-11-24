@@ -30,7 +30,7 @@
   }
 
   .mg-main-section > div {
-    @apply flex flex-col items-center px-[30px] tablet:px-0 w-full tablet:max-w-[800px];
+    @apply flex flex-col items-center px-[30px] tablet:px-[10px] w-full tablet:max-w-[800px];
   }
 
   .mg-main-countdown {
@@ -54,12 +54,12 @@
     @apply relative z-10;
   }
 
-  .mg-review-card .slide {
+  .mg-review-card .slick-slide > div {
     @apply w-full transition-transform duration-300 scale-75 will-change-transform opacity-70;
   }
 
-  .mg-review-card .active-slide {
-    @apply w-[90%] ml-[5%] mobile:w-[140%] mobile:ml-[-20%];
+  .mg-review-card .slick-slide.slick-current > div {
+    @apply w-[90%] ml-[5%] mobile:w-[140%] mobile:ml-[-20%] scale-100 opacity-100;
   }
 
   .mg-review-card .mg-slide-wrapper {
@@ -89,7 +89,7 @@
     @apply text-primary-normal;
   }
   .mg-review-card .slick-dots li button:before {
-    @apply text-[14px] opacity-10;
+    @apply text-[14px] text-mono-100 hover:text-mono-200;
   }
   /* // For Slick (main) */
 

@@ -10,8 +10,8 @@ const nextConfig = {
     console.log(BASE_URL);
     return [
       {
-        source: "/api/:slug*",
-        destination: `${BASE_URL}/:slug*`,
+        source: "/api/:path*",
+        destination: `${BASE_URL}/:path*`,
       },
     ];
   },

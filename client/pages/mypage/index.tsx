@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import UserModify from "../../components/UserModify";
+import UserModify from "../../components/UserInfo";
 import Profile from "../../public/dummy/mypage-profile.png";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";

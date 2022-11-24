@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useCallback, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import Sidebar from "../../components/sidebar";
+import Sidebar from "../../components/Sidebar";
 
 const Signup = () => {
   //이름, 비밀번호, 비밀번호 확인 상태

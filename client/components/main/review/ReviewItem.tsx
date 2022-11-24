@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
-const ReviewItem = ({ currentIdx, ...review }: any) => {
+const ReviewItem = ({ ...review }: any) => {
   return (
-    <div className={review.id === currentIdx ? "active-slide" : "slide"}>
+    <div>
       <div className="mg-slide-wrapper">
-        <div className="mb-4">{review.contents}</div>
+        <div className="mb-4">{review.reviewBody}</div>
         <div className="flex flex-row items-center justify-start">
-          <Image
+          {/* <Image
             src={review.profile}
             alt={`${review.username}의 프로필 사진`}
             width={45}
             height={45}
           />
-          <span className="ml-3">{review.username}</span>
+          <span className="ml-3">{review.username}</span> */}
         </div>
       </div>
     </div>

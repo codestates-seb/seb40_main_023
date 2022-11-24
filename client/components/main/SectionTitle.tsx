@@ -1,5 +1,5 @@
 import React from "react";
-import { TitleProps } from "../../types/basic";
+import { TitleProps } from "../../types/main";
 
 const SectionTitle = ({ title }: TitleProps) => {
   return (

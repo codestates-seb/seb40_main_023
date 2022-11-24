@@ -64,7 +64,7 @@ const index = () => {
             />
           </div>
           <div className="absolute flex justify-center mg-width-size">
-            <Greeting content={greeting} />
+            <Greeting content={greeting} edit={false} />
           </div>
         </div>
         <div className="relative flex-col w-full mg-flex-center">
@@ -197,6 +197,7 @@ const index = () => {
           </div>
         </div>
       </Link>
+      {/* 배너 */}
       {letterModal && (
         <LetterModal
           letterModal={letterModal}

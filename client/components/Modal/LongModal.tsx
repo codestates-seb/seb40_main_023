@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
-import { createBag } from "../../api/createBag";
+import { createBag } from "../../api/lucky";
 
 const LongModal = ({ modal, setModal }: any) => {
   const [luckContent, setLuckContent] = useState("");
@@ -34,9 +34,9 @@ const LongModal = ({ modal, setModal }: any) => {
       luckMangoId: 2,
       body: luckContent,
       writer: writer,
-      viewed: false,
       bagStyle: bagType,
       bagColor: 2,
+      NYMoney: money,
     });
     console.log(res);
   };

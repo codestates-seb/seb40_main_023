@@ -25,8 +25,8 @@ const LetterModal = ({ letterModal, setLetterModal }: any) => {
               {content}
             </div>
           </main>
-          <div className="flex justify-around p-2 mt-1"></div>
         </div>
+        <div className="absolute bottom-10 left-8">- 보낸 사람 -</div>
       </div>
     </div>
   );

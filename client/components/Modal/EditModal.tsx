@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import Image from "next/image";
 import BokPreview from "../BokPreview";
 import Link from "next/link";
+import { createMg } from "../../api/create";
 
 const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
   const handleModal = () => {
     setModal(!modal);
   };
 
-  const createLuckMg = () => {};
+  const createLuckMg = async () => {
+    const res = await createMg("/api/luckMango", {
+      memberId: 1,
+      title: title,
+      bgImage: "aaa",
+      bgVideo: "bbb",
+    });
+    console.log(res);
+  };
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-50 bg-mono-400 ">
       <div className="w-[437px] h-[780px] absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border">
@@ -36,7 +45,7 @@ const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
             <button className="mg-negative-button-round" onClick={handleModal}>
               취소
             </button>
-            <Link href="/edit/complete">
+            <Link href="/create/complete">
               <button
                 className="rounded-full mg-primary-button"
                 onClick={createLuckMg}

@@ -6,7 +6,9 @@ import Greeting from "../../components/Greeting";
 import LongModal from "../../components/Modal/LongModal";
 import LetterModal from "../../components/Modal/LetterModal";
 import { useFetch } from "../../api/useFetch";
+
 import { TEMPLETE_ID } from "../../constants/templeteId";
+import QrModal from "../../components/Modal/QrModal";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
@@ -14,6 +16,8 @@ const index = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [modal, setModal] = useState(false);
   const [letterModal, setLetterModal] = useState(false);
+
+  const [qrCode, setQrCode] = useState(false);
 
   //패치 구역
   const [title, setTitle] = useState("");
@@ -54,6 +58,23 @@ const index = () => {
       requestUrl: location.href,
       templateId: TEMPLETE_ID,
     });
+  };
+
+  const shareUrl = () => {
+    let currentUrl = window.document.location.href;
+
+    let t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = currentUrl;
+    t.select();
+    document.execCommand("copy");
+    document.body.removeChild(t);
+
+    alert("복사가 완료되었습니다");
+  };
+
+  const shareQr = () => {
+    setQrCode(!qrCode);
   };
 
   console.log("title", title);
@@ -155,6 +176,7 @@ const index = () => {
               </button>
               <div className="absolute left-0 z-10 flex-col bottom-14 mg-flex-center">
                 <button
+                  onClick={shareUrl}
                   className={
                     shareBtn
                       ? "mg-floating-button-long duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
@@ -164,6 +186,7 @@ const index = () => {
                   {shareBtn && "url 복사하기"}
                 </button>
                 <button
+                  onClick={shareQr}
                   className={
                     shareBtn
                       ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
@@ -196,6 +219,7 @@ const index = () => {
               {modal && <LongModal modal={modal} setModal={setModal} />}
               <div className="transition-all duration-300 mg-flex">
                 <button
+                  onClick={shareUrl}
                   className={
                     shareBtn
                       ? "mg-floating-button duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
@@ -203,6 +227,7 @@ const index = () => {
                   }
                 />
                 <button
+                  onClick={shareQr}
                   className={
                     shareBtn
                       ? "mg-floating-button duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
@@ -254,6 +279,7 @@ const index = () => {
           setLetterModal={setLetterModal}
         />
       )}
+      {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
     </div>
   );
 };

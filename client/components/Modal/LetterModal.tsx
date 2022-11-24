@@ -9,7 +9,7 @@ const LetterModal = ({ letterModal, setLetterModal }: any) => {
   console.log(content.length);
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-50">
-      <div className="w-[356px] h-[503px] absolute top-[50%] left-[50%] bg-[url(/images/content/img-letter.png)] border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border">
+      <div className="w-[356px] h-[503px] absolute top-[50%] left-[50%] bg-[url(/images/content/img-letter.png)] rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border">
         <header className="flex justify-end w-full hover:cursor-pointer">
           <Image
             src="/images/ico/ico-modal-close.svg"

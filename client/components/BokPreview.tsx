@@ -40,7 +40,6 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
       >
         <div className="mg-width-size w-[101%] h-[60px] rounded-t-[10px] bg-mono-borderLight absolute top-[-2px] left-[-2px]"></div>
         <div className="items-center justify-between mg-flex mg-width-size h-[600px]">
-          {/* <div className="bg-white w-4/6 p-[0.8em] break-all text-sm border-dashed mg-border-2 border-mono-borderNormal"> */}
           <div className="absolute flex justify-center mg-width-size mt-[95.99px]">
             <Greeting
               content={
@@ -51,11 +50,6 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
               edit={edit}
             />
           </div>
-          {/* {greeting
-              ? greeting
-              : "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자!"} */}
-          {/* </div> */}
-
           <button
             className={
               edit

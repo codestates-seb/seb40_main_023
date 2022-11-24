@@ -6,6 +6,7 @@ import Greeting from "../../components/Greeting";
 import LongModal from "../../components/Modal/LongModal";
 import LetterModal from "../../components/Modal/LetterModal";
 import { useFetch } from "../../api/useFetch";
+import { TEMPLETE_ID } from "../../constants/templeteId";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
@@ -42,6 +43,18 @@ const index = () => {
     getLuckyBag();
     getAllLuckyBags();
   }, []);
+
+  useEffect(() => {
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+  }, []);
+
+  const shareKakao = () => {
+    const { Kakao, location } = window;
+    Kakao.Link.sendScrap({
+      requestUrl: location.href,
+      templateId: TEMPLETE_ID,
+    });
+  };
 
   console.log("title", title);
   console.log("asdasd", bagList);
@@ -160,6 +173,7 @@ const index = () => {
                   {shareBtn && "QR코드 공유하기"}
                 </button>
                 <button
+                  onClick={shareKakao}
                   className={
                     shareBtn
                       ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
@@ -196,6 +210,7 @@ const index = () => {
                   }
                 />
                 <button
+                  onClick={shareKakao}
                   className={
                     shareBtn
                       ? "mg-floating-button duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"

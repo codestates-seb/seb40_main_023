@@ -123,7 +123,7 @@
   }
 
   .mg-default-card {
-    @apply cursor-pointer relative flex justify-center w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
+    @apply cursor-pointer relative flex justify-center w-[230px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
   }
 
   .mg-mypage-card {

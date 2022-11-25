@@ -20,7 +20,7 @@ const ServiceIntro = () => {
           src="/images/char/char-button1.svg"
           alt="버튼 유도 복망고 캐릭터"
         />
-        <Link href="/create" className="mg-primary-button">
+        <Link href="/edit" className="mg-primary-button">
           복망고 만들러가기!
         </Link>
       </div>

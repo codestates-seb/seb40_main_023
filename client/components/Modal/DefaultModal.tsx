@@ -15,8 +15,8 @@ const DefaultModal = ({
   const dispatch = useDispatch();
   const modalState = useSelector(selectModalState);
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 bg-mono-400 z-1">
-      <div className="w-[356px] h-[238px] absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border">
+    <div className="absolute top-0 bottom-0 left-0 right-0 bg-mono-400 z-999">
+      <div className="absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 box-border">
         <header className="flex justify-end w-full hover:cursor-pointer">
           <Image
             src={closed}
@@ -28,30 +28,30 @@ const DefaultModal = ({
             }
           />
         </header>
-        <div className="m-auto ">
+        <section className="">
           <main className="flex flex-col justify-center gap-1 text-center">
             <div>{title}</div>
             <div className="whitespace-pre-line text-mono-500">{contents}</div>
             <div className=" text-mono-400">{confirm}</div>
           </main>
-          <div className="flex justify-around p-2 mt-3">
-            {Nobutton && (
-              <button
-                className="mg-negative-button-round"
-                onClick={() =>
-                  modalState
-                    ? dispatch(setModalState(false))
-                    : dispatch(setModalState(true))
-                }
-              >
-                {Nobutton}
-              </button>
-            )}
-            <button className="rounded-full mg-primary-button">
-              {Yesbutton}
+        </section>
+        <footer className="flex justify-center gap-5 p-2 mt-3">
+          {Nobutton && (
+            <button
+              className="mg-negative-button-round"
+              onClick={() =>
+                modalState
+                  ? dispatch(setModalState(false))
+                  : dispatch(setModalState(true))
+              }
+            >
+              {Nobutton}
             </button>
-          </div>
-        </div>
+          )}
+          <button className="rounded-full mg-primary-button">
+            {Yesbutton}
+          </button>
+        </footer>
       </div>
     </div>
   );

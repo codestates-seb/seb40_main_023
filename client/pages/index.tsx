@@ -1,6 +1,4 @@
-import Head from "next/head";
 import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
 import Countdown from "../components/main/info/Countdown";
 import Section from "../components/main/Section";
 import SectionTitle from "../components/main/SectionTitle";
@@ -15,9 +13,6 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <aside>
-        <Sidebar />
-      </aside>
       <main className="pt-[58px]">
         <Section>
           <Countdown />

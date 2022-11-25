@@ -1,5 +1,4 @@
-export interface mango {
-  title: string;
+export interface NotifyProps {
+  message: string;
+  icon?: any;
 }
-
-//이렇게 interface 작성해주세요

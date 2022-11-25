@@ -1,24 +1,88 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
+import Greeting from "../../components/Greeting";
+import LongModal from "../../components/Modal/LongModal";
+import LetterModal from "../../components/Modal/LetterModal";
+import { useFetch } from "../../api/useFetch";
 
 const index = () => {
   const [bgmOn, setBgmOn] = useState(false);
+  const [shareBtn, setShareBtn] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [letterModal, setLetterModal] = useState(false);
+
+  //패치 구역
+  const [title, setTitle] = useState("");
+  const [bag, setBag] = useState([]);
+  const [bagList, setBagList] = useState([]);
+
+  //유저 아이디 가져와서 then으로 엮기
+  const luckyMangoId = 45;
+  const luckyBagId = 3;
+  const getLuckyMango = async () => {
+    const res = await useFetch(`/api/luckMango/${luckyMangoId}`);
+    setTitle(res?.data.title);
+  };
+  const getLuckyBag = async () => {
+    const res = await useFetch(`/api/luckBag/${luckyBagId}`);
+    setBag(res.data);
+  };
+  const getAllLuckyBags = async () => {
+    const res = await useFetch(
+      `/api/luckBag/luckMango?luckMangoId=${luckyMangoId}&page=1&size=5`,
+    );
+    setBagList(res.data);
+  };
+
+  useEffect(() => {
+    getLuckyMango();
+    getLuckyBag();
+    getAllLuckyBags();
+  }, []);
+
+  console.log("title", title);
+  console.log("asdasd", bagList);
+
+  //한 줄 글 남기기 구역
+  const greeting =
+    "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
+  let money = 1000000001;
+
   const handleBgm = () => {
     setBgmOn(!bgmOn);
   };
 
+  const handleShareBtn = () => {
+    setShareBtn(!shareBtn);
+  };
+
+  const loginTest = () => {
+    setIsLogin(!isLogin);
+  };
+
+  const handleModal = () => {
+    setModal(!modal);
+  };
+
+  const handleLetterModal = () => {
+    setLetterModal(!letterModal);
+  };
+
   return (
-    <div className="mg-layout bg-center bg-[url(/images/content/pt-dots.png)]">
+    <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">
+      <button onClick={loginTest}>login</button>
       <div className="mg-width-size h-[600px] mg-border-2 bg-warning-light mg-flex items-center justify-between mb-8">
         <div className="w-full">
           <div className="relative mt-5 mg-flex-center mb-7">
             <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">
-              10,000,001원
+              {money > 999999999999999 ? "∞ " : money.toLocaleString()}원
             </div>
             <Image
               src="/images/content/ico-mg-money.svg"
-              alt="basket"
+              alt="money icon"
               width={57}
               height={58}
               className="absolute left-3 bottom-[0.3px]"
@@ -31,100 +95,120 @@ const index = () => {
                   : "ml-3 mg-icon-button-round mg-icon-sound-off"
               }
               onClick={handleBgm}
-            ></button>
+            />
           </div>
-          <div className="flex justify-center">
-            <div className="w-4/6 p-4 text-sm border-white mg-border-2 bg-[#FFFFFFCC]">
-              얘들아! 2023년에도 잘 부탁해~ 정말
-              <br />
-              고생 많았고, 우리 오래오래 보자!
-            </div>
+          <div className="absolute flex justify-center mg-width-size">
+            <Greeting content={greeting} edit={false} />
           </div>
         </div>
         <div className="relative flex-col w-full mg-flex-center">
+          <button className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]" />
+          <button className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]" />
+          <div className="mg-flex-center justify-center top-[117px] z-10 absolute rounded-full bg-[#0000004D] px-3 h-[19px]">
+            <div className="bg-[#FF9B53] mg-icon-pagination" />
+            <div className="bg-[#D9D9D9] mg-icon-pagination" />
+            <div className="bg-[#D9D9D9] mg-icon-pagination" />
+            <div className="bg-[#D9D9D9] mg-icon-pagination" />
+            <div className="bg-[#D9D9D9] mg-icon-pagination" />
+          </div>
           <Image
             src="/images/content/img-basket.svg"
             alt="basket"
             width={352}
             height={152}
+            priority={true}
             className="mb-[74px]"
           />
-          <Image
-            src="/images/content/img-bok2-4.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-[-35px] right-24"
-          />
-          <Image
-            src="/images/content/img-bok2-3.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-[-33px] right-40"
-          />
-          <Image
-            src="/images/content/img-bok2-5.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-[-50px] right-12"
-          />
-          <Image
-            src="/images/content/img-bok2-2.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-[-33px] left-[105px]"
-          />
-          <Image
-            src="/images/content/img-bok2-1.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-[-50px] left-12"
-          />
-          <Image
-            src="/images/content/img-bok1-1.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-7 right-28"
-          />
-          <Image
-            src="/images/content/img-bok1-2.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-3 right-14"
-          />
-          <Image
-            src="/images/content/img-bok1-3.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-7 left-28"
-          />
-          <Image
-            src="/images/content/img-bok1-4.svg"
-            alt="luckbag"
-            width={65}
-            height={79}
-            className="absolute top-3 left-14"
-          />
-          <Image
-            src="/images/content/img-bok1-5.svg"
-            alt="luckbag "
-            width={65}
-            height={79}
-            className="absolute top-7 right-40"
-          />
-          <div className="absolute flex bottom-9">
-            <button className="h-12 mr-4 mg-primary-button-round">
-              새해 덕담 남기기
-            </button>
-            <button className="mg-icon-button-round mg-icon-share" />
-          </div>
+
+          {LUCKBAG_IMAGE_LIST.map(el => (
+            <Image
+              key={el.img}
+              priority={true}
+              src={`/images/content/${el.img}.svg`}
+              alt="luckbag"
+              width={65}
+              height={79}
+              className={`cursor-pointer absolute ${el.yPos} ${el.xPos}`}
+              onClick={handleLetterModal}
+            />
+          ))}
+          {isLogin ? (
+            <div className="cursor-pointer absolute w-[212px] justify-center mg-flex-center bottom-9">
+              <button
+                className="pl-[60px] h-12 w-[212px] mg-secondary-button rounded-[100px] relative"
+                onClick={handleShareBtn}
+              >
+                공유하기
+              </button>
+              <div className="absolute left-0 z-10 flex-col bottom-14 mg-flex-center">
+                <button
+                  className={
+                    shareBtn
+                      ? "mg-floating-button-long duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
+                      : "text-white"
+                  }
+                >
+                  {shareBtn && "url 복사하기"}
+                </button>
+                <button
+                  className={
+                    shareBtn
+                      ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
+                      : "text-white"
+                  }
+                >
+                  {shareBtn && "QR코드 공유하기"}
+                </button>
+                <button
+                  className={
+                    shareBtn
+                      ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
+                      : "text-[#3B1C1D]"
+                  }
+                >
+                  {shareBtn && "카톡으로 공유하기"}
+                </button>
+              </div>
+              <div className="absolute w-12 h-12 mg-icon-share left-2" />
+            </div>
+          ) : (
+            <div className="absolute flex items-end bottom-4">
+              <button
+                className="h-12 mr-4 mg-primary-button-round"
+                onClick={handleModal}
+              >
+                새해 덕담 남기기
+              </button>
+              {modal && <LongModal modal={modal} setModal={setModal} />}
+              <div className="transition-all duration-300 mg-flex">
+                <button
+                  className={
+                    shareBtn
+                      ? "mg-floating-button duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
+                      : ""
+                  }
+                />
+                <button
+                  className={
+                    shareBtn
+                      ? "mg-floating-button duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
+                      : ""
+                  }
+                />
+                <button
+                  className={
+                    shareBtn
+                      ? "mg-floating-button duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
+                      : ""
+                  }
+                />
+                <button
+                  className="z-30 mg-icon-button-round mg-icon-share"
+                  onClick={handleShareBtn}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex justify-end mr-12 mg-width-size">
@@ -148,6 +232,13 @@ const index = () => {
           </div>
         </div>
       </Link>
+      {/* 배너 */}
+      {letterModal && (
+        <LetterModal
+          letterModal={letterModal}
+          setLetterModal={setLetterModal}
+        />
+      )}
     </div>
   );
 };

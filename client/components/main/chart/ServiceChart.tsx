@@ -15,8 +15,7 @@ const ServiceChart = () => {
   const [currentTime, setCurrentTime] = useState("");
   const [countUp, setCountUp] = useState(false);
   const { ref, inView, entry } = useInView({
-    /* Optional options */
-    threshold: 0,
+    threshold: 1,
   });
 
   useEffect(() => {
@@ -25,7 +24,6 @@ const ServiceChart = () => {
 
   useEffect(() => {
     setCountUp(inView);
-    console.log(entry);
   }, [inView]);
 
   return (
@@ -35,28 +33,32 @@ const ServiceChart = () => {
           <dl className="py-2 mb-3">
             <dt>누적 복망고 수</dt>
             <dd className="text-2xl text-primary-normal">
-              {countUp && (
+              {countUp ? (
                 <CountUp
                   start={0}
-                  end={12587}
+                  end={12587890}
                   separator={","}
-                  duration={1.5}
+                  duration={1}
                   delay={0}
                 />
+              ) : (
+                "0"
               )}
             </dd>
           </dl>
           <dl className="py-2">
             <dt>누적 덕담 메세지 수</dt>
             <dd className="text-2xl text-secondary-normal">
-              {countUp && (
+              {countUp ? (
                 <CountUp
                   start={0}
-                  end={123456789}
+                  end={1234567890}
                   separator={","}
-                  duration={1.5}
-                  delay={1}
+                  duration={1}
+                  delay={0}
                 />
+              ) : (
+                "0"
               )}
             </dd>
           </dl>

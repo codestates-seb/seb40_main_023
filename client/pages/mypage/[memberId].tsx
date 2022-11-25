@@ -4,14 +4,18 @@ import Profile from "../../public/dummy/mypage-profile.png";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { selectModalState, setModalState } from "../../store/modalSlice";
-import DefaultModal from "../../components/Modal/DefaultModal";
+import DefaultModal from "../../components/modal/DefaultModal";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import GalleryItem from "../../components/main/gallery/GalleryItem";
 import { useFetch } from "../../api/useFetch";
+import { useRouter } from "next/router";
 
 const Mypage = () => {
+  const router = useRouter();
+  const { memberId } = router.query;
+  console.log(memberId);
   const [click, setClick] = useState(false);
   const [LuckMango, setLuckMango]: any = useState([]);
   const [length, setLength] = useState(0);
@@ -23,9 +27,13 @@ const Mypage = () => {
     dispatch(setModalState(false));
   };
 
+  //로그인 되면 처리하는 걸로 하시죠
+  //size도 회의를 통해 정하면 좋을 거 같아요.
+  const MyId = 2;
+
   const getLuckMango = async () => {
     const res = await useFetch(
-      `/api/luckMango/member?memberId=1&page=1&size=5&sort=desc`,
+      `/api/luckMango/member?memberId=${MyId}&page=1&size=100&sort=desc`,
     );
     setLuckMango(res.data);
     setLength(res.data.length);
@@ -95,17 +103,17 @@ const Mypage = () => {
               </div>
               {!modalState && (
                 <div className="grid w-full grid-cols-2 gap-2 tablet:grid-cols-2">
-                  {LuckMango.map((el: any, idx: any) => (
+                  {LuckMango.map((el: any) => (
                     <GalleryItem
-                      key={idx}
+                      key={el.luckMangoId}
+                      title={el.title}
                       userId={el.luckMangoId}
                       duckdam={131}
-                      MangoId={el.luckMangoId}
+                      LuckMangoId={el.luckMangoId}
                       mypage={"mg-mypage-card"}
                       mypageGap={"gap-3"}
                       setLuckMango={setLuckMango}
                       LuckMango={el.LuckMango}
-                      setLength={setLength}
                     />
                   ))}
                 </div>

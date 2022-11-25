@@ -29,15 +29,15 @@ import java.util.List;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewMapper mapper;
-    private final MemberService memberService;
+
 
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto reviewPostDto){
         Review review = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDto));
-        review.setMember(memberService.findVerifiedMember(review.getMember().getMemberId()));
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)),
                 HttpStatus.CREATED);

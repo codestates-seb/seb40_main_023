@@ -23,6 +23,7 @@ import java.util.List;
 @RequestMapping("/member")
 @RequiredArgsConstructor
 @Validated
+@CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class    MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;

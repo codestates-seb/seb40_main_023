@@ -26,6 +26,7 @@ import java.util.List;
 @RequestMapping("/luckBag")
 @Validated // 유효성 검사
 @RequiredArgsConstructor  // autowired 사용 안해도 되게 해줌
+@CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class LuckBagController {
     private final LuckBagService luckBagService;
     private final LuckBagMapper luckBagMapper;

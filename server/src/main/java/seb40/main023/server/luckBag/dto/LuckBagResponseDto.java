@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import seb40.main023.server.audit.Auditable;
+import seb40.main023.server.luckMango.dto.LuckMangoResponseDto_Bag;
 import seb40.main023.server.luckMango.entity.LuckMango;
 
 import javax.persistence.Column;
@@ -21,7 +22,7 @@ public class LuckBagResponseDto {
     private int bagStyle;
     private int bagColor;
     private long NYMoney;
-    private long luckMangoId;
+    private LuckMangoResponseDto_Bag luckMango;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

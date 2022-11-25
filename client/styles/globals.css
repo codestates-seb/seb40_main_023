@@ -310,4 +310,9 @@
   .mg-vaild-error {
     @apply text-danger-normal;
   }
+
+  /* Link */
+  .mg-link {
+    @apply text-[#599CFF] underline;
+  }
 }

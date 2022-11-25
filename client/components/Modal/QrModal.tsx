@@ -24,7 +24,7 @@ const QrModal = ({ qrCode, setQrCode }: any) => {
         <div>
           <main className="mt-[1.5rem] flex-col mg-flex-center">
             <Canvas
-              text={"https://github.com/bunlong/next-qrcode"}
+              text={window.document.location.href}
               options={{
                 level: "M",
                 margin: 3,

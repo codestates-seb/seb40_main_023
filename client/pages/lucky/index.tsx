@@ -5,7 +5,9 @@ import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
 import LongModal from "../../components/Modal/LongModal";
 import LetterModal from "../../components/Modal/LetterModal";
+import Banner from "../../components/Banner";
 import { useFetch } from "../../api/useFetch";
+import { Toast, notifyInfo } from "../../components/util/Toast";
 
 import { TEMPLETE_ID } from "../../constants/templeteId";
 import QrModal from "../../components/Modal/QrModal";
@@ -49,7 +51,9 @@ const index = () => {
   }, []);
 
   useEffect(() => {
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    }
   }, []);
 
   const shareKakao = () => {
@@ -69,8 +73,7 @@ const index = () => {
     t.select();
     document.execCommand("copy");
     document.body.removeChild(t);
-
-    alert("복사가 완료되었습니다");
+    notifyInfo({ message: "url이 복사됐습니다.", icon: "😎" });
   };
 
   const shareQr = () => {
@@ -251,28 +254,27 @@ const index = () => {
           )}
         </div>
       </div>
-      <div className="flex justify-end mr-12 mg-width-size">
-        복망고 소유주라면 로그인하세요!
-      </div>
-      <Link href="/" className="mg-width-size">
-        <div className="h-[71.98px] relative rounded-[10px] mg-primary-button mg-width-size mg-flex-center justify-end cursor-pointer">
-          <Image
-            src="/images/char/char-banner.svg"
-            alt="mango banner"
-            width={117}
-            height={130}
-            className="absolute top-[-50px] left-2 w-3/12"
-          />
-          <div className="mg-flex-center justify-center mg-width-size h-[71.98px]">
-            <div className="ml-16 mr-9">
-              나도 새해 복망고 만들어볼까?
-              <div className="font-semibold">새해 복망고 메인으로 이동</div>
-            </div>
-            <div className="text-xl font-bold cursor-pointer">〉</div>
+      {!isLogin ? (
+        <>
+          <div className="flex justify-end mr-12 mg-width-size">
+            복망고 소유주라면 &nbsp;
+            <Link href="/login" className="mg-link">
+              로그인
+            </Link>
+            하세요!
           </div>
+          <Banner />
+        </>
+      ) : (
+        <div className="text-center">
+          <Link href="/mypage" className="mg-link">
+            홍다희님
+          </Link>
+          의 새해 복망고입니다.
+          <br />
+          복주머니를 클릭하면 덕담을 볼 수 있어요!
         </div>
-      </Link>
-      {/* 배너 */}
+      )}
       {letterModal && (
         <LetterModal
           letterModal={letterModal}
@@ -280,6 +282,7 @@ const index = () => {
         />
       )}
       {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
+      <Toast />
     </div>
   );
 };

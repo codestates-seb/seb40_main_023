@@ -18,10 +18,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-module.exports = {
-  experimental: {
-    image: {
-      allowFutureIamge: true,
-    },
-  },
-};

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
 import LongModal from "../../components/modal/LongModal";
@@ -126,10 +125,10 @@ const index = () => {
               <div className="bg-[#D9D9D9] mg-icon-pagination" />
             </div>
             <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]"></div>
-            {LUCKBAG_IMAGE_LIST.map(el => (
+            {LUCKBAG_IMAGE_LIST.map((el, index) => (
               <div
-                key={el.img}
-                className={`bg-[url(/images/content/${el.img}.svg)] cursor-pointer absolute ${el.yPos} ${el.xPos} w-[65px] h-[79px] z-0 bg-no-repeat`}
+                key={index}
+                className={`bg-[url(/images/content/img-bok2-1.svg)] cursor-pointer absolute ${el.yPos} ${el.xPos} w-[65px] h-[80px] bg-no-repeat bg-contain`}
                 onClick={handleLetterModal}
               ></div>
             ))}
@@ -155,7 +154,7 @@ const index = () => {
                   <button
                     className={
                       shareBtn
-                        ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
+                        ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)] bg-link"
                         : "text-white"
                     }
                   >

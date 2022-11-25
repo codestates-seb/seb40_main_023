@@ -151,11 +151,11 @@
   }
 
   .mg-card-button {
-    @apply m-auto border border-white w-[55px] h-[55px] bg-transparent hover:bg-[rgba(0,0,0,.02)] rounded-full bg-no-repeat bg-center;
+    @apply m-auto border border-white w-[55px] h-[55px] bg-transparent hover:bg-[rgba(0,0,0,0.15)] rounded-full bg-no-repeat bg-center;
   }
 
   .mg-mypage-button {
-    @apply border border-white w-[40px] h-[40px] bg-transparent hover:bg-[rgba(0,0,0,.02)] rounded-full bg-no-repeat bg-center;
+    @apply border border-white w-[40px] h-[40px] bg-transparent hover:bg-[rgba(252,0,0,.02)] rounded-full bg-no-repeat bg-center;
   }
 
   /* Footer */

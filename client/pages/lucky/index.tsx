@@ -11,6 +11,7 @@ import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
 import { TEMPLETE_ID } from "../../constants/templeteId";
 import QrModal from "../../components/modals/QrModal";
+import CheckModal from "../../components/modals/CheckModal";
 
 const index = () => {
   //스크린샷 구역
@@ -23,16 +24,18 @@ const index = () => {
     domtoimage.toPng(btn).then(blob => {
       saveAs(blob, "BokMango.png");
     });
+    notifyInfo({ message: "복망고 캡처 이미지가 저장됐습니다.", icon: "🤓" });
   };
 
   //bgm 구역
   const [bgmOn, setBgmOn] = useState(false);
+
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [modal, setModal] = useState(false);
   const [letterModal, setLetterModal] = useState(false);
-
   const [qrCode, setQrCode] = useState(false);
+  const [completeModal, setCompleteModal] = useState(false);
 
   //패치 구역
   const [title, setTitle] = useState("");
@@ -58,15 +61,12 @@ const index = () => {
   };
 
   useEffect(() => {
-    getLuckyMango();
-    getLuckyBag();
-    getAllLuckyBags();
-  }, []);
-
-  useEffect(() => {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
+    getLuckyMango();
+    getLuckyBag();
+    getAllLuckyBags();
   }, []);
 
   const shareKakao = () => {
@@ -131,12 +131,11 @@ const index = () => {
               <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">
                 {money > 999999999999999 ? "∞ " : money.toLocaleString()}원
               </div>
-              <div className="mg-icon-lucky-money w-[57px] h-[58px] absolute left-3 bottom-[0.3px]"></div>
-              {/* 캡쳐버튼 */}
+              <div className="mg-icon-lucky-money w-[57px] h-[58px] absolute left-3 bottom-[0.3px]" />
               <button
                 className="mx-2 h-[35px] w-[35px] ml-5 mg-icon-capture"
                 onClick={downloadBtn}
-              ></button>
+              />
               <button
                 className={
                   bgmOn
@@ -218,7 +217,14 @@ const index = () => {
                 >
                   새해 덕담 남기기
                 </button>
-                {modal && <LongModal modal={modal} setModal={setModal} />}
+                {modal && (
+                  <LongModal
+                    modal={modal}
+                    setModal={setModal}
+                    completeModal={completeModal}
+                    setCompleteModal={setCompleteModal}
+                  />
+                )}
                 <div className="transition-all duration-300 mg-flex">
                   <button
                     onClick={shareUrl}
@@ -282,6 +288,17 @@ const index = () => {
         )}
         {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
         <Toast />
+        {completeModal && (
+          <CheckModal
+            firstP="님에게 덕담이 성공적으로"
+            secondP="전달되었습니다!"
+            confirm="아직 복망고가 없으시다면 만들어 보세요!"
+            Nobutton="괜찮아요"
+            Yesbutton="복망고 만들기"
+            completeModal={completeModal}
+            setCompleteModal={setCompleteModal}
+          />
+        )}
       </div>
     </div>
   );

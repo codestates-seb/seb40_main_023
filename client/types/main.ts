@@ -10,11 +10,11 @@ export interface TitleProps {
 }
 
 export interface ReviewDataProps {
-  reviewId: number;
+  reviewId?: number;
   reviewBody: string;
   memberId: number;
-  createdAt: string;
-  modifiedAt: string;
+  createdAt?: string;
+  modifiedAt?: string;
 }
 
 export interface UserInfoProps {

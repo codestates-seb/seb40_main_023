@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CountCharLength from "../../util/CountCharLength";
 import { Toast, notifyInfo, notifyError } from "../../util/Toast";
+import { createReview } from "../../../api/review";
 import Image from "next/image";
 
-function ReviewWrite() {
+function ReviewWrite({ setUpdated }: any) {
+  const ref = useRef<HTMLTextAreaElement>(null);
   const [reviewSize, setReviewSize] = useState(0);
+  const [reviewInput, setReviewInput] = useState("");
 
-  const checkReviewLength = (e: any) => {
+  const onChangeReview = (e: any) => {
     setReviewSize(e.target.value.length);
+    setReviewInput(e.target.value);
   };
 
   const submitReview = () => {
@@ -22,7 +26,13 @@ function ReviewWrite() {
         icon: "🥹",
       });
     } else {
-      console.log("::TODO:: fetch");
+      createReview("/api/review", {
+        memberId: 1,
+        reviewBody: reviewInput,
+      });
+
+      setUpdated(true);
+      setReviewInput("");
     }
   };
 
@@ -40,7 +50,9 @@ function ReviewWrite() {
           } w-full mb-2 px-8 py-6 border border-mono-borderNormal resize-none rounded-xl focus:outline-none focus-visible:ring`}
           cols={30}
           rows={3}
-          onKeyUp={checkReviewLength}
+          onChange={onChangeReview}
+          ref={ref}
+          value={reviewInput}
         ></textarea>
         <div className="flex flex-row justify-between">
           <div className="flex text-mono-textDisabled">

@@ -30,7 +30,10 @@ const ServiceGallery = () => {
       </ul>
       <div className="relative grid w-full mb-[20px] grid-flow-row grid-cols-2 gap-6 tablet:grid-cols-3 min-h-[100px]">
         {galleryUpdate && <Loading />}
-        {galleryData && galleryData.map((el, idx) => <GalleryItem key={idx} />)}
+        {galleryData &&
+          galleryData.map((el, idx) => (
+            <GalleryItem key={idx} {...galleryData} />
+          ))}
       </div>
       <div className="flex flex-col items-center py-4 text-center">
         <p className="mb-1 text-mono-textDisabled">

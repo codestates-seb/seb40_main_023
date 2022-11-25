@@ -6,7 +6,7 @@ import seb40.main023.server.member.dto.MemberPatchDto;
 import seb40.main023.server.member.dto.MemberPostDto;
 import seb40.main023.server.member.dto.MemberResponseDto;
 import seb40.main023.server.member.entity.Member;
-import seb40.main023.server.security.dto.LoginDto;
+import seb40.main023.server.security.auth.dto.LoginDto;
 
 import java.util.List;
 

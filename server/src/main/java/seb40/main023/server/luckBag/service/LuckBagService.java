@@ -10,6 +10,7 @@ import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.luckBag.repository.LuckBagRepository;
+import seb40.main023.server.luckMango.service.LuckMangoService;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +19,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LuckBagService {
     private final LuckBagRepository luckBagRepository;
+    private final LuckMangoService luckMangoService;
 
     // C 복주머니 생성
     public LuckBag createdLuckBag(LuckBag luckBag){
+        luckBag.setLuckMango(luckMangoService.findVerifiedLuckMango(luckBag.getLuckMango().getLuckMangoId())); // 복밍고 아이디 세팅
         return luckBagRepository.save(luckBag);
         // 럭백을 세이브 메소드를 이용해서 리파지토리로 넣어주세요 하는 결과가 나온다.
     }

@@ -7,12 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import seb40.main023.server.luckMango.dto.LuckMangoPatchDto;
-import seb40.main023.server.luckMango.dto.LuckMangoPostDto;
-import seb40.main023.server.luckMango.entity.LuckMango;
-import seb40.main023.server.luckMango.mapper.LuckMangoMapper;
-import seb40.main023.server.luckMango.service.LuckMangoService;
-import seb40.main023.server.member.service.MemberService;
 import seb40.main023.server.response.MultiResponseDto;
 import seb40.main023.server.response.SingleResponseDto;
 import seb40.main023.server.review.dto.ReviewPatchDto;
@@ -25,19 +19,19 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 @RestController
-@RequestMapping("review")
+@RequestMapping("/review")
 @Validated
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewMapper mapper;
-    private final MemberService memberService;
+
 
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto reviewPostDto){
         Review review = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDto));
-        review.setMember(memberService.findVerifiedMember(review.getMember().getMemberId()));
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)),
                 HttpStatus.CREATED);

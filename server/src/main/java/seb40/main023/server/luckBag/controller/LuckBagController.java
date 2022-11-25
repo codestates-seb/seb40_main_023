@@ -2,9 +2,6 @@ package seb40.main023.server.luckBag.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,7 +10,6 @@ import seb40.main023.server.luckBag.dto.LuckBagPatchDto;
 import seb40.main023.server.luckBag.dto.LuckBagPostDto;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.luckBag.mapper.LuckBagMapper;
-
 import seb40.main023.server.luckBag.service.LuckBagService;
 import seb40.main023.server.response.MultiResponseDto;
 import seb40.main023.server.response.SingleResponseDto;
@@ -26,6 +22,7 @@ import java.util.List;
 @RequestMapping("/luckBag")
 @Validated // 유효성 검사
 @RequiredArgsConstructor  // autowired 사용 안해도 되게 해줌
+@CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class LuckBagController {
     private final LuckBagService luckBagService;
     private final LuckBagMapper luckBagMapper;

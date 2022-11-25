@@ -1,8 +1,6 @@
-package seb40.main023.server.security.auth;
+package seb40.main023.server.security.auth.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,10 +15,14 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils authorityUtils;
+
+    public MemberDetailsService(MemberRepository memberRepository, CustomAuthorityUtils authorityUtils) {
+        this.memberRepository = memberRepository;
+        this.authorityUtils = authorityUtils;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,15 +33,14 @@ public class MemberDetailsService implements UserDetailsService {
     }
 
     private final class MemberDetails extends Member implements UserDetails {
+        // (1)
         MemberDetails(Member member) {
             setMemberId(member.getMemberId());
-            setName(member.getName());
             setEmail(member.getEmail());
             setPassword(member.getPassword());
             setRoles(member.getRoles());
         }
 
-        // (2) DB Role 정보로 User 권한 목록 생성
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
             return authorityUtils.createAuthorities(this.getRoles());

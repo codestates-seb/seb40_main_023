@@ -1,20 +1,12 @@
-# 서버 환경에서 사용하는 정보들은 application-server.yml 파일에 설정합니다.
-# TODO MySQL DB 접속 정보를 아래에 설정하세요
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/nyLuckMango
-    username: root
-    password:
+    url: jdbc:mysql://ec2-43-206-108-247.ap-northeast-1.compute.amazonaws.com:3306/LuckMango   # 주소 / db이름
+    username: root  # mysql 이름 설정
+    password:     # mysql 비밀번호 설정
     driver-class-name: com.mysql.cj.jdbc.Driver
   devtools:
     livereload:
       enabled: true
-  thymeleaf:    # thymeleaf 참조 경로
-    prefix: classpath:/templates/
-    sufix: .html
-    cache: false  # thymeleaf에 대한 캐시를 남기지 않는다. cache=false 설정(운영시는 true)
-    check-template-location: true # templates 디렉토리에 파일이 있는지 없는지 체크, 없으면 에러를 발생시킨다.
-
   #create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
   #create-drop: create와 같으나 종료시점에 테이블 DROP
   #update: 변경분만 반영(운영DB에서는 사용하면 안됨)
@@ -42,7 +34,10 @@ spring:
     servlet:
       encoding:
         force-response: true
-  jwt:
-    secret-key: $JWT_SECRET_KEY
-    access-token-expiration-minutes: 40
-    refresh-token-expiration-minutes: 420
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  secret-key: TestTestTestTestTestTestTestTestTestTestTestTestTestTestTest
+  access-token-expiration-minutes: 40
+  refresh-token-expiration-minutes: 420

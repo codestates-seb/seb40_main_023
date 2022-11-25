@@ -1,12 +1,9 @@
 package seb40.main023.server.member.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -14,10 +11,8 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
-import seb40.main023.server.helper.event.MemberRegistrationApplicationEvent;
 import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.member.repository.MemberRepository;
-import seb40.main023.server.security.auth.MemberDetails;
 import seb40.main023.server.security.utils.CustomAuthorityUtils;
 
 import java.time.LocalDateTime;
@@ -38,31 +33,6 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
-    public Member loginMember(Member member) {
-        // DB 저장된 이메일 조회, 패스워드 매칭 확인후 로그인 처리 (임시로직)
-        Member findMember = memberRepository.findByEmail(member.getEmail()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-
-        if (!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
-            throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
-        }
-
-        return findMember;
-    }
-
-    public Member logoutMember(Long memberId, MemberDetails memberDetails) {
-        Member findMember = memberRepository.findById(memberId).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        // 로그인된 사용자 UserName(email), password 일치시 로그아웃(임시로직)
-        // 이메일 유효성 검사
-        if(memberDetails.getUsername() == findMember.getEmail()){
-            // 비밀번호 일치 검사
-            if (!passwordEncoder.matches(findMember.getPassword(), memberDetails.getPassword())) {
-                throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
-            }
-        }
-
-        return findMember;
-    }
-
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
         // 임시 로직
@@ -71,7 +41,7 @@ public class MemberService {
         member.setPassword(encryptedPassword);
 
         // Role save
-        List<String> roles = CustomAuthorityUtils.createRoles(member.getEmail());
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
         Member savedMember = memberRepository.save(member);

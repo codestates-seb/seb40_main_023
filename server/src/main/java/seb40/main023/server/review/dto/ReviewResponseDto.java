@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 //@Builder
 public class ReviewResponseDto {
     private long reviewId;
     private String reviewBody;
-    private long memberId;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private MemberResponseDto_Mango member;

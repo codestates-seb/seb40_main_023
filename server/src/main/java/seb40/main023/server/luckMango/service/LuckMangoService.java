@@ -10,7 +10,6 @@ import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
 import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.luckMango.repository.LuckMangoRepository;
-import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.member.service.MemberService;
 
 import java.time.LocalDateTime;

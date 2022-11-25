@@ -6,6 +6,7 @@ import seb40.main023.server.member.entity.Member;
 import javax.validation.constraints.Positive;
 
 @Getter
+@Builder
 public class LuckMangoPostDto {
     @NonNull
     private String title;

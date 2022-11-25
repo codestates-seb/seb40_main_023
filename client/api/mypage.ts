@@ -17,3 +17,12 @@ export const usePut = async (url: string) => {
     return error;
   }
 };
+
+export const getMyPageMember = async (url: string) => {
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

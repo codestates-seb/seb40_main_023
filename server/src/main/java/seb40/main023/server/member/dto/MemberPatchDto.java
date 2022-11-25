@@ -15,7 +15,6 @@ public class MemberPatchDto {
     private String imgUrl;
     private long tot_Money;
     private MemberStatus memberStatus;
-    private LocalDateTime modifiedAt;
     public void setMemberId(long memberId) {
         this.memberId = memberId;
     }

@@ -7,6 +7,8 @@ import lombok.Setter;
 import seb40.main023.server.audit.Auditable;
 
 import seb40.main023.server.luckMango.entity.LuckMango;
+import seb40.main023.server.member.entity.Member;
+
 import javax.persistence.*;
 
 @Getter

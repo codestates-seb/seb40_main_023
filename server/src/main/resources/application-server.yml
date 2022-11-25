@@ -6,6 +6,14 @@ spring:
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:    # thymeleaf 참조 경로
+    prefix: classpath:/templates/
+    sufix: .html
+    cache: false  # thymeleaf에 대한 캐시를 남기지 않는다. cache=false 설정(운영시는 true)
+    check-template-location: true # templates 디렉토리에 파일이 있는지 없는지 체크, 없으면 에러를 발생시킨다.
 
   #create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
   #create-drop: create와 같으나 종료시점에 테이블 DROP
@@ -22,3 +30,19 @@ spring:
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
+
+  logging:
+    level:
+      org:
+        springframework:
+          orm:
+            jpa: DEBUG
+
+  server:
+    servlet:
+      encoding:
+        force-response: true
+  jwt:
+    secret-key: $JWT_SECRET_KEY
+    access-token-expiration-minutes: 40
+    refresh-token-expiration-minutes: 420

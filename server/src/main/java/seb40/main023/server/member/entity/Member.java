@@ -1,7 +1,6 @@
 package seb40.main023.server.member.entity;
 
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.review.entity.Review;
@@ -36,8 +35,8 @@ public class Member extends Auditable {
     @Builder.Default
     private long tot_Money = 0;
 
-//    @Column
-//    private List<String> roles;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)

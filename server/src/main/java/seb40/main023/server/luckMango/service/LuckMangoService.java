@@ -34,7 +34,7 @@ public class LuckMangoService {
         return findVerifiedLuckMango(luckMangoId);}
 
     //모든 복망고 가져오기
-    public Page<LuckMango> findLuckMangos(int page, int size){
+    public Page<LuckMango> findLuckMangos(int page, int size) {
         return luckMangoRepository.findAll(PageRequest.of(page, size,
                 Sort.by("luckMangoId").descending()));
     }

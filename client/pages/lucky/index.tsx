@@ -2,11 +2,15 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
-import LongModal from "../../components/modal/LongModal";
-import LetterModal from "../../components/modal/LetterModal";
+import LongModal from "../../components/modals/LongModal";
+import LetterModal from "../../components/modals/LetterModal";
+import Banner from "../../components/Banner";
 import { useFetch } from "../../api/useFetch";
+import { Toast, notifyInfo } from "../../components/util/Toast";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import { TEMPLETE_ID } from "../../constants/templeteId";
+import QrModal from "../../components/modals/QrModal";
 
 const index = () => {
   //스크린샷 구역
@@ -27,6 +31,8 @@ const index = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [modal, setModal] = useState(false);
   const [letterModal, setLetterModal] = useState(false);
+
+  const [qrCode, setQrCode] = useState(false);
 
   //패치 구역
   const [title, setTitle] = useState("");
@@ -56,6 +62,36 @@ const index = () => {
     getLuckyBag();
     getAllLuckyBags();
   }, []);
+
+  useEffect(() => {
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    }
+  }, []);
+
+  const shareKakao = () => {
+    const { Kakao, location } = window;
+    Kakao.Link.sendScrap({
+      requestUrl: location.href,
+      templateId: TEMPLETE_ID,
+    });
+  };
+
+  const shareUrl = () => {
+    let currentUrl = window.document.location.href;
+
+    let t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = currentUrl;
+    t.select();
+    document.execCommand("copy");
+    document.body.removeChild(t);
+    notifyInfo({ message: "url이 복사됐습니다.", icon: "😎" });
+  };
+
+  const shareQr = () => {
+    setQrCode(!qrCode);
+  };
 
   console.log("title", title);
   console.log("asdasd", bagList);
@@ -132,7 +168,6 @@ const index = () => {
                 onClick={handleLetterModal}
               ></div>
             ))}
-
             {isLogin ? (
               <div className="cursor-pointer absolute w-[212px] justify-center mg-flex-center bottom-9">
                 <button
@@ -143,6 +178,7 @@ const index = () => {
                 </button>
                 <div className="absolute left-0 z-10 flex-col bottom-14 mg-flex-center">
                   <button
+                    onClick={shareUrl}
                     className={
                       shareBtn
                         ? "mg-floating-button-long duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
@@ -152,6 +188,7 @@ const index = () => {
                     {shareBtn && "url 복사하기"}
                   </button>
                   <button
+                    onClick={shareQr}
                     className={
                       shareBtn
                         ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)] bg-link"
@@ -161,6 +198,7 @@ const index = () => {
                     {shareBtn && "QR코드 공유하기"}
                   </button>
                   <button
+                    onClick={shareKakao}
                     className={
                       shareBtn
                         ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
@@ -175,7 +213,7 @@ const index = () => {
             ) : (
               <div className="absolute flex items-end bottom-4">
                 <button
-                  className="h-12 mr-4 text-l mg-primary-button-round"
+                  className="h-12 mr-4 mg-primary-button-round"
                   onClick={handleModal}
                 >
                   새해 덕담 남기기
@@ -183,6 +221,7 @@ const index = () => {
                 {modal && <LongModal modal={modal} setModal={setModal} />}
                 <div className="transition-all duration-300 mg-flex">
                   <button
+                    onClick={shareUrl}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
@@ -190,6 +229,7 @@ const index = () => {
                     }
                   />
                   <button
+                    onClick={shareQr}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
@@ -197,6 +237,7 @@ const index = () => {
                     }
                   />
                   <button
+                    onClick={shareKakao}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
@@ -212,28 +253,35 @@ const index = () => {
             )}
           </div>
         </div>
-        <div className="flex justify-end mr-12 mg-width-size">
-          복망고 소유주라면 로그인하세요!
-        </div>
-        <Link href="/" className="mg-width-size">
-          <div className="h-[71.98px] relative rounded-[10px] mg-primary-button mg-width-size mg-flex-center justify-end cursor-pointer">
-            <div className="bg-[url(/images/char/char-banner.svg)] w-[117px] h-[130px] absolute top-[-50px] left-2"></div>
-            <div className="mg-flex-center justify-center mg-width-size h-[71.98px]">
-              <div className="ml-16 mr-9">
-                나도 새해 복망고 만들어볼까?
-                <div className="font-semibold">새해 복망고 메인으로 이동</div>
-              </div>
-              <div className="text-xl font-bold cursor-pointer">〉</div>
+        {!isLogin ? (
+          <>
+            <div className="flex justify-end mr-12 mg-width-size">
+              복망고 소유주라면 &nbsp;
+              <Link href="/login" className="mg-link">
+                로그인
+              </Link>
+              하세요!
             </div>
+            <Banner />
+          </>
+        ) : (
+          <div className="text-center">
+            <Link href="/mypage" className="mg-link">
+              홍다희님
+            </Link>
+            의 새해 복망고입니다.
+            <br />
+            복주머니를 클릭하면 덕담을 볼 수 있어요!
           </div>
-        </Link>
-        {/* 배너 */}
+        )}
         {letterModal && (
           <LetterModal
             letterModal={letterModal}
             setLetterModal={setLetterModal}
           />
         )}
+        {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
+        <Toast />
       </div>
     </div>
   );

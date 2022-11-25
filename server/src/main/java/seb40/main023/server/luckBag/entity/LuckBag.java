@@ -7,6 +7,8 @@ import lombok.Setter;
 import seb40.main023.server.audit.Auditable;
 
 import seb40.main023.server.luckMango.entity.LuckMango;
+import seb40.main023.server.member.entity.Member;
+
 import javax.persistence.*;
 
 @Getter
@@ -30,6 +32,9 @@ public class LuckBag extends Auditable {
 
     @Column
     private int bagStyle=1;
+
+    @Column
+    private int bagColor=1;
 
     @ManyToOne
     @JoinColumn(name = "LUCKMANGO_ID")

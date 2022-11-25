@@ -12,6 +12,7 @@ import java.util.List;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "MEMBERS")
 public class Member extends Auditable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +28,19 @@ public class Member extends Auditable {
     private String password;
 
     @Column
+    @Builder.Default
     private String imgUrl = "";
 
     @Column
-    private int nyMoney = 0;
+    @Builder.Default
+    private long tot_Money = 0;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
     // 멤버 -> 복망고, 멤버 -> 리뷰는 1:N 관계
@@ -41,7 +48,7 @@ public class Member extends Auditable {
     private List<LuckMango> luckMangos = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    public List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     public void addLuckMango(LuckMango luckMango) {
         luckMangos.add(luckMango);
@@ -57,11 +64,10 @@ public class Member extends Auditable {
         }
     }
 
-    @Builder
-    public Member(String name, String email, String password, String imgUrl) {
+    public Member(Long memberId, String name, String email, String password) {
+        this.memberId = memberId;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.imgUrl = imgUrl;
     }
 }

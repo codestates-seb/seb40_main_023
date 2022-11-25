@@ -19,13 +19,21 @@ public class LuckMango extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long luckMangoId;
     private String title;
+    private String mangoBody;
     private String bgVideo;
     private String bgImage;
     private int likeCount = 0;
+    private String reveal;
+//    private long memberId;
+
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 
     @OneToMany(mappedBy = "luckMango", cascade = CascadeType.ALL)
     private List<LuckBag> luckBags = new ArrayList<>();

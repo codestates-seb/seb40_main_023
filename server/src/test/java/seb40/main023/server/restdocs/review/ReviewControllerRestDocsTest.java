@@ -7,12 +7,9 @@
 //import org.springframework.restdocs.payload.JsonFieldType;
 //import org.springframework.test.web.servlet.MvcResult;
 //import org.springframework.test.web.servlet.ResultActions;
-<<<<<<< Updated upstream
 //import org.springframework.util.LinkedMultiValueMap;
 //import org.springframework.util.MultiValueMap;
-=======
-//
->>>>>>> Stashed changes
+//import seb40.main023.server.member.dto.MemberResponseDto_Mango;
 //import seb40.main023.server.review.controller.ReviewController;
 //import seb40.main023.server.review.dto.ReviewPatchDto;
 //import seb40.main023.server.review.dto.ReviewPostDto;
@@ -30,20 +27,11 @@
 //import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 //import org.springframework.test.web.servlet.MockMvc;
 //
-<<<<<<< Updated upstream
 //import java.net.URI;
+//import java.time.LocalDateTime;
 //import java.util.ArrayList;
 //import java.util.List;
 //
-//import static Singleton.server.util.ApiDocumentUtils.getRequestPreProcessor;
-//import static Singleton.server.util.ApiDocumentUtils.getResponsePreProcessor;
-=======
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//
->>>>>>> Stashed changes
 //import static org.mockito.BDDMockito.given;
 //import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 //import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -55,11 +43,9 @@
 //import static org.springframework.restdocs.request.RequestDocumentation.*;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 //import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-<<<<<<< Updated upstream
-=======
 //import static seb40.main023.server.restdocs.util.ApiDocumentUtils.getRequestPreProcessor;
 //import static seb40.main023.server.restdocs.util.ApiDocumentUtils.getResponsePreProcessor;
->>>>>>> Stashed changes
+//
 //
 //@WebMvcTest(ReviewController.class)
 //@MockBean(JpaMetamodelMappingContext.class)
@@ -85,10 +71,10 @@
 //        long reviewId = 1L;
 //        ReviewResponseDto responseDto = new ReviewResponseDto();
 //        responseDto.setReviewId(1L);
-//        responseDto.setMemberId(1L);
 //        responseDto.setReviewBody("내용");
-//
-//
+//        responseDto.setMember(new MemberResponseDto_Mango(1L,"유저아이디","test@gmail.com","http://aa.aa.com"));
+//        responseDto.setCreatedAt(LocalDateTime.now());
+//        responseDto.setModifiedAt(LocalDateTime.now());
 //        String content = gson.toJson(responseDto);
 //        this.responseDto = responseDto;
 //    }
@@ -97,14 +83,8 @@
 //    public void postReviewTest() throws Exception {
 //        // given
 //        ReviewPostDto post = ReviewPostDto.builder()
-<<<<<<< Updated upstream
-//                .reviewId(1L)
-//                .memberId(1L)
-//                .reviewBody("내용")
-=======
 //                .reviewBody("내용")
 //                .memberId(1L)
->>>>>>> Stashed changes
 //                .build();
 //
 //        String content = gson.toJson(post);
@@ -115,7 +95,7 @@
 //        // when
 //        ResultActions actions =
 //                mockMvc.perform(
-//                        post("/v1/review")
+//                        post("/review")
 //                                .accept(MediaType.APPLICATION_JSON)
 //                                .contentType(MediaType.APPLICATION_JSON)
 //                                .content(content));
@@ -123,20 +103,13 @@
 //        // then
 //        actions
 //                .andExpect(status().isCreated())
-<<<<<<< Updated upstream
-//                .andExpect(jsonPath("$.data.reviewId").value(post.getReviewId()))
-//                .andExpect(jsonPath("$.data.memberId").value(post.getMemberId()))
+//                .andExpect(jsonPath("$.data.member.memberId").value(post.getMemberId()))
 //                .andExpect(jsonPath("$.data.reviewBody").value(post.getReviewBody()))
-=======
-//                .andExpect(jsonPath("$.data.reviewBody").value(post.getReviewBody()))
-//                .andExpect(jsonPath("$.data.memberId").value(post.getMemberId()))
->>>>>>> Stashed changes
 //                .andDo(document("post-review",
 //                        getRequestPreProcessor(),
 //                        getResponsePreProcessor(),
 //                        requestFields(
 //                                List.of(
-//                                        fieldWithPath("reviewId").type(JsonFieldType.NUMBER).description("리뷰번호"),
 //                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("작성자"),
 //                                        fieldWithPath("reviewBody").type(JsonFieldType.STRING).description("리뷰내용")
 //                                )
@@ -145,9 +118,14 @@
 //                                List.of(
 //                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
 //                                        fieldWithPath("data.reviewId").type(JsonFieldType.NUMBER).description("리뷰번호"),
-//                                        fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("작성자"),
-//                                        fieldWithPath("data.reviewBody").type(JsonFieldType.STRING).description("리뷰내용")
-//
+//                                        fieldWithPath("data.reviewBody").type(JsonFieldType.STRING).description("리뷰내용"),
+//                                        fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성일시"),
+//                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정일시"),
+//                                        fieldWithPath("data.member").type(JsonFieldType.OBJECT).description("멤버 데이터"),
+//                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("멤버 번호"),
+//                                        fieldWithPath("data.member.name").type(JsonFieldType.STRING).description("멤버 아이디"),
+//                                        fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("멤버 이메일"),
+//                                        fieldWithPath("data.member.imgUrl").type(JsonFieldType.STRING).description("멤버 이미지")
 //                                )
 //                        )
 //                ));
@@ -170,7 +148,7 @@
 //        // when
 //        ResultActions actions =
 //                mockMvc.perform(
-//                        patch("/v1/review/{review-Id}",1L,reviewId)
+//                        patch("/review/{review-Id}",1L,reviewId)
 //                                .accept(MediaType.APPLICATION_JSON)
 //                                .contentType(MediaType.APPLICATION_JSON)
 //                                .content(content));
@@ -178,7 +156,6 @@
 //        // then
 //        actions
 //                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.data.reviewId").value(patch.getReviewId()))
 //                .andExpect(jsonPath("$.data.reviewBody").value(patch.getReviewBody()))
 //                .andDo(document("patch-review",
 //                        getRequestPreProcessor(),
@@ -193,9 +170,14 @@
 //                                List.of(
 //                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
 //                                        fieldWithPath("data.reviewId").type(JsonFieldType.NUMBER).description("리뷰번호"),
-//                                        fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("작성자"),
-//                                        fieldWithPath("data.reviewBody").type(JsonFieldType.STRING).description("리뷰내용")
-//
+//                                        fieldWithPath("data.reviewBody").type(JsonFieldType.STRING).description("리뷰내용"),
+//                                        fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성일시"),
+//                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정일시"),
+//                                        fieldWithPath("data.member").type(JsonFieldType.OBJECT).description("멤버 데이터"),
+//                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("멤버 번호"),
+//                                        fieldWithPath("data.member.name").type(JsonFieldType.STRING).description("멤버 아이디"),
+//                                        fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("멤버 이메일"),
+//                                        fieldWithPath("data.member.imgUrl").type(JsonFieldType.STRING).description("멤버 이미지")
 //                                )
 //                        )
 //                ));
@@ -212,7 +194,7 @@
 //        // when
 //        ResultActions actions =
 //                mockMvc.perform(
-//                        get("/v1/review/{review-Id}",1L,reviewId)
+//                        get("/review/{review-Id}",1L,reviewId)
 //                                .accept(MediaType.APPLICATION_JSON)
 //                                .contentType(MediaType.APPLICATION_JSON)
 ////                                .content(content)
@@ -234,9 +216,14 @@
 //                                List.of(
 //                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
 //                                        fieldWithPath("data.reviewId").type(JsonFieldType.NUMBER).description("리뷰번호"),
-//                                        fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("작성자"),
-//                                        fieldWithPath("data.reviewBody").type(JsonFieldType.STRING).description("리뷰내용")
-//
+//                                        fieldWithPath("data.reviewBody").type(JsonFieldType.STRING).description("리뷰내용"),
+//                                        fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성일시"),
+//                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정일시"),
+//                                        fieldWithPath("data.member").type(JsonFieldType.OBJECT).description("멤버 데이터"),
+//                                        fieldWithPath("data.member.memberId").type(JsonFieldType.NUMBER).description("멤버 번호"),
+//                                        fieldWithPath("data.member.name").type(JsonFieldType.STRING).description("멤버 아이디"),
+//                                        fieldWithPath("data.member.email").type(JsonFieldType.STRING).description("멤버 이메일"),
+//                                        fieldWithPath("data.member.imgUrl").type(JsonFieldType.STRING).description("멤버 이미지")
 //                                )
 //                        )
 //                ));
@@ -258,6 +245,7 @@
 //        review1.setMember(null);
 //        review1.setReviewBody("후기2");
 //
+//
 //        List<Review> reviews = new ArrayList<>();
 //        reviews.add(review1);
 //        reviews.add(review2);
@@ -266,13 +254,18 @@
 //
 //        ReviewResponseDto responseDto1 = new ReviewResponseDto();
 //        responseDto1.setReviewId(1L);
-//        responseDto1.setMemberId(1L);
 //        responseDto1.setReviewBody("후기1");
+//        responseDto1.setMember(new MemberResponseDto_Mango(1L,"유저아이디","test@gmail.com","http://aa.aa.com"));
+//        responseDto1.setCreatedAt(LocalDateTime.now());
+//        responseDto1.setModifiedAt(LocalDateTime.now());
+//
 //
 //        ReviewResponseDto responseDto2 = new ReviewResponseDto();
 //        responseDto2.setReviewId(2L);
-//        responseDto2.setMemberId(2L);
 //        responseDto2.setReviewBody("후기2");
+//        responseDto2.setMember(new MemberResponseDto_Mango(2L,"유저아이디","test2@gmail.com","http://aa.aa.com"));
+//        responseDto2.setCreatedAt(LocalDateTime.now());
+//        responseDto2.setModifiedAt(LocalDateTime.now());
 //
 //        List<ReviewResponseDto> reviewResponseDtos = List.of(responseDto1, responseDto2);
 //
@@ -281,7 +274,7 @@
 //        // when
 //        ResultActions actions =
 //                mockMvc.perform(
-//                        get("/v1/review?page={page}&size={size}",1,10,page,size)
+//                        get("/review?page={page}&size={size}",1,10,page,size)
 //                                .accept(MediaType.APPLICATION_JSON)
 //                                .contentType(MediaType.APPLICATION_JSON)
 ////                                .content(content)
@@ -301,12 +294,18 @@
 //                                List.of(
 //                                        fieldWithPath("data").type(JsonFieldType.ARRAY).description("결과 데이터"),
 //                                        fieldWithPath("data[].reviewId").type(JsonFieldType.NUMBER).description("리뷰번호"),
-//                                        fieldWithPath("data[].memberId").type(JsonFieldType.NUMBER).description("작성자"),
 //                                        fieldWithPath("data[].reviewBody").type(JsonFieldType.STRING).description("리뷰내용"),
 //                                        fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("현재 페이지"),
 //                                        fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지당 갯수"),
 //                                        fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("후기 갯수"),
-//                                        fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("총 페이지수")
+//                                        fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("총 페이지수"),
+//                                        fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("생성일시"),
+//                                        fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("수정일시"),
+//                                        fieldWithPath("data[].member").type(JsonFieldType.OBJECT).description("멤버 데이터"),
+//                                        fieldWithPath("data[].member.memberId").type(JsonFieldType.NUMBER).description("멤버 번호"),
+//                                        fieldWithPath("data[].member.name").type(JsonFieldType.STRING).description("멤버 아이디"),
+//                                        fieldWithPath("data[].member.email").type(JsonFieldType.STRING).description("멤버 이메일"),
+//                                        fieldWithPath("data[].member.imgUrl").type(JsonFieldType.STRING).description("멤버 이미지")
 //                                )
 //                        )
 //                ));
@@ -319,7 +318,7 @@
 //        // when
 //        ResultActions actions =
 //                mockMvc.perform(
-//                        delete("/v1/review/{review-id}",1L,reviewId)
+//                        delete("/review/{review-id}",1L,reviewId)
 //                                .accept(MediaType.APPLICATION_JSON)
 //                                .contentType(MediaType.APPLICATION_JSON));
 //        // then

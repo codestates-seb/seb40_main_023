@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import BokPreview from "../BokPreview";
 import Link from "next/link";

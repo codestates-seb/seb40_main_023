@@ -6,6 +6,12 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Head from "next/head";
 
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 function App({ Component, pageProps }: AppProps) {
   <Head>
     <meta

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
+import seb40.main023.server.member.service.MemberService;
 import seb40.main023.server.review.entity.Review;
 import seb40.main023.server.review.repository.ReviewRepository;
 
@@ -16,8 +17,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
+    private final MemberService memberService;
 
     public Review createReview(Review review) {
+        review.setMember(memberService.findVerifiedMember(review.getMember().getMemberId()));
         return reviewRepository.save(review);
     }
 

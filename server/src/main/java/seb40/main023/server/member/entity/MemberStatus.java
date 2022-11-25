@@ -8,7 +8,7 @@ public enum MemberStatus {
     MEMBER_QUIT("탈퇴 상태");
 
     @Getter
-    private String status;
+    private final String status;
 
     MemberStatus(String status) { this.status = status; }
 }

@@ -11,7 +11,9 @@ public enum ExceptionCode {
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),
     INVALID_MEMBER_STATUS(400, "Invalid member status"),
-    LUCKBAG_NOT_FOUND(404,"LuckBag not found" );
+    LUCKBAG_NOT_FOUND(404,"LuckBag not found" ),
+
+    PASSWORD_NOT_MATCH(400, "Password not match" );
 
     @Getter
     private int status;

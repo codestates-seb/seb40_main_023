@@ -10,9 +10,10 @@ import javax.validation.constraints.Positive;
 public class LuckMangoPostDto {
     @NonNull
     private String title;
-    private String bgImage;
-    private String bgm;
+    private String mangoBody;
     private String bgVideo;
+    private String bgImage;
+    private String reveal;
     @Positive
     private long memberId;
 

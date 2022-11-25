@@ -11,7 +11,9 @@ import lombok.Setter;
 public class LuckMangoPatchDto {
     private long luckMangoId;
     private String title;
-    private String bgImage;
+    private String mangoBody;
     private String bgVideo;
+    private String bgImage;
+    private String reveal;
     private int likeCount;
 }

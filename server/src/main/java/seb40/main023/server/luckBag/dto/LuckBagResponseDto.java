@@ -19,6 +19,8 @@ public class LuckBagResponseDto {
     private String writer;
     private boolean viewed;
     private int bagStyle;
+    private int bagColor;
+    private long NYMoney;
     private long luckMangoId;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

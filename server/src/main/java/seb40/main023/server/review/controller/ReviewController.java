@@ -12,6 +12,7 @@ import seb40.main023.server.luckMango.dto.LuckMangoPostDto;
 import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.luckMango.mapper.LuckMangoMapper;
 import seb40.main023.server.luckMango.service.LuckMangoService;
+import seb40.main023.server.member.service.MemberService;
 import seb40.main023.server.response.MultiResponseDto;
 import seb40.main023.server.response.SingleResponseDto;
 import seb40.main023.server.review.dto.ReviewPatchDto;
@@ -31,10 +32,12 @@ import java.util.List;
 public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewMapper mapper;
+    private final MemberService memberService;
 
     @PostMapping
     public ResponseEntity postReview(@Valid @RequestBody ReviewPostDto reviewPostDto){
         Review review = reviewService.createReview(mapper.reviewPostDtoToReview(reviewPostDto));
+        review.setMember(memberService.findVerifiedMember(review.getMember().getMemberId()));
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.reviewToReviewResponseDto(review)),
                 HttpStatus.CREATED);

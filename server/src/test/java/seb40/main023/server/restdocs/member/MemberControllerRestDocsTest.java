@@ -72,7 +72,7 @@ public class MemberControllerRestDocsTest {
                 .email("hgd@gmail.com")
                 .password("qwer1234")
                 .imgUrl("imgURL")
-                .nyMoney(0)
+                .tot_Money(0)
                 .memberStatus(MEMBER_ACTIVE)
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
@@ -122,7 +122,7 @@ public class MemberControllerRestDocsTest {
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("회원 이름"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("회원 이메일"),
                                         fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호"),
-                                        fieldWithPath("data.nyMoney").type(JsonFieldType.NUMBER).description("회원 세뱃돈"),
+                                        fieldWithPath("data.tot_Money").type(JsonFieldType.NUMBER).description("회원 세뱃돈"),
                                         fieldWithPath("data.memberStatus").type(JsonFieldType.STRING).description("회원 상태"),
                                         fieldWithPath("data.imgUrl").type(JsonFieldType.STRING).description("회원 이미지"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("회원 정보 생성일"),
@@ -142,7 +142,7 @@ public class MemberControllerRestDocsTest {
                     .email("hgd1@gmail.com")
                     .password("qwer1234")
                     .imgUrl("imgUrl")
-                    .nyMoney(10000)
+                    .tot_Money(10000)
                     .memberStatus(MEMBER_ACTIVE)
                     .build();
 
@@ -186,7 +186,7 @@ public class MemberControllerRestDocsTest {
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("회원 이메일"),
                                         fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호"),
                                         fieldWithPath("data.imgUrl").type(JsonFieldType.STRING).description("회원 사진 경로"),
-                                        fieldWithPath("data.nyMoney").type(JsonFieldType.NUMBER).description("회원 세뱃돈"),
+                                        fieldWithPath("data.tot_Money").type(JsonFieldType.NUMBER).description("회원 세뱃돈"),
                                         fieldWithPath("data.memberStatus").type(JsonFieldType.STRING).description("회원 상태: MEMBER_ACTIVE / MEMBER_SLEEP / MEMBER_QUIT"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("회원 가입 일시"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("회원 수정 일시")
@@ -204,12 +204,12 @@ public class MemberControllerRestDocsTest {
 
         Member member1 = Member.builder()
                 .memberId(1L).name("hgd1").email("hgd1@gmail.com").password("qwer1234")
-                .imgUrl("imgUrl").nyMoney(10000).memberStatus(MEMBER_ACTIVE)
+                .imgUrl("imgUrl").tot_Money(10000).memberStatus(MEMBER_ACTIVE)
                 .build();
 
         Member member2 = Member.builder()
                 .memberId(2L).name("hgd2").email("hgd2@gmail.com").password("qwer1234")
-                .imgUrl("imgUrl").nyMoney(10000).memberStatus(MEMBER_ACTIVE)
+                .imgUrl("imgUrl").tot_Money(10000).memberStatus(MEMBER_ACTIVE)
                 .build();
 
         List<Member> members = new ArrayList<>();
@@ -220,13 +220,13 @@ public class MemberControllerRestDocsTest {
 
         MemberResponseDto memberResponseDto1 = MemberResponseDto.builder()
                 .memberId(1L).name("hgd1").email("hgd1@gmail.com").password("qwer1234")
-                .imgUrl("imgURL").nyMoney(0).memberStatus(MEMBER_ACTIVE)
+                .imgUrl("imgURL").tot_Money(0).memberStatus(MEMBER_ACTIVE)
                 .createdAt(LocalDateTime.now()).modifiedAt(LocalDateTime.now())
                 .build();
 
         MemberResponseDto memberResponseDto2 = MemberResponseDto.builder()
                 .memberId(2L).name("hgd2").email("hgd2@gmail.com").password("qwer1234")
-                .imgUrl("imgURL").nyMoney(0).memberStatus(MEMBER_ACTIVE)
+                .imgUrl("imgURL").tot_Money(0).memberStatus(MEMBER_ACTIVE)
                 .createdAt(LocalDateTime.now()).modifiedAt(LocalDateTime.now())
                 .build();
 
@@ -265,7 +265,7 @@ public class MemberControllerRestDocsTest {
                                                 fieldWithPath("data[].email").type(JsonFieldType.STRING).description("회원 이메일"),
                                                 fieldWithPath("data[].password").type(JsonFieldType.STRING).description("회원 비밀번호"),
                                                 fieldWithPath("data[].imgUrl").type(JsonFieldType.STRING).description("회원 사진 경로"),
-                                                fieldWithPath("data[].nyMoney").type(JsonFieldType.NUMBER).description("회원 세뱃돈"),
+                                                fieldWithPath("data[].tot_Money").type(JsonFieldType.NUMBER).description("회원 세뱃돈"),
                                                 fieldWithPath("data[].memberStatus").type(JsonFieldType.STRING).description("회원 상태: MEMBER_ACTIVE / MEMBER_SLEEP / MEMBER_QUIT"),
                                                 fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("회원 가입 일시"),
                                                 fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("회원 수정 일시"),
@@ -287,7 +287,7 @@ public class MemberControllerRestDocsTest {
         long memberId = 1L;
         MemberPatchDto patch = MemberPatchDto.builder()
                 .memberId(memberId).name("hgd").email("hgd@gmail.com").password("qwer1234")
-                .imgUrl("imgUrl").nyMoney(10000)
+                .imgUrl("imgUrl").tot_Money(10000)
                 .build();
 
         String content = gson.toJson(patch);
@@ -295,7 +295,7 @@ public class MemberControllerRestDocsTest {
 
         MemberResponseDto response = MemberResponseDto.builder()
                 .memberId(memberId).name("hgd").email("hgd@gmail.com").password("qwer1234")
-                .imgUrl("imgUrl").nyMoney(10000)
+                .imgUrl("imgUrl").tot_Money(10000)
                 .memberStatus(MEMBER_ACTIVE).createdAt(LocalDateTime.now()).modifiedAt(LocalDateTime.now())
                 .build();
 
@@ -322,7 +322,7 @@ public class MemberControllerRestDocsTest {
                 .andExpect(jsonPath("$.data.email").value(patch.getEmail()))
                 .andExpect(jsonPath("$.data.password").value(patch.getPassword()))
                 .andExpect(jsonPath("$.data.imgUrl").value(patch.getImgUrl()))
-                .andExpect(jsonPath("$.data.nyMoney").value(patch.getNyMoney()))
+                .andExpect(jsonPath("$.data.tot_Money").value(patch.getTot_Money()))
 //                .andExpect(jsonPath("$.data.memberStatus").value(patch.getMemberStatus().getStatus()))
 //                .andExpect(jsonPath("$.data.modifiedAt").value(patch.getModifiedAt()))
                 .andDo(document("Member_Patch",
@@ -337,7 +337,7 @@ public class MemberControllerRestDocsTest {
                                                 fieldWithPath("email").type(JsonFieldType.STRING).description("회원 이메일"),
                                                 fieldWithPath("password").type(JsonFieldType.STRING).description("회원 비밀번호"),
                                                 fieldWithPath("imgUrl").type(JsonFieldType.STRING).description("회원 사진 경로"),
-                                                fieldWithPath("nyMoney").type(JsonFieldType.NUMBER).description("회원 세뱃돈")
+                                                fieldWithPath("tot_Money").type(JsonFieldType.NUMBER).description("회원 세뱃돈")
                                 ),
                                 responseFields(
                                         List.of(
@@ -347,7 +347,7 @@ public class MemberControllerRestDocsTest {
                                                 fieldWithPath("data.email").type(JsonFieldType.STRING).description("회원 이메일"),
                                                 fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호"),
                                                 fieldWithPath("data.imgUrl").type(JsonFieldType.STRING).description("회원 사진 경로"),
-                                                fieldWithPath("data.nyMoney").type(JsonFieldType.NUMBER).description("회원 세뱃돈"),
+                                                fieldWithPath("data.tot_Money").type(JsonFieldType.NUMBER).description("회원 세뱃돈"),
                                                 fieldWithPath("data.memberStatus").type(JsonFieldType.STRING).description("회원 계정 상태: 활동중 / 휴면 상태 / 탈퇴 상태"),
                                                 fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("회원 최초 생성일"),
                                                 fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("회원 최종 수정일")

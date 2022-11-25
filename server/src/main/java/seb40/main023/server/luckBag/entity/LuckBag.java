@@ -31,6 +31,9 @@ public class LuckBag extends Auditable {
     @Column
     private int bagStyle=1;
 
+    @Column
+    private int bagColor=1;
+
     @ManyToOne
     @JoinColumn(name = "LUCKMANGO_ID")
     private LuckMango luckMango;

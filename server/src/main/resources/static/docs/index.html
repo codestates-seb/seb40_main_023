@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /member HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 99
+Content-Length: 104
 Host: localhost:8080
 
 {
@@ -482,7 +482,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json
-Content-Length: 297
+Content-Length: 314
 
 {
   "data" : {
@@ -491,10 +491,10 @@ Content-Length: 297
     "email" : "hgd@gmail.com",
     "password" : "qwer1234",
     "imgUrl" : "imgURL",
-    "nyMoney" : 0,
+    "tot_Money" : 0,
     "memberStatus" : "MEMBER_ACTIVE",
-    "createdAt" : "2022-11-21T14:32:04.86028",
-    "modifiedAt" : "2022-11-21T14:32:04.860291"
+    "createdAt" : "2022-11-25T00:29:10.6257622",
+    "modifiedAt" : "2022-11-25T00:29:10.6257622"
   }
 }</code></pre>
 </div>
@@ -544,10 +544,10 @@ Content-Length: 297
     "email" : "hgd@gmail.com",
     "password" : "qwer1234",
     "imgUrl" : "imgURL",
-    "nyMoney" : 0,
+    "tot_Money" : 0,
     "memberStatus" : "MEMBER_ACTIVE",
-    "createdAt" : "2022-11-21T14:32:04.86028",
-    "modifiedAt" : "2022-11-21T14:32:04.860291"
+    "createdAt" : "2022-11-25T00:29:10.6257622",
+    "modifiedAt" : "2022-11-25T00:29:10.6257622"
   }
 }</code></pre>
 </div>
@@ -593,7 +593,7 @@ Content-Length: 297
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 비밀번호</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.nyMoney</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.tot_Money</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 세뱃돈</p></td>
 </tr>
@@ -640,7 +640,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 284
+Content-Length: 298
 
 {
   "data" : {
@@ -649,7 +649,7 @@ Content-Length: 284
     "email" : "hgd@gmail.com",
     "password" : "qwer1234",
     "imgUrl" : "imgUrl",
-    "nyMoney" : 0,
+    "tot_Money" : 0,
     "memberStatus" : "MEMBER_ACTIVE",
     "createdAt" : "2022-11-01T00:00:00",
     "modifiedAt" : "2022-11-01T00:00:00"
@@ -692,7 +692,7 @@ Content-Length: 284
     "email" : "hgd@gmail.com",
     "password" : "qwer1234",
     "imgUrl" : "imgUrl",
-    "nyMoney" : 0,
+    "tot_Money" : 0,
     "memberStatus" : "MEMBER_ACTIVE",
     "createdAt" : "2022-11-01T00:00:00",
     "modifiedAt" : "2022-11-01T00:00:00"
@@ -746,7 +746,7 @@ Content-Length: 284
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 사진 경로</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.nyMoney</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.tot_Money</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 세뱃돈</p></td>
 </tr>
@@ -792,7 +792,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 691
+Content-Length: 727
 
 {
   "data" : [ {
@@ -801,20 +801,20 @@ Content-Length: 691
     "email" : "hgd1@gmail.com",
     "password" : "qwer1234",
     "imgUrl" : "imgURL",
-    "nyMoney" : 0,
+    "tot_Money" : 0,
     "memberStatus" : "MEMBER_ACTIVE",
-    "createdAt" : "2022-11-21T14:32:04.825122",
-    "modifiedAt" : "2022-11-21T14:32:04.825132"
+    "createdAt" : "2022-11-25T00:29:10.5567206",
+    "modifiedAt" : "2022-11-25T00:29:10.5567206"
   }, {
     "memberId" : 2,
     "name" : "hgd2",
     "email" : "hgd2@gmail.com",
     "password" : "qwer1234",
     "imgUrl" : "imgURL",
-    "nyMoney" : 0,
+    "tot_Money" : 0,
     "memberStatus" : "MEMBER_ACTIVE",
-    "createdAt" : "2022-11-21T14:32:04.825135",
-    "modifiedAt" : "2022-11-21T14:32:04.825137"
+    "createdAt" : "2022-11-25T00:29:10.5567206",
+    "modifiedAt" : "2022-11-25T00:29:10.5567206"
   } ],
   "pageInfo" : {
     "page" : 1,
@@ -902,7 +902,7 @@ Content-Length: 691
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 사진 경로</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].nyMoney</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].tot_Money</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 세뱃돈</p></td>
 </tr>
@@ -963,7 +963,7 @@ Content-Length: 691
   "email" : "hgd@gmail.com",
   "password" : "qwer1234",
   "imgUrl" : "imgUrl",
-  "nyMoney" : 10000
+  "tot_Money" : 10000
 }'</code></pre>
 </div>
 </div>
@@ -973,7 +973,7 @@ Content-Length: 691
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">PATCH /member/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 138
+Content-Length: 147
 Host: localhost:8080
 
 {
@@ -982,7 +982,7 @@ Host: localhost:8080
   "email" : "hgd@gmail.com",
   "password" : "qwer1234",
   "imgUrl" : "imgUrl",
-  "nyMoney" : 10000
+  "tot_Money" : 10000
 }</code></pre>
 </div>
 </div>
@@ -991,7 +991,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 301
+Content-Length: 318
 
 {
   "data" : {
@@ -1000,10 +1000,10 @@ Content-Length: 301
     "email" : "hgd@gmail.com",
     "password" : "qwer1234",
     "imgUrl" : "imgUrl",
-    "nyMoney" : 10000,
+    "tot_Money" : 10000,
     "memberStatus" : "MEMBER_ACTIVE",
-    "createdAt" : "2022-11-21T14:32:04.80056",
-    "modifiedAt" : "2022-11-21T14:32:04.800575"
+    "createdAt" : "2022-11-25T00:29:10.3000187",
+    "modifiedAt" : "2022-11-25T00:29:10.3000187"
   }
 }</code></pre>
 </div>
@@ -1017,7 +1017,7 @@ Content-Length: 301
   "email" : "hgd@gmail.com",
   "password" : "qwer1234",
   "imgUrl" : "imgUrl",
-  "nyMoney" : 10000
+  "tot_Money" : 10000
 }' | http PATCH 'http://localhost:8080/member/1' \
     'Content-Type:application/json;charset=UTF-8' \
     'Accept:application/json'</code></pre>
@@ -1051,7 +1051,7 @@ Content-Length: 301
   "email" : "hgd@gmail.com",
   "password" : "qwer1234",
   "imgUrl" : "imgUrl",
-  "nyMoney" : 10000
+  "tot_Money" : 10000
 }</code></pre>
 </div>
 </div>
@@ -1096,7 +1096,7 @@ Content-Length: 301
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 사진 경로</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nyMoney</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tot_Money</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 세뱃돈</p></td>
 </tr>
@@ -1112,10 +1112,10 @@ Content-Length: 301
     "email" : "hgd@gmail.com",
     "password" : "qwer1234",
     "imgUrl" : "imgUrl",
-    "nyMoney" : 10000,
+    "tot_Money" : 10000,
     "memberStatus" : "MEMBER_ACTIVE",
-    "createdAt" : "2022-11-21T14:32:04.80056",
-    "modifiedAt" : "2022-11-21T14:32:04.800575"
+    "createdAt" : "2022-11-25T00:29:10.3000187",
+    "modifiedAt" : "2022-11-25T00:29:10.3000187"
   }
 }</code></pre>
 </div>
@@ -1166,7 +1166,7 @@ Content-Length: 301
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 사진 경로</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.nyMoney</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.tot_Money</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">회원 세뱃돈</p></td>
 </tr>
@@ -1247,7 +1247,7 @@ Host: localhost:8080</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-11-21 14:18:56 +0900
+Last updated 2022-11-24 13:33:33 +0900
 </div>
 </div>
 </body>

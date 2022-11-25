@@ -11,7 +11,6 @@ const ServiceReview = () => {
   useEffect(() => {
     const getReview = async () => {
       const res = await useFetch("/api/review?page=1&size=10");
-      console.log(res);
       setReviewData(res.data);
       setReviewUpdate(false);
     };

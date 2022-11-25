@@ -26,7 +26,6 @@ function ReviewWrite({ setUpdated }: any) {
         icon: "🥹",
       });
     } else {
-      console.log(reviewInput);
       createReview("/api/review", {
         memberId: 1,
         reviewBody: reviewInput,

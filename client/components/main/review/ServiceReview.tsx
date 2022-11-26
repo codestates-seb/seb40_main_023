@@ -19,7 +19,7 @@ const ServiceReview = () => {
 
   return (
     <div className="w-full px-0 py-4 mobile:px-8 mg-review-card">
-      <div className="relative mb-10">
+      <div className="relative mb-3 mobile:mb-10">
         {reviewUpdate && <Loading />}
         {reviewData && <ReviewSlide reviewData={reviewData} />}
       </div>

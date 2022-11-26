@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import CountCharLength from "../../util/CountCharLength";
 import { notifyInfo, notifyError } from "../../util/Toast";
 import { createReview } from "../../../api/review";
-import Image from "next/image";
 
 function ReviewWrite({ setUpdated }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);

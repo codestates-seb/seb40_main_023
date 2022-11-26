@@ -3,13 +3,15 @@ import BokPreview from "../BokPreview";
 import Link from "next/link";
 import { createMg } from "../../api/create";
 
-const EditModal = ({ setModal, greeting, title, bgUrl }: any) => {
+const EditModal = ({ setModal, greeting, title, bgUrl, reveal }: any) => {
   const createLuckMg = async () => {
     const res = await createMg("/api/luckMango", {
-      memberId: 1,
+      memberId: 2,
       title: title,
-      bgImage: "aaa",
-      bgVideo: "bbb",
+      mangoBody: greeting,
+      bgImage: "bg.jpg",
+      bgVideo: "bgVideo.mp",
+      reveal: reveal,
     });
     console.log(res);
   };

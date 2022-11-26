@@ -11,6 +11,7 @@ import Footer from "../../components/Footer";
 import GalleryItem from "../../components/mypage/GalleryItem";
 import { useFetch } from "../../api/useFetch";
 import { useRouter } from "next/router";
+import { Toast } from "../../components/util/Toast";
 
 const Mypage = () => {
   const router = useRouter();
@@ -121,6 +122,7 @@ const Mypage = () => {
             </div>
           )}
         </div>
+        <Toast />
       </div>
       {!modalState && <Footer />}
     </div>

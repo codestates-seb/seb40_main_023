@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
+import { Toast } from "../../components/util/Toast";
 
 const edit = () => {
   const [title, setTitle] = useState("");
@@ -78,6 +79,7 @@ const edit = () => {
           bgUrl={bgUrl}
         />
       )}
+      <Toast />
     </div>
   );
 };

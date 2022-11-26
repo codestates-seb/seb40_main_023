@@ -3,7 +3,7 @@ import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import ShareBtn from "../../components/ShareBtn";
-import { notifySuccess } from "../../components/util/Toast";
+import { Toast, notifySuccess } from "../../components/util/Toast";
 import Loading from "../../components/util/Loading";
 
 const complete = () => {
@@ -33,10 +33,12 @@ const complete = () => {
               {isLoading ? "제작중.." : "완성!"}
             </h1>
             <div className="mb-2 text-xl">
-              친구들에게 링크를 공유해서 덕담을 나눠 보세요!
+              친구들에게 링크를 공유해서 <br className="mobile:hidden" />
+              덕담을 나눠 보세요!
             </div>
             <div className="text-base text-mono-400">
-              제작한 나의 새해복망고는{" "}
+              제작한 나의 새해복망고는
+              <br className="mobile:hidden" />
               <Link
                 href="/mypage"
                 className="font-medium underline text-primary-normal decoration-wavy"
@@ -55,6 +57,7 @@ const complete = () => {
             메인으로 가기
           </Link>
         </div>
+        <Toast />
       </main>
       <Footer />
     </div>

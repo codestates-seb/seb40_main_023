@@ -7,6 +7,7 @@ import ServiceHowto from "../components/main/howto/ServiceHowto";
 import ServiceChart from "../components/main/chart/ServiceChart";
 import ServiceReview from "../components/main/review/ServiceReview";
 import ServiceGallery from "../components/main/gallery/ServiceGallery";
+import { Toast } from "../components/util/Toast";
 import Footer from "../components/Footer";
 
 export default function Home() {
@@ -39,6 +40,7 @@ export default function Home() {
           <SectionTitle title={`새해 복망고 갤러리`} />
           <ServiceGallery />
         </Section>
+        <Toast />
       </main>
       <Footer />
     </div>

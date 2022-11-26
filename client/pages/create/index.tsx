@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
-import { notifyWarning, notifyError } from "../../components/util/Toast";
+import { Toast, notifyWarning, notifyError } from "../../components/util/Toast";
 
 const create = () => {
   const [title, setTitle] = useState("");
@@ -161,6 +161,7 @@ const create = () => {
             />
           )}
         </div>
+        <Toast />
       </main>
       <Footer />
     </div>

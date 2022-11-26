@@ -9,10 +9,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "MEMBERS")
 public class Member extends Auditable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +27,11 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String password;
 
-    @Column
-    @Builder.Default
-    private String imgUrl = "";
+    @Column             // imgUrl 얘만 기본값 Null로 생성됨
+    private String imgUrl;
 
     @Column
-    @Builder.Default
-    private long tot_Money = 0;
+    private long tot_Money;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
@@ -63,7 +61,6 @@ public class Member extends Auditable {
             review.setMember(this);
         }
     }
-
     public Member(Long memberId, String name, String email, String password) {
         this.memberId = memberId;
         this.name = name;

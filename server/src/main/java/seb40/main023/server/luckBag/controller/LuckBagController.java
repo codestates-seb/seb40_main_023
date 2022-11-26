@@ -27,6 +27,9 @@ public class LuckBagController {
     private final LuckBagService luckBagService;
     private final LuckBagMapper luckBagMapper;
 
+    // 복주머니 생성의 경우 public 익명도 작성 가능해야하고, 조회도 가능해야하기 때문에
+    // URL 을 어떻게 보여줄지 고민 필요.
+
     // Created 복주머니 생성
     @PostMapping //복주머니 만들기
     public ResponseEntity postLuckBag(@Valid @RequestBody LuckBagPostDto luckBagPostDto){
@@ -60,8 +63,7 @@ public class LuckBagController {
 
     // 복주머니 글 전체 조회
     @GetMapping
-    public ResponseEntity getLuckBags(@PathVariable("page") int page ,
-                                      @PathVariable("size") int size){
+    public ResponseEntity getLuckBags(@RequestParam("page") int page , @RequestParam("size") int size){
         Page<LuckBag> luckBagPage = luckBagService.findLuckBags(page - 1,size);
         List<LuckBag> luckBags = luckBagPage.getContent();
 
@@ -72,9 +74,8 @@ public class LuckBagController {
 
     @GetMapping("/luckMango")
     public ResponseEntity getLuckBag(@RequestParam("luckMangoId") long luckMangoId,
-                                     @RequestParam("page")  int page ,
-                                     @RequestParam("size") int size
-    ){
+                                     @RequestParam("page") int page ,
+                                     @RequestParam("size") int size){
         Page<LuckBag> luckBagPage = luckBagService.findLuckBagList(luckMangoId,page - 1, size );
         List<LuckBag> luckBags = luckBagPage.getContent();
 

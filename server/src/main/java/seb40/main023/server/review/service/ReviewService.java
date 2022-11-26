@@ -5,15 +5,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
 import seb40.main023.server.member.service.MemberService;
 import seb40.main023.server.review.entity.Review;
 import seb40.main023.server.review.repository.ReviewRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
-@Service
+@Service @Transactional
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
@@ -36,6 +38,8 @@ public class ReviewService {
 
         Optional.ofNullable(review.getReviewBody())
                 .ifPresent(reviewBody -> findReview.setReviewBody(reviewBody));
+
+        findReview.setModifiedAt(LocalDateTime.now());
 
         return reviewRepository.save(findReview);
     }

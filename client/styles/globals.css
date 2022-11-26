@@ -151,11 +151,11 @@
   }
 
   .mg-card-button {
-    @apply m-auto border border-white w-[55px] h-[55px] bg-transparent hover:bg-[rgba(0,0,0,.02)] rounded-full bg-no-repeat bg-center;
+    @apply m-auto border border-white w-[55px] h-[55px] bg-transparent hover:bg-[rgba(0,0,0,0.15)] rounded-full bg-no-repeat bg-center;
   }
 
   .mg-mypage-button {
-    @apply border border-white w-[40px] h-[40px] bg-transparent hover:bg-[rgba(0,0,0,.02)] rounded-full bg-no-repeat bg-center;
+    @apply border border-white w-[40px] h-[40px] bg-transparent hover:bg-[rgba(252,0,0,.02)] rounded-full bg-no-repeat bg-center;
   }
 
   /* Footer */
@@ -208,6 +208,10 @@
   /* Icons */
   .mg-icon-sound-on {
     @apply bg-[url(/images/content/ico-sound-on.svg)] bg-no-repeat bg-center;
+  }
+
+  .mg-icon-lucky-money {
+    @apply bg-[url(/images/content/ico-mg-money.svg)] bg-no-repeat bg-center;
   }
 
   .mg-icon-card-edit {
@@ -309,5 +313,10 @@
 
   .mg-vaild-error {
     @apply text-danger-normal;
+  }
+
+  /* Link */
+  .mg-link {
+    @apply text-[#599CFF] underline;
   }
 }

@@ -19,6 +19,10 @@ function MyDocument() {
         <noscript>
           <link href="./styles/aos-noscript.css" rel="stylesheet" />
         </noscript>
+        <script
+          defer
+          src="https://developers.kakao.com/sdk/js/kakao.min.js"
+        ></script>
       </Head>
       <body>
         <Main />

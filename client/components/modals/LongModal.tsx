@@ -2,14 +2,21 @@ import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
 import { createBag } from "../../api/lucky";
+import DefaultModal from "./DefaultModal";
 
 const LongModal = ({ modal, setModal }: any) => {
   const [luckContent, setLuckContent] = useState("");
   const [writer, setWriter] = useState("");
   const [money, setMoney] = useState(0);
   const [bagType, setBagType] = useState(1);
+  const [confirmModal, setConfirmModal] = useState(false);
+
   const handleModal = () => {
     setModal(!modal);
+  };
+
+  const handleConModal = () => {
+    setConfirmModal(!confirmModal);
   };
 
   const handleMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +29,6 @@ const LongModal = ({ modal, setModal }: any) => {
 
   const handleLuckBag = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBagType(Number(e.target.value));
-    console.log(bagType);
   };
 
   const handleWriter = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,13 +129,20 @@ const LongModal = ({ modal, setModal }: any) => {
           <div className="flex justify-around p-2 mt-3">
             <button
               className="rounded-full mg-primary-button"
-              onClick={createLuckBag}
+              onClick={handleConModal}
             >
               덕담 보내기
             </button>
           </div>
         </div>
       </div>
+      {confirmModal && (
+        <DefaultModal
+          title="덕담은 수정할 수 없습니다."
+          contents="보내시겠어요?"
+          Yesbutton="덕담 보내기"
+        />
+      )}
     </div>
   );
 };

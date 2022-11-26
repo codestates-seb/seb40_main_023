@@ -36,6 +36,6 @@ mail:
   address:
     admin: admin@gmail.com
 jwt:
-  secret-key: TestTestTestTestTestTestTestTestTestTestTestTestTestTestTest
-  access-token-expiration-minutes: 40
-  refresh-token-expiration-minutes: 420
+  secret-key: EFWHKQDDNMQU2YLOIBTW6IKUMVAHG5BB
+  access-token-expiration-minutes: 5
+  refresh-token-expiration-minutes: 60

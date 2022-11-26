@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 
@@ -7,6 +7,11 @@ const create = () => {
   const [greeting, setGreeting] = useState("");
   const [modal, setModal] = useState(false);
   const [bgUrl, setBgUrl] = useState("");
+  const [reveal, setReveal] = useState(false);
+
+  const handleCheck = () => {
+    setReveal(!reveal);
+  };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -63,7 +68,11 @@ const create = () => {
         <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
       </div>
       <label className="mt-5 mg-flex-center mg-width-size">
-        <input type="checkbox" className="mx-2 font-medium" />
+        <input
+          type="checkbox"
+          className="mx-2 font-medium"
+          onClick={handleCheck}
+        />
         <div>내가 만든 복망고를 모두에게 자랑하기</div>
       </label>
       <button className="mt-8 mg-primary-button" onClick={handleModal}>
@@ -76,6 +85,7 @@ const create = () => {
           greeting={greeting}
           title={title}
           bgUrl={bgUrl}
+          reveal={reveal}
         />
       )}
     </div>

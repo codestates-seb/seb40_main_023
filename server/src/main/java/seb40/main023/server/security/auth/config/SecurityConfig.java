@@ -114,7 +114,7 @@ public class SecurityConfig {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);  // (2)
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 
             builder.addFilter(jwtAuthenticationFilter)  // JwtAuthenticationFilter를 Spring Security Filter Chain에 추가
                 .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);   // JwtVerificationFilter

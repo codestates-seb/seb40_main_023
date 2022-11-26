@@ -1,12 +1,18 @@
 spring:
-  datasource:
-    url: jdbc:mysql:ec2-43-201-150-208.ap-northeast-2.compute.amazonaws.com:3306/LuckMango   # 주소 / db이름  # 추후에 EC2 환경변수에 설정 필요
-    username: root            # mysql 이름 설정   # 추후에 EC2 환경변수에 설정 필요
-    password: a!123456789    # mysql 비밀번호 설정 # 추후에 EC2 환경변수에 설정 필요
+  datasource: #상현님 서버
+    url : jdbc:mysql://localhost:3306/LuckMango
+    username: root  # mysql 이름 설정
+    password: 4682  # mysql 비밀번호 설정
     driver-class-name: com.mysql.cj.jdbc.Driver
   devtools:
     livereload:
       enabled: true
+
+  # 정현님 서버
+  #    url: jdbc:mysql:ec2-43-201-150-208.ap-northeast-2.compute.amazonaws.com:3306/LuckMango   # 주소 / db이름  # 추후에 EC2 환경변수에 설정 필요
+  #    username: root            # mysql 이름 설정   # 추후에 EC2 환경변수에 설정 필요
+  #    password: a!123456789    # mysql 비밀번호 설정 # 추후에 EC2 환경변수에 설정 필요
+
   #create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
   #create-drop: create와 같으나 종료시점에 테이블 DROP
   #update: 변경분만 반영(운영DB에서는 사용하면 안됨)

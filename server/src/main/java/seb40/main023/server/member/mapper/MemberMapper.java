@@ -7,6 +7,7 @@ import seb40.main023.server.member.dto.MemberPostDto;
 import seb40.main023.server.member.dto.MemberResponseDto;
 import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.security.auth.dto.LoginDto;
+import seb40.main023.server.security.auth.dto.LoginResponseDto;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface MemberMapper {
     Member loginDtoToMember(LoginDto loginDto);
     Member memberPostToMember(MemberPostDto requestBody);
     Member memberPatchToMember(MemberPatchDto requestBody);
+
+    LoginResponseDto loginToLoginResponseDto(Member member);
     MemberResponseDto memberToMemberResponseDto(Member member);
     List<MemberResponseDto> membersToMemberResponseDtos(List<Member> members);
 }

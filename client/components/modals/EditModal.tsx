@@ -16,16 +16,23 @@ const EditModal = ({ setModal, greeting, title, bgUrl }: any) => {
 
   return (
     <div className="mg-modal-container">
-      <div className="mg-modal-panel">
+      <div className="overflow-y-auto mg-modal-panel">
         <button
           className="mg-modal-close"
           onClick={() => setModal(false)}
           aria-label="모달 닫기"
         ></button>
         <div className="px-2">
+          <div className="justify-center mb-4 text-xl mg-modal-title">
+            작성하신 내용을 한 번 더 확인해 주세요!
+          </div>
+        </div>
+        <div className="px-2">
           <div className="mg-flex-center">
             <div className="mg-modal-title">
-              <p className="mr-5">제목</p>
+              <p className="mr-3">
+                제목 <span className="text-mono-textDisabled">|</span>{" "}
+              </p>
               <p className="font-normal">{title}</p>
             </div>
           </div>

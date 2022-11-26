@@ -371,11 +371,11 @@ body {
 
   /* Modal */
   .mg-modal-container {
-    @apply fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center bg-black/30;
+    @apply fixed top-0 bottom-0 left-0 right-0 z-50 flex mobile:bg-black/30 mobile:items-center mobile:justify-center;
   }
 
   .mg-modal-panel {
-    @apply relative w-full max-w-[440px] h-auto bg-white rounded-[20px] p-5 pt-[40px] shadow-context;
+    @apply relative w-full mobile:max-w-[440px] h-auto bg-white mobile:rounded-[20px] p-5 pt-[40px] mobile:shadow-context;
   }
 
   .mg-modal-close {
@@ -383,7 +383,7 @@ body {
   }
 
   .mg-modal-title {
-    @apply flex flex-row items-center mb-2 text-xl font-medium;
+    @apply flex flex-row items-center mb-2 text-base font-medium;
   }
 
   /* Validation */

@@ -1,13 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectSidebarState, setSidebarState } from "../store/sidebarSlice";
+// import { selectSidebarState, setSidebarState } from "../store/mangoSlice";
 import Link from "next/link";
 
 const Sidebar = ({ toggleHandler, toggleState }: any) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const sidebarState = useSelector(selectSidebarState);
 
   const hideSidebar = () => {
-    dispatch(setSidebarState(false));
+    // dispatch(setSidebarState(false));
   };
 
   return (

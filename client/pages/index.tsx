@@ -22,7 +22,7 @@ export default function Home() {
           <ServiceIntro />
         </Section>
         <Section color={true}>
-          <SectionTitle title={`새해 복 망고 어떻게 만드나요?`} />
+          <SectionTitle title={`새해 복망고 어떻게 만드나요?`} />
           <ServiceHowto />
         </Section>
         <Section>

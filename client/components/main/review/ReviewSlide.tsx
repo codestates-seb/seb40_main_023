@@ -57,9 +57,10 @@ function ReviewSlide({ reviewData }: any) {
 
   return (
     <Slider {...settings} className="flex flex-col items-center justify-center">
-      {reviewData.map((review: ReviewDataProps, idx: number) => (
-        <ReviewItem key={idx} {...review} />
-      ))}
+      {reviewData &&
+        reviewData.map((review: ReviewDataProps, idx: number) => (
+          <ReviewItem key={idx} {...review} />
+        ))}
     </Slider>
   );
 }

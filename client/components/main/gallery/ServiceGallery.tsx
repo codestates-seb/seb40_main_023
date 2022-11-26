@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useFetch } from "../../../api/useFetch";
+import Loading from "../../util/Loading";
 import GalleryItem from "./GalleryItem";
 
 const ServiceGallery = () => {
-  const count = 12;
+  const [galleryData, setGalleryData] = useState([]);
+  const [galleryUpdate, setGalleryUpdate] = useState(true);
+
+  useEffect(() => {
+    const getGalleryItem = async () => {
+      const res = await useFetch(
+        "/api/luckMango/public?reveal=true&page=1&size=12&sort=likeCount",
+      );
+      setGalleryData(res.data);
+      setGalleryUpdate(false);
+    };
+    getGalleryItem();
+  }, [galleryUpdate]);
 
   return (
     <div className="flex flex-col items-center justify-center my-4">
@@ -14,10 +28,12 @@ const ServiceGallery = () => {
           <button>추천순</button>
         </li>
       </ul>
-      <div className="grid w-full mb-[20px] grid-flow-row grid-cols-2 gap-6 tablet:grid-cols-3">
-        {Array.from({ length: count }).map((el, idx) => (
-          <GalleryItem key={idx} />
-        ))}
+      <div className="relative grid w-full mb-[20px] grid-flow-row grid-cols-2 gap-6 tablet:grid-cols-3 min-h-[100px]">
+        {galleryUpdate && <Loading />}
+        {galleryData &&
+          galleryData.map((el, idx) => (
+            <GalleryItem key={idx} {...galleryData} />
+          ))}
       </div>
       <div className="flex flex-col items-center py-4 text-center">
         <p className="mb-1 text-mono-textDisabled">

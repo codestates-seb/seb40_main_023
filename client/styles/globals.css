@@ -11,10 +11,6 @@ body {
   @apply font-light font-Pretendard;
 }
 
-body {
-  @apply font-light font-Pretendard;
-}
-
 /* For Toast */
 .Toastify__toast-body {
   font-family: "Pretendard";
@@ -30,7 +26,6 @@ body {
 
   .mg-main-section {
     @apply flex items-start justify-center w-full pt-12 pb-16;
-    @apply flex items-start justify-center w-full pt-12 pb-16;
   }
 
   .mg-main-section > div {
@@ -38,7 +33,6 @@ body {
   }
 
   .mg-main-countdown {
-    @apply flex justify-center w-full px-4 py-2 mx-10 mb-5 text-center text-white break-words border rounded bg-secondary-normal border-secondary-darker;
     @apply flex justify-center w-full px-4 py-2 mx-10 mb-5 text-center text-white break-words border rounded bg-secondary-normal border-secondary-darker;
   }
 
@@ -100,11 +94,9 @@ body {
 
   .mg-gallery-filter {
     @apply flex flex-row justify-center mb-10 max-w-[220px] w-full;
-    @apply flex flex-row justify-center mb-10 max-w-[220px] w-full;
   }
 
   .mg-gallery-filter > li {
-    @apply flex justify-center w-[50%] py-1 mobile:py-2 border-2 border-primary-normal bg-white text-primary-normal items-center max-w-[220px] text-center;
     @apply flex justify-center w-[50%] py-1 mobile:py-2 border-2 border-primary-normal bg-white text-primary-normal items-center max-w-[220px] text-center;
   }
 
@@ -130,7 +122,6 @@ body {
   }
 
   .mg-default-card {
-    @apply cursor-pointer relative flex justify-center w-[230px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
     @apply cursor-pointer relative flex justify-center w-[230px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
   }
 
@@ -186,11 +177,6 @@ body {
 
   .mg-primary-button.disabled {
     @apply border rounded text-mono-textDisabled bg-mono-bgDisabled hover:bg-mono-bgDisabled border-mono-borderDisabled;
-    @apply px-12 py-3 text-center text-white rounded bg-primary-normal hover:bg-primary-hover;
-  }
-
-  .mg-primary-button.disabled {
-    @apply border rounded text-mono-textDisabled bg-mono-bgDisabled hover:bg-mono-bgDisabled border-mono-borderDisabled;
   }
 
   .mg-secondary-button {
@@ -219,45 +205,6 @@ body {
   }
 
   .mg-default-input {
-    @apply px-4 py-2 border rounded-md border-mono-borderNormal placeholder:text-mono-textLight placeholder:font-light focus:outline-none focus-visible:ring placeholder:text-base;
-  }
-
-  .mg-required-input {
-    @apply relative before:absolute before:content-[''] before:right-[-6px] before:top-[2px] before:w-[5px] before:h-[5px] before:bg-danger-normal before:rounded-full;
-  }
-
-  .mg-default-textarea {
-    @apply w-full border rounded-md resize-none border-mono-borderNormal focus:outline-none focus-visible:ring placeholder:text-mono-textLight placeholder:font-light placeholder:text-base;
-  }
-
-  .mg-checkbox-group {
-    @apply flex;
-  }
-  .mg-checkbox-group > input[type="checkbox"] + label {
-    @apply flex flex-row items-center text-mono-textNormal;
-  }
-  .mg-checkbox-group > input[type="checkbox"] + label > span {
-    @apply block border rounded-md border-mono-borderNormal bg-white w-[20px] h-[20px] bg-none;
-  }
-
-  .mg-checkbox-group > input[type="checkbox"]:checked + label > span {
-    @apply border-primary-normal bg-primary-normal bg-[url(/images/ico/ico-checkbox.svg)] bg-center bg-no-repeat;
-  }
-
-  .mg-info-normal {
-    @apply flex flex-row items-start text-sm text-secondary-hover;
-  }
-
-  .mg-info-normal > i {
-    @apply w-[20px] h-[20px] bg-[url(/images/ico/ico-info.svg)] mr-1;
-  }
-
-  .mg-info-disabled {
-    @apply flex flex-row items-start text-sm text-mono-textDisabled;
-  }
-
-  .mg-info-disabled > i {
-    @apply grayscale w-[20px] h-[20px] bg-[url(/images/ico/ico-info.svg)] mr-1;
     @apply px-4 py-2 border rounded-md border-mono-borderNormal placeholder:text-mono-textLight placeholder:font-light focus:outline-none focus-visible:ring placeholder:text-base;
   }
 
@@ -336,16 +283,8 @@ body {
   main {
     @apply min-h-[calc(100vh-109px)] pb-10;
   }
-  main {
-    @apply min-h-[calc(100vh-109px)] pb-10;
-  }
 
   .mg-layout {
-    @apply flex flex-col items-center justify-center w-full px-[24px] mobile:px-0 mx-auto py-9 max-w-[400px];
-  }
-
-  .mg-layout-row {
-    @apply w-full mb-4;
     @apply flex flex-col items-center justify-center w-full px-[24px] mobile:px-0 mx-auto py-9 max-w-[400px];
   }
 
@@ -369,7 +308,6 @@ body {
 
   .mg-white-button {
     @apply px-10 py-3 border rounded-md bg-white/80 hover:bg-white/90 text-primary-normal;
-    @apply px-10 py-3 border rounded-md bg-white/80 hover:bg-white/90 text-primary-normal;
   }
 
   .mg-share-button {
@@ -381,7 +319,6 @@ body {
   }
 
   .mg-border-2 {
-    @apply border rounded-md border-mono-borderNormal;
     @apply border rounded-md border-mono-borderNormal;
   }
 
@@ -405,7 +342,6 @@ body {
   }
 
   .mg-modal-input {
-    @apply w-[300px] rounded border border-mono-borderNormal p-3;
     @apply w-[300px] rounded border border-mono-borderNormal p-3;
   }
 

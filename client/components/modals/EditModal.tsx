@@ -35,11 +35,18 @@ const EditModal = ({ setModal, greeting, title, bgUrl }: any) => {
               </p>
               <p className="font-normal">{title}</p>
             </div>
-            <div className="w-[400px]">{title}</div>
-            <BokPreview greeting={greeting} bgUrl={bgUrl} />
-          </main>
-          <div className="flex justify-around p-2 mt-1">
-            <button className="mg-negative-button-round" onClick={handleModal}>
+          </div>
+          <div className="mb-4 mg-info-normal">
+            <i></i>제목은 친구들에게 노출되지 않아요
+          </div>
+        </div>
+        <div>
+          <BokPreview greeting={greeting} bgUrl={bgUrl} />
+          <div className="flex justify-center mt-5 mb-3">
+            <button
+              className="mx-2 mg-negative-button-round"
+              onClick={() => setModal(false)}
+            >
               취소
             </button>
             <Link

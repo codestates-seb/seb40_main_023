@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
 import seb40.main023.server.luckMango.entity.LuckMango;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service @Transactional
 @RequiredArgsConstructor
 public class LuckMangoService {
     private final LuckMangoRepository luckMangoRepository;
@@ -67,15 +68,13 @@ public class LuckMangoService {
 
         Optional.ofNullable(luckMango.getTitle())
                 .ifPresent(title -> findLuckMango.setTitle(title));
-        Optional.ofNullable(luckMango.getBgImage())
-                .ifPresent(bgImage -> findLuckMango.setBgImage(bgImage));
-        Optional.ofNullable(luckMango.getBgVideo())
-                .ifPresent(BgVideo -> findLuckMango.setBgVideo(BgVideo));
-        Optional.ofNullable(luckMango.getLikeCount())
-                .ifPresent(likeCount -> findLuckMango.setLikeCount(likeCount));
         Optional.ofNullable(luckMango.getMangoBody())
                 .ifPresent(mangoBody -> findLuckMango.setMangoBody(mangoBody));
-        Optional.ofNullable(luckMango.getReveal())
+        Optional.ofNullable(luckMango.getBgVideo())
+                .ifPresent(bgVideo -> findLuckMango.setBgVideo(bgVideo));
+        Optional.ofNullable(luckMango.getBgImage())
+                .ifPresent(bgImage -> findLuckMango.setBgImage(bgImage));
+        Optional.ofNullable(luckMango.isReveal())
                 .ifPresent(reveal -> findLuckMango.setReveal(reveal));
 
         findLuckMango.setModifiedAt(LocalDateTime.now());

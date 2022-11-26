@@ -14,10 +14,11 @@ public class MemberResponseDto {
     private long memberId;
     private String name;
     private String email;
-    private String password;
+//    private String password;
     private String imgUrl;
     private long tot_Money;
     private MemberStatus memberStatus;
+
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 

@@ -50,11 +50,6 @@ dependencies {
 
 	implementation 'mysql:mysql-connector-java'
 
-	// thymeleaf
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-
 	// Spring Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'

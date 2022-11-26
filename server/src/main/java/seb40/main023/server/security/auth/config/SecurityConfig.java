@@ -38,18 +38,25 @@ public class SecurityConfig {
         http
                 .headers().frameOptions().sameOrigin() // 동일 출처로부터 들어오는 request만 페이지 렌더링을 허용
                 .and()
+
                 .csrf().disable()        // CSRF(Cross-Site Request Forgery) 공격에 대한 Spring Security에 대한 설정을 비활성화
+
                 .cors(withDefaults())    // corsConfigurationSource라는 이름으로 등록된 Bean을 이용
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // 세션을 생성하지 않도록 설정
                 .and()
+
                 .formLogin().disable()   // SSR 방식에서 사용하는 폼 로그인 방식을 비활성화(우리는 CSR)
+
                 .httpBasic().disable()   //
+
                 .exceptionHandling()
                     .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                     .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
+
                 .apply(new CustomFilterConfigurer())   // filter 추가
                 .and()
+
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/member").permitAll()
                         .antMatchers(HttpMethod.PATCH, "/member/**").hasRole("USER")
@@ -57,25 +64,23 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.GET, "/member").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/member/**").hasAnyRole("USER","ADMIN")
 
-//                        .antMatchers(HttpMethod.POST, "/luckMango").permitAll()
-//                        .antMatchers(HttpMethod.PATCH, "/luckMango/**").hasRole("USER")
-//                        .antMatchers(HttpMethod.GET, "/luckMango").hasRole("ADMIN")
-//                        .antMatchers(HttpMethod.GET, "/luckMango/**").hasAnyRole("USER", "ADMIN")
-//                        .antMatchers(HttpMethod.DELETE, "/luckMango/**").hasAnyRole("USER", "ADMIN")
-//                        .anyRequest().permitAll()
-//
-//                        .antMatchers(HttpMethod.POST, "/luckBag").permitAll()
-//                        .antMatchers(HttpMethod.PATCH, "/luckBag/**").hasRole("USER")
-//                        .antMatchers(HttpMethod.GET, "/luckBag").hasRole("ADMIN")
-//                        .antMatchers(HttpMethod.GET, "/luckBag/**").hasAnyRole("USER", "ADMIN")
-//                        .antMatchers(HttpMethod.DELETE, "/luckBag/**").hasAnyRole("USER", "ADMIN")
-//                        .anyRequest().permitAll()
-//
-//                        .antMatchers(HttpMethod.POST, "/review").permitAll()
-//                        .antMatchers(HttpMethod.PATCH, "/review/**").hasRole("USER")
-//                        .antMatchers(HttpMethod.GET, "/review").hasRole("ADMIN")
-//                        .antMatchers(HttpMethod.GET, "/review/**").hasAnyRole("USER", "ADMIN")
-//                        .antMatchers(HttpMethod.DELETE, "/review/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.POST, "/luckMango").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/luckMango/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/luckMango/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.GET, "/luckMango").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/luckMango/**").hasAnyRole("USER", "ADMIN")
+
+                        .antMatchers(HttpMethod.POST, "/luckBag").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/luckBag/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/luckBag/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/luckBag").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/luckBag/**").hasAnyRole("USER", "ADMIN")
+
+                        .antMatchers(HttpMethod.POST, "/review").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/review/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/review/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/review").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/review/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll()
                 );
         return http.build();
@@ -99,7 +104,7 @@ public class SecurityConfig {
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {  // JwtAuthenticationFilter를 등록하는 역할
         @Override
-        public void configure(HttpSecurity builder) throws Exception {  //  configure() 메서드를 오버라이드
+        public void configure(HttpSecurity builder) throws Exception {  // configure() 메서드를 오버라이드
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);  // AuthenticationManager의 객체 획득
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);  // JwtAuthenticationFilter를 생성 / AuthenticationManager, JwtTokenizer DI

@@ -20,7 +20,7 @@ const DefaultModal = ({
         <header className="flex justify-end w-full hover:cursor-pointer">
           <Image
             src={closed}
-            alt=""
+            alt="closed"
             onClick={() =>
               modalState
                 ? dispatch(setModalState(false))

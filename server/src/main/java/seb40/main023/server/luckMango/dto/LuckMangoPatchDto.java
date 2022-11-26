@@ -1,17 +1,26 @@
 package seb40.main023.server.luckMango.dto;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 @Getter
-@Setter
-@Builder
 public class LuckMangoPatchDto {
+    @Positive
     private long luckMangoId;
+
+    @NotBlank(message = "제목을 적어주세요!")
     private String title;
-    private String bgImage;
+
+    @NotBlank(message = "내용을 적어주세요!")
+    private String mangoBody;
+
     private String bgVideo;
-    private int likeCount;
+    private String bgImage;
+    private boolean reveal;
+
+    public void setLuckMangoId(long luckMangoId) {
+        this.luckMangoId = luckMangoId;
+    }
 }

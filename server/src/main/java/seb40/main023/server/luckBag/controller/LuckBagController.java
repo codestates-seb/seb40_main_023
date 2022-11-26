@@ -10,7 +10,6 @@ import seb40.main023.server.luckBag.dto.LuckBagPatchDto;
 import seb40.main023.server.luckBag.dto.LuckBagPostDto;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.luckBag.mapper.LuckBagMapper;
-
 import seb40.main023.server.luckBag.service.LuckBagService;
 import seb40.main023.server.response.MultiResponseDto;
 import seb40.main023.server.response.SingleResponseDto;
@@ -23,9 +22,13 @@ import java.util.List;
 @RequestMapping("/luckBag")
 @Validated // 유효성 검사
 @RequiredArgsConstructor  // autowired 사용 안해도 되게 해줌
+@CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class LuckBagController {
     private final LuckBagService luckBagService;
     private final LuckBagMapper luckBagMapper;
+
+    // 복주머니 생성의 경우 public 익명도 작성 가능해야하고, 조회도 가능해야하기 때문에
+    // URL 을 어떻게 보여줄지 고민 필요.
 
     // Created 복주머니 생성
     @PostMapping //복주머니 만들기
@@ -47,27 +50,39 @@ public class LuckBagController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(luckBag)), HttpStatus.OK);
     }
-
-    // 복주머니 한개만 조회
-    @GetMapping("/{LuckBagId}")
-    public ResponseEntity findByIdLuckBag(@PathVariable("LuckBagId") Long luckBagId){
-
-        LuckBag findLuckBagId = luckBagService.findLuckBag(luckBagId);
-
-        return new ResponseEntity<>(new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(findLuckBagId)),
-                HttpStatus.OK);
-    }
+//
+//    // 복주머니 한개만 조회
+//    @GetMapping("/{LuckBagId}")
+//    public ResponseEntity findByIdLuckBag(@PathVariable("LuckBagId") Long luckBagId){
+//
+//        LuckBag findLuckBagId = luckBagService.findLuckBag(luckBagId);
+//
+//        return new ResponseEntity<>(new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(findLuckBagId)),
+//                HttpStatus.OK);
+//    }
 
     // 복주머니 글 전체 조회
     @GetMapping
-    public ResponseEntity getLuckBags(@PathVariable("page") int page ,
-                                      @PathVariable("size") int size){
+    public ResponseEntity getLuckBags(@RequestParam("page") int page , @RequestParam("size") int size){
         Page<LuckBag> luckBagPage = luckBagService.findLuckBags(page - 1,size);
         List<LuckBag> luckBags = luckBagPage.getContent();
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDtos(luckBags),
                         (luckBagPage)), HttpStatus.OK);
+    }
+
+    @GetMapping("/luckMango")
+    public ResponseEntity getLuckBag(@RequestParam("luckMangoId") long luckMangoId,
+                                     @RequestParam("page") int page ,
+                                     @RequestParam("size") int size){
+        Page<LuckBag> luckBagPage = luckBagService.findLuckBagList(luckMangoId,page - 1, size );
+        List<LuckBag> luckBags = luckBagPage.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDtos(luckBags),
+                        (luckBagPage)), HttpStatus.OK);
+        // 프론트에 url 주소에 /luckMangoId를 추가해야 한다.
     }
 
     //복주머니 글 수정

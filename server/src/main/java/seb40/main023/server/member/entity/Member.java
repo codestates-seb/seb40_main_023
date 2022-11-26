@@ -9,9 +9,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "MEMBERS")
 public class Member extends Auditable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +27,18 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String password;
 
-    @Column
-    private String imgUrl = "";
+    @Column             // imgUrl 얘만 기본값 Null로 생성됨
+    private String imgUrl;
 
     @Column
-    private int nyMoney = 0;
+    private long tot_Money;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
     // 멤버 -> 복망고, 멤버 -> 리뷰는 1:N 관계
@@ -41,7 +46,7 @@ public class Member extends Auditable {
     private List<LuckMango> luckMangos = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    public List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     public void addLuckMango(LuckMango luckMango) {
         luckMangos.add(luckMango);
@@ -56,12 +61,10 @@ public class Member extends Auditable {
             review.setMember(this);
         }
     }
-
-    @Builder
-    public Member(String name, String email, String password, String imgUrl) {
+    public Member(Long memberId, String name, String email, String password) {
+        this.memberId = memberId;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.imgUrl = imgUrl;
     }
 }

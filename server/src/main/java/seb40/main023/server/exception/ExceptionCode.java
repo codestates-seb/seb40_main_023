@@ -5,13 +5,12 @@ import lombok.Getter;
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
     MEMBER_EXISTS(409, "Member exists"),
-    REPLY_NOT_FOUND(404, "Reply not found"),
-    COFFEE_CODE_EXISTS(409, "Coffee Code exists"),
     LUCKMANGO_NOT_FOUND(404, "LuckMango not found"),
-    CANNOT_CHANGE_ORDER(403, "Order can not change"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),
     INVALID_MEMBER_STATUS(400, "Invalid member status"),
-    LUCKBAG_NOT_FOUND(404,"LuckBag not found" );
+    LUCKBAG_NOT_FOUND(404,"LuckBag not found" ),
+
+    PASSWORD_NOT_MATCH(400, "Password not match" );
 
     @Getter
     private int status;

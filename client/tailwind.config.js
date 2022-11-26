@@ -29,6 +29,9 @@ module.exports = {
         Pretendard: ["Pretendard", ...defaultTheme.fontFamily.sans],
         HSS: ["HSS", ...defaultTheme.fontFamily.sans],
       },
+      aspectRatio: {
+        "2/3": "2 / 3",
+      },
     },
     colors: {
       transparent: "transparent",
@@ -36,6 +39,7 @@ module.exports = {
       black: "#000000",
       white: "#ffffff",
       link: "#599CFF",
+      linkHover: "#5397FD",
       primary: {
         light: "#F29E87",
         normal: "#FF7246",
@@ -72,7 +76,7 @@ module.exports = {
       },
       social: {
         kakaoNormal: "#FAE100",
-        kakaoHover: "#E9D100",
+        kakaoHover: "#F6DE00",
         kakaoText: "#3D1D1E",
         githubNormal: "#313131",
         githubHover: "#2E2E2E",

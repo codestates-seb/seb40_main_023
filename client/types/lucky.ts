@@ -1,4 +1,4 @@
-export interface Body {
+export interface CreateLuckyProps {
   luckMangoId: number;
   body: string;
   writer: string;

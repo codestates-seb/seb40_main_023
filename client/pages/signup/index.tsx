@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
+import { Toast } from "../../components/util/Toast";
 
 const Signup = () => {
   //이름, 비밀번호, 비밀번호 확인 상태
@@ -210,6 +211,7 @@ const Signup = () => {
             </button>
           </div>
         </div>
+        <Toast />
       </div>
       <Footer />
     </div>

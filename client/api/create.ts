@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Body } from "../types/create";
+import { CreateMangoProps } from "../types/create";
 
-export const createMg = async (url: string, body: Body) => {
+export const createMg = async (url: string, body: CreateMangoProps) => {
   try {
     const response = await axios.post(url, body);
     console.log(response);

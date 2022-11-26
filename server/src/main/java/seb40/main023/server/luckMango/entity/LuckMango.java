@@ -6,26 +6,37 @@ import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.member.entity.Member;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "LUCKMANGOS")
 public class LuckMango extends Auditable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long luckMangoId;
-    private String title;
-    private String mangoBody;
-    private String bgVideo;
-    private String bgImage;
-    private int likeCount = 0;
-    private String reveal;
-//    private long memberId;
 
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String mangoBody;
+
+    @Column
+    private String bgVideo;
+
+    @Column
+    private String bgImage;
+
+    @Column
+    private int likeCount;
+
+    @Column
+    private boolean reveal;    // public, private는 예약어라 설장 안됨
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -45,7 +56,12 @@ public class LuckMango extends Auditable {
         }
     }
 
-//    public LuckMango(long memberId, String title, String bgVideo, String bgImage, int likeCount, LocalDateTime createdAt, LocalDateTime modifiedAt){
+    public LuckMango(String title, String mangoBody) {
+        this.title = title;
+        this.mangoBody = mangoBody;
+    }
+
+    //    public LuckMango(long memberId, String title, String bgVideo, String bgImage, int likeCount, LocalDateTime createdAt, LocalDateTime modifiedAt){
 //        this.title = title;
 //        this.bgVideo = bgVideo;
 //        this.bgImage = bgImage;

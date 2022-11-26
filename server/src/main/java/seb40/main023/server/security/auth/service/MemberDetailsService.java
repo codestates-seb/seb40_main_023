@@ -1,5 +1,6 @@
 package seb40.main023.server.security.auth.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,14 +16,10 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils authorityUtils;
-
-    public MemberDetailsService(MemberRepository memberRepository, CustomAuthorityUtils authorityUtils) {
-        this.memberRepository = memberRepository;
-        this.authorityUtils = authorityUtils;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,7 +30,6 @@ public class MemberDetailsService implements UserDetailsService {
     }
 
     private final class MemberDetails extends Member implements UserDetails {
-        // (1)
         MemberDetails(Member member) {
             setMemberId(member.getMemberId());
             setEmail(member.getEmail());

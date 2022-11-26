@@ -8,6 +8,7 @@ import { notifyInfo } from "../../components/util/Toast";
 import { useFetch } from "../../api/useFetch";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import Banner from "../../components/Banner";
 
 const index = () => {
   //스크린샷 구역
@@ -226,22 +227,27 @@ const index = () => {
             )}
           </div>
         </div>
-        <div className="flex justify-end mr-12 mg-width-size">
-          복망고 소유주라면 로그인하세요!
-        </div>
-        <Link href="/" className="mg-width-size">
-          <div className="h-[71.98px] relative rounded-[10px] mg-primary-button mg-width-size mg-flex-center justify-end cursor-pointer">
-            <div className="bg-[url(/images/char/char-banner.svg)] w-[117px] h-[130px] absolute top-[-50px] left-2"></div>
-            <div className="mg-flex-center justify-center mg-width-size h-[71.98px]">
-              <div className="ml-16 mr-9">
-                나도 새해 복망고 만들어볼까?
-                <div className="font-semibold">새해 복망고 메인으로 이동</div>
-              </div>
-              <div className="text-xl font-bold cursor-pointer">〉</div>
+        {!isLogin ? (
+          <>
+            <div className="flex justify-end mr-12 mg-width-size">
+              복망고 소유주라면 &nbsp;
+              <Link href="/login" className="mg-link">
+                로그인
+              </Link>
+              하세요!
             </div>
+            <Banner />
+          </>
+        ) : (
+          <div className="text-center">
+            <Link href="/mypage" className="mg-link">
+              홍다희님
+            </Link>
+            의 새해 복망고입니다.
+            <br />
+            복주머니를 클릭하면 덕담을 볼 수 있어요!
           </div>
-        </Link>
-        {/* 배너 */}
+        )}
         {letterModal && (
           <LetterModal
             letterModal={letterModal}

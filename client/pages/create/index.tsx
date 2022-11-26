@@ -14,6 +14,7 @@ const create = () => {
 
   const handleCheck = () => {
     setReveal(!reveal);
+    console.log(reveal);
   };
   const [modal, setModal] = useState(false);
   const [isValidState, setIsValidState] = useState("no");
@@ -137,7 +138,7 @@ const create = () => {
             <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
             <div className="w-full mt-3 mb-2 mg-checkbox-group">
               <input id="checkIsPublic" type="checkbox" className="hidden" />
-              <label htmlFor="checkIsPublic" className="">
+              <label htmlFor="checkIsPublic" onClick={handleCheck}>
                 <span className="mr-2"></span>내가 만든 복망고를 모두에게
                 자랑하기
               </label>

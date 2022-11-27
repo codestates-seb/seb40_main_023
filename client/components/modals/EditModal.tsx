@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import BokPreview from "../BokPreview";
 import Link from "next/link";
-import { createMg } from "../../api/create";
+import { createMg } from "../../fetch/create";
 
 const EditModal = ({ modal, setModal, greeting, title, bgUrl }: any) => {
   const handleModal = () => {

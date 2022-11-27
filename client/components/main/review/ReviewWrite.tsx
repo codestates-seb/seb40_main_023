@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import CountCharLength from "../../util/CountCharLength";
 import { Toast, notifyInfo, notifyError } from "../../util/Toast";
-import { createReview } from "../../../api/review";
+import { createReview } from "../../../fetch/review";
 import Image from "next/image";
 
 function ReviewWrite({ setUpdated }: any) {

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
-import { createBag } from "../../api/lucky";
+import { createBag } from "../../fetch/lucky";
 import DefaultModal from "./DefaultModal";
 
 const LongModal = ({ modal, setModal }: any) => {

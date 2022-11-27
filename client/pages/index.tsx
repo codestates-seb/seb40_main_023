@@ -8,8 +8,35 @@ import ServiceChart from "../components/main/chart/ServiceChart";
 import ServiceReview from "../components/main/review/ServiceReview";
 import ServiceGallery from "../components/main/gallery/ServiceGallery";
 import Footer from "../components/Footer";
+import { useSelector, useDispatch } from "react-redux";
+import { selectLoginState, setLoginState } from "../store/loginSlice";
+import axios from "axios";
+import { getCookie } from "../components/util/cookie";
+import { useEffect } from "react";
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const loginState = useSelector(selectLoginState);
+  //로그인 로그아웃 분기 주기
+  const handleUser = async () => {
+    try {
+      await axios({
+        method: "get",
+        url: "/api/member?page=1&size=100",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+        },
+      }).then(res => console.log(res));
+    } catch (error) {
+      alert("로그인이 필요해요.");
+    }
+  };
+
+  useEffect(() => {
+    handleUser();
+  }, []);
+
   return (
     <div>
       <Header />

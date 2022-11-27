@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useDelete } from "../../../api/mypage";
+import { useDelete } from "../../../fetch/mypage";
 
 const GalleryItem = ({
   mypage,

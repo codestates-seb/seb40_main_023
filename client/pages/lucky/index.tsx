@@ -5,7 +5,7 @@ import Greeting from "../../components/Greeting";
 import LongModal from "../../components/modals/LongModal";
 import LetterModal from "../../components/modals/LetterModal";
 import { notifyInfo } from "../../components/util/Toast";
-import { useFetch } from "../../api/useFetch";
+import { useFetch } from "../../fetch/useFetch";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
 import Banner from "../../components/Banner";

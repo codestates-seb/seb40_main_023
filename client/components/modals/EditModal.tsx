@@ -1,7 +1,7 @@
 import React from "react";
 import BokPreview from "../BokPreview";
 import Link from "next/link";
-import { createMg } from "../../api/create";
+import { createMg } from "../../fetch/create";
 
 const EditModal = ({ setModal, greeting, title, bgUrl, reveal }: any) => {
   const createLuckMg = async () => {

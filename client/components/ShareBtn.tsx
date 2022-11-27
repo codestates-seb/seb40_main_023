@@ -1,16 +1,16 @@
 import React from "react";
 
-const ShareBtn = ({ margin }: any) => {
+const ShareBtn = () => {
   return (
     <>
       <button
-        className={`${margin} mg-background bg-[url(/images/ico/ico-share-url.svg)] mg-share-button bg-primary-normal`}
+        className={`mx-4 mg-background bg-[url(/images/ico/ico-share-url.svg)] mg-share-button bg-primary-normal hover:bg-primary-hover`}
       ></button>
       <button
-        className={`${margin} mg-background bg-[url(/images/ico/ico-share-qr.svg)]  mg-share-button bg-link`}
+        className={`mx-4 mg-background bg-[url(/images/ico/ico-share-qr.svg)]  mg-share-button bg-link hover:bg-linkHover`}
       ></button>
       <button
-        className={`${margin} mg-background bg-[url(/images/ico/ico-share-kakao.svg)] mg-share-button bg-social-kakaoNormal`}
+        className={`mx-4 mg-background bg-[url(/images/ico/ico-share-kakao.svg)] mg-share-button bg-social-kakaoNormal hover:bg-social-kakaoHover`}
       ></button>
     </>
   );

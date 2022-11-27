@@ -7,6 +7,10 @@
   src: url("../public/fonts/HSSaemaul-Regular.ttf");
 }
 
+body {
+  @apply font-light font-Pretendard;
+}
+
 /* For Toast */
 .Toastify__toast-body {
   font-family: "Pretendard";
@@ -15,18 +19,13 @@
 /* For Toast */
 
 @layer components {
-  /* Common */
-  body {
-    @apply font-light font-Pretendard;
-  }
-
   /* Home */
   .mg-logo {
     @apply bg-[url(/images/ico/logo.svg)] bg-no-repeat w-[144px] h-[44px] indent-[-100%] overflow-hidden;
   }
 
   .mg-main-section {
-    @apply w-full pt-[25px] pb-[40px] flex justify-center items-start;
+    @apply flex items-start justify-center w-full pt-12 pb-16;
   }
 
   .mg-main-section > div {
@@ -34,7 +33,7 @@
   }
 
   .mg-main-countdown {
-    @apply flex justify-center w-full py-2 mx-10 text-center text-white border rounded bg-secondary-light border-secondary-normal;
+    @apply flex justify-center w-full px-4 py-2 mx-10 mb-5 text-center text-white break-words border rounded bg-secondary-normal border-secondary-darker;
   }
 
   .mg-howto-item {
@@ -94,11 +93,11 @@
   /* // For Slick (main) */
 
   .mg-gallery-filter {
-    @apply flex flex-row justify-center mb-8 max-w-[220px] w-full;
+    @apply flex flex-row justify-center mb-10 max-w-[220px] w-full;
   }
 
   .mg-gallery-filter > li {
-    @apply flex justify-center w-[50%] py-2 border-2 border-primary-normal bg-white text-primary-normal items-center max-w-[220px] text-center;
+    @apply flex justify-center w-[50%] py-1 mobile:py-2 border-2 border-primary-normal bg-white text-primary-normal items-center max-w-[220px] text-center;
   }
 
   .mg-gallery-filter > .active {
@@ -123,7 +122,7 @@
   }
 
   .mg-default-card {
-    @apply cursor-pointer relative flex justify-center w-[240px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
+    @apply cursor-pointer relative flex justify-center w-[230px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
   }
 
   .mg-mypage-card {
@@ -173,7 +172,11 @@
 
   /* Buttons */
   .mg-primary-button {
-    @apply px-12 py-3 text-white rounded bg-primary-normal hover:bg-primary-hover;
+    @apply px-12 py-3 text-center text-white rounded bg-primary-normal hover:bg-primary-hover;
+  }
+
+  .mg-primary-button.disabled {
+    @apply border rounded text-mono-textDisabled bg-mono-bgDisabled hover:bg-mono-bgDisabled border-mono-borderDisabled;
   }
 
   .mg-secondary-button {
@@ -202,7 +205,45 @@
   }
 
   .mg-default-input {
-    @apply px-4 py-2 border rounded-md border-mono-borderLight placeholder:text-mono-textLight placeholder:font-light;
+    @apply px-4 py-2 border rounded-md border-mono-borderNormal placeholder:text-mono-textLight placeholder:font-light focus:outline-none focus-visible:ring placeholder:text-base;
+  }
+
+  .mg-required-input {
+    @apply relative before:absolute before:content-[''] before:right-[-6px] before:top-[2px] before:w-[5px] before:h-[5px] before:bg-danger-normal before:rounded-full;
+  }
+
+  .mg-default-textarea {
+    @apply w-full border rounded-md resize-none border-mono-borderNormal focus:outline-none focus-visible:ring placeholder:text-mono-textLight placeholder:font-light placeholder:text-base;
+  }
+
+  .mg-checkbox-group {
+    @apply flex;
+  }
+  .mg-checkbox-group > input[type="checkbox"] + label {
+    @apply flex flex-row items-center text-mono-textNormal;
+  }
+  .mg-checkbox-group > input[type="checkbox"] + label > span {
+    @apply block border rounded-md border-mono-borderNormal bg-white w-[20px] h-[20px] bg-none;
+  }
+
+  .mg-checkbox-group > input[type="checkbox"]:checked + label > span {
+    @apply border-primary-normal bg-primary-normal bg-[url(/images/ico/ico-checkbox.svg)] bg-center bg-no-repeat;
+  }
+
+  .mg-info-normal {
+    @apply flex flex-row items-start text-sm text-secondary-hover;
+  }
+
+  .mg-info-normal > i {
+    @apply w-[20px] h-[20px] bg-[url(/images/ico/ico-info.svg)] mr-1;
+  }
+
+  .mg-info-disabled {
+    @apply flex flex-row items-start text-sm text-mono-textDisabled;
+  }
+
+  .mg-info-disabled > i {
+    @apply grayscale w-[20px] h-[20px] bg-[url(/images/ico/ico-info.svg)] mr-1;
   }
 
   /* Icons */
@@ -239,9 +280,16 @@
   }
 
   /* layout, flex */
+  main {
+    @apply min-h-[calc(100vh-109px)] pb-10;
+  }
 
   .mg-layout {
-    @apply flex flex-col items-center justify-center w-full py-9;
+    @apply flex flex-col items-center justify-center w-full px-[24px] mobile:px-0 mx-auto py-9 max-w-[400px];
+  }
+
+  .mg-layout-row {
+    @apply w-full mb-4;
   }
 
   .mg-flex {
@@ -259,7 +307,7 @@
   /* edit page, luckbag page */
 
   .mg-white-button {
-    @apply px-10 py-3 bg-white border rounded-md text-primary-normal;
+    @apply px-10 py-3 border rounded-md bg-white/80 hover:bg-white/90 text-primary-normal;
   }
 
   .mg-share-button {
@@ -271,7 +319,7 @@
   }
 
   .mg-border-2 {
-    @apply border-mono-borderLight border-2 rounded-[10px];
+    @apply border rounded-md border-mono-borderNormal;
   }
 
   .mg-icon-button-round {
@@ -293,20 +341,52 @@
     @apply bg-[url(/images/ico/ico-banner-arrow.svg)] w-6 h-6 mg-background;
   }
 
-  .mg-modal-title {
-    @apply text-base font-semibold text-left w-[303px];
-  }
-
   .mg-modal-input {
-    @apply w-[303px] rounded border border-mono-borderNormal p-3;
+    @apply w-[300px] rounded border border-mono-borderNormal p-3;
   }
 
   .mg-bok-layout {
-    @apply w-[400px] bg-center relative justify-center mg-border-2 h-[600px] mg-flex;
+    @apply bg-center relative justify-center w-full max-w-[400px] max-h-[600px] aspect-[2/3] border border-mono-borderNormal mg-flex overflow-hidden rounded-xl;
+  }
+
+  .mg-greet-message {
+    @apply relative z-[11] w-[360px] h-auto py-3.5 px-4 pr-6 border border-mono-borderNormal bg-[#FFFFFFCC] rounded-[14px];
+  }
+
+  .mg-greet-message > p {
+    @apply w-full min-h-[2.5rem] text-sm break-words text-mono-textNormal;
+  }
+
+  .mg-greet-dropdown {
+    @apply absolute w-[20px] h-[20px] right-[6px] top-[24px] bg-[url(/images/ico/ico-dropdown.svg)] bg-center bg-no-repeat origin-center will-change-transform rotate-0;
+  }
+
+  .mg-greet-dropdown.open {
+    @apply rotate-180;
+  }
+
+  .mg-greet-button {
+    @apply absolute min-w-[230px] font-bold mg-white-button top-[40%] bg-[center_left_1rem] mg-background bg-[url(/images/content/ico-upload-image.svg)] pl-14 cursor-pointer z-10;
+  }
+
+  /* Modal */
+  .mg-modal-container {
+    @apply fixed top-0 bottom-0 left-0 right-0 z-50 flex mobile:bg-black/30 mobile:items-center mobile:justify-center;
+  }
+
+  .mg-modal-panel {
+    @apply relative w-full mobile:max-w-[440px] h-auto bg-white mobile:rounded-[20px] p-5 pt-[40px] mobile:shadow-context;
+  }
+
+  .mg-modal-close {
+    @apply absolute right-[10px] top-[10px] w-[30px] h-[30px] bg-[url(/images/ico/ico-modal-close.svg)] bg-no-repeat;
+  }
+
+  .mg-modal-title {
+    @apply flex flex-row items-center mb-2 text-base font-medium;
   }
 
   /* Validation */
-
   .mg-vaild-success {
     @apply text-success-normal;
   }

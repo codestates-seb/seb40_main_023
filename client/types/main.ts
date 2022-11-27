@@ -28,3 +28,21 @@ export interface UserInfoProps {
   createdAt: string;
   modifiedAt: string;
 }
+
+export interface GalleryDataProps {
+  luckMangoId: number;
+  title: string;
+  mangoBody: null;
+  bgVideo: string;
+  bgImage: string;
+  likeCount: number;
+  reveal: null;
+  member: {
+    memberId: number;
+    name: string;
+    email: string;
+    imgUrl: null;
+  };
+  createdAt: string;
+  modifiedAt: string;
+}

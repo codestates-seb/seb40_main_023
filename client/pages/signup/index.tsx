@@ -5,7 +5,12 @@ import { signUp } from "../../fetch/signup";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { Toast, notifyInfo } from "../../components/util/Toast";
+import {
+  Toast,
+  notifyInfo,
+  notifySuccess,
+  notifyError,
+} from "../../components/util/Toast";
 
 const Signup = () => {
   //이름, 이메일, 비밀번호, 비밀번호 확인 상태
@@ -40,7 +45,7 @@ const Signup = () => {
   const signupSubmit = (e: any) => {
     e.preventDefault();
     window.setTimeout("window.location.reload()", 2000);
-    notifyInfo({
+    notifyError({
       message: "이미 존재하는 닉네임이거나 이메일입니다.",
       icon: "😎",
     });
@@ -96,8 +101,8 @@ const Signup = () => {
   //비밀번호
   const onChangePassword = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
-      // /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+      const passwordRegex =
+        /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
       const passwordCurrent = e.target.value;
       setPassword(passwordCurrent);
 

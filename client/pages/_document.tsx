@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 function MyDocument() {
   return (
-    <Html lang="ko">
+    <Html lang="ko" className="scroll-smooth">
       <Head>
         <meta charSet="utf-8"></meta>
         <meta

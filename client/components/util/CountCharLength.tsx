@@ -14,7 +14,7 @@ const CountCharLength = ({ current, limit }: CountCharProps) => {
   }, [current]);
 
   return (
-    <div className="text-mono-textDisabled">
+    <div className="text-sm text-mono-textDisabled">
       <span className={isSizeValid ? "" : "text-danger-normal"}>{current}</span>
       /{limit}
     </div>

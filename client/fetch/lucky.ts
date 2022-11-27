@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Body } from "../types/lucky";
+import { CreateLuckyProps } from "../types/lucky";
 
-export const createBag = async (url: string, body: Body) => {
+export const createBag = async (url: string, body: CreateLuckyProps) => {
   try {
     const response = await axios.post(url, body);
     console.log(response);

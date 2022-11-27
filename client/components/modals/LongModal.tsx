@@ -1,15 +1,26 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
-import { createBag } from "../../fetch/lucky";
-import DefaultModal from "./DefaultModal";
+import CheckModal from "./CheckModal";
 
-const LongModal = ({ modal, setModal }: any) => {
+const LongModal = ({
+  modal,
+  setModal,
+  completeModal,
+  setCompleteModal,
+}: any) => {
   const [luckContent, setLuckContent] = useState("");
   const [writer, setWriter] = useState("");
   const [money, setMoney] = useState(0);
   const [bagType, setBagType] = useState(1);
   const [confirmModal, setConfirmModal] = useState(false);
+
+  const data = {
+    luckContent: luckContent,
+    writer: writer,
+    money: money,
+    bagType: bagType,
+  };
 
   const handleModal = () => {
     setModal(!modal);
@@ -33,18 +44,6 @@ const LongModal = ({ modal, setModal }: any) => {
 
   const handleWriter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWriter(e.target.value);
-  };
-
-  const createLuckBag = async () => {
-    const res = await createBag("/api/luckBag", {
-      luckMangoId: 2,
-      body: luckContent,
-      writer: writer,
-      bagStyle: bagType,
-      bagColor: 2,
-      NYMoney: money,
-    });
-    console.log(res);
   };
 
   return (
@@ -137,10 +136,17 @@ const LongModal = ({ modal, setModal }: any) => {
         </div>
       </div>
       {confirmModal && (
-        <DefaultModal
-          title="덕담은 수정할 수 없습니다."
-          contents="보내시겠어요?"
+        <CheckModal
+          confirmModal={confirmModal}
+          setConfirmModal={setConfirmModal}
           Yesbutton="덕담 보내기"
+          firstP="덕담은 수정할 수 없습니다."
+          secondP="보내시겠어요?"
+          create={true}
+          data={data}
+          setModal={setModal}
+          completeModal={completeModal}
+          setCompleteModal={setCompleteModal}
         />
       )}
     </div>

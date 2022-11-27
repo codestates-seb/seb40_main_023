@@ -4,13 +4,11 @@ import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
 import LongModal from "../../components/modals/LongModal";
 import LetterModal from "../../components/modals/LetterModal";
-import Banner from "../../components/Banner";
+import { notifyInfo } from "../../components/util/Toast";
 import { useFetch } from "../../fetch/useFetch";
-import { Toast, notifyInfo } from "../../components/util/Toast";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
-import { TEMPLETE_ID } from "../../constants/templeteId";
-import QrModal from "../../components/modals/QrModal";
+import Banner from "../../components/Banner";
 
 const index = () => {
   //스크린샷 구역
@@ -23,16 +21,18 @@ const index = () => {
     domtoimage.toPng(btn).then(blob => {
       saveAs(blob, "BokMango.png");
     });
+    notifyInfo({ message: "복망고 캡처 이미지가 저장됐습니다.", icon: "🤓" });
   };
 
   //bgm 구역
   const [bgmOn, setBgmOn] = useState(false);
+
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [modal, setModal] = useState(false);
   const [letterModal, setLetterModal] = useState(false);
-
   const [qrCode, setQrCode] = useState(false);
+  const [completeModal, setCompleteModal] = useState(false);
 
   //패치 구역
   const [title, setTitle] = useState("");
@@ -58,40 +58,13 @@ const index = () => {
   };
 
   useEffect(() => {
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    }
     getLuckyMango();
     getLuckyBag();
     getAllLuckyBags();
   }, []);
-
-  useEffect(() => {
-    if (!window.Kakao.isInitialized()) {
-      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-    }
-  }, []);
-
-  const shareKakao = () => {
-    const { Kakao, location } = window;
-    Kakao.Link.sendScrap({
-      requestUrl: location.href,
-      templateId: TEMPLETE_ID,
-    });
-  };
-
-  const shareUrl = () => {
-    let currentUrl = window.document.location.href;
-
-    let t = document.createElement("textarea");
-    document.body.appendChild(t);
-    t.value = currentUrl;
-    t.select();
-    document.execCommand("copy");
-    document.body.removeChild(t);
-    notifyInfo({ message: "url이 복사됐습니다.", icon: "😎" });
-  };
-
-  const shareQr = () => {
-    setQrCode(!qrCode);
-  };
 
   console.log("title", title);
   console.log("asdasd", bagList);
@@ -131,12 +104,11 @@ const index = () => {
               <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">
                 {money > 999999999999999 ? "∞ " : money.toLocaleString()}원
               </div>
-              <div className="mg-icon-lucky-money w-[57px] h-[58px] absolute left-3 bottom-[0.3px]"></div>
-              {/* 캡쳐버튼 */}
+              <div className="mg-icon-lucky-money w-[57px] h-[58px] absolute left-3 bottom-[0.3px]" />
               <button
                 className="mx-2 h-[35px] w-[35px] ml-5 mg-icon-capture"
                 onClick={downloadBtn}
-              ></button>
+              />
               <button
                 className={
                   bgmOn
@@ -168,6 +140,7 @@ const index = () => {
                 onClick={handleLetterModal}
               ></div>
             ))}
+
             {isLogin ? (
               <div className="cursor-pointer absolute w-[212px] justify-center mg-flex-center bottom-9">
                 <button
@@ -178,7 +151,6 @@ const index = () => {
                 </button>
                 <div className="absolute left-0 z-10 flex-col bottom-14 mg-flex-center">
                   <button
-                    onClick={shareUrl}
                     className={
                       shareBtn
                         ? "mg-floating-button-long duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
@@ -188,7 +160,6 @@ const index = () => {
                     {shareBtn && "url 복사하기"}
                   </button>
                   <button
-                    onClick={shareQr}
                     className={
                       shareBtn
                         ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)] bg-link"
@@ -198,7 +169,6 @@ const index = () => {
                     {shareBtn && "QR코드 공유하기"}
                   </button>
                   <button
-                    onClick={shareKakao}
                     className={
                       shareBtn
                         ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
@@ -213,15 +183,21 @@ const index = () => {
             ) : (
               <div className="absolute flex items-end bottom-4">
                 <button
-                  className="h-12 mr-4 mg-primary-button-round"
+                  className="h-12 mr-4 text-l mg-primary-button-round"
                   onClick={handleModal}
                 >
                   새해 덕담 남기기
                 </button>
-                {modal && <LongModal modal={modal} setModal={setModal} />}
+                {modal && (
+                  <LongModal
+                    modal={modal}
+                    setModal={setModal}
+                    completeModal={completeModal}
+                    setCompleteModal={setCompleteModal}
+                  />
+                )}
                 <div className="transition-all duration-300 mg-flex">
                   <button
-                    onClick={shareUrl}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
@@ -229,7 +205,6 @@ const index = () => {
                     }
                   />
                   <button
-                    onClick={shareQr}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
@@ -237,7 +212,6 @@ const index = () => {
                     }
                   />
                   <button
-                    onClick={shareKakao}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
@@ -280,8 +254,6 @@ const index = () => {
             setLetterModal={setLetterModal}
           />
         )}
-        {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
-        <Toast />
       </div>
     </div>
   );

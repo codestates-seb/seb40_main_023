@@ -7,9 +7,6 @@ import Image from "next/image";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // const dispatch = useDispatch();
-  // const sidebarState = useSelector(selectSidebarState);
-
   const toggleSidebarHandle = (): void => {
     // dispatch(setSidebarState(false));
     setIsSidebarOpen(!isSidebarOpen);
@@ -49,6 +46,7 @@ const Header = () => {
       <Sidebar
         toggleHandler={toggleSidebarHandle}
         toggleState={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
       />
     </>
   );

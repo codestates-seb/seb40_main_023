@@ -9,7 +9,7 @@ import { setCookie } from "../../components/util/cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLoginState, setLoginState } from "../../store/loginSlice";
 import { useRouter } from "next/router";
-import { Toast, notifyInfo } from "../../components/util/Toast";
+import { Toast, notifySuccess, notifyError } from "../../components/util/Toast";
 const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -36,6 +36,9 @@ const Login = () => {
   //       localStorage.setItem("UserID", res.data.id);
   //     });
   // };
+  const pageChange = () => {
+    setTimeout(() => router.push("/"), 2000);
+  };
 
   const onSubmit2 = async (e: any) => {
     e.preventDefault();
@@ -62,16 +65,21 @@ const Login = () => {
               // secure: true,
               // sameSite: "none",
             });
+            //어떻게 쿠키가 만료될 때 로그아웃을 시킬까?
             // const decodedUserInfo = jwt_decode(jwtToken);
             // localStorage.setItem("userInfo", JSON.stringify(decodedUserInfo));
           }
-          router.push("/");
+          notifySuccess({
+            message: "로그인에 성공했어요. 자동으로 화면 이동 됩니다!",
+            icon: "😎",
+          });
+          pageChange();
           dispatch(setLoginState(true));
         });
     } catch (error) {
-      notifyInfo({
-        message: "로그인이 실패했습니다. 정보를 다시 확인해주세요!",
-        icon: "😎",
+      notifyError({
+        message: "로그인에 실패했어요. 정보를 다시 확인해주세요!",
+        icon: "😭",
       });
     }
   };

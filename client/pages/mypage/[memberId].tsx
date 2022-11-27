@@ -8,9 +8,10 @@ import DefaultModal from "../../components/modals/DefaultModal";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-import GalleryItem from "../../components/main/gallery/GalleryItem";
+import GalleryItem from "../../components/mypage/GalleryItem";
 import { useFetch } from "../../fetch/useFetch";
 import { useRouter } from "next/router";
+import { Toast } from "../../components/util/Toast";
 
 const Mypage = () => {
   const router = useRouter();
@@ -121,6 +122,7 @@ const Mypage = () => {
             </div>
           )}
         </div>
+        <Toast />
       </div>
       {!modalState && <Footer />}
     </div>

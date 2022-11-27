@@ -7,6 +7,7 @@ import ServiceHowto from "../components/main/howto/ServiceHowto";
 import ServiceChart from "../components/main/chart/ServiceChart";
 import ServiceReview from "../components/main/review/ServiceReview";
 import ServiceGallery from "../components/main/gallery/ServiceGallery";
+import { Toast } from "../components/util/Toast";
 import Footer from "../components/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLoginState, setLoginState } from "../store/loginSlice";
@@ -18,6 +19,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const loginState = useSelector(selectLoginState);
   //로그인 로그아웃 분기 주기
+  console.log("로그인 되어있나요?", loginState);
   const handleUser = async () => {
     try {
       await axios({
@@ -49,7 +51,7 @@ export default function Home() {
           <ServiceIntro />
         </Section>
         <Section color={true}>
-          <SectionTitle title={`새해 복 망고 어떻게 만드나요?`} />
+          <SectionTitle title={`새해 복망고 어떻게 만드나요?`} />
           <ServiceHowto />
         </Section>
         <Section>
@@ -66,6 +68,7 @@ export default function Home() {
           <SectionTitle title={`새해 복망고 갤러리`} />
           <ServiceGallery />
         </Section>
+        <Toast />
       </main>
       <Footer />
     </div>

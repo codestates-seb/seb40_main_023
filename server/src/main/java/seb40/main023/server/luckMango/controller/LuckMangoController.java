@@ -52,7 +52,7 @@ public class LuckMangoController {
 
     //복망고번호로 찾기
     @GetMapping("/{luckMango-id}")
-    public ResponseEntity getLuckMango(@PathVariable("luckMango-id") long luckMangoId){
+    public ResponseEntity getLuckMango(@PathVariable("luckMango-id") @Positive long luckMangoId){
         LuckMango luckMango = luckMangoService.findLuckMango(luckMangoId);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)), HttpStatus.OK);
@@ -72,8 +72,7 @@ public class LuckMangoController {
 
     //모든 복망고 가져오기
     @GetMapping
-    public ResponseEntity getLuckMangos(@Positive @RequestParam int page,
-                                      @Positive @RequestParam int size) {
+    public ResponseEntity getLuckMangos(@Positive @RequestParam int page, @Positive @RequestParam int size) {
         Page<LuckMango> pageLuckMangos = luckMangoService.findLuckMangos(page - 1, size);
         List<LuckMango> luckMangos = pageLuckMangos.getContent();
 

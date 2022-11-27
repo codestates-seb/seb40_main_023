@@ -1,42 +1,19 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useDelete } from "../../../fetch/mypage";
 
-const GalleryItem = ({
-  mypage,
-  mypageGap,
-  bgImage,
-  duckdam,
-  userId,
-  LuckMangoId,
-  setLuckMango,
-  LuckMango,
-  title,
-  ...items
-}: any) => {
-  //럭망고를 가지고 작업
-  //useEffect onclick시
-
+const GalleryItem = ({ ...galleryData }: any) => {
   return (
-    <div className={`group ${mypage} mg-default-card`}>
+    <Link href={galleryData} className={`group mg-default-card`}>
       <div className="mg-card-contents">
-        <div className={bgImage ? `${bgImage}` : `mg-card-image`}></div>
+        <div className={`mg-card-image`}></div>
         <div className="mg-card-desc">
           <p className="truncate">
-            <span className="font-medium">{title}</span>님의 새해 복망고
+            <span className="font-medium">{galleryData}</span>님의 새해 복망고
           </p>
-          <p className="truncate">{duckdam}개의 덕담을 받았어요!</p>
+          <p className="truncate">{galleryData}개의 덕담을 받았어요!</p>
         </div>
       </div>
-      <div className={`mg-card-overlay ${mypageGap}`}>
-        <Link href={`/api/mypage/${LuckMangoId}`}>
-          <button className="mg-card-button bg-[url(/images/ico/ico-card-edit.svg)]"></button>
-        </Link>
-        <button className="mg-card-button bg-[url(/images/ico/ico-card-delete.svg)]"></button>
-        <button className="mg-card-button bg-[url(/images/ico/ico-card-qr.svg)]"></button>
-        <button className="mg-card-button bg-[url(/images/ico/ico-card-url.svg)]"></button>
-      </div>
-    </div>
+    </Link>
   );
 };
 

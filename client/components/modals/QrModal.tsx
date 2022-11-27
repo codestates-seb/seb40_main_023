@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useQRCode } from "next-qrcode";
 import Image from "next/image";
+import domtoimage from "dom-to-image";
+import { saveAs } from "file-saver";
+import { notifyInfo, Toast } from "../util/Toast";
 
 const QrModal = ({ qrCode, setQrCode }: any) => {
   const { Canvas } = useQRCode();
+
+  const downloadRef = useRef<HTMLInputElement | null>(null);
+  const downloadBtn = () => {
+    if (!downloadRef.current) {
+      return;
+    }
+    let btn = downloadRef.current;
+    domtoimage.toPng(btn).then(blob => {
+      saveAs(blob, "BokQrcode.png");
+    });
+    notifyInfo({ message: "큐알코드 이미지가 저장됐습니다.", icon: "🧑‍💻" });
+  };
 
   const handleModal = () => {
     setQrCode(!qrCode);
@@ -23,27 +38,31 @@ const QrModal = ({ qrCode, setQrCode }: any) => {
         </header>
         <div>
           <main className="mt-[1.5rem] flex-col mg-flex-center">
-            <Canvas
-              text={window.document.location.href}
-              options={{
-                level: "M",
-                margin: 3,
-                scale: 4,
-                width: 200,
-                color: {
-                  dark: "#010599FF",
-                  light: "#FFBF60FF",
-                },
-              }}
-            />
-            <a download>
-              <button className="my-[1.5rem] rounded-full mg-primary-button">
-                저장
-              </button>
-            </a>
+            <span ref={downloadRef}>
+              <Canvas
+                text={window.document.location.href}
+                options={{
+                  level: "M",
+                  margin: 3,
+                  scale: 4,
+                  width: 200,
+                  color: {
+                    dark: "#010599FF",
+                    light: "#FFBF60FF",
+                  },
+                }}
+              />
+            </span>
+            <button
+              className="my-[1.5rem] rounded-full mg-primary-button"
+              onClick={downloadBtn}
+            >
+              저장
+            </button>
           </main>
         </div>
       </div>
+      <Toast />
     </div>
   );
 };

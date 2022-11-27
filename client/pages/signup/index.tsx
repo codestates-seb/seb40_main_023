@@ -5,12 +5,7 @@ import { signUp } from "../../fetch/signup";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import {
-  Toast,
-  notifyInfo,
-  notifySuccess,
-  notifyError,
-} from "../../components/util/Toast";
+import { Toast, notifyError } from "../../components/util/Toast";
 
 const Signup = () => {
   //이름, 이메일, 비밀번호, 비밀번호 확인 상태

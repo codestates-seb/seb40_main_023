@@ -7,7 +7,7 @@ import ServiceHowto from "../components/main/howto/ServiceHowto";
 import ServiceChart from "../components/main/chart/ServiceChart";
 import ServiceReview from "../components/main/review/ServiceReview";
 import ServiceGallery from "../components/main/gallery/ServiceGallery";
-import { Toast } from "../components/util/Toast";
+import { Toast, notifyError } from "../components/util/Toast";
 import Footer from "../components/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { selectLoginState, setLoginState } from "../store/loginSlice";
@@ -29,9 +29,12 @@ export default function Home() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getCookie("accessJwtToken")}`,
         },
-      }).then(res => console.log(res));
+      }).then(res => console.log("전체회원정보", res));
     } catch (error) {
-      alert("로그인이 필요해요.");
+      notifyError({
+        message: "로그인이 필요해요!",
+        icon: "😭",
+      });
     }
   };
 

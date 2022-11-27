@@ -3,7 +3,7 @@ import { selectLoginState, setLoginState } from "../store/loginSlice";
 // import { selectSidebarState, setSidebarState } from "../store/mangoSlice";
 import Link from "next/link";
 import { removeCookies } from "./util/cookie";
-import { Toast, notifyInfo } from "../components/util/Toast";
+import { notifySuccess } from "../components/util/Toast";
 
 const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
   //사이드바 영역
@@ -20,7 +20,7 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
     removeCookies("accessJwtToken");
     dispatch(setLoginState(false));
     setIsSidebarOpen(false);
-    notifyInfo({
+    notifySuccess({
       message: "로그아웃 되었습니다!!",
       icon: "😎",
     });

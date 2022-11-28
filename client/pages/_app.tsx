@@ -1,11 +1,11 @@
 import "../styles/globals.css";
 import { AppProps } from "next/app";
 import { useEffect } from "react";
-import { wrapper } from "../store/store";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Head from "next/head";
 import { CookiesProvider } from "react-cookie";
+import { RecoilRoot } from "recoil";
 
 declare global {
   interface Window {
@@ -32,9 +32,11 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <CookiesProvider>
-      <Component {...pageProps} />
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
     </CookiesProvider>
   );
 }
 
-export default wrapper.withRedux(App);
+export default App;

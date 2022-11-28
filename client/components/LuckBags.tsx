@@ -12,7 +12,7 @@ const LuckBags = ({
     setLuckyBagId(id);
     console.log(id);
   };
-  console.log(bagList.map((el: any) => el.luckBagId));
+  // console.log(bagList.map((el: any) => el.luckBagId));
   return (
     <>
       <div

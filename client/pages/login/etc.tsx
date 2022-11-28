@@ -1,3 +1,4 @@
+import React from "react";
 //로그인 구현 중 마주친 문제들입니다. 왜 사용할 수 없었는지 나중에 찾아보기 위해 적어둡니다.
 
 // const onSubmit2 = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -20,9 +21,6 @@
 //       localStorage.setItem("UserID", res.data.id);
 //     });
 // };
-
-import React from "react";
-
 const etc = () => {
   return <div>etc</div>;
 };

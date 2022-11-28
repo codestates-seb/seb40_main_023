@@ -4,8 +4,8 @@ import { v1 } from "uuid";
 
 const { persistAtom } = recoilPersist();
 
-export const userState = atom<boolean>({
-  key: `userState`,
-  default: false,
+export const memberIdState = atom<number>({
+  key: `memberIdState`,
+  default: 0,
   effects_UNSTABLE: [persistAtom],
 });

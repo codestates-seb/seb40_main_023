@@ -9,32 +9,24 @@ import ServiceReview from "../components/main/review/ServiceReview";
 import ServiceGallery from "../components/main/gallery/ServiceGallery";
 import { Toast, notifyError } from "../components/util/Toast";
 import Footer from "../components/Footer";
-import { useSelector, useDispatch } from "react-redux";
-import { selectLoginState, setLoginState } from "../store/loginSlice";
 import axios from "axios";
 import { getCookie, removeCookies } from "../components/util/cookie";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { userState } from "../recoil/user";
+import { useRecoilState } from "recoil";
+import { memberIdState } from "../recoil/memberId";
 
 export default function Home() {
   const [cookies] = useCookies(["accessJwtToken"]);
-  const dispatch = useDispatch();
-  const loginState = useSelector(selectLoginState);
-  const [userId, setUserId] = useState("");
-  //로그인 로그아웃 분기 주기
-  console.log("로그인 되어있나요?", loginState);
+  const [user, setUser] = useRecoilState(userState);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
 
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
-    const memberId = localStorage.getItem("memberId");
-    //만약 토큰이랑 이메일이 둘 다 있다면 로그인 트루 하나라도 없다면 로그아웃
-    if (token && memberId) {
-      dispatch(setLoginState(true));
-      setUserId(memberId);
-    } else {
-      dispatch(setLoginState(false));
-      removeCookies("accessJwtToken");
-      localStorage.removeItem("memberId");
+    if (!token) {
+      setUser(false);
+      setMemberId(0);
     }
   };
 
@@ -42,7 +34,7 @@ export default function Home() {
     try {
       await axios({
         method: "get",
-        url: `/api/member/${userId}`,
+        url: `/api/member/${memberId}`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getCookie("accessJwtToken")}`,
@@ -51,10 +43,6 @@ export default function Home() {
     } catch (error) {}
   };
 
-  useLayoutEffect(() => {
-    checkLogin();
-  }, [checkLogin, userId]);
-
   useEffect(() => {
     checkLogin();
     userInfo();
@@ -62,7 +50,7 @@ export default function Home() {
 
   return (
     <div>
-      <Header userId={userId} />
+      <Header />
       <main className="pt-[58px]">
         <Section>
           <Countdown />

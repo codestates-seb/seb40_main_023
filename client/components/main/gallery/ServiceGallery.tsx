@@ -2,7 +2,7 @@ import React, { useState, useEffect, ComponentElement } from "react";
 import { useInView, InView } from "react-intersection-observer";
 import { GalleryDataProps } from "../../../types/main";
 import GalleryItem from "./GalleryItem";
-import { useFetch } from "../../../api/useFetch";
+import { useFetch } from "../../../fetch/useFetch";
 import FetchError from "../../util/FetchError";
 import Loading from "../../util/Loading";
 import Link from "next/link";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import closed from "../../public/images/ico/ico-modal-close.svg";
-import { createBag } from "../../api/lucky";
+import { createBag } from "../../fetch/lucky";
 import Router from "next/router";
 
 const CheckModal = ({

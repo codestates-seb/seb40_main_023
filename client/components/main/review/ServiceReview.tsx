@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReviewSlide from "./ReviewSlide";
 import ReviewWrite from "./ReviewWrite";
 import Loading from "../../util/Loading";
-import { useFetch } from "../../../api/useFetch";
+import { useFetch } from "../../../fetch/useFetch";
 
 const ServiceReview = () => {
   const [reviewData, setReviewData] = useState([]);

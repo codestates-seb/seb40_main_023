@@ -1,26 +1,63 @@
 import axios from "axios";
+import Router, { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
+import { signUp } from "../../fetch/signup";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { Toast } from "../../components/util/Toast";
+import { Toast, notifyError } from "../../components/util/Toast";
 
 const Signup = () => {
-  //이름, 비밀번호, 비밀번호 확인 상태
+  //이름, 이메일, 비밀번호, 비밀번호 확인 상태
   const [id, setId] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   //오류메시지 상태
   const [idMessage, setIdMessage] = useState<string>("");
+  const [emailMessage, setEmailMessage] = useState<string>("");
   const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] =
     useState<string>("");
   //유효성 검사
   const [isId, setIsId] = useState<boolean>(false);
+  const [isEmail, setIsEmail] = useState<boolean>(false);
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
 
+  const router = useRouter();
   //폼 만들기
+  // const onSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   let res = await signUp("api/member", {
+  //     name: id,
+  //     email: email,
+  //     password: password,
+  //   });
+  // };
+
+  //화면 전환이 안 됨으로 여기서 try catch문을 사용한다. signup을 tsx로 바꿔도 e인자를 찾거나 경로문제가 발생하기에 이렇게 둔다
+  const signupSubmit = (e: any) => {
+    e.preventDefault();
+    window.setTimeout("window.location.reload()", 2000);
+    notifyError({
+      message: "이미 존재하는 닉네임이거나 이메일입니다.",
+      icon: "😎",
+    });
+    try {
+      axios
+        .post("api/member", {
+          name: id,
+          email: email,
+          password: password,
+        })
+        .then(res => {
+          router.push("/login");
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //아이디
   const onChangeId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +73,25 @@ const Signup = () => {
       setIsId(true);
     }
   }, []);
+
+  //이메일
+  const onChangeEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const emailRegex =
+        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      const emailCurrent = e.target.value;
+      setEmail(emailCurrent);
+
+      if (!emailRegex.test(emailCurrent)) {
+        setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ");
+        setIsEmail(false);
+      } else {
+        setEmailMessage("올바른 이메일 형식이에요 : )");
+        setIsEmail(true);
+      }
+    },
+    [],
+  );
 
   //비밀번호
   const onChangePassword = useCallback(
@@ -75,6 +131,8 @@ const Signup = () => {
     [password],
   );
 
+  // 회원가입 post
+
   return (
     <div>
       <Header />
@@ -99,35 +157,67 @@ const Signup = () => {
             <button className="w-[230px] py-3 mt-4 text-white rounded bg-social-naverNormal hover:bg-social-naverHover">
               네이버 회원가입
             </button>
-            <form>
+            <form onSubmit={signupSubmit}>
               <div className="mt-11">
-                <label htmlFor="id" className="text-left mg-default-label">
-                  아이디
-                </label>
-                <div className="flex flex-col ">
-                  <input
-                    id="id"
-                    type="text"
-                    onChange={onChangeId}
-                    placeholder="영문, 숫자를 포함하여 4글자 이상"
-                    className={`mg-default-input w-full ${
-                      isId
-                        ? "border-success-normal focus:outline-none"
-                        : id.length === 0
-                        ? "null"
-                        : "border-danger-normal focus:outline-none"
-                    } 
+                <div className="mt-11">
+                  <label htmlFor="id" className="text-left mg-default-label">
+                    닉네임
+                  </label>
+                  <div className="flex flex-col ">
+                    <input
+                      id="id"
+                      type="text"
+                      onChange={onChangeId}
+                      placeholder="영문, 숫자를 포함하여 4글자 이상"
+                      className={`mg-default-input w-full ${
+                        isId
+                          ? "border-success-normal focus:outline-none"
+                          : id.length === 0
+                          ? "null"
+                          : "border-danger-normal focus:outline-none"
+                      } 
                 }`}
-                  />
-                  {id.length > 0 && (
-                    <span
-                      className={`text-left text-sm ${
-                        isId ? "mg-vaild-success" : "mg-vaild-error"
-                      }`}
-                    >
-                      {idMessage}
-                    </span>
-                  )}
+                    />
+                    {id.length > 0 && (
+                      <span
+                        className={`text-left text-sm ${
+                          isId ? "mg-vaild-success" : "mg-vaild-error"
+                        }`}
+                      >
+                        {idMessage}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="mt-5">
+                  <label htmlFor="email" className="text-left mg-default-label">
+                    이메일
+                  </label>
+                  <div className="flex flex-col">
+                    <input
+                      id="email"
+                      type="text"
+                      placeholder="이메일 형식에 맞게 입력해주세요"
+                      onChange={onChangeEmail}
+                      className={`mg-default-input w-full ${
+                        isPassword
+                          ? "border-success-normal focus:outline-none"
+                          : password.length === 0
+                          ? "null"
+                          : "border-danger-normal focus:outline-none"
+                      } 
+                  }`}
+                    />
+                    {email.length > 0 && (
+                      <span
+                        className={`text-left text-sm ${
+                          isEmail ? "mg-vaild-success" : "mg-vaild-error"
+                        }`}
+                      >
+                        {emailMessage}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="mt-5">
                   <label
@@ -198,17 +288,17 @@ const Signup = () => {
                   </div>
                 </div>
               </div>
+              <button
+                className={`mt-10 w-full ${
+                  !(isId && isPassword && isPasswordConfirm && isEmail)
+                    ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"
+                    : "mg-primary-button"
+                }`}
+                disabled={!(isId && isPassword && isPasswordConfirm && isEmail)}
+              >
+                가입하기
+              </button>
             </form>
-            <button
-              className={`mt-10 w-full ${
-                !(isId && isPassword && isPasswordConfirm)
-                  ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"
-                  : "mg-primary-button"
-              }`}
-              disabled={!(isId && isPassword && isPasswordConfirm)}
-            >
-              가입하기
-            </button>
           </div>
         </div>
         <Toast />

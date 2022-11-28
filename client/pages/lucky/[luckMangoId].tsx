@@ -4,7 +4,7 @@ import Greeting from "../../components/Greeting";
 import LongModal from "../../components/modals/LongModal";
 import LetterModal from "../../components/modals/LetterModal";
 import { notifyInfo } from "../../components/util/Toast";
-import { useFetch } from "../../api/useFetch";
+import { useFetch } from "../../fetch/useFetch";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
 import Banner from "../../components/Banner";
@@ -35,8 +35,8 @@ const index = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [modal, setModal] = useState(false);
   const [letterModal, setLetterModal] = useState(false);
-  const [completeModal, setCompleteModal] = useState(false);
   const [qrCode, setQrCode] = useState(false);
+  const [completeModal, setCompleteModal] = useState(false);
 
   //패치 구역
   const [body, setBody] = useState("");
@@ -64,11 +64,9 @@ const index = () => {
     setBag(res.data);
   };
   const getAllLuckyBags = async (luckMangoId: number) => {
-    const res = await useFetch(
-      `/api/luckBag/luckMango?luckMangoId=${luckMangoId}&page=1&size=7`,
-    );
+    const res = await useFetch(`/api/luckBag?&page=1&size=5`);
     setBagList(res.data);
-    console.log(bagList);
+    console.log("bagList", bagList);
   };
 
   useEffect(() => {
@@ -165,6 +163,7 @@ const index = () => {
             </div>
             <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]"></div>
             <LuckBags
+              bagList={bagList}
               letterModal={letterModal}
               setLetterModal={setLetterModal}
               setLuckyBagId={setLuckyBagId}
@@ -287,11 +286,12 @@ const index = () => {
             letterModal={letterModal}
             setLetterModal={setLetterModal}
             bag={bag}
+            bagList={bagList}
           />
         )}
-        {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
-        <Toast />
       </div>
+      {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
+      <Toast />
     </div>
   );
 };

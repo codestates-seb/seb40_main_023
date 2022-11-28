@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-const LetterModal = ({ letterModal, setLetterModal, bag }: any) => {
+const LetterModal = ({ letterModal, setLetterModal, bag, bagList }: any) => {
   const handleModal = () => {
     setLetterModal(!letterModal);
   };
@@ -26,7 +26,10 @@ const LetterModal = ({ letterModal, setLetterModal, bag }: any) => {
             </div>
           </main>
         </div>
-        <div className="absolute bottom-10 left-8">- {bag.writer} -</div>
+        <div className="absolute bottom-10 left-8">
+          - {bag.writer}
+          {bag.luckBagId} -
+        </div>
       </div>
     </div>
   );

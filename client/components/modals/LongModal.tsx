@@ -59,7 +59,7 @@ const LongModal = ({
           />
         </header>
         <div className="m-auto">
-          <main className="flex-col gap-3 mg-flex-center">
+          <div className="flex-col gap-3 mg-flex-center">
             <div className="mg-modal-title">
               홍다희님에게 보낼 덕담을 입력해 주세요
             </div>
@@ -77,8 +77,8 @@ const LongModal = ({
               value={writer}
               onChange={e => handleWriter(e)}
             />
-            <div className="mg-flex-center w-[303px]">
-              <div className="flex-1 mg-modal-title">세뱃돈</div>
+            <div className="mg-flex-center w-[300px] mb-[0.5rem]">
+              <div className="flex-1 mb-0 mg-modal-title">세뱃돈</div>
               <div className="text-xs pr-14 flex-2 text-secondary-hover">
                 실제 금액이 아닌 마음만 전달해요
               </div>
@@ -93,8 +93,8 @@ const LongModal = ({
               size={6}
               onChange={e => handleMoney(e)}
             />
-            <div className="mg-flex-center w-[303px]">
-              <div className="flex-1 mg-modal-title">주머니 선택</div>
+            <div className="mg-flex-center w-[300px] mb-[0.5rem]">
+              <div className="flex-1 mb-0 mg-modal-title">주머니 선택</div>
               <div className="pr-20 text-xs text-danger-normal flex-2">
                 * 색상은 랜덤으로 적용돼요
               </div>
@@ -124,7 +124,7 @@ const LongModal = ({
                 );
               })}
             </form>
-          </main>
+          </div>
           <div className="flex justify-around p-2 mt-3">
             <button
               className="rounded-full mg-primary-button"

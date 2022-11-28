@@ -383,7 +383,7 @@ body {
   }
 
   .mg-modal-title {
-    @apply flex flex-row items-center mb-2 text-base font-medium;
+    @apply w-[300px] flex flex-row items-center mb-2 text-base font-medium;
   }
 
   /* Validation */

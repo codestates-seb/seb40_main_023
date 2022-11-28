@@ -75,13 +75,6 @@ const index = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (bagList) {
-      console.log("!!!!!!", bag);
-      setBag(bagList.filter((el: any) => el.luckBagId === luckyBagId));
-    }
-  }, [luckyBagId]);
-
   const shareKakao = () => {
     const { Kakao, location } = window;
     Kakao.Link.sendScrap({
@@ -125,7 +118,7 @@ const index = () => {
   const handleModal = () => {
     setModal(!modal);
   };
-  console.log(bag);
+
   return (
     <div ref={downloadRef}>
       <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">
@@ -151,7 +144,7 @@ const index = () => {
               />
             </div>
             <div className="absolute flex justify-center mg-width-size">
-              <Greeting content={body || greeting} edit={false} />
+              <Greeting content={body} edit={false} />
             </div>
           </div>
           <div className="relative flex-col w-full mg-flex-center">
@@ -290,6 +283,8 @@ const index = () => {
             setLetterModal={setLetterModal}
             bag={bag}
             bagList={bagList}
+            setBag={setBag}
+            luckyBagId={luckyBagId}
           />
         )}
       </div>

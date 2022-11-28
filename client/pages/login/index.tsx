@@ -10,9 +10,13 @@ import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { getCookie, setCookie } from "../../components/util/cookie";
 import { notifyError, notifySuccess, Toast } from "../../components/util/Toast";
+import { userState } from "../../recoil/user";
 import { selectLoginState, setLoginState } from "../../store/loginSlice";
+import { useRecoilValue } from "recoil";
 
 const Login = () => {
+  const user = useRecoilValue(userState);
+  console.log(user);
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const dispatch = useDispatch();

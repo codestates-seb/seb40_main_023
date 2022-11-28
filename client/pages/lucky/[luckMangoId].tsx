@@ -13,6 +13,7 @@ import LuckBags from "../../components/LuckBags";
 import QrModal from "../../components/modals/QrModal";
 import { Toast } from "../../components/util/Toast";
 import { TEMPLETE_ID } from "../../constants/templeteId";
+import Player from "../../components/lucky/Player";
 
 const index = () => {
   //스크린샷 구역
@@ -106,6 +107,7 @@ const index = () => {
     "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
   let money = 1000000001;
 
+  //bgm
   const handleBgm = () => {
     setBgmOn(!bgmOn);
   };
@@ -137,6 +139,7 @@ const index = () => {
                 className="mx-2 h-[35px] w-[35px] ml-5 mg-icon-capture"
                 onClick={downloadBtn}
               />
+              {/* BGM구간 */}
               <button
                 className={
                   bgmOn
@@ -145,6 +148,7 @@ const index = () => {
                 }
                 onClick={handleBgm}
               />
+              <Player bgmOn={bgmOn} onClick={handleBgm} />
             </div>
             <div className="absolute flex justify-center mg-width-size">
               <Greeting content={body || greeting} edit={false} />

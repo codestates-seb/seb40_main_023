@@ -1,15 +1,17 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import Link from "next/link";
-import React, { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { getCookie, setCookie } from "../../components/util/cookie";
-import { useSelector, useDispatch } from "react-redux";
+import { notifyError, notifySuccess, Toast } from "../../components/util/Toast";
 import { selectLoginState, setLoginState } from "../../store/loginSlice";
-import { useRouter } from "next/router";
-import { Toast, notifySuccess, notifyError } from "../../components/util/Toast";
+
 const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");

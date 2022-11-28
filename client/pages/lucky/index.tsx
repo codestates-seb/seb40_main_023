@@ -26,7 +26,6 @@ const index = () => {
 
   //bgm 구역
   const [bgmOn, setBgmOn] = useState(false);
-
   const [shareBtn, setShareBtn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [modal, setModal] = useState(false);

@@ -41,7 +41,6 @@ const index = () => {
   const [body, setBody] = useState("");
   const [bag, setBag] = useState([]);
   const [bagList, setBagList] = useState([]);
-  const [mangoId, setMangoId] = useState(0);
   const [luckyBagId, setLuckyBagId] = useState(0);
 
   //유저 아이디 가져와서 then으로 엮기

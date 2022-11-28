@@ -45,10 +45,10 @@ const LuckBags = ({
 
   return (
     <>
-      {bagList.map((el: any) => {
+      {bagList.map((bag: any) => {
         return (
           <div
-            onClick={() => handleLetterModal(el.luckBagId)}
+            onClick={() => handleLetterModal(bag.luckBagId)}
             className={`bg-[url(/images/content/img-bok2-4.svg)] cursor-pointer absolute top-[-10px] left-12 w-[65px] h-[80px] bg-no-repeat bg-contain`}
           />
         );

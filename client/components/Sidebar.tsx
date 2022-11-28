@@ -5,7 +5,12 @@ import Link from "next/link";
 import { removeCookies } from "./util/cookie";
 import { notifySuccess } from "../components/util/Toast";
 
-const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
+const Sidebar = ({
+  toggleHandler,
+  toggleState,
+  setIsSidebarOpen,
+  userId,
+}: any) => {
   //사이드바 영역
   // const dispatch = useDispatch();
   // const sidebarState = useSelector(selectSidebarState);
@@ -17,6 +22,7 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
   const dispatch = useDispatch();
   const loginState = useSelector(selectLoginState);
   const handleLogout = () => {
+    localStorage.removeItem("memberId");
     removeCookies("accessJwtToken");
     dispatch(setLoginState(false));
     setIsSidebarOpen(false);
@@ -61,7 +67,7 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
           <li className="p-2 mb-1">
             {loginState ? (
               <Link
-                href="/mypage"
+                href={`/mypage/${userId}`}
                 className="hover:font-medium hover:text-primary-normal"
               >
                 마이페이지

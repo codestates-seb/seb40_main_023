@@ -1,21 +1,24 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import Link from "next/link";
-import React, { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
-import { setCookie } from "../../components/util/cookie";
-import { useSelector, useDispatch } from "react-redux";
+import { getCookie, setCookie } from "../../components/util/cookie";
+import { notifyError, notifySuccess, Toast } from "../../components/util/Toast";
 import { selectLoginState, setLoginState } from "../../store/loginSlice";
-import { useRouter } from "next/router";
-import { Toast, notifySuccess, notifyError } from "../../components/util/Toast";
+
 const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const dispatch = useDispatch();
   const loginState = useSelector(selectLoginState);
   const router = useRouter();
+  const [userEmail, setUserEmail] = useState<String>("");
   // const onSubmit2 = async (req: NextApiRequest, res: NextApiResponse) => {
   //   const loginData = req.body;
   //   const response = await axios.post("api/auth/login", loginData);
@@ -62,19 +65,30 @@ const Login = () => {
             setCookie("accessJwtToken", jwtToken, {
               path: "/",
               expires,
-              // secure: true,
-              // sameSite: "none",
             });
-            //어떻게 쿠키가 만료될 때 로그아웃을 시킬까?
             // const decodedUserInfo = jwt_decode(jwtToken);
             // localStorage.setItem("userInfo", JSON.stringify(decodedUserInfo));
           }
+          axios({
+            method: "get",
+            url: "/api/member?page=1&size=100",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+            },
+          }).then(res =>
+            res.data.data.map((el: any) =>
+              el.email === email
+                ? localStorage.setItem("memberId", el.memberId)
+                : null,
+            ),
+          );
+          dispatch(setLoginState(true));
           notifySuccess({
             message: "로그인에 성공했어요. 자동으로 화면 이동 됩니다!",
             icon: "😎",
           });
           pageChange();
-          dispatch(setLoginState(true));
         });
     } catch (error) {
       notifyError({

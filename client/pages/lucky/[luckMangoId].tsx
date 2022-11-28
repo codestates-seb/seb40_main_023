@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { LUCKBAG_IMAGE_LIST } from "../../constants/luckBagPos";
 import Greeting from "../../components/Greeting";
 import LongModal from "../../components/modals/LongModal";
 import LetterModal from "../../components/modals/LetterModal";
@@ -9,6 +8,11 @@ import { useFetch } from "../../fetch/useFetch";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
 import Banner from "../../components/Banner";
+import { useRouter } from "next/router";
+import LuckBags from "../../components/LuckBags";
+import QrModal from "../../components/modals/QrModal";
+import { Toast } from "../../components/util/Toast";
+import { TEMPLETE_ID } from "../../constants/templeteId";
 
 const index = () => {
   //스크린샷 구역
@@ -34,39 +38,68 @@ const index = () => {
   const [completeModal, setCompleteModal] = useState(false);
 
   //패치 구역
-  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
   const [bag, setBag] = useState([]);
   const [bagList, setBagList] = useState([]);
+  const [mangoId, setMangoId] = useState(0);
+  const [luckyBagId, setLuckyBagId] = useState(0);
 
   //유저 아이디 가져와서 then으로 엮기
-  const luckyMangoId = 45;
-  const luckyBagId = 3;
-  const getLuckyMango = async () => {
-    const res = await useFetch(`/api/luckMango/${luckyMangoId}`);
-    setTitle(res?.data?.title);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { luckMangoId } = router.query;
+    getLuckyMango(Number(luckMangoId));
+    getAllLuckyBags(Number(luckMangoId));
+  }, [router.isReady]);
+
+  const getLuckyMango = async (luckMangoId: number) => {
+    const res = await useFetch(`/api/luckMango/${luckMangoId}`);
+    setBody(res?.data?.mangoBody);
   };
   const getLuckyBag = async () => {
     const res = await useFetch(`/api/luckBag/${luckyBagId}`);
     setBag(res.data);
   };
-  const getAllLuckyBags = async () => {
-    const res = await useFetch(
-      `/api/luckBag/luckMango?luckMangoId=${luckyMangoId}&page=1&size=5`,
-    );
+  const getAllLuckyBags = async (luckMangoId: number) => {
+    const res = await useFetch(`/api/luckBag?&page=1&size=5`);
     setBagList(res.data);
+    console.log("bagList", bagList);
   };
 
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
-    getLuckyMango();
-    getLuckyBag();
-    getAllLuckyBags();
   }, []);
 
-  console.log("title", title);
-  console.log("asdasd", bagList);
+  useEffect(() => {
+    getLuckyBag();
+  }, [luckyBagId]);
+
+  const shareKakao = () => {
+    const { Kakao, location } = window;
+    Kakao.Link.sendScrap({
+      requestUrl: location.href,
+      templateId: TEMPLETE_ID,
+    });
+  };
+
+  const shareUrl = () => {
+    let currentUrl = window.document.location.href;
+    let t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = currentUrl;
+    t.select();
+    document.execCommand("copy");
+    document.body.removeChild(t);
+    notifyInfo({ message: "url이 복사됐습니다.", icon: "😎" });
+  };
+
+  const shareQr = () => {
+    setQrCode(!qrCode);
+  };
 
   //한 줄 글 남기기 구역
   const greeting =
@@ -87,10 +120,6 @@ const index = () => {
 
   const handleModal = () => {
     setModal(!modal);
-  };
-
-  const handleLetterModal = () => {
-    setLetterModal(!letterModal);
   };
 
   return (
@@ -118,7 +147,7 @@ const index = () => {
               />
             </div>
             <div className="absolute flex justify-center mg-width-size">
-              <Greeting content={greeting} edit={false} />
+              <Greeting content={body || greeting} edit={false} />
             </div>
           </div>
           <div className="relative flex-col w-full mg-flex-center">
@@ -132,14 +161,12 @@ const index = () => {
               <div className="bg-[#D9D9D9] mg-icon-pagination" />
             </div>
             <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]"></div>
-            {LUCKBAG_IMAGE_LIST.map((el, index) => (
-              <div
-                key={index}
-                className={`bg-[url(/images/content/img-bok2-1.svg)] cursor-pointer absolute ${el.yPos} ${el.xPos} w-[65px] h-[80px] bg-no-repeat bg-contain`}
-                onClick={handleLetterModal}
-              ></div>
-            ))}
-
+            <LuckBags
+              bagList={bagList}
+              letterModal={letterModal}
+              setLetterModal={setLetterModal}
+              setLuckyBagId={setLuckyBagId}
+            />
             {isLogin ? (
               <div className="cursor-pointer absolute w-[212px] justify-center mg-flex-center bottom-9">
                 <button
@@ -150,6 +177,7 @@ const index = () => {
                 </button>
                 <div className="absolute left-0 z-10 flex-col bottom-14 mg-flex-center">
                   <button
+                    onClick={shareUrl}
                     className={
                       shareBtn
                         ? "mg-floating-button-long duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
@@ -159,6 +187,7 @@ const index = () => {
                     {shareBtn && "url 복사하기"}
                   </button>
                   <button
+                    onClick={shareQr}
                     className={
                       shareBtn
                         ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)] bg-link"
@@ -168,6 +197,7 @@ const index = () => {
                     {shareBtn && "QR코드 공유하기"}
                   </button>
                   <button
+                    onClick={shareKakao}
                     className={
                       shareBtn
                         ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
@@ -197,6 +227,7 @@ const index = () => {
                 )}
                 <div className="transition-all duration-300 mg-flex">
                   <button
+                    onClick={shareUrl}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
@@ -204,6 +235,7 @@ const index = () => {
                     }
                   />
                   <button
+                    onClick={shareQr}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
@@ -211,6 +243,7 @@ const index = () => {
                     }
                   />
                   <button
+                    onClick={shareKakao}
                     className={
                       shareBtn
                         ? "mg-floating-button duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
@@ -251,9 +284,13 @@ const index = () => {
           <LetterModal
             letterModal={letterModal}
             setLetterModal={setLetterModal}
+            bag={bag}
+            bagList={bagList}
           />
         )}
       </div>
+      {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
+      <Toast />
     </div>
   );
 };

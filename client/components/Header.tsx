@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 import Link from "next/link";
 import Image from "next/image";
 
-const Header = () => {
+const Header = ({ userId }: any) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebarHandle = (): void => {
     // dispatch(setSidebarState(false));
@@ -44,6 +44,7 @@ const Header = () => {
         </button>
       </header>
       <Sidebar
+        userId={userId}
         toggleHandler={toggleSidebarHandle}
         toggleState={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}

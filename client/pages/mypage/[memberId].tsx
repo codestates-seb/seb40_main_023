@@ -9,19 +9,20 @@ import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import GalleryItem from "../../components/mypage/GalleryItem";
-import { useFetch } from "../../fetch/useFetch";
 import { useRouter } from "next/router";
 import { Toast } from "../../components/util/Toast";
+import { getCookie } from "../../components/util/cookie";
+import axios from "axios";
 
 const Mypage = () => {
   const router = useRouter();
-  const { memberId } = router.query;
-  console.log(memberId);
+  const { routermemberId } = router.query;
   const [click, setClick] = useState(false);
   const [LuckMango, setLuckMango]: any = useState([]);
   const [length, setLength] = useState(0);
   const dispatch = useDispatch();
   const modalState = useSelector(selectModalState);
+  const [userId, setUserId] = useState("");
 
   const handleClick = () => {
     setClick(!click);
@@ -30,14 +31,22 @@ const Mypage = () => {
 
   //로그인 되면 처리하는 걸로 하시죠
   //size도 회의를 통해 정하면 좋을 거 같아요.
-  const MyId = 2;
 
   const getLuckMango = async () => {
-    const res = await useFetch(
-      `/api/luckMango/member?memberId=${MyId}&page=1&size=100&sort=desc`,
-    );
-    setLuckMango(res.data);
-    setLength(res.data.length);
+    const memberId = localStorage.getItem("memberId");
+    if (memberId) setUserId(memberId);
+    axios({
+      method: "get",
+      url: `/api/luckMango/member?memberId=${memberId}&page=1&size=100&sort=desc`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+      },
+    }).then((res): any => {
+      console.log(res);
+      setLuckMango(res.data);
+      setLength(res.data.length);
+    });
   };
 
   useEffect(() => {

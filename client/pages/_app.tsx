@@ -5,6 +5,7 @@ import { wrapper } from "../store/store";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Head from "next/head";
+import { CookiesProvider } from "react-cookie";
 
 declare global {
   interface Window {
@@ -29,7 +30,11 @@ function App({ Component, pageProps }: AppProps) {
     });
   }, []);
 
-  return <Component {...pageProps} />;
+  return (
+    <CookiesProvider>
+      <Component {...pageProps} />
+    </CookiesProvider>
+  );
 }
 
 export default wrapper.withRedux(App);

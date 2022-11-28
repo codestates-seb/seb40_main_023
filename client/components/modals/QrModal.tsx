@@ -3,7 +3,7 @@ import { useQRCode } from "next-qrcode";
 import Image from "next/image";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
-import { notifyInfo, Toast } from "../util/Toast";
+import { notifySuccess, Toast } from "../util/Toast";
 
 const QrModal = ({ qrCode, setQrCode }: any) => {
   const { Canvas } = useQRCode();
@@ -17,7 +17,7 @@ const QrModal = ({ qrCode, setQrCode }: any) => {
     domtoimage.toPng(btn).then(blob => {
       saveAs(blob, "BokQrcode.png");
     });
-    notifyInfo({ message: "큐알코드 이미지가 저장됐습니다.", icon: "🧑‍💻" });
+    notifySuccess({ message: "큐알코드 이미지가 저장됐습니다.", icon: "🧑‍💻" });
   };
 
   const handleModal = () => {

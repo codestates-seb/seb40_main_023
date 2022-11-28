@@ -63,9 +63,10 @@ const index = () => {
     setBag(res.data);
   };
   const getAllLuckyBags = async (luckMangoId: number) => {
-    const res = await useFetch(`/api/luckBag?&page=1&size=5`);
+    const res = await useFetch(
+      `/api/luckBag/luckMango?luckMangoId=${luckMangoId}&page=1&size=7`,
+    );
     setBagList(res.data);
-    console.log("bagList", bagList);
   };
 
   useEffect(() => {
@@ -75,7 +76,10 @@ const index = () => {
   }, []);
 
   useEffect(() => {
-    getLuckyBag();
+    if (bagList) {
+      console.log("!!!!!!", bag);
+      setBag(bagList.filter((el: any) => el.luckBagId === luckyBagId));
+    }
   }, [luckyBagId]);
 
   const shareKakao = () => {
@@ -121,7 +125,7 @@ const index = () => {
   const handleModal = () => {
     setModal(!modal);
   };
-
+  console.log(bag);
   return (
     <div ref={downloadRef}>
       <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">

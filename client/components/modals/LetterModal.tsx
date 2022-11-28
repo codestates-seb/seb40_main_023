@@ -22,14 +22,11 @@ const LetterModal = ({ letterModal, setLetterModal, bag, bagList }: any) => {
         <div className="m-auto">
           <main className="flex-col gap-3 mg-flex-center">
             <div className="w-full leading-[2.28rem] px-[1.5rem] mt-[90px] overflow-hidden break-words">
-              {bag.luckBagBody}
+              {bag[0].luckBagBody}
             </div>
           </main>
         </div>
-        <div className="absolute bottom-10 left-8">
-          - {bag.writer}
-          {bag.luckBagId} -
-        </div>
+        <div className="absolute bottom-10 left-8">- {bag[0].writer} -</div>
       </div>
     </div>
   );

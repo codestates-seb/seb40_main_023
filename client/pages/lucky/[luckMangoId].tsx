@@ -20,6 +20,7 @@ import { getCookie } from "../../components/util/cookie";
 import { memberIdState } from "../../recoil/memberId";
 import { useRecoilValue } from "recoil";
 import { UserInfoType } from "../../types/lucky";
+import CheckModal from "../../components/modals/CheckModal";
 
 const index = () => {
   //스크린샷 구역
@@ -116,7 +117,9 @@ const index = () => {
   }, []);
 
   useEffect(() => {
-    getLuckUserInfo();
+    if (luckMemId) {
+      getLuckUserInfo();
+    }
   }, [luckMemId]);
 
   //유저 아이디 가져와서 then으로 엮기
@@ -375,6 +378,17 @@ const index = () => {
       </div>
       {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
       <Toast />
+      {completeModal && (
+        <CheckModal
+          Yesbutton="복망고 만들기"
+          Nobutton="괜찮아요"
+          firstP={`${(luckMg as any).member.name}님에게 덕담이 성공적으로`}
+          secondP="전달되었습니다!"
+          confirm="아직 복망고가 없으시다면 만들어 보세요!"
+          completeModal={completeModal}
+          setCompleteModal={setCompleteModal}
+        />
+      )}
     </div>
   );
 };

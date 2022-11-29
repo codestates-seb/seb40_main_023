@@ -43,7 +43,6 @@ const CheckModal = ({
   };
 
   const handleComplete = () => {
-    console.log(completeModal);
     setCompleteModal(!completeModal);
   };
 
@@ -53,7 +52,8 @@ const CheckModal = ({
         <header className="flex justify-end w-full hover:cursor-pointer">
           <Image
             src={closed}
-            alt=""
+            alt="close button"
+            className="z-50 cursor-pointer"
             onClick={create ? handleConfirm : handleComplete}
           />
         </header>

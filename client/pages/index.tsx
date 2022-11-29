@@ -39,7 +39,7 @@ export default function Home() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getCookie("accessJwtToken")}`,
         },
-      }).then(el => console.log(el));
+      });
     } catch (error) {}
   };
 

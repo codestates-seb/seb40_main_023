@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import axios from "axios";
-import { getCookie } from "../util/cookie";
 import { notifySuccess, Toast } from "../util/Toast";
 import QrModal from "../modals/QrModal";
 import DeleteMgModal from "../modals/DeleteMgModal";
@@ -30,20 +28,6 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
     notifySuccess({ message: "url이 복사됐습니다.", icon: "😎" });
   };
 
-  const DeleteLuckMango = async () => {
-    try {
-      await axios({
-        method: "DELETE",
-        url: `/api/luckMango/${luckMangoId}`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
-        },
-      });
-      location.reload();
-    } catch (error) {}
-  };
-
   return (
     <div className={`group gap-2 mg-default-card`}>
       <div className="mg-card-contents">
@@ -68,9 +52,8 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
         <div
           className="mg-card-button bg-[url(/images/ico/ico-card-delete.svg)]"
           onClick={handleModal}
-        >
-          {deleteModal && <DeleteMgModal />}
-        </div>
+        ></div>
+
         {/* onClick={() => DeleteLuckMango()} */}
         {/* qr코드 */}
         <div
@@ -92,6 +75,12 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
           onClick={shareUrl}
         ></div>
       </div>
+      {deleteModal && (
+        <DeleteMgModal
+          setDeleteModal={setDeleteModal}
+          luckMangoId={luckMangoId}
+        />
+      )}
       <Toast />
     </div>
   );

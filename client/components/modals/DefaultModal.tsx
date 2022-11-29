@@ -49,11 +49,11 @@ const DefaultModal = ({ setModal }: any) => {
         </header>
         <div>
           <main className="flex flex-col gap-1 text-center">
-            <div>지금까지 받은 덕담도 모두 삭제됩니다.</div>
-            <div className="whitespace-pre-line text-mono-500">
+            <div className="font-bold text-mono-800">{`모든 새해복망고와 덕담이 삭제됩니다.`}</div>
+            <div className="font-bold whitespace-pre-line text-mono-700">
               {`링크를 전달받은 친구들이 더 이상 \n 새해복망고 페이지를 볼 수 없습니다.`}
             </div>
-            <div className=" text-mono-400">그래도 탈퇴하시겠어요?</div>
+            <div className=" text-mono-600">그래도 탈퇴하시겠어요?</div>
             <footer className="flex justify-center gap-5 p-3">
               <button
                 className="mg-negative-button-round"

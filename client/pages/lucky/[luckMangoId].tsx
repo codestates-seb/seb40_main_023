@@ -14,6 +14,12 @@ import QrModal from "../../components/modals/QrModal";
 import { Toast } from "../../components/util/Toast";
 import { TEMPLETE_ID } from "../../constants/templeteId";
 import Player from "../../components/lucky/Player";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+import { getCookie } from "../../components/util/cookie";
+import { memberIdState } from "../../recoil/memberId";
+import { useRecoilValue } from "recoil";
+import { UserInfoType } from "../../types/lucky";
 
 const index = () => {
   //스크린샷 구역
@@ -31,8 +37,8 @@ const index = () => {
 
   //bgm 구역
   const [bgmOn, setBgmOn] = useState(false);
+
   const [shareBtn, setShareBtn] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
   const [modal, setModal] = useState(false);
   const [letterModal, setLetterModal] = useState(false);
   const [qrCode, setQrCode] = useState(false);
@@ -44,10 +50,74 @@ const index = () => {
   const [bagList, setBagList] = useState([]);
   const [luckyBagId, setLuckyBagId] = useState(0);
   const [luckMgId, setLuckMgId] = useState(0);
+  const [luckMg, setLuckMg] = useState();
+  const [money, setMoney] = useState(0);
+  const [luckMemId, setLuckMemId] = useState();
 
   //페이지네이션
   const [curPage, setCurPage] = useState(1);
   const [totPage, setTotPage] = useState();
+
+  //로그인 여부
+
+  const [isLogin, setIsLogin] = useState(false);
+  const memberId = useRecoilValue(memberIdState);
+  const [cookies] = useCookies(["accessJwtToken"]);
+  const [userInfo, setUserInfo] = useState();
+  const checkLogin = () => {
+    const token = cookies.accessJwtToken;
+    if (token) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  };
+
+  const getUserInfo = async () => {
+    try {
+      await axios({
+        method: "get",
+        url: `/api/member/${memberId}`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+        },
+      }).then(el => {
+        setUserInfo(el.data.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getLuckUserInfo = async () => {
+    try {
+      await axios({
+        method: "get",
+        url: `/api/member/${luckMemId}`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+        },
+      }).then(el => {
+        setMoney(el.data.data.tot_Money);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    checkLogin();
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    }
+  }, []);
+
+  useEffect(() => {
+    getLuckUserInfo();
+  }, [luckMemId]);
 
   //유저 아이디 가져와서 then으로 엮기
   const router = useRouter();
@@ -68,21 +138,17 @@ const index = () => {
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
     setBody(res?.data?.mangoBody);
+    setLuckMg(res.data);
+    setLuckMemId(res.data.member.memberId);
   };
-
+  console.log("@!@!@", luckMg);
   const getAllLuckyBags = async (luckMangoId: number, curPage: number) => {
     const res = await useFetch(
       `/api/luckBag/luckMango?luckMangoId=${luckMangoId}&page=${curPage}&size=7`,
     );
-    setTotPage(res.pageInfo.totalPages);
+    setTotPage(res.pageInfo?.totalPages);
     setBagList(res.data);
   };
-
-  useEffect(() => {
-    if (!window.Kakao.isInitialized()) {
-      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-    }
-  }, []);
 
   const shareKakao = () => {
     const { Kakao, location } = window;
@@ -107,11 +173,6 @@ const index = () => {
     setQrCode(!qrCode);
   };
 
-  //한 줄 글 남기기 구역
-  const greeting =
-    "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
-  let money = 1000000001;
-
   //bgm
   const handleBgm = () => {
     setBgmOn(!bgmOn);
@@ -119,10 +180,6 @@ const index = () => {
 
   const handleShareBtn = () => {
     setShareBtn(!shareBtn);
-  };
-
-  const loginTest = () => {
-    setIsLogin(!isLogin);
   };
 
   const handleModal = () => {
@@ -141,8 +198,7 @@ const index = () => {
 
   return (
     <div ref={downloadRef}>
-      <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">
-        <button onClick={loginTest}>login</button>
+      <div className="mg-layout bg-[url(/images/content/pt-dots.svg)]">
         <div className="mg-width-size h-[600px] mg-border-2 bg-warning-light mg-flex items-center justify-between mb-8">
           <div className="w-full">
             <div className="relative mt-5 mg-flex-center mb-7">
@@ -179,15 +235,9 @@ const index = () => {
               className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
             />
             <div className="mg-flex-center justify-center top-[117px] z-10 absolute rounded-full bg-[#0000004D] px-3 h-[19px]">
-              {bagList.map((el, i) => (
-                <div
-                  className={
-                    curPage === i + 1
-                      ? "bg-[#FF9B53] mg-icon-pagination"
-                      : "bg-[#D9D9D9] mg-icon-pagination"
-                  }
-                />
-              ))}
+              <div>
+                {curPage}/{totPage}
+              </div>
             </div>
             <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]" />
             <LuckBags
@@ -196,7 +246,9 @@ const index = () => {
               setLetterModal={setLetterModal}
               setLuckyBagId={setLuckyBagId}
             />
-            {isLogin ? (
+            {isLogin &&
+            luckMg &&
+            (luckMg as any).member.memberId === memberId ? (
               <div className="cursor-pointer absolute w-[212px] justify-center mg-flex-center bottom-9">
                 <button
                   className="pl-[60px] h-12 w-[212px] mg-secondary-button rounded-[100px] relative"
@@ -289,7 +341,16 @@ const index = () => {
             )}
           </div>
         </div>
-        {!isLogin ? (
+        {isLogin && luckMg && (luckMg as any).member.memberId === memberId ? (
+          <div className="text-center">
+            <Link href={`/mypage/${memberId}`} className="mg-link">
+              {userInfo && (userInfo as UserInfoType).name}님
+            </Link>
+            의 새해 복망고입니다.
+            <br />
+            복주머니를 클릭하면 덕담을 볼 수 있어요!
+          </div>
+        ) : (
           <>
             <div className="flex justify-end mr-12 mg-width-size">
               복망고 소유주라면 &nbsp;
@@ -300,15 +361,6 @@ const index = () => {
             </div>
             <Banner />
           </>
-        ) : (
-          <div className="text-center">
-            <Link href="/mypage" className="mg-link">
-              홍다희님
-            </Link>
-            의 새해 복망고입니다.
-            <br />
-            복주머니를 클릭하면 덕담을 볼 수 있어요!
-          </div>
         )}
         {letterModal && (
           <LetterModal

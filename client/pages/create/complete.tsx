@@ -5,10 +5,13 @@ import Footer from "../../components/Footer";
 import ShareBtn from "../../components/ShareBtn";
 import { Toast, notifySuccess } from "../../components/util/Toast";
 import Loading from "../../components/util/Loading";
+import { useRecoilValue } from "recoil";
+import { memberIdState } from "../../recoil/memberId";
 
 const Complete = () => {
   const [isValidPage, setIsValidPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const memberId = useRecoilValue(memberIdState);
 
   useEffect(() => {
     // if (!isValidPage) return;
@@ -40,7 +43,7 @@ const Complete = () => {
               제작한 나의 새해복망고는
               <br className="mobile:hidden" />
               <Link
-                href="/mypage"
+                href={`/mypage/${memberId}`}
                 className="font-medium underline text-primary-normal decoration-wavy"
               >
                 마이페이지

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useRecoilValue } from "recoil";
 import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import ShareBtn from "../../components/ShareBtn";
 import { Toast, notifySuccess } from "../../components/util/Toast";
 import Loading from "../../components/util/Loading";
+import { memberIdState } from "../../recoil/memberId";
 
 const Complete = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const memberId = useRecoilValue(memberIdState);
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,7 +40,7 @@ const Complete = () => {
               제작한 나의 새해복망고는
               <br className="mobile:hidden" />
               <Link
-                href="/mypage"
+                href={`/mypage/${memberId}`}
                 className="font-medium underline text-primary-normal decoration-wavy"
               >
                 마이페이지

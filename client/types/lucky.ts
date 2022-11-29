@@ -4,5 +4,16 @@ export interface CreateLuckyProps {
   writer: string;
   bagStyle: number;
   bagColor: number;
-  NYMoney: number;
+  nyMoney: number;
+}
+
+export interface UserInfoType {
+  createdAt: string;
+  email: string;
+  imgUrl: string;
+  memberId: number;
+  memberStatus: string;
+  modifiedAt: string;
+  name: string;
+  tot_Money: number;
 }

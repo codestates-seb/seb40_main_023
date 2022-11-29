@@ -4,6 +4,8 @@ import Link from "next/link";
 import { createMg } from "../../fetch/create";
 import { editMg } from "../../fetch/edit";
 import { getCookie } from "../util/cookie";
+import { useRecoilValue } from "recoil";
+import { memberIdState } from "../../recoil/memberId";
 
 const EditModal = ({
   setModal,
@@ -14,6 +16,7 @@ const EditModal = ({
   editMode,
   luckId,
 }: any) => {
+  const memberId = useRecoilValue(memberIdState);
   const createLuckMg = async () => {
     if (editMode) {
       const res = await editMg(
@@ -37,7 +40,7 @@ const EditModal = ({
       const res = await createMg(
         "/api/luckMango",
         {
-          memberId: 2,
+          memberId: memberId,
           title: title,
           mangoBody: greeting,
           bgImage: "bg.jpg",

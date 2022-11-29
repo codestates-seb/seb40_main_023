@@ -35,7 +35,7 @@ public class LuckMangoPostDto {
         this.mangoBody = mangoBody;
         this.bgImage = "NONE";
         this.bgVideo = "NONE";
-        this.reveal = true;
+        this.reveal = false;  //초기값은 비공개로
         this.memberId = memberId;
     }
 }

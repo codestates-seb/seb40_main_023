@@ -1,10 +1,12 @@
 package seb40.main023.server.luckBag.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -18,20 +20,19 @@ public class LuckBag extends Auditable {
     private Long luckBagId;
 
     @Column(nullable = false)
+    @Length(max=180)
     private String luckBagBody;
 
+    @Length(max=15)
     private String writer;
 
-    @Builder.Default
     private boolean viewed=false;
 
-    @Builder.Default
+    @Size(max = 99999999)
     private long nyMoney=0;
 
-    @Builder.Default
     private int bagStyle=1;
 
-    @Builder.Default
     private int bagColor=1;
 
     @ManyToOne

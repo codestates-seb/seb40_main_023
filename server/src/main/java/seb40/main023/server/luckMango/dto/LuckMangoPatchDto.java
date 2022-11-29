@@ -10,15 +10,12 @@ public class LuckMangoPatchDto {
     @Positive
     private long luckMangoId;
 
-    @NotBlank(message = "제목을 적어주세요!")
     private String title;
-
-    @NotBlank(message = "내용을 적어주세요!")
     private String mangoBody;
-
     private String bgVideo;
     private String bgImage;
     private boolean reveal;
+    private int likeCount;
 
     public void setLuckMangoId(long luckMangoId) {
         this.luckMangoId = luckMangoId;

@@ -66,8 +66,10 @@ public class SecurityConfig {
 
                         .antMatchers(HttpMethod.POST, "/luckMango").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/luckMango/**").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/luckMango/**").hasAnyRole("USER", "ADMIN")
-                        .antMatchers(HttpMethod.GET, "/luckMango").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.GET, "/luckMango").hasAnyRole("USER", "ADMIN") // 전체 조회
+                        .antMatchers(HttpMethod.GET, "/luckMango/public/**").permitAll()    // Public 전체 보기
+                        .antMatchers(HttpMethod.GET, "/luckMango/member/**").hasAnyRole("USER", "ADMIN")    // memberId 조회
+                        .antMatchers(HttpMethod.GET, "/luckMango/**").permitAll()           // 단일 복망고 조회 <- 아마도 이 URL을 공유해야 하지 않을까...?
                         .antMatchers(HttpMethod.DELETE, "/luckMango/**").hasAnyRole("USER", "ADMIN")
 
                         .antMatchers(HttpMethod.POST, "/luckBag").permitAll()

@@ -70,18 +70,7 @@ const Mypage = () => {
         </div>
       )}
       <div className="flex flex-col items-center w-full h-full min-h-screen pt-10">
-        {modal && (
-          <DefaultModal
-            title={"지금까지 받은 덕담도 모두 삭제됩니다."}
-            contents={
-              "링크를 전달받은 친구들이 더 이상 \n 새해복망고 페이지를 볼 수 없습니다."
-            }
-            confirm={"그래도 탈퇴하시겠어요?"}
-            Nobutton={"아니오"}
-            Yesbutton={"탈퇴할게요"}
-            setModal={setModal}
-          />
-        )}
+        {modal && <DefaultModal setModal={setModal} />}
         {!modal && (
           <div className="max-w-[400px] w-full relative flex mt-16">
             <div>

@@ -4,12 +4,19 @@ import { notifySuccess } from "../components/util/Toast";
 import { userState } from "../recoil/user";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../recoil/memberId";
+import { useRouter } from "next/router";
 
 const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
   //로그인 영역
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const router = useRouter();
   console.log("유저정보 확인 콘솔", user, memberId);
+
+  const pageChange = () => {
+    setTimeout(() => router.push("/"), 2000);
+  };
+
   const handleLogout = () => {
     removeCookies("accessJwtToken");
     setUser(false);
@@ -19,6 +26,7 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
       message: "로그아웃 되었습니다!!",
       icon: "😎",
     });
+    pageChange();
   };
 
   return (

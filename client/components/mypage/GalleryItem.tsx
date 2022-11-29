@@ -4,8 +4,14 @@ import axios from "axios";
 import { getCookie } from "../util/cookie";
 import { notifySuccess, Toast } from "../util/Toast";
 import QrModal from "../modals/QrModal";
+import DeleteMgModal from "../modals/DeleteMgModal";
 
 const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
+  //모달 관리
+  const [deleteModal, setDeleteModal] = useState(false);
+  const handleModal = () => {
+    setDeleteModal(!deleteModal);
+  };
   //Qr 관리
   const [qrCode, setQrCode] = useState(false);
   const shareQr = () => {
@@ -59,12 +65,13 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
           <div className="mg-card-button bg-[url(/images/ico/ico-card-edit.svg)]"></div>
         </Link>
         {/* 삭제버튼 */}
-
         <div
           className="mg-card-button bg-[url(/images/ico/ico-card-delete.svg)]"
-          onClick={() => DeleteLuckMango()}
-        ></div>
-
+          onClick={handleModal}
+        >
+          {deleteModal && <DeleteMgModal />}
+        </div>
+        {/* onClick={() => DeleteLuckMango()} */}
         {/* qr코드 */}
         <div
           className="mg-card-button bg-[url(/images/ico/ico-card-qr.svg)]"

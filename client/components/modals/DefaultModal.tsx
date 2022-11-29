@@ -1,6 +1,6 @@
 import axios from "axios";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import closed from "../../public/images/ico/ico-modal-close.svg";
 import { memberIdState } from "../../recoil/memberId";

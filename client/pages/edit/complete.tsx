@@ -7,12 +7,9 @@ import { Toast, notifySuccess } from "../../components/util/Toast";
 import Loading from "../../components/util/Loading";
 
 const Complete = () => {
-  const [isValidPage, setIsValidPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // if (!isValidPage) return;
-
     setTimeout(() => {
       setIsLoading(false);
       notifySuccess({

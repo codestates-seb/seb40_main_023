@@ -42,8 +42,12 @@ const index = () => {
   const [body, setBody] = useState("");
   const [bag, setBag] = useState([]);
   const [bagList, setBagList] = useState([]);
-  const [mangoId, setMangoId] = useState(0);
   const [luckyBagId, setLuckyBagId] = useState(0);
+  const [luckMgId, setLuckMgId] = useState(0);
+
+  //페이지네이션
+  const [curPage, setCurPage] = useState(1);
+  const [totPage, setTotPage] = useState();
 
   //유저 아이디 가져와서 then으로 엮기
   const router = useRouter();
@@ -52,21 +56,26 @@ const index = () => {
     if (!router.isReady) return;
     const { luckMangoId } = router.query;
     getLuckyMango(Number(luckMangoId));
-    getAllLuckyBags(Number(luckMangoId));
+    setLuckMgId(Number(luckMangoId));
   }, [router.isReady]);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { luckMangoId } = router.query;
+    getAllLuckyBags(Number(luckMangoId), curPage);
+  }, [router.isReady, curPage]);
 
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
     setBody(res?.data?.mangoBody);
   };
-  const getLuckyBag = async () => {
-    const res = await useFetch(`/api/luckBag/${luckyBagId}`);
-    setBag(res.data);
-  };
-  const getAllLuckyBags = async (luckMangoId: number) => {
-    const res = await useFetch(`/api/luckBag?&page=1&size=5`);
+
+  const getAllLuckyBags = async (luckMangoId: number, curPage: number) => {
+    const res = await useFetch(
+      `/api/luckBag/luckMango?luckMangoId=${luckMangoId}&page=${curPage}&size=7`,
+    );
+    setTotPage(res.pageInfo.totalPages);
     setBagList(res.data);
-    console.log("bagList", bagList);
   };
 
   useEffect(() => {
@@ -74,10 +83,6 @@ const index = () => {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
   }, []);
-
-  useEffect(() => {
-    getLuckyBag();
-  }, [luckyBagId]);
 
   const shareKakao = () => {
     const { Kakao, location } = window;
@@ -124,6 +129,16 @@ const index = () => {
     setModal(!modal);
   };
 
+  const nextPage = () => {
+    if (curPage === totPage) return;
+    setCurPage(prev => prev + 1);
+  };
+
+  const prevPage = () => {
+    if (curPage <= 1) return;
+    setCurPage(prev => prev - 1);
+  };
+
   return (
     <div ref={downloadRef}>
       <div className="mg-layout bg-[url(/images/content/pt-dots.png)]">
@@ -151,20 +166,30 @@ const index = () => {
               <Player bgmOn={bgmOn} onClick={handleBgm} />
             </div>
             <div className="absolute flex justify-center mg-width-size">
-              <Greeting content={body || greeting} edit={false} />
+              <Greeting content={body} edit={false} />
             </div>
           </div>
           <div className="relative flex-col w-full mg-flex-center">
-            <button className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]" />
-            <button className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]" />
+            <button
+              onClick={prevPage}
+              className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
+            />
+            <button
+              onClick={nextPage}
+              className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
+            />
             <div className="mg-flex-center justify-center top-[117px] z-10 absolute rounded-full bg-[#0000004D] px-3 h-[19px]">
-              <div className="bg-[#FF9B53] mg-icon-pagination" />
-              <div className="bg-[#D9D9D9] mg-icon-pagination" />
-              <div className="bg-[#D9D9D9] mg-icon-pagination" />
-              <div className="bg-[#D9D9D9] mg-icon-pagination" />
-              <div className="bg-[#D9D9D9] mg-icon-pagination" />
+              {bagList.map((el, i) => (
+                <div
+                  className={
+                    curPage === i + 1
+                      ? "bg-[#FF9B53] mg-icon-pagination"
+                      : "bg-[#D9D9D9] mg-icon-pagination"
+                  }
+                />
+              ))}
             </div>
-            <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]"></div>
+            <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]" />
             <LuckBags
               bagList={bagList}
               letterModal={letterModal}
@@ -227,6 +252,7 @@ const index = () => {
                     setModal={setModal}
                     completeModal={completeModal}
                     setCompleteModal={setCompleteModal}
+                    luckMgId={luckMgId}
                   />
                 )}
                 <div className="transition-all duration-300 mg-flex">
@@ -290,6 +316,8 @@ const index = () => {
             setLetterModal={setLetterModal}
             bag={bag}
             bagList={bagList}
+            setBag={setBag}
+            luckyBagId={luckyBagId}
           />
         )}
       </div>

@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast } from "../../components/util/Toast";
+import { useFetch } from "../../fetch/useFetch";
+import { checkServerIdentity } from "tls";
 
-const edit = () => {
+const Edit = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
   const [modal, setModal] = useState(false);
   const [bgUrl, setBgUrl] = useState("");
+  const [reveal, setReveal] = useState(false);
+  const [luckId, setLuckId] = useState(0);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -20,6 +25,27 @@ const edit = () => {
   const handleModal = () => {
     setModal(!modal);
   };
+
+  const handleCheck = () => {
+    setReveal(!reveal);
+    console.log(reveal);
+  };
+
+  const getLuckyMango = async (luckMangoId: number) => {
+    const res = await useFetch(`/api/luckMango/${luckMangoId}`);
+    setTitle(res.data.title);
+    setGreeting(res.data.mangoBody);
+    setReveal(res.data.reveal);
+  };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { luckMangoId } = router.query;
+    getLuckyMango(Number(luckMangoId));
+    setLuckId(Number(luckMangoId));
+  }, [router.isReady]);
 
   return (
     <div className="w-full h-full mg-layout">
@@ -64,7 +90,12 @@ const edit = () => {
         <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
       </div>
       <label className="mt-5 mg-flex-center mg-width-size">
-        <input type="checkbox" className="mx-2 font-medium" />
+        <input
+          type="checkbox"
+          className="mx-2 font-medium"
+          checked={reveal ? true : false}
+          onClick={handleCheck}
+        />
         <div>내가 만든 복망고를 모두에게 자랑하기</div>
       </label>
       <button className="mt-8 mg-primary-button" onClick={handleModal}>
@@ -77,6 +108,8 @@ const edit = () => {
           greeting={greeting}
           title={title}
           bgUrl={bgUrl}
+          editMode={true}
+          luckId={luckId}
         />
       )}
       <Toast />
@@ -84,4 +117,4 @@ const edit = () => {
   );
 };
 
-export default edit;
+export default Edit;

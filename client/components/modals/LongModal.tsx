@@ -8,6 +8,7 @@ const LongModal = ({
   setModal,
   completeModal,
   setCompleteModal,
+  luckMgId,
 }: any) => {
   const [luckContent, setLuckContent] = useState("");
   const [writer, setWriter] = useState("");
@@ -147,6 +148,7 @@ const LongModal = ({
           setModal={setModal}
           completeModal={completeModal}
           setCompleteModal={setCompleteModal}
+          luckMgId={luckMgId}
         />
       )}
     </div>

@@ -9,7 +9,7 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
   //로그인 영역
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
-  console.log("asdasdsd", user);
+  console.log("유저정보 확인 콘솔", user, memberId);
   const handleLogout = () => {
     removeCookies("accessJwtToken");
     setUser(false);

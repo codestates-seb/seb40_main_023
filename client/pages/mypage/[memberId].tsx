@@ -124,8 +124,8 @@ const Mypage = () => {
                     <GalleryItem
                       key={index}
                       luckMangoId={el.luckMangoId}
-                      title={el?.title}
-                      bgImage={el?.bgImage}
+                      title={el.title}
+                      bgImage={el.bgImage}
                     />
                   ))}
                 </div>

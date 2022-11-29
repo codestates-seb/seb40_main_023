@@ -5,9 +5,8 @@ import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
 import { notifySuccess, Toast } from "../util/Toast";
 
-const QrModal = ({ qrCode, setQrCode }: any) => {
+const QrModal = ({ qrCode, setQrCode, link }: any) => {
   const { Canvas } = useQRCode();
-
   const downloadRef = useRef<HTMLInputElement | null>(null);
   const downloadBtn = () => {
     if (!downloadRef.current) {
@@ -40,7 +39,7 @@ const QrModal = ({ qrCode, setQrCode }: any) => {
           <main className="mt-[1.5rem] flex-col mg-flex-center">
             <span ref={downloadRef}>
               <Canvas
-                text={window.document.location.href}
+                text={link ? link : window.document.location.href}
                 options={{
                   level: "M",
                   margin: 3,

@@ -53,7 +53,7 @@ public class ReviewService {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);
         Review findReview =
                 optionalReview.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.LUCKMANGO_NOT_FOUND));
+                        new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
         return findReview;
     }
 

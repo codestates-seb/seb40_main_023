@@ -1,11 +1,13 @@
 package seb40.main023.server.luckMango.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.member.entity.Member;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +23,11 @@ public class LuckMango extends Auditable {
     private Long luckMangoId;
 
     @Column(nullable = false)
+    @Length(max=16)
     private String title;
 
     @Column(nullable = false)
+    @Length(max=500)
     private String mangoBody;
 
     @Column

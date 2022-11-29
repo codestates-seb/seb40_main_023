@@ -1,11 +1,13 @@
 package seb40.main023.server.member.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.review.entity.Review;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class Member extends Auditable {
     private Long memberId;
 
     @Column(nullable = false)
+    @Length(max=10)
     private String name;
 
     @Column(nullable = false, unique = true)

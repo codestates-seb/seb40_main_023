@@ -21,7 +21,7 @@ public interface LuckBagRepository extends JpaRepository<LuckBag , Long> {
     // 페이지 처리를 해주는 메소드
     // 페이지 처리 : 검색 결과 1만건일때 / 한번에 클라이언트 한테 전달하면 느리기 때문에 , 서버에서 짤라서 준다 10개 20개씩 주세요 이런식으로
 
-    @Query(value = "SELECT * FROM LUCKBAGS WHERE LuckMango_Id = :luckMangoId",nativeQuery = true)
+    @Query(value = "SELECT * FROM LUCKBAGS WHERE luckmango_Id = :luckMangoId",nativeQuery = true)
     List<LuckBag> searchLuckBagByLuckMango(@Param("luckMangoId") long luckMangoId);
 
 //    List<LuckBag> findByLuckMangoId(Long luckMangoId);

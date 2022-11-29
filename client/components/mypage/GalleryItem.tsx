@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { getCookie } from "../util/cookie";
+import { notifySuccess, Toast } from "../util/Toast";
 
 const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
+  const [qrCode, setQrCode] = useState(false);
+  const shareQr = () => {
+    setQrCode(!qrCode);
+  };
+
   const DeleteLuckMango = async () => {
     try {
       await axios({
@@ -16,6 +22,17 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
       });
       location.reload();
     } catch (error) {}
+  };
+
+  const shareUrl = () => {
+    let currentUrl = `/api/lucky/${luckMangoId}`;
+    let t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = currentUrl;
+    t.select();
+    document.execCommand("copy");
+    document.body.removeChild(t);
+    notifySuccess({ message: "url이 복사됐습니다.", icon: "😎" });
   };
 
   return (
@@ -50,10 +67,12 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
           <div className="mg-card-button bg-[url(/images/ico/ico-card-qr.svg)]"></div>
         </Link>
         {/* link 복사 */}
-        <Link href={`/edit/${luckMangoId}`}>
-          <div className="mg-card-button bg-[url(/images/ico/ico-card-url.svg)]"></div>
-        </Link>
+        <div
+          className="mg-card-button bg-[url(/images/ico/ico-card-url.svg)]"
+          onClick={shareUrl}
+        ></div>
       </div>
+      <Toast />
     </div>
   );
 };

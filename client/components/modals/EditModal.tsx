@@ -2,18 +2,56 @@ import React from "react";
 import BokPreview from "../BokPreview";
 import Link from "next/link";
 import { createMg } from "../../fetch/create";
+import { editMg } from "../../fetch/edit";
+import { getCookie } from "../util/cookie";
 
-const EditModal = ({ setModal, greeting, title, bgUrl, reveal }: any) => {
+const EditModal = ({
+  setModal,
+  greeting,
+  title,
+  bgUrl,
+  reveal,
+  editMode,
+  luckId,
+}: any) => {
   const createLuckMg = async () => {
-    const res = await createMg("/api/luckMango", {
-      memberId: 2,
-      title: title,
-      mangoBody: greeting,
-      bgImage: "bg.jpg",
-      bgVideo: "bgVideo.mp",
-      reveal: reveal,
-    });
-    console.log(res);
+    if (editMode) {
+      const res = await editMg(
+        `/api/luckMango/${luckId}`,
+        {
+          title: title,
+          mangoBody: greeting,
+          bgImage: "bg.jpg",
+          bgVideo: "bgVideo.mp",
+          luckMangoId: luckId,
+          reveal: reveal,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+          },
+        },
+      );
+    } else {
+      const res = await createMg(
+        "/api/luckMango",
+        {
+          memberId: 2,
+          title: title,
+          mangoBody: greeting,
+          bgImage: "bg.jpg",
+          bgVideo: "bgVideo.mp",
+          reveal: reveal,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+          },
+        },
+      );
+    }
   };
 
   return (
@@ -52,7 +90,7 @@ const EditModal = ({ setModal, greeting, title, bgUrl, reveal }: any) => {
               취소
             </button>
             <Link
-              href="/create/complete"
+              href={editMode ? "/edit/complete" : "/create/complete"}
               className="mx-2 rounded-full mg-primary-button"
               onClick={createLuckMg}
             >

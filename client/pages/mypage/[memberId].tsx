@@ -1,40 +1,48 @@
 import React, { useEffect, useState } from "react";
 import UserModify from "../../components/UserInfo";
-import Profile from "../../public/dummy/mypage-profile.png";
-import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import { selectModalState, setModalState } from "../../store/modalSlice";
 import DefaultModal from "../../components/modals/DefaultModal";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import GalleryItem from "../../components/mypage/GalleryItem";
-import { useRouter } from "next/router";
 import { Toast } from "../../components/util/Toast";
 import { getCookie } from "../../components/util/cookie";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { memberIdState } from "../../recoil/memberId";
 
 const Mypage = () => {
-  const router = useRouter();
-  const { routermemberId } = router.query;
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
   const [click, setClick] = useState(false);
   const [LuckMango, setLuckMango]: any = useState([]);
-  const [length, setLength] = useState(0);
-  const dispatch = useDispatch();
-  const modalState = useSelector(selectModalState);
-  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState<string>("");
+  const [userImg, setUserImg] = useState("");
+  const [modal, setModal] = useState<boolean>(false);
 
-  const handleClick = () => {
+  console.log(memberId);
+  const userModify = () => {
     setClick(!click);
-    dispatch(setModalState(false));
   };
 
-  //로그인 되면 처리하는 걸로 하시죠
-  //size도 회의를 통해 정하면 좋을 거 같아요.
+  const isModal = () => {
+    setModal(!modal);
+  };
+
+  const getUserName = async () => {
+    axios({
+      method: "get",
+      url: `/api/member/${memberId}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+      },
+    }).then((el: any) => {
+      setUserName(el.data.data.name);
+      setUserImg(el.data.data.imgUrl);
+    });
+  };
 
   const getLuckMango = async () => {
-    const memberId = localStorage.getItem("memberId");
-    if (memberId) setUserId(memberId);
     axios({
       method: "get",
       url: `/api/luckMango/member?memberId=${memberId}&page=1&size=100&sort=desc`,
@@ -43,19 +51,18 @@ const Mypage = () => {
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
       },
     }).then((res): any => {
-      console.log(res);
-      setLuckMango(res.data);
-      setLength(res.data.length);
+      setLuckMango(res.data.data);
     });
   };
 
   useEffect(() => {
     getLuckMango();
+    getUserName();
   }, []);
 
   return (
     <div>
-      {!modalState && (
+      {!modal && (
         <div>
           <Header />
           <aside>
@@ -64,7 +71,7 @@ const Mypage = () => {
         </div>
       )}
       <div className="flex flex-col items-center w-full h-full min-h-screen pt-10">
-        {modalState && (
+        {modal && (
           <DefaultModal
             title={"지금까지 받은 덕담도 모두 삭제됩니다."}
             contents={
@@ -73,29 +80,30 @@ const Mypage = () => {
             confirm={"그래도 탈퇴하시겠어요?"}
             Nobutton={"아니오"}
             Yesbutton={"탈퇴할게요"}
+            setModal={setModal}
           />
         )}
-        {!modalState && (
+        {!modal && (
           <div className="max-w-[400px] w-full relative flex mt-16">
             <div>
-              <Image src={Profile} alt="프로필" />
+              {userImg === "NONE" || undefined ? (
+                <div className="bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
+              ) : (
+                <div className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"></div>
+              )}
             </div>
             <div className="flex flex-col justify-center pl-4">
-              <div className="text-3xl">유저 아이디</div>
+              <div className="text-3xl">{userName}</div>
               <div className="flex gap-5 text-xl">
                 <div
                   className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
-                  onClick={handleClick}
+                  onClick={userModify}
                 >
                   정보수정
                 </div>
                 <div
                   className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
-                  onClick={() =>
-                    modalState
-                      ? dispatch(setModalState(false))
-                      : dispatch(setModalState(true))
-                  }
+                  onClick={isModal}
                 >
                   회원탈퇴
                 </div>
@@ -105,25 +113,19 @@ const Mypage = () => {
         )}
         <div className="flex flex-row col-span-1">
           {click ? (
-            <UserModify handle={handleClick} />
+            <UserModify handle={userModify} userName={userName} modal={modal} />
           ) : (
             <div className="flex flex-col min-w-[400px] w-full mb-5">
               <div className="flex mt-[40px] mb-[10px] text-2xl">
                 나의 복망고 리스트
               </div>
-              {!modalState && (
+              {!modal && (
                 <div className="grid w-full grid-cols-2 gap-2 tablet:grid-cols-2">
-                  {LuckMango.map((el: any) => (
+                  {LuckMango.map((el: any, index: any) => (
                     <GalleryItem
-                      key={el.luckMangoId}
-                      title={el.title}
-                      userId={el.luckMangoId}
-                      duckdam={131}
-                      LuckMangoId={el.luckMangoId}
-                      mypage={"mg-mypage-card"}
-                      mypageGap={"gap-3"}
-                      setLuckMango={setLuckMango}
-                      LuckMango={el.LuckMango}
+                      key={index}
+                      title={el?.title}
+                      bgImage={el?.bgImage}
                     />
                   ))}
                 </div>
@@ -133,7 +135,7 @@ const Mypage = () => {
         </div>
         <Toast />
       </div>
-      {!modalState && <Footer />}
+      {!modal && <Footer />}
     </div>
   );
 };

@@ -17,19 +17,18 @@ const CheckModal = ({
   setModal,
   completeModal,
   setCompleteModal,
+  luckMgId,
 }: any) => {
   const createLuckBag = async () => {
     const colorNum = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
     const res = await createBag("/api/luckBag", {
-      luckMangoId: 4,
-      body: data.luckContent,
+      luckMangoId: luckMgId,
+      luckBagBody: data.luckContent,
       writer: data.writer,
-      viewed: false,
       bagStyle: data.bagType,
       bagColor: colorNum,
       NYMoney: data.money,
     });
-    console.log(res);
     setModal(false);
     setConfirmModal(false);
     setCompleteModal(!completeModal);

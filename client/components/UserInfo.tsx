@@ -1,17 +1,13 @@
 import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
-import { selectModalState, setModalState } from "../store/modalSlice";
 
-const UserModify = ({ handle }: any): React.ReactElement => {
+const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [bgImg, setBgImg] = useState("");
   const [bgUrl, setBgUrl] = useState("");
 
-  //모달 영역
-  const modalState = useSelector(selectModalState);
   //폼 영역
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -80,7 +76,7 @@ const UserModify = ({ handle }: any): React.ReactElement => {
         <span className="flex items-center justify-center">회원정보 수정</span>
       </div>
       <div className="pt-10">
-        {!modalState && (
+        {!modal && (
           <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
             <div>
               <input
@@ -120,7 +116,7 @@ const UserModify = ({ handle }: any): React.ReactElement => {
           <input
             disabled
             type="text"
-            placeholder="유저 아이디"
+            placeholder={`${userName}`}
             className="w-full mg-default-input"
           />
         </div>

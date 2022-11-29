@@ -1,38 +1,26 @@
-import { useSelector, useDispatch } from "react-redux";
-import { selectLoginState, setLoginState } from "../store/loginSlice";
-// import { selectSidebarState, setSidebarState } from "../store/mangoSlice";
 import Link from "next/link";
 import { removeCookies } from "./util/cookie";
 import { notifySuccess } from "../components/util/Toast";
+import { userState } from "../recoil/user";
+import { useRecoilState } from "recoil";
+import { memberIdState } from "../recoil/memberId";
 
-const Sidebar = ({
-  toggleHandler,
-  toggleState,
-  setIsSidebarOpen,
-  userId,
-}: any) => {
-  //사이드바 영역
-  // const dispatch = useDispatch();
-  // const sidebarState = useSelector(selectSidebarState);
-  // const hideSidebar = () => {
-  //   dispatch(setSidebarState(false));
-  // };
-
+const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
   //로그인 영역
-  const dispatch = useDispatch();
-  const loginState = useSelector(selectLoginState);
+  const [user, setUser] = useRecoilState(userState);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
+  console.log("asdasdsd", user);
   const handleLogout = () => {
-    localStorage.removeItem("memberId");
     removeCookies("accessJwtToken");
-    dispatch(setLoginState(false));
+    setUser(false);
+    setMemberId(0);
     setIsSidebarOpen(false);
     notifySuccess({
       message: "로그아웃 되었습니다!!",
       icon: "😎",
     });
   };
-  //나중에 지워주세요
-  console.log("사이드바 로그인 되어있나요?", loginState);
+
   return (
     <>
       <div
@@ -48,7 +36,7 @@ const Sidebar = ({
       >
         <ul>
           <li className="p-2 mb-1">
-            {loginState ? (
+            {user ? (
               <div
                 className="cursor-pointer hover:font-medium hover:text-primary-normal"
                 onClick={handleLogout}
@@ -65,9 +53,9 @@ const Sidebar = ({
             )}
           </li>
           <li className="p-2 mb-1">
-            {loginState ? (
+            {user ? (
               <Link
-                href={`/mypage/${userId}`}
+                href={`/mypage/${memberId}`}
                 className="hover:font-medium hover:text-primary-normal"
               >
                 마이페이지

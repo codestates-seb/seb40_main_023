@@ -13,6 +13,7 @@ import LuckBags from "../../components/LuckBags";
 import QrModal from "../../components/modals/QrModal";
 import { Toast } from "../../components/util/Toast";
 import { TEMPLETE_ID } from "../../constants/templeteId";
+import Player from "../../components/lucky/Player";
 
 const index = () => {
   //스크린샷 구역
@@ -42,6 +43,11 @@ const index = () => {
   const [bag, setBag] = useState([]);
   const [bagList, setBagList] = useState([]);
   const [luckyBagId, setLuckyBagId] = useState(0);
+  const [luckMgId, setLuckMgId] = useState(0);
+
+  //페이지네이션
+  const [curPage, setCurPage] = useState(1);
+  const [totPage, setTotPage] = useState();
 
   //유저 아이디 가져와서 then으로 엮기
   const router = useRouter();
@@ -50,21 +56,25 @@ const index = () => {
     if (!router.isReady) return;
     const { luckMangoId } = router.query;
     getLuckyMango(Number(luckMangoId));
-    getAllLuckyBags(Number(luckMangoId));
+    setLuckMgId(Number(luckMangoId));
   }, [router.isReady]);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { luckMangoId } = router.query;
+    getAllLuckyBags(Number(luckMangoId), curPage);
+  }, [router.isReady, curPage]);
 
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
     setBody(res?.data?.mangoBody);
   };
-  const getLuckyBag = async () => {
-    const res = await useFetch(`/api/luckBag/${luckyBagId}`);
-    setBag(res.data);
-  };
-  const getAllLuckyBags = async (luckMangoId: number) => {
+
+  const getAllLuckyBags = async (luckMangoId: number, curPage: number) => {
     const res = await useFetch(
-      `/api/luckBag/luckMango?luckMangoId=${luckMangoId}&page=1&size=7`,
+      `/api/luckBag/luckMango?luckMangoId=${luckMangoId}&page=${curPage}&size=7`,
     );
+    setTotPage(res.pageInfo.totalPages);
     setBagList(res.data);
   };
 
@@ -102,6 +112,7 @@ const index = () => {
     "얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자 얘들아! 2023년에도 잘 부탁해~ 정말 고생 많았고, 우리 오래오래 보자";
   let money = 1000000001;
 
+  //bgm
   const handleBgm = () => {
     setBgmOn(!bgmOn);
   };
@@ -116,6 +127,16 @@ const index = () => {
 
   const handleModal = () => {
     setModal(!modal);
+  };
+
+  const nextPage = () => {
+    if (curPage === totPage) return;
+    setCurPage(prev => prev + 1);
+  };
+
+  const prevPage = () => {
+    if (curPage <= 1) return;
+    setCurPage(prev => prev - 1);
   };
 
   return (
@@ -133,6 +154,7 @@ const index = () => {
                 className="mx-2 h-[35px] w-[35px] ml-5 mg-icon-capture"
                 onClick={downloadBtn}
               />
+              {/* BGM구간 */}
               <button
                 className={
                   bgmOn
@@ -141,22 +163,33 @@ const index = () => {
                 }
                 onClick={handleBgm}
               />
+              <Player bgmOn={bgmOn} onClick={handleBgm} />
             </div>
             <div className="absolute flex justify-center mg-width-size">
               <Greeting content={body} edit={false} />
             </div>
           </div>
           <div className="relative flex-col w-full mg-flex-center">
-            <button className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]" />
-            <button className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]" />
+            <button
+              onClick={prevPage}
+              className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
+            />
+            <button
+              onClick={nextPage}
+              className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
+            />
             <div className="mg-flex-center justify-center top-[117px] z-10 absolute rounded-full bg-[#0000004D] px-3 h-[19px]">
-              <div className="bg-[#FF9B53] mg-icon-pagination" />
-              <div className="bg-[#D9D9D9] mg-icon-pagination" />
-              <div className="bg-[#D9D9D9] mg-icon-pagination" />
-              <div className="bg-[#D9D9D9] mg-icon-pagination" />
-              <div className="bg-[#D9D9D9] mg-icon-pagination" />
+              {bagList.map((el, i) => (
+                <div
+                  className={
+                    curPage === i + 1
+                      ? "bg-[#FF9B53] mg-icon-pagination"
+                      : "bg-[#D9D9D9] mg-icon-pagination"
+                  }
+                />
+              ))}
             </div>
-            <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]"></div>
+            <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]" />
             <LuckBags
               bagList={bagList}
               letterModal={letterModal}
@@ -219,6 +252,7 @@ const index = () => {
                     setModal={setModal}
                     completeModal={completeModal}
                     setCompleteModal={setCompleteModal}
+                    luckMgId={luckMgId}
                   />
                 )}
                 <div className="transition-all duration-300 mg-flex">

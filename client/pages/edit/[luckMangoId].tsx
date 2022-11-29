@@ -6,12 +6,13 @@ import { Toast } from "../../components/util/Toast";
 import { useFetch } from "../../fetch/useFetch";
 import { checkServerIdentity } from "tls";
 
-const edit = () => {
+const Edit = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
   const [modal, setModal] = useState(false);
   const [bgUrl, setBgUrl] = useState("");
   const [reveal, setReveal] = useState(false);
+  const [luckId, setLuckId] = useState(0);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -43,6 +44,7 @@ const edit = () => {
     if (!router.isReady) return;
     const { luckMangoId } = router.query;
     getLuckyMango(Number(luckMangoId));
+    setLuckId(Number(luckMangoId));
   }, [router.isReady]);
 
   return (
@@ -106,6 +108,8 @@ const edit = () => {
           greeting={greeting}
           title={title}
           bgUrl={bgUrl}
+          editMode={true}
+          luckId={luckId}
         />
       )}
       <Toast />
@@ -113,4 +117,4 @@ const edit = () => {
   );
 };
 
-export default edit;
+export default Edit;

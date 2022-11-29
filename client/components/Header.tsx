@@ -1,14 +1,11 @@
 import { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { selectSidebarState, setSidebarState } from "../store/sidebarSlice";
 import Sidebar from "./Sidebar";
 import Link from "next/link";
 import Image from "next/image";
 
-const Header = ({ userId }: any) => {
+const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebarHandle = (): void => {
-    // dispatch(setSidebarState(false));
     setIsSidebarOpen(!isSidebarOpen);
   };
 
@@ -44,7 +41,6 @@ const Header = ({ userId }: any) => {
         </button>
       </header>
       <Sidebar
-        userId={userId}
         toggleHandler={toggleSidebarHandle}
         toggleState={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}

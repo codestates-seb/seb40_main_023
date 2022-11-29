@@ -1,4 +1,4 @@
-export const LUCKBAG_IMAGE_LIST = [
+export const LUCKBAG_IMAGE_LIST: any = [
   {
     img: "img-bok2-1",
     yPos: "top-[-10px]",

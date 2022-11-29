@@ -10,35 +10,17 @@ import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { getCookie, setCookie } from "../../components/util/cookie";
 import { notifyError, notifySuccess, Toast } from "../../components/util/Toast";
-import { selectLoginState, setLoginState } from "../../store/loginSlice";
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/user";
+import { memberIdState } from "../../recoil/memberId";
 
 const Login = () => {
+  const [user, setUser] = useRecoilState(userState);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const dispatch = useDispatch();
-  const loginState = useSelector(selectLoginState);
   const router = useRouter();
-  const [userEmail, setUserEmail] = useState<String>("");
-  // const onSubmit2 = async (req: NextApiRequest, res: NextApiResponse) => {
-  //   const loginData = req.body;
-  //   const response = await axios.post("api/auth/login", loginData);
-  //   const { user } = response.data;
-  //   const token = response.headers["set-cookie"];
-  //   res.setHeader("Set-Cookie", `token=${token} path=/;`);
-  //   res.status(200).json(user);
-  // };
 
-  // const onSubmit = () => {
-  //   axios
-  //     .post("api/auth/login", {
-  //       username: email,
-  //       password: password,
-  //     })
-  //     .then(res => {
-  //       localStorage.setItem("Token", res.data.token);
-  //       localStorage.setItem("UserID", res.data.id);
-  //     });
-  // };
   const pageChange = () => {
     setTimeout(() => router.push("/"), 2000);
   };
@@ -66,8 +48,6 @@ const Login = () => {
               path: "/",
               expires,
             });
-            // const decodedUserInfo = jwt_decode(jwtToken);
-            // localStorage.setItem("userInfo", JSON.stringify(decodedUserInfo));
           }
           axios({
             method: "get",
@@ -78,12 +58,10 @@ const Login = () => {
             },
           }).then(res =>
             res.data.data.map((el: any) =>
-              el.email === email
-                ? localStorage.setItem("memberId", el.memberId)
-                : null,
+              el.email === email ? setMemberId(el.memberId) : null,
             ),
           );
-          dispatch(setLoginState(true));
+          setUser(true);
           notifySuccess({
             message: "로그인에 성공했어요. 자동으로 화면 이동 됩니다!",
             icon: "😎",
@@ -149,7 +127,7 @@ const Login = () => {
                 </label>
                 <input
                   id="password"
-                  type="text"
+                  type="password"
                   placeholder="비밀번호를 입력해 주세요"
                   className="w-full mg-default-input"
                   onChange={onChangePassword}

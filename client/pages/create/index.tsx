@@ -14,7 +14,6 @@ const create = () => {
 
   const handleCheck = () => {
     setReveal(!reveal);
-    console.log(reveal);
   };
   const [modal, setModal] = useState(false);
   const [isValidState, setIsValidState] = useState("no");

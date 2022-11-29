@@ -1,9 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import closed from "../../public/images/ico/ico-modal-close.svg";
-import { selectModalState, setModalState } from "../../store/modalSlice";
 
 const DefaultModal = ({
   title,
@@ -11,22 +8,13 @@ const DefaultModal = ({
   confirm,
   Nobutton,
   Yesbutton,
+  setModal,
 }: any) => {
-  const dispatch = useDispatch();
-  const modalState = useSelector(selectModalState);
   return (
     <div className="absolute top-0 bottom-0 left-0 right-0 bg-mono-400 z-999">
       <div className="absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 box-border">
         <header className="flex justify-end w-full hover:cursor-pointer">
-          <Image
-            src={closed}
-            alt="closed"
-            onClick={() =>
-              modalState
-                ? dispatch(setModalState(false))
-                : dispatch(setModalState(true))
-            }
-          />
+          <Image src={closed} alt="closed" onClick={() => setModal(false)} />
         </header>
         <section className="">
           <main className="flex flex-col justify-center gap-1 text-center">
@@ -39,11 +27,7 @@ const DefaultModal = ({
           {Nobutton && (
             <button
               className="mg-negative-button-round"
-              onClick={() =>
-                modalState
-                  ? dispatch(setModalState(false))
-                  : dispatch(setModalState(true))
-              }
+              onClick={() => setModal(false)}
             >
               {Nobutton}
             </button>

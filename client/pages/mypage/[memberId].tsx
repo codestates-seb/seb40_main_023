@@ -19,7 +19,6 @@ const Mypage = () => {
   const [userImg, setUserImg] = useState("");
   const [modal, setModal] = useState<boolean>(false);
 
-  console.log(memberId);
   const userModify = () => {
     setClick(!click);
   };
@@ -124,6 +123,7 @@ const Mypage = () => {
                   {LuckMango.map((el: any, index: any) => (
                     <GalleryItem
                       key={index}
+                      luckMangoId={el.luckMangoId}
                       title={el?.title}
                       bgImage={el?.bgImage}
                     />

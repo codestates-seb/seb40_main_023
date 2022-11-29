@@ -1,8 +1,13 @@
 import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
+import { memberIdState } from "../recoil/memberId";
 
 const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
+  //전역상태
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
+
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [bgImg, setBgImg] = useState("");

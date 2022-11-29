@@ -1,6 +1,6 @@
 import axios from "axios";
 import Image from "next/image";
-import React from "react";
+import React, { useRef } from "react";
 import { useRecoilState } from "recoil";
 import closed from "../../public/images/ico/ico-modal-close.svg";
 import { memberIdState } from "../../recoil/memberId";
@@ -19,6 +19,8 @@ const DefaultModal = ({
 }: any) => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const [user, setUser] = useRecoilState(userState);
+  const mypageRef = useRef<HTMLInputElement | null>(null);
+
   const router = useRouter();
   const pageChange = () => {
     setTimeout(() => router.push("/"), 2000);
@@ -56,23 +58,23 @@ const DefaultModal = ({
         </header>
         <div>
           <main className="flex flex-col gap-1 text-center">
-            <div>{title}</div>
-            <div className="whitespace-pre-line text-mono-500">{contents}</div>
-            <div className=" text-mono-400">{confirm}</div>
+            <div>지금까지 받은 덕담도 모두 삭제됩니다.</div>
+            <div className="whitespace-pre-line text-mono-500">
+              {`링크를 전달받은 친구들이 더 이상 \n 새해복망고 페이지를 볼 수 없습니다.`}
+            </div>
+            <div className=" text-mono-400">그래도 탈퇴하시겠어요?</div>
             <footer className="flex justify-center gap-5 p-3">
-              {Nobutton && (
-                <button
-                  className="mg-negative-button-round"
-                  onClick={() => setModal(false)}
-                >
-                  {Nobutton}
-                </button>
-              )}
+              <button
+                className="mg-negative-button-round"
+                onClick={() => setModal(false)}
+              >
+                아니오
+              </button>
               <button
                 className="rounded-full mg-primary-button"
                 onClick={() => DeleteUser()}
               >
-                {Yesbutton}
+                탈퇴할게요
               </button>
             </footer>
           </main>

@@ -1,8 +1,7 @@
 export interface CreateLuckyProps {
   luckMangoId: number;
-  body: string;
+  luckBagBody: string;
   writer: string;
-  viewed: boolean;
   bagStyle: number;
   bagColor: number;
   NYMoney: number;

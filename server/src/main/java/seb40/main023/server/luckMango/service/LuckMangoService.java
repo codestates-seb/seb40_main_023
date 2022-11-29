@@ -74,6 +74,8 @@ public class LuckMangoService {
                 .ifPresent(bgVideo -> findLuckMango.setBgVideo(bgVideo));
         Optional.ofNullable(luckMango.getBgImage())
                 .ifPresent(bgImage -> findLuckMango.setBgImage(bgImage));
+        Optional.ofNullable(luckMango.getLikeCount())
+                .ifPresent(likeCount -> findLuckMango.setLikeCount(likeCount));
         Optional.ofNullable(luckMango.isReveal())
                 .ifPresent(reveal -> findLuckMango.setReveal(reveal));
 

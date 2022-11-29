@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 
-const LetterModal = ({ letterModal, setLetterModal, bag, bagList }: any) => {
+const LetterModal = ({
+  letterModal,
+  setLetterModal,
+  bag,
+  setBag,
+  bagList,
+  luckyBagId,
+}: any) => {
+  console.log(bag.luckBagBody);
+
+  useEffect(() => {
+    if (bagList) {
+      setBag(bagList.filter((el: any) => el.luckBagId === luckyBagId)[0]);
+      console.log("!!!!!!", bag);
+      console.log("???", bagList);
+    }
+  }, [bagList, luckyBagId]);
+
   const handleModal = () => {
     setLetterModal(!letterModal);
   };
@@ -26,10 +43,7 @@ const LetterModal = ({ letterModal, setLetterModal, bag, bagList }: any) => {
             </div>
           </main>
         </div>
-        <div className="absolute bottom-10 left-8">
-          - {bag.writer}
-          {bag.luckBagId} -
-        </div>
+        <div className="absolute bottom-10 left-8">- {bag.writer} -</div>
       </div>
     </div>
   );

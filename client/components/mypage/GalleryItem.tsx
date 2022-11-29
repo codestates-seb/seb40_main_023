@@ -3,11 +3,25 @@ import Link from "next/link";
 import axios from "axios";
 import { getCookie } from "../util/cookie";
 import { notifySuccess, Toast } from "../util/Toast";
+import QrModal from "../modals/QrModal";
 
 const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
+  //Qr 관리
   const [qrCode, setQrCode] = useState(false);
   const shareQr = () => {
     setQrCode(!qrCode);
+  };
+
+  //URL 관리
+  const shareUrl = () => {
+    let currentUrl = `http://localhost:3000/lucky/${luckMangoId}`;
+    let t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = currentUrl;
+    t.select();
+    document.execCommand("copy");
+    document.body.removeChild(t);
+    notifySuccess({ message: "url이 복사됐습니다.", icon: "😎" });
   };
 
   const DeleteLuckMango = async () => {
@@ -22,17 +36,6 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
       });
       location.reload();
     } catch (error) {}
-  };
-
-  const shareUrl = () => {
-    let currentUrl = `/api/lucky/${luckMangoId}`;
-    let t = document.createElement("textarea");
-    document.body.appendChild(t);
-    t.value = currentUrl;
-    t.select();
-    document.execCommand("copy");
-    document.body.removeChild(t);
-    notifySuccess({ message: "url이 복사됐습니다.", icon: "😎" });
   };
 
   return (
@@ -63,9 +66,19 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
         ></div>
 
         {/* qr코드 */}
-        <Link href={`/edit/${luckMangoId}`}>
-          <div className="mg-card-button bg-[url(/images/ico/ico-card-qr.svg)]"></div>
-        </Link>
+        <div
+          className="mg-card-button bg-[url(/images/ico/ico-card-qr.svg)]"
+          onClick={shareQr}
+        >
+          {qrCode && (
+            <QrModal
+              qrCode={qrCode}
+              setQrCode={setQrCode}
+              link={`http://localhost:3000/lucky/${luckMangoId}`}
+            />
+          )}
+        </div>
+
         {/* link 복사 */}
         <div
           className="mg-card-button bg-[url(/images/ico/ico-card-url.svg)]"

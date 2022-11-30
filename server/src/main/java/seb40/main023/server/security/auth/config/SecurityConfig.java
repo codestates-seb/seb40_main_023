@@ -20,7 +20,7 @@ import seb40.main023.server.security.auth.handler.MemberAccessDeniedHandler;
 import seb40.main023.server.security.auth.handler.MemberAuthenticationEntryPoint;
 import seb40.main023.server.security.auth.handler.MemberAuthenticationFailureHandler;
 import seb40.main023.server.security.auth.handler.MemberAuthenticationSuccessHandler;
-import seb40.main023.server.security.auth.jwt.JwtTokenizer;
+import seb40.main023.server.security.auth.jwt.JwtTokenProvider;
 import seb40.main023.server.security.utils.CustomAuthorityUtils;
 
 import java.util.Arrays;
@@ -30,7 +30,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final JwtTokenizer jwtTokenizer;
+    private final JwtTokenProvider jwtTokenProvider;
     private final CustomAuthorityUtils authorityUtils;
 
     @Bean
@@ -108,14 +108,14 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception {  // configure() 메서드를 오버라이드
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);  // AuthenticationManager의 객체 획득
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);  // JwtAuthenticationFilter를 생성 / AuthenticationManager, JwtTokenizer DI
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenProvider);  // JwtAuthenticationFilter를 생성 / AuthenticationManager, JwtTokenProvider DI
             jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
 
             // Authentication Handler
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenProvider, authorityUtils);
 
             builder.addFilter(jwtAuthenticationFilter)  // JwtAuthenticationFilter를 Spring Security Filter Chain에 추가
                 .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);   // JwtVerificationFilter

@@ -18,7 +18,7 @@ public class LuckBagPostDto {
     private int bagStyle;
     private int bagColor;
 
-    @Range(min= 0, max= 100000,message = "1 ~ 100,000")
+    @Range(min= 0, max= 10000000,message  = "1 ~ 10,000,000")
     private long nyMoney;
 
     private boolean viewed;

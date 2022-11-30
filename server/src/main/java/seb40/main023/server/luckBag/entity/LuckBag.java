@@ -2,6 +2,7 @@ package seb40.main023.server.luckBag.entity;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 

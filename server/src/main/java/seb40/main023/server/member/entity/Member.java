@@ -2,12 +2,12 @@ package seb40.main023.server.member.entity;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import seb40.main023.server.Upload.entity.UpFile;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 import seb40.main023.server.review.entity.Review;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +47,17 @@ public class Member extends Auditable {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<UpFile> upFiles = new ArrayList<>();
+
+    public void addUpFiles(UpFile upFile) {
+        upFiles.add(upFile);
+        if(upFile.getMember() != this){
+            upFile.setMember(this);
+        }
+    }
+
 
     public void addLuckMango(LuckMango luckMango) {
         luckMangos.add(luckMango);

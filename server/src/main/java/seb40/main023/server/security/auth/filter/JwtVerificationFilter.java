@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import seb40.main023.server.security.auth.jwt.JwtTokenizer;
+import seb40.main023.server.security.auth.jwt.JwtTokenProvider;
 import seb40.main023.server.security.utils.CustomAuthorityUtils;
 
 import javax.servlet.FilterChain;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 public class JwtVerificationFilter extends OncePerRequestFilter {  // OncePerRequestFilter -> request 당 한번만 실행
-    private final JwtTokenizer jwtTokenizer;
+    private final JwtTokenProvider jwtTokenProvider;
     private final CustomAuthorityUtils authorityUtils;
 
     @Override
@@ -55,8 +55,8 @@ public class JwtVerificationFilter extends OncePerRequestFilter {  // OncePerReq
 
     private Map<String, Object> verifyJws(HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ", ""); // JWS(JSON Web Token Signed) / "Bearer_“부분을 제거
-        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey()); // JWT 서명(Signature)을 검증하기 위한 Secret Key get, 암호화
-        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();   // 내부적으로 서명(Signature) 검증에 성공, JWT에서 Claims를 파싱
+        String base64EncodedSecretKey = jwtTokenProvider.encodeBase64SecretKey(jwtTokenProvider.getSecretKey()); // JWT 서명(Signature)을 검증하기 위한 Secret Key get, 암호화
+        Map<String, Object> claims = jwtTokenProvider.getClaims(jws, base64EncodedSecretKey).getBody();   // 내부적으로 서명(Signature) 검증에 성공, JWT에서 Claims를 파싱
 
         return claims;
     }

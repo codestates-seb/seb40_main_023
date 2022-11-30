@@ -26,9 +26,9 @@ public class LuckBagService {
     public LuckBag createdLuckBag(LuckBag luckBag){
         luckBag.setLuckMango(luckMangoService.findVerifiedLuckMango(luckBag.getLuckMango().getLuckMangoId())); // 복밍고 아이디 세팅
 
-        long tot_Money = luckBag.getLuckMango().getMember().getTot_Money();
+        long tot_Money = luckBag.getLuckMango().getTot_Money();
         tot_Money += luckBag.getNyMoney();
-        luckBag.getLuckMango().getMember().setTot_Money(tot_Money);
+        luckBag.getLuckMango().setTot_Money(tot_Money);
 
         return luckBagRepository.save(luckBag);
         // 럭백을 세이브 메소드를 이용해서 리파지토리로 넣어주세요 하는 결과가 나온다.

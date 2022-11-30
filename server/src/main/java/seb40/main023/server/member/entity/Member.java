@@ -33,9 +33,6 @@ public class Member extends Auditable {
     @Column             // imgUrl 얘만 기본값 Null로 생성됨
     private String imgUrl;
 
-    @Column
-    private long tot_Money;
-
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 

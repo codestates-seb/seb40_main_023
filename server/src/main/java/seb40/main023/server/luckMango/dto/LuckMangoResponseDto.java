@@ -18,6 +18,8 @@ public class LuckMangoResponseDto {
     private String bgVideo;
     private String bgImage;
 
+    private long tot_Money;
+
     private int likeCount;
     private boolean reveal;
 

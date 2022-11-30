@@ -37,6 +37,9 @@ public class LuckMango extends Auditable {
     private String bgImage;
 
     @Column
+    private long tot_Money;
+
+    @Column
     private int likeCount;
 
     @Column

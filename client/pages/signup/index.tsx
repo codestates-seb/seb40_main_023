@@ -53,19 +53,19 @@ const Signup = () => {
         .then(res => {
           router.push("/login");
         });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   //아이디
   const onChangeId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const idRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,25}$/;
+    const idRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,10}$/;
     const idCurrent = e.target.value;
     setId(idCurrent);
 
     if (!idRegex.test(idCurrent)) {
-      setIdMessage("영문, 숫자를 포함하여 4글자 이상으로 입력해주세요!");
+      setIdMessage(
+        "영문, 숫자를 포함하여 4글자 이상 10글자 이하로 입력해주세요!",
+      );
       setIsId(false);
     } else {
       setIdMessage("예쁜 아이디네요.");
@@ -167,7 +167,7 @@ const Signup = () => {
                       id="id"
                       type="text"
                       onChange={onChangeId}
-                      placeholder="영문, 숫자를 포함하여 4글자 이상"
+                      placeholder="영문, 숫자를 포함하여 4글자 이상 10글자 이하"
                       className={`mg-default-input w-full ${
                         isId
                           ? "border-success-normal focus:outline-none"
@@ -199,9 +199,9 @@ const Signup = () => {
                       placeholder="이메일 형식에 맞게 입력해주세요"
                       onChange={onChangeEmail}
                       className={`mg-default-input w-full ${
-                        isPassword
+                        isEmail
                           ? "border-success-normal focus:outline-none"
-                          : password.length === 0
+                          : email.length === 0
                           ? "null"
                           : "border-danger-normal focus:outline-none"
                       } 
@@ -228,7 +228,7 @@ const Signup = () => {
                   <div className="flex flex-col">
                     <input
                       id="password"
-                      type="text"
+                      type="password"
                       placeholder="영문, 숫자, 특수기호를 포함하여 8자 이상"
                       onChange={onChangePassword}
                       className={`mg-default-input w-full ${
@@ -261,7 +261,7 @@ const Signup = () => {
                   <div className="flex flex-col">
                     <input
                       id="passwordconfirm"
-                      type="text"
+                      type="password"
                       placeholder="비밀번호 확인"
                       onChange={onChangePasswordConfirm}
                       className={`mg-default-input w-full ${

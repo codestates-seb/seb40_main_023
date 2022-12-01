@@ -5,6 +5,10 @@ import EditModal from "../../components/modals/EditModal";
 import { Toast } from "../../components/util/Toast";
 import { useFetch } from "../../fetch/useFetch";
 import { checkServerIdentity } from "tls";
+import { memberIdState } from "../../recoil/memberId";
+import { useRecoilState } from "recoil";
+import { useCookies } from "react-cookie";
+import { userState } from "../../recoil/user";
 
 const Edit = () => {
   const [title, setTitle] = useState("");
@@ -13,6 +17,11 @@ const Edit = () => {
   const [bgUrl, setBgUrl] = useState("");
   const [reveal, setReveal] = useState(false);
   const [luckId, setLuckId] = useState(0);
+  const [cookies] = useCookies(["accessJwtToken"]);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const [user, setUser] = useRecoilState(userState);
+  const userlogin = user.login;
+  const router = useRouter();
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -38,7 +47,15 @@ const Edit = () => {
     setReveal(res.data.reveal);
   };
 
-  const router = useRouter();
+  const checkLogin = () => {
+    const token = cookies.accessJwtToken;
+    if (!token) {
+      setUser({ login: false });
+      setMemberId({ memberId: 0 });
+      localStorage.removeItem("recoil-persist");
+      router.push("/");
+    }
+  };
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -46,6 +63,14 @@ const Edit = () => {
     getLuckyMango(Number(luckMangoId));
     setLuckId(Number(luckMangoId));
   }, [router.isReady]);
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
+  useEffect(() => {
+    if (!userlogin) router.replace("/");
+  }, [userlogin]);
 
   return (
     <div className="w-full h-full mg-layout">

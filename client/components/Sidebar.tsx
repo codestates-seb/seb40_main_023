@@ -5,29 +5,40 @@ import { userState } from "../recoil/user";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../recoil/memberId";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
   //로그인 영역
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const router = useRouter();
-  console.log("유저정보 확인 콘솔", user, memberId);
+  const [userId, setUserId] = useState<Number>(0);
+  const [login, setLogin] = useState<boolean>(false);
+
+  const getUserId = () => {
+    setUserId(memberId.memberId);
+    setLogin(user.login);
+  };
+  console.log(login);
+  console.log("유저정보 확인 콘솔", user.login, memberId.memberId);
 
   const pageChange = () => {
-    setTimeout(() => router.push("/"), 2000);
+    setTimeout(() => router.push("/"));
   };
 
   const handleLogout = () => {
     removeCookies("accessJwtToken");
-    setUser(false);
-    setMemberId(0);
+    setUser({ login: false });
+    setMemberId({ memberId: 0 });
     setIsSidebarOpen(false);
-    notifySuccess({
-      message: "로그아웃 되었습니다!!",
-      icon: "😎",
-    });
     pageChange();
+    setLogin(false);
   };
+
+  useEffect(() => {
+    getUserId();
+  }, []);
 
   return (
     <>
@@ -44,13 +55,14 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
       >
         <ul>
           <li className="p-2 mb-1">
-            {user ? (
-              <div
+            {login ? (
+              <Link
+                href="/"
                 className="cursor-pointer hover:font-medium hover:text-primary-normal"
                 onClick={handleLogout}
               >
                 로그아웃
-              </div>
+              </Link>
             ) : (
               <Link
                 href="/login"
@@ -61,9 +73,9 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
             )}
           </li>
           <li className="p-2 mb-1">
-            {user ? (
+            {login ? (
               <Link
-                href={`/mypage/${memberId}`}
+                href={`/mypage/${userId}`}
                 className="hover:font-medium hover:text-primary-normal"
               >
                 마이페이지

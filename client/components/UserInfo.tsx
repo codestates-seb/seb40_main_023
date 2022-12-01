@@ -9,6 +9,7 @@ import { getCookie } from "./util/cookie";
 const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
   //전역상태
   const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const userId = memberId.memberId;
 
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -36,7 +37,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
     try {
       await axios({
         method: "patch",
-        url: `/api/member/${memberId}`,
+        url: `/api/member/${userId}`,
         data: { password: password },
         headers: {
           "Content-Type": "application/json",
@@ -47,21 +48,6 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
       console.log(error);
     }
   };
-  //   axios.patch(
-  //     `/api/member/${memberId}`,
-  //     {
-  //       password: password,
-  //     },
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
-  //       },
-  //     },
-  //   );
-  // };
-
-  // console.log(passwordChange);
 
   const uploadImageButtonClick = () => {
     inputRef.current?.click();
@@ -167,7 +153,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
             <div className="flex flex-col">
               <input
                 id="password"
-                type="text"
+                type="passowrd"
                 placeholder="영문, 숫자, 특수기호를 포함하여 8자 이상"
                 onChange={onChangePassword}
                 className={`mg-default-input ${
@@ -181,7 +167,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
               />
               {password.length > 0 && (
                 <span
-                  className={`text-left text-sm ${
+                  className={`text-left text-sm pl-2 pt-1 ${
                     isPassword ? "mg-vaild-success" : "mg-vaild-error"
                   }`}
                 >
@@ -214,7 +200,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
               />
               {passwordConfirm.length > 0 && (
                 <span
-                  className={`text-left text-sm ${
+                  className={`text-left text-sm pl-2 pt-1 ${
                     isPasswordConfirm ? "mg-vaild-success" : "mg-vaild-error"
                   }`}
                 >

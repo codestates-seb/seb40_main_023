@@ -23,19 +23,9 @@ const Signup = () => {
   const [isEmail, setIsEmail] = useState<boolean>(false);
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
-
   const router = useRouter();
-  //폼 만들기
-  // const onSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   let res = await signUp("api/member", {
-  //     name: id,
-  //     email: email,
-  //     password: password,
-  //   });
-  // };
 
-  //화면 전환이 안 됨으로 여기서 try catch문을 사용한다. signup을 tsx로 바꿔도 e인자를 찾거나 경로문제가 발생하기에 이렇게 둔다
+  //폼 만들기
   const signupSubmit = (e: any) => {
     e.preventDefault();
     window.setTimeout("window.location.reload()", 2000);
@@ -179,7 +169,7 @@ const Signup = () => {
                     />
                     {id.length > 0 && (
                       <span
-                        className={`text-left text-sm ${
+                        className={`text-left text-sm pl-2 pt-1 ${
                           isId ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >
@@ -209,7 +199,7 @@ const Signup = () => {
                     />
                     {email.length > 0 && (
                       <span
-                        className={`text-left text-sm ${
+                        className={`text-left text-sm pl-2 pt-1 ${
                           isEmail ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >
@@ -242,7 +232,7 @@ const Signup = () => {
                     />
                     {password.length > 0 && (
                       <span
-                        className={`text-left text-sm ${
+                        className={`text-left text-sm pl-2 pt-1 ${
                           isPassword ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >
@@ -275,7 +265,7 @@ const Signup = () => {
                     />
                     {passwordConfirm.length > 0 && (
                       <span
-                        className={`text-left text-sm ${
+                        className={`text-left text-sm pl-2 pt-1 ${
                           isPasswordConfirm
                             ? "mg-vaild-success"
                             : "mg-vaild-error"

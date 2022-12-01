@@ -1,11 +1,17 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { v1 } from "uuid";
+
+// const { persistAtom } = recoilPersist();
+
+const sessionStorage =
+  typeof window !== "undefined" ? window.sessionStorage : undefined;
 
 const { persistAtom } = recoilPersist();
 
-export const userState = atom<boolean>({
+export const userState = atom({
   key: `userState`,
-  default: false,
+  default: {
+    login: false,
+  },
   effects_UNSTABLE: [persistAtom],
 });

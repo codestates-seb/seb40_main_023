@@ -4,7 +4,8 @@ import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast } from "../../components/util/Toast";
 import { useFetch } from "../../fetch/useFetch";
-import { checkServerIdentity } from "tls";
+import { useRecoilValue } from "recoil";
+import { memberIdState } from "../../recoil/memberId";
 
 const Edit = () => {
   const [title, setTitle] = useState("");
@@ -13,6 +14,8 @@ const Edit = () => {
   const [bgUrl, setBgUrl] = useState("");
   const [reveal, setReveal] = useState(false);
   const [luckId, setLuckId] = useState(0);
+  const [luckMId, setLuckMId] = useState();
+  const memberId = useRecoilValue(memberIdState);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -33,9 +36,12 @@ const Edit = () => {
 
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
-    setTitle(res.data.title);
-    setGreeting(res.data.mangoBody);
-    setReveal(res.data.reveal);
+    if (res.data) {
+      setTitle(res.data.title);
+      setGreeting(res.data.mangoBody);
+      setReveal(res.data.reveal);
+      setLuckMId(res.data.member?.memberId);
+    }
   };
 
   const router = useRouter();
@@ -46,6 +52,15 @@ const Edit = () => {
     getLuckyMango(Number(luckMangoId));
     setLuckId(Number(luckMangoId));
   }, [router.isReady]);
+
+  useEffect(() => {
+    if (memberId !== luckMId && luckMId) {
+      setTitle("");
+      setGreeting("");
+      setReveal(false);
+      router.push("/404");
+    }
+  }, [luckMId]);
 
   return (
     <div className="w-full h-full mg-layout">

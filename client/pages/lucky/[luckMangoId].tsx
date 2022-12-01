@@ -46,7 +46,7 @@ const index = () => {
   const [completeModal, setCompleteModal] = useState(false);
 
   //패치 구역
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState<string>("");
   const [bag, setBag] = useState([]);
   const [bagList, setBagList] = useState([]);
   const [luckyBagId, setLuckyBagId] = useState(0);
@@ -57,7 +57,7 @@ const index = () => {
 
   //페이지네이션
   const [curPage, setCurPage] = useState(1);
-  const [totPage, setTotPage] = useState();
+  const [totPage, setTotPage] = useState(1);
 
   //로그인 여부
 
@@ -91,23 +91,6 @@ const index = () => {
     }
   };
 
-  const getLuckUserInfo = async () => {
-    try {
-      await axios({
-        method: "get",
-        url: `/api/member/${luckMemId}`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
-        },
-      }).then(el => {
-        setMoney(el.data.data.tot_Money);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     getUserInfo();
     checkLogin();
@@ -116,13 +99,6 @@ const index = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (luckMemId) {
-      getLuckUserInfo();
-    }
-  }, [luckMemId]);
-
-  //유저 아이디 가져와서 then으로 엮기
   const router = useRouter();
 
   useEffect(() => {
@@ -140,11 +116,14 @@ const index = () => {
 
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
-    setBody(res?.data?.mangoBody);
+    if (res.status === 404) {
+    }
+    setBody(res.data.mangoBody);
     setLuckMg(res.data);
     setLuckMemId(res.data.member.memberId);
+    setMoney(res.data.tot_Money);
   };
-  console.log("@!@!@", luckMg);
+
   const getAllLuckyBags = async (luckMangoId: number, curPage: number) => {
     const res = await useFetch(
       `/api/luckBag/luckMango?luckMangoId=${luckMangoId}&page=${curPage}&size=7`,
@@ -199,6 +178,15 @@ const index = () => {
     setCurPage(prev => prev - 1);
   };
 
+  const handleLetterModal = (id: number) => {
+    if (isLogin && luckMg && (luckMg as any).member.memberId === memberId) {
+      setLuckyBagId(id);
+      setLetterModal(!letterModal);
+    } else {
+      return;
+    }
+  };
+
   return (
     <div ref={downloadRef}>
       <div className="mg-layout bg-[url(/images/content/pt-dots.svg)]">
@@ -245,8 +233,7 @@ const index = () => {
             <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]" />
             <LuckBags
               bagList={bagList}
-              letterModal={letterModal}
-              setLetterModal={setLetterModal}
+              handleLetterModal={handleLetterModal}
               setLuckyBagId={setLuckyBagId}
             />
             {isLogin &&

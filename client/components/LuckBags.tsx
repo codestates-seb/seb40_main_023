@@ -1,15 +1,5 @@
 import React from "react";
-const LuckBags = ({
-  letterModal,
-  setLetterModal,
-  setLuckyBagId,
-  bagList,
-}: any) => {
-  const handleLetterModal = (id: number) => {
-    setLuckyBagId(id);
-    setLetterModal(!letterModal);
-  };
-
+const LuckBags = ({ handleLetterModal, bagList }: any) => {
   const LUCKBAG_POS = [
     {
       yPos: "top-[-10px]",

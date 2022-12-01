@@ -21,6 +21,7 @@ import { memberIdState } from "../../recoil/memberId";
 import { useRecoilValue } from "recoil";
 import { UserInfoType } from "../../types/lucky";
 import CheckModal from "../../components/modals/CheckModal";
+import NotFound from "../404";
 
 const index = () => {
   //스크린샷 구역
@@ -52,8 +53,8 @@ const index = () => {
   const [luckyBagId, setLuckyBagId] = useState(0);
   const [luckMgId, setLuckMgId] = useState(0);
   const [luckMg, setLuckMg] = useState();
-  const [money, setMoney] = useState(0);
-  const [luckMemId, setLuckMemId] = useState();
+  const [money, setMoney] = useState<number>(0);
+  const [existPage, setExistPage] = useState(true);
 
   //페이지네이션
   const [curPage, setCurPage] = useState(1);
@@ -117,11 +118,14 @@ const index = () => {
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
     if (res.status === 404) {
+      setExistPage(false);
+      console.log("404", existPage);
+    } else {
+      setExistPage(true);
+      setBody(res.data.mangoBody);
+      setLuckMg(res.data);
+      setMoney(res.data.tot_Money);
     }
-    setBody(res.data.mangoBody);
-    setLuckMg(res.data);
-    setLuckMemId(res.data.member.memberId);
-    setMoney(res.data.tot_Money);
   };
 
   const getAllLuckyBags = async (luckMangoId: number, curPage: number) => {
@@ -189,180 +193,189 @@ const index = () => {
 
   return (
     <div ref={downloadRef}>
-      <div className="mg-layout bg-[url(/images/content/pt-dots.svg)]">
-        <div className="mg-width-size h-[600px] mg-border-2 bg-warning-light mg-flex items-center justify-between mb-8">
-          <div className="w-full">
-            <div className="relative mt-5 mg-flex-center mb-7">
-              <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">
-                {money > 999999999999999 ? "∞ " : money.toLocaleString()}원
-              </div>
-              <div className="mg-icon-lucky-money w-[57px] h-[58px] absolute left-3 bottom-[0.3px]" />
-              <button
-                className="mx-2 h-[35px] w-[35px] ml-5 mg-icon-capture"
-                onClick={downloadBtn}
-              />
-              {/* BGM구간 */}
-              <button
-                className={
-                  bgmOn
-                    ? "ml-3 mg-icon-button-round mg-icon-sound-on"
-                    : "ml-3 mg-icon-button-round mg-icon-sound-off"
-                }
-                onClick={handleBgm}
-              />
-              <Player bgmOn={bgmOn} onClick={handleBgm} />
-            </div>
-            <div className="absolute flex justify-center mg-width-size">
-              <Greeting content={body} edit={false} />
-            </div>
-          </div>
-          <div className="relative flex-col w-full mg-flex-center">
-            <button
-              onClick={prevPage}
-              className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
-            />
-            <button
-              onClick={nextPage}
-              className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
-            />
-            <div className="mg-flex-center justify-center top-[117px] z-10 absolute rounded-full bg-[#0000004D] px-3 h-[19px]">
-              <div>
-                {curPage}/{totPage}
-              </div>
-            </div>
-            <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]" />
-            <LuckBags
-              bagList={bagList}
-              handleLetterModal={handleLetterModal}
-              setLuckyBagId={setLuckyBagId}
-            />
-            {isLogin &&
-            luckMg &&
-            (luckMg as any).member.memberId === memberId ? (
-              <div className="cursor-pointer absolute w-[212px] justify-center mg-flex-center bottom-9">
-                <button
-                  className="pl-[60px] h-12 w-[212px] mg-secondary-button rounded-[100px] relative"
-                  onClick={handleShareBtn}
-                >
-                  공유하기
-                </button>
-                <div className="absolute left-0 z-10 flex-col bottom-14 mg-flex-center">
-                  <button
-                    onClick={shareUrl}
-                    className={
-                      shareBtn
-                        ? "mg-floating-button-long duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
-                        : "text-white"
-                    }
-                  >
-                    {shareBtn && "url 복사하기"}
-                  </button>
-                  <button
-                    onClick={shareQr}
-                    className={
-                      shareBtn
-                        ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)] bg-link"
-                        : "text-white"
-                    }
-                  >
-                    {shareBtn && "QR코드 공유하기"}
-                  </button>
-                  <button
-                    onClick={shareKakao}
-                    className={
-                      shareBtn
-                        ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
-                        : "text-[#3B1C1D]"
-                    }
-                  >
-                    {shareBtn && "카톡으로 공유하기"}
-                  </button>
+      {existPage ? (
+        <div className="mg-layout bg-[url(/images/content/pt-dots.svg)]">
+          <div className="mg-width-size h-[600px] mg-border-2 bg-warning-light mg-flex items-center justify-between mb-8">
+            <div className="w-full">
+              <div className="relative mt-5 mg-flex-center mb-7">
+                <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">
+                  {money &&
+                    (money > 999999999999999 ? "∞ " : money.toLocaleString())}
+                  원
                 </div>
-                <div className="absolute w-12 h-12 mg-icon-share left-2" />
-              </div>
-            ) : (
-              <div className="absolute flex items-end bottom-4">
+                <div className="mg-icon-lucky-money w-[57px] h-[58px] absolute left-3 bottom-[0.3px]" />
                 <button
-                  className="h-12 mr-4 text-l mg-primary-button-round"
-                  onClick={handleModal}
-                >
-                  새해 덕담 남기기
-                </button>
-                {modal && (
-                  <LongModal
-                    modal={modal}
-                    setModal={setModal}
-                    completeModal={completeModal}
-                    setCompleteModal={setCompleteModal}
-                    luckMgId={luckMgId}
-                  />
-                )}
-                <div className="transition-all duration-300 mg-flex">
+                  className="mx-2 h-[35px] w-[35px] ml-5 mg-icon-capture"
+                  onClick={downloadBtn}
+                />
+                {/* BGM구간 */}
+                <button
+                  className={
+                    bgmOn
+                      ? "ml-3 mg-icon-button-round mg-icon-sound-on"
+                      : "ml-3 mg-icon-button-round mg-icon-sound-off"
+                  }
+                  onClick={handleBgm}
+                />
+                <Player bgmOn={bgmOn} onClick={handleBgm} />
+              </div>
+              <div className="absolute flex justify-center mg-width-size">
+                <Greeting content={body} edit={false} />
+              </div>
+            </div>
+            <div className="relative flex-col w-full mg-flex-center">
+              <button
+                onClick={prevPage}
+                className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
+              />
+              <button
+                onClick={nextPage}
+                className="right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
+              />
+              <div className="mg-flex-center justify-center top-[117px] z-10 absolute rounded-full bg-[#0000004D] px-3 h-[19px]">
+                <div>
+                  {curPage}/{totPage}
+                </div>
+              </div>
+              <div className="bg-[url(/images/content/img-basket.svg)] w-[352px] h-[152px] mb-[74px]" />
+              <LuckBags
+                bagList={bagList}
+                handleLetterModal={handleLetterModal}
+                setLuckyBagId={setLuckyBagId}
+              />
+              {isLogin &&
+              luckMg &&
+              (luckMg as any)?.member?.memberId === memberId ? (
+                <div className="cursor-pointer absolute w-[212px] justify-center mg-flex-center bottom-9">
                   <button
-                    onClick={shareUrl}
-                    className={
-                      shareBtn
-                        ? "mg-floating-button duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
-                        : ""
-                    }
-                  />
-                  <button
-                    onClick={shareQr}
-                    className={
-                      shareBtn
-                        ? "mg-floating-button duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
-                        : ""
-                    }
-                  />
-                  <button
-                    onClick={shareKakao}
-                    className={
-                      shareBtn
-                        ? "mg-floating-button duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
-                        : ""
-                    }
-                  />
-                  <button
-                    className="z-30 mg-icon-button-round mg-icon-share"
+                    className="pl-[60px] h-12 w-[212px] mg-secondary-button rounded-[100px] relative"
                     onClick={handleShareBtn}
-                  />
+                  >
+                    공유하기
+                  </button>
+                  <div className="absolute left-0 z-10 flex-col bottom-14 mg-flex-center">
+                    <button
+                      onClick={shareUrl}
+                      className={
+                        shareBtn
+                          ? "mg-floating-button-long duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
+                          : "text-white"
+                      }
+                    >
+                      {shareBtn && "url 복사하기"}
+                    </button>
+                    <button
+                      onClick={shareQr}
+                      className={
+                        shareBtn
+                          ? "pl-6 mg-floating-button-long duration-300 bg-[url(/images/ico/ico-share-qr.svg)] bg-link"
+                          : "text-white"
+                      }
+                    >
+                      {shareBtn && "QR코드 공유하기"}
+                    </button>
+                    <button
+                      onClick={shareKakao}
+                      className={
+                        shareBtn
+                          ? "text-[#3B1C1D] pl-7 mg-floating-button-long duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
+                          : "text-[#3B1C1D]"
+                      }
+                    >
+                      {shareBtn && "카톡으로 공유하기"}
+                    </button>
+                  </div>
+                  <div className="absolute w-12 h-12 mg-icon-share left-2" />
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
-        {isLogin && luckMg && (luckMg as any).member.memberId === memberId ? (
-          <div className="text-center">
-            <Link href={`/mypage/${memberId}`} className="mg-link">
-              {userInfo && (userInfo as UserInfoType).name}님
-            </Link>
-            의 새해 복망고입니다.
-            <br />
-            복주머니를 클릭하면 덕담을 볼 수 있어요!
-          </div>
-        ) : (
-          <>
-            <div className="flex justify-end mr-12 mg-width-size">
-              복망고 소유주라면 &nbsp;
-              <Link href="/login" className="mg-link">
-                로그인
-              </Link>
-              하세요!
+              ) : (
+                <div className="absolute flex items-end bottom-4">
+                  <button
+                    className="h-12 mr-4 text-l mg-primary-button-round"
+                    onClick={handleModal}
+                  >
+                    새해 덕담 남기기
+                  </button>
+                  {modal && (
+                    <LongModal
+                      modal={modal}
+                      setModal={setModal}
+                      completeModal={completeModal}
+                      setCompleteModal={setCompleteModal}
+                      luckMgId={luckMgId}
+                    />
+                  )}
+                  <div className="transition-all duration-300 mg-flex">
+                    <button
+                      onClick={shareUrl}
+                      className={
+                        shareBtn
+                          ? "mg-floating-button duration-200 bg-[url(/images/ico/ico-share-url.svg)] bg-primary-normal"
+                          : ""
+                      }
+                    />
+                    <button
+                      onClick={shareQr}
+                      className={
+                        shareBtn
+                          ? "mg-floating-button duration-300 bg-[url(/images/ico/ico-share-qr.svg)]  bg-link"
+                          : ""
+                      }
+                    />
+                    <button
+                      onClick={shareKakao}
+                      className={
+                        shareBtn
+                          ? "mg-floating-button duration-400 bg-[length:30px_30px] bg-[url(/images/ico/ico-share-kakao.svg)] bg-social-kakaoNormal"
+                          : ""
+                      }
+                    />
+                    <button
+                      className="z-30 mg-icon-button-round mg-icon-share"
+                      onClick={handleShareBtn}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-            <Banner />
-          </>
-        )}
-        {letterModal && (
-          <LetterModal
-            letterModal={letterModal}
-            setLetterModal={setLetterModal}
-            bag={bag}
-            bagList={bagList}
-            setBag={setBag}
-            luckyBagId={luckyBagId}
-          />
-        )}
-      </div>
+          </div>
+          {isLogin &&
+          luckMg &&
+          (luckMg as any)?.member?.memberId === memberId ? (
+            <div className="text-center">
+              <Link href={`/mypage/${memberId}`} className="mg-link">
+                {userInfo && (userInfo as UserInfoType).name}님
+              </Link>
+              의 새해 복망고입니다.
+              <br />
+              복주머니를 클릭하면 덕담을 볼 수 있어요!
+            </div>
+          ) : (
+            <>
+              <div className="flex justify-end mr-12 mg-width-size">
+                복망고 소유주라면 &nbsp;
+                <Link href="/login" className="mg-link">
+                  로그인
+                </Link>
+                하세요!
+              </div>
+              <Banner />
+            </>
+          )}
+          {letterModal && (
+            <LetterModal
+              letterModal={letterModal}
+              setLetterModal={setLetterModal}
+              bag={bag}
+              bagList={bagList}
+              setBag={setBag}
+              luckyBagId={luckyBagId}
+            />
+          )}
+        </div>
+      ) : (
+        <NotFound />
+      )}
+
       {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
       <Toast />
       {completeModal && (

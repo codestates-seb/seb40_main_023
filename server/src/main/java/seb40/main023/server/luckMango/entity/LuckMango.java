@@ -3,6 +3,7 @@ package seb40.main023.server.luckMango.entity;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import seb40.main023.server.audit.Auditable;
+import seb40.main023.server.awsS3.entity.S3UpFile;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.member.entity.Member;
 
@@ -60,6 +61,16 @@ public class LuckMango extends Auditable {
         luckBags.add(luckBag);
         if (luckBag.getLuckMango() != this) {
             luckBag.setLuckMango(this);
+        }
+    }
+
+    @OneToMany(mappedBy = "luckMango", cascade = CascadeType.ALL)
+    private List<S3UpFile> s3UpFiles = new ArrayList<>();
+
+    public void addS3UpFile(S3UpFile s3UpFile) {
+        s3UpFiles.add(s3UpFile);
+        if (s3UpFile.getLuckMango() != this) {
+            s3UpFile.setLuckMango(this);
         }
     }
 

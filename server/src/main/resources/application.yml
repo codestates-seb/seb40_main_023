@@ -32,3 +32,14 @@ jwt:
   secret-key: TestTestTestTestTestTestTestTestTestTestTestTestTestTestTest
   access-token-expiration-minutes: 40
   refresh-token-expiration-minutes: 420
+cloud:
+  aws:
+    credentials:
+      access-key: {키넣어야함}
+      secret-key: {키넣어야함}
+    s3:
+      bucket: saypart/ #버킷 이름
+    region:
+      static: ap-northeast-2 # 리전 정보
+    stack:
+      auto: false

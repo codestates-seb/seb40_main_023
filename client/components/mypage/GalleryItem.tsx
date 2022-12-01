@@ -81,6 +81,7 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
           luckMangoId={luckMangoId}
         />
       )}
+
       <Toast />
     </div>
   );

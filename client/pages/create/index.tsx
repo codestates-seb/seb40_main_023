@@ -5,22 +5,24 @@ import Footer from "../../components/Footer";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast, notifyWarning, notifyError } from "../../components/util/Toast";
+import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/user";
 
 const create = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
   const [bgUrl, setBgUrl] = useState("");
   const [reveal, setReveal] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
+  const userlogin = user.login;
+  const router = useRouter();
+  const [modal, setModal] = useState(false);
+  const [isValidState, setIsValidState] = useState("no");
 
   const handleCheck = () => {
     setReveal(!reveal);
   };
-  const [modal, setModal] = useState(false);
-  const [isValidState, setIsValidState] = useState("no");
-
-  useEffect(() => {
-    isFilledUpForm();
-  }, [bgUrl]);
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -74,6 +76,14 @@ const create = () => {
       toggleModal(true);
     }
   };
+
+  useEffect(() => {
+    isFilledUpForm();
+  }, [bgUrl]);
+
+  useEffect(() => {
+    if (!userlogin) router.replace("/");
+  }, [userlogin]);
 
   return (
     <div>

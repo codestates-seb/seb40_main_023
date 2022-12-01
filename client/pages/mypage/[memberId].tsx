@@ -10,14 +10,18 @@ import { getCookie } from "../../components/util/cookie";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
+import Link from "next/link";
+import Image from "next/image";
 
 const Mypage = () => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const userId = memberId.memberId;
   const [click, setClick] = useState(false);
   const [LuckMango, setLuckMango]: any = useState([]);
   const [userName, setUserName] = useState<string>("");
   const [userImg, setUserImg] = useState("");
   const [modal, setModal] = useState<boolean>(false);
+  const [length, setLength] = useState<Number>(0);
 
   const userModify = () => {
     setClick(!click);
@@ -30,7 +34,7 @@ const Mypage = () => {
   const getUserName = async () => {
     axios({
       method: "get",
-      url: `/api/member/${memberId}`,
+      url: `/api/member/${userId}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
@@ -44,12 +48,13 @@ const Mypage = () => {
   const getLuckMango = async () => {
     axios({
       method: "get",
-      url: `/api/luckMango/member?memberId=${memberId}&page=1&size=100&sort=desc`,
+      url: `/api/luckMango/member?memberId=${userId}&page=1&size=100&sort=desc`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
       },
     }).then((res): any => {
+      setLength(res.data.data.length);
       setLuckMango(res.data.data);
     });
   };
@@ -122,6 +127,19 @@ const Mypage = () => {
             </div>
           )}
         </div>
+        {length === 0 ? (
+          <div className="flex flex-col items-center max-w-[230px]">
+            <Image
+              width={113}
+              height={95}
+              src="/images/char/char-button1.svg"
+              alt="버튼 유도 복망고 캐릭터"
+            />
+            <Link href="/create" className="mg-primary-button">
+              복망고 만들러가기!
+            </Link>
+          </div>
+        ) : null}
         <Toast />
       </div>
       {!modal && <Footer />}

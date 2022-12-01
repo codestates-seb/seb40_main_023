@@ -11,6 +11,7 @@ import { notifySuccess } from "../util/Toast";
 //마이페이지용 모달로 사용하겠습니다.
 const DefaultModal = ({ setModal }: any) => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const userId = memberId.memberId;
   const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
   const pageChange = () => {
@@ -20,15 +21,15 @@ const DefaultModal = ({ setModal }: any) => {
     try {
       await axios({
         method: "DELETE",
-        url: `/api/member/${memberId}`,
+        url: `/api/member/${userId}`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getCookie("accessJwtToken")}`,
         },
       });
       removeCookies("accessJwtToken");
-      setUser(false);
-      setMemberId(0);
+      setUser({ login: false });
+      setMemberId({ memberId: 0 });
       notifySuccess({
         message: "성공적으로 탈퇴되었습니다. 다음에 또 봐요!!",
         icon: "😭",

@@ -5,10 +5,16 @@ import Footer from "../../components/Footer";
 import ShareBtn from "../../components/ShareBtn";
 import { Toast, notifySuccess } from "../../components/util/Toast";
 import Loading from "../../components/util/Loading";
+import { useRecoilState } from "recoil";
+import { userState } from "../../recoil/user";
+import { useRouter } from "next/router";
 
 const Complete = () => {
   const [isValidPage, setIsValidPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useRecoilState(userState);
+  const userlogin = user.login;
+  const router = useRouter();
 
   useEffect(() => {
     // if (!isValidPage) return;
@@ -21,6 +27,10 @@ const Complete = () => {
       });
     }, 2000);
   }, []);
+
+  useEffect(() => {
+    if (!userlogin) router.replace("/");
+  }, [userlogin]);
 
   return (
     <div>

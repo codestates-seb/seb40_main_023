@@ -11,41 +11,31 @@ import { Toast, notifyError } from "../components/util/Toast";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { getCookie, removeCookies } from "../components/util/cookie";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { userState } from "../recoil/user";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../recoil/memberId";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [cookies] = useCookies(["accessJwtToken"]);
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const [userId, setUserId] = useState<Number>(0);
+  const router = useRouter();
 
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
     if (!token) {
-      setUser(false);
-      setMemberId(0);
+      setUser({ login: false });
+      setMemberId({ memberId: 0 });
+      localStorage.removeItem("recoil-persist");
     }
-  };
-
-  const userInfo = async () => {
-    try {
-      await axios({
-        method: "get",
-        url: `/api/member/${memberId}`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
-        },
-      });
-    } catch (error) {}
   };
 
   useEffect(() => {
     checkLogin();
-    userInfo();
   }, []);
 
   return (

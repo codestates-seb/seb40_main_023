@@ -2,7 +2,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
@@ -56,10 +56,12 @@ const Login = () => {
             },
           }).then(res =>
             res.data.data.map((el: any) =>
-              el.email === email ? setMemberId(el.memberId) : null,
+              el.email === email
+                ? setMemberId({ memberId: el.memberId })
+                : null,
             ),
           );
-          setUser(true);
+          setUser({ login: true });
           notifySuccess({
             message: "로그인에 성공했어요. 자동으로 화면 이동 됩니다!",
             icon: "😎",

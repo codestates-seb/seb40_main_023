@@ -14,7 +14,7 @@ const Greeting = ({ content, edit }: GreetingProps) => {
 
   return (
     <div
-      className={
+      className={`w-[90%] ${
         !edit
           ? active
             ? "mg-greet-message border-white"
@@ -22,7 +22,7 @@ const Greeting = ({ content, edit }: GreetingProps) => {
           : active
           ? "mg-greet-message border-dashed border-mono-borderNormal"
           : "mg-greet-message border-dashed border-mono-borderNormal"
-      }
+      }`}
     >
       <p
         className={

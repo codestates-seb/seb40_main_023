@@ -9,3 +9,6 @@
 
 ### Commit & PR 규칙 
 ![스크린샷 2022-11-12 오전 9 36 20](https://user-images.githubusercontent.com/96723716/201447902-bd310989-2a5d-4d47-bfec-15a7f87e92d1.png)
+
+### 스택
+![image](https://user-images.githubusercontent.com/96723716/205258683-19ebe6d8-d469-4757-a63c-512628bca882.png)

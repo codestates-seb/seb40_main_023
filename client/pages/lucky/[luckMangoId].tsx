@@ -56,6 +56,9 @@ const index = () => {
   const [luckMg, setLuckMg] = useState<luckMgType>();
   const [money, setMoney] = useState<number>(0);
   const [existPage, setExistPage] = useState(true);
+  const [bgUrl, setBgUrl] = useState("");
+
+  //페이지네이션
   const [currPage, setCurrPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
 
@@ -95,7 +98,7 @@ const index = () => {
   useEffect(() => {
     getUserInfo();
     checkLogin();
-    if (!window.Kakao.isInitialized()) {
+    if (!window.Kakao?.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
   }, []);
@@ -129,6 +132,7 @@ const index = () => {
       setBody(res.data.mangoBody);
       setMoney(res.data.tot_Money);
       setLuckMg(res.data);
+      setBgUrl(res.data.bgImage);
     }
   };
 
@@ -215,7 +219,10 @@ const index = () => {
         <div ref={downloadRef}>
           {existPage ? (
             <div className="w-full mg-layout">
-              <div className="mg-bok-layout justify-start bg-mono-800 rounded-md bg-[url(/dummy/user1.png)] bg-cover">
+              <div
+                style={{ backgroundImage: `url("${bgUrl}")` }}
+                className="justify-start bg-center bg-cover rounded-md mg-bok-layout bg-[#eee]"
+              >
                 <div className="top-0 justify-between my-3 mg-bok-layout-row">
                   <div className="mx-2 grow before:bg-contain before:bg-[url(/images/content/ico-mg-money.svg)] before:w-[57px] before:h-[58px] before:top-[-13px] before:left-[-2px] before:content-[''] before:absolute relative pl-[60px] justify-end flex-nowrap pr-4 h-[40px] bg-white rounded-full mg-flex-center">
                     <p className="font-medium text-right truncate">

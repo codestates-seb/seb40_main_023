@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
 import CheckModal from "./CheckModal";
@@ -130,6 +130,7 @@ const LongModal = ({
                       className="hidden"
                       onChange={e => handleLuckBag(e)}
                       name="radioIsPublic"
+                      value={idx}
                     />
                     <label htmlFor={`radioIsPublic${idx}`}>
                       <Image

@@ -78,7 +78,7 @@ const Edit = () => {
   }, [router.isReady]);
 
   useEffect(() => {
-    if (memberId !== luckMId && luckMId) {
+    if (memberId.memberId !== luckMId && luckMId) {
       setExistPage(false);
       setErrorContent("접근할 수 없는 복망고예요");
     }

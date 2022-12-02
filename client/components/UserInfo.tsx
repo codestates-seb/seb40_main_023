@@ -119,7 +119,9 @@ const UserModify = ({
         <Image
           src={previous}
           alt="뒤로가기 버튼"
-          className="cursor-pointer"
+          width={30}
+          height={30}
+          className="m-0 mr-2 cursor-pointer"
           onClick={() => handle(false)}
         />
         <span className="flex items-center justify-center">회원정보 수정</span>

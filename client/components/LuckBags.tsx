@@ -1,11 +1,4 @@
 import React from "react";
-// page={currPage}
-// luckMangoId={luckMgId}
-// setLuckyBagId={setLuckyBagId}
-// setPage={setCurrPage}
-// pageInfo={pageInfo}
-// luckyBagList={bagList}
-// handleLetterModal={handleLetterModal}
 
 const LuckBags = ({
   luckMangoId,
@@ -15,9 +8,6 @@ const LuckBags = ({
   luckyBagList,
   handleLetterModal,
 }: any) => {
-  console.log(luckyBagList);
-  console.log(pageInfo);
-
   const onClickPage = (e: any) => {
     const role = e.target.dataset.role;
     if (role === "prev") {

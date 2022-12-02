@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
@@ -103,9 +103,9 @@ const Edit = () => {
           <div className="mt-4 mb-8">
             초간단! 나만의 복망고 페이지를 생성해 보세요!
           </div>
-          <div className="justify-center mg-width-size mg-flex">
+          <div className="justify-center mg-flex">
             <div className="mg-flex-center">
-              <div className="py-3 font-semibold text-s">
+              <div className="py-3 font-medium text-s">
                 복망고 제목을 입력해 주세요.
               </div>
               <span className="ml-3 text-xs text-danger-normal">
@@ -142,7 +142,7 @@ const Edit = () => {
               setBgUrl={setBgUrl}
             />
           </div>
-          <label className="mt-5 mg-flex-center mg-width-size">
+          <label className="block mt-5 mg-flex-center">
             <input
               type="checkbox"
               className="mx-2 font-medium"

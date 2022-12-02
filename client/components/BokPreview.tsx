@@ -51,7 +51,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
           이미지가 가려지는 부분입니다.
         </div>
         <div className="relative items-center w-full h-full mg-flex p-15">
-          <div className="absolute flex justify-center top-20">
+          <div className="absolute flex justify-center w-full top-20">
             <Greeting
               content={
                 greeting

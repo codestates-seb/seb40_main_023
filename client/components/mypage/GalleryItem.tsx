@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notifySuccess, Toast } from "../util/Toast";
 import QrModal from "../modals/QrModal";
 import DeleteMgModal from "../modals/DeleteMgModal";
+import { useRouter } from "next/router";
 
 const GalleryItem = ({
   bgImage,
@@ -37,10 +38,11 @@ const GalleryItem = ({
   return (
     <div className={`group gap-2 mg-default-card`}>
       <div className="mg-card-contents">
-        {/* <Link href={}></Link> */}
         <div
           className={
-            bgImage === undefined || "NONE" ? `mg-card-image` : `${bgImage}`
+            bgImage === undefined || "NONE"
+              ? `mg-card-image group-hover:blur-sm`
+              : `${bgImage}`
           }
         ></div>
         <div className="mg-card-desc">
@@ -50,6 +52,13 @@ const GalleryItem = ({
           <div className="truncate">{luckMangoId}개의 덕담을 받았어요!</div>
         </div>
       </div>
+      {qrCode && (
+        <QrModal
+          shareQR={shareQr}
+          link={`http://localhost:3000/lucky/${luckMangoId}`}
+        />
+      )}
+
       <div className={`mg-card-overlay`}>
         {/* 수정페이지 */}
         <Link href={`/edit/${luckMangoId}`}>
@@ -60,21 +69,11 @@ const GalleryItem = ({
           className="mg-card-button bg-[url(/images/ico/ico-card-delete.svg)]"
           onClick={handleModal}
         ></div>
-
-        {/* onClick={() => DeleteLuckMango()} */}
         {/* qr코드 */}
         <div
           className="mg-card-button bg-[url(/images/ico/ico-card-qr.svg)]"
           onClick={shareQr}
-        >
-          {qrCode && (
-            <QrModal
-              qrCode={qrCode}
-              setQrCode={setQrCode}
-              link={`http://localhost:3000/lucky/${luckMangoId}`}
-            />
-          )}
-        </div>
+        ></div>
 
         {/* link 복사 */}
         <div
@@ -82,6 +81,7 @@ const GalleryItem = ({
           onClick={shareUrl}
         ></div>
       </div>
+
       {deleteModal && (
         <DeleteMgModal
           setDeleteModal={setDeleteModal}

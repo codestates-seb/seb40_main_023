@@ -5,20 +5,26 @@ import Footer from "../../components/Footer";
 import ShareBtn from "../../components/ShareBtn";
 import { Toast, notifySuccess } from "../../components/util/Toast";
 import Loading from "../../components/util/Loading";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { memberIdState } from "../../recoil/memberId";
+import { luckMgIdState } from "../../recoil/luckMgId";
+import { TEMPLETE_ID } from "../../constants/templeteId";
+import { notifyInfo } from "../../components/util/Toast";
+import QrModal from "../../components/modals/QrModal";
+
 import { userState } from "../../recoil/user";
 import { useRouter } from "next/router";
 
 const Complete = () => {
-  const [isValidPage, setIsValidPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const memberId = useRecoilValue(memberIdState).memberId;
+  const [qrCode, setQrCode] = useState(false);
+  const luckMgId = useRecoilValue(luckMgIdState);
   const [user, setUser] = useRecoilState(userState);
   const userlogin = user.login;
   const router = useRouter();
 
   useEffect(() => {
-    // if (!isValidPage) return;
-
     setTimeout(() => {
       setIsLoading(false);
       notifySuccess({
@@ -27,6 +33,38 @@ const Complete = () => {
       });
     }, 2000);
   }, []);
+
+  useEffect(() => {
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
+    }
+  }, []);
+
+  const shareQr = () => {
+    setQrCode(!qrCode);
+  };
+
+  const shareKakao = () => {
+    const { Kakao } = window;
+    Kakao.Link.sendScrap({
+      requestUrl: `http://localhost:3000/lucky/${luckMgId}`,
+      templateId: TEMPLETE_ID,
+      templateArgs: {
+        id: `${luckMgId}`,
+      },
+    });
+  };
+
+  const shareUrl = () => {
+    let currentUrl = `http://localhost:3000/lucky/${luckMgId}`;
+    let t = document.createElement("textarea");
+    document.body.appendChild(t);
+    t.value = currentUrl;
+    t.select();
+    document.execCommand("copy");
+    document.body.removeChild(t);
+    notifyInfo({ message: "url이 복사됐습니다.", icon: "😎" });
+  };
 
   useEffect(() => {
     if (!userlogin) router.replace("/");
@@ -50,7 +88,7 @@ const Complete = () => {
               제작한 나의 새해복망고는
               <br className="mobile:hidden" />
               <Link
-                href="/mypage"
+                href={`/mypage/${memberId}`}
                 className="font-medium underline text-primary-normal decoration-wavy"
               >
                 마이페이지
@@ -60,7 +98,15 @@ const Complete = () => {
           </div>
           <div className="mg-layout-row">
             <div className="relative w-full my-10 min-h-[150px] flex items-center justify-center ">
-              {isLoading ? <Loading /> : <ShareBtn />}
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <ShareBtn
+                  shareQr={shareQr}
+                  shareKakao={shareKakao}
+                  shareUrl={shareUrl}
+                />
+              )}
             </div>
           </div>
           <Link href="/" className="mg-primary-button">
@@ -70,6 +116,12 @@ const Complete = () => {
         <Toast />
       </main>
       <Footer />
+      {qrCode && (
+        <QrModal
+          shareQr={shareQr}
+          link={`http://localhost:3000/lucky/${luckMgId}`}
+        />
+      )}
     </div>
   );
 };

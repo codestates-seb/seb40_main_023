@@ -20,14 +20,14 @@ const CheckModal = ({
   luckMgId,
 }: any) => {
   const createLuckBag = async () => {
-    const colorNum = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+    const colorNum = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
     const res = await createBag("/api/luckBag", {
       luckMangoId: luckMgId,
       luckBagBody: data.luckContent,
       writer: data.writer,
       bagStyle: data.bagType,
       bagColor: colorNum,
-      NYMoney: data.money,
+      nyMoney: data.money,
     });
     setModal(false);
     setConfirmModal(false);
@@ -43,7 +43,6 @@ const CheckModal = ({
   };
 
   const handleComplete = () => {
-    console.log(completeModal);
     setCompleteModal(!completeModal);
   };
 
@@ -53,7 +52,8 @@ const CheckModal = ({
         <header className="flex justify-end w-full hover:cursor-pointer">
           <Image
             src={closed}
-            alt=""
+            alt="close button"
+            className="z-50 cursor-pointer"
             onClick={create ? handleConfirm : handleComplete}
           />
         </header>

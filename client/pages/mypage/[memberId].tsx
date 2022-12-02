@@ -133,7 +133,7 @@ const Mypage = () => {
             )}
           </div>
           {length === 0 ? (
-            <div className="flex flex-col items-center max-w-[230px]">
+            <div className="flex flex-col items-center w-full">
               <p className="mb-1 text-mono-textDisabled">
                 🥹 아직 만드신 복망고가 없습니다.
               </p>

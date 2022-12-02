@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Link from "next/link";
 import Image from "next/image";
 import { notifySuccess, notifyError } from "../../util/Toast";
@@ -59,7 +58,11 @@ const GalleryItem = ({ ...gallery }: any) => {
       </button>
       <div className="mg-card-contents">
         <div
-          className={`mg-card-image mobile:group-hover:blur-sm ${bgImage}`}
+          className={
+            bgImage === undefined || "NONE"
+              ? `mg-card-image mobile:group-hover:blur-sm`
+              : `${bgImage}`
+          }
         ></div>
         <div className="mg-card-desc">
           <p className="truncate">

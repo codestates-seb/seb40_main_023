@@ -8,7 +8,9 @@ function ReviewWrite({ setUpdated }: any) {
   const [reviewSize, setReviewSize] = useState(0);
   const [reviewInput, setReviewInput] = useState("");
 
-  const onChangeReview = (e: any) => {
+  const onChangeReview = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
     setReviewSize(e.target.value.length);
     setReviewInput(e.target.value);
   };

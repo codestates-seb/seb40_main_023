@@ -4,14 +4,37 @@
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const nextConfig = {
-  reactStrictMode: true,
-
+  images: {
+    domains: ["saypart.s3.ap-northeast-2.amazonaws.com"],
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "saypart.s3.ap-northeast-2.amazonaws.com",
+        port: "",
+        pathname: "/next-s3-uploads/**",
+      },
+    ],
+  },
+  reactStrictMode: false,
   async rewrites() {
-    console.log(BASE_URL);
     return [
       {
         source: "/api/:path*",
         destination: `${BASE_URL}/:path*`,
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/create/complete",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/edit/complete",
+        destination: "/",
+        permanent: true,
       },
     ];
   },

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
-const ShareBtn = ({ margin }: any) => {
+const ShareBtn = ({ shareQr, shareKakao, shareUrl }: any) => {
   return (
     <>
       <button
-        className={`${margin} mg-background bg-[url(/images/ico/ico-share-url.svg)] mg-share-button bg-primary-normal`}
+        onClick={shareUrl}
+        className={`mx-4 mg-background bg-[url(/images/ico/ico-share-url.svg)] mg-share-button bg-primary-normal hover:bg-primary-hover`}
       ></button>
       <button
-        className={`${margin} mg-background bg-[url(/images/ico/ico-share-qr.svg)]  mg-share-button bg-link`}
+        onClick={shareQr}
+        className={`mx-4 mg-background bg-[url(/images/ico/ico-share-qr.svg)]  mg-share-button bg-link hover:bg-linkHover`}
       ></button>
       <button
-        className={`${margin} mg-background bg-[url(/images/ico/ico-share-kakao.svg)] mg-share-button bg-social-kakaoNormal`}
+        onClick={shareKakao}
+        className={`mx-4 mg-background bg-[url(/images/ico/ico-share-kakao.svg)] mg-share-button bg-social-kakaoNormal hover:bg-social-kakaoHover`}
       ></button>
     </>
   );

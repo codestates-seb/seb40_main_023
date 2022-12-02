@@ -1,0 +1,281 @@
+// = 복망고 애플리케이션
+// :sectnums:
+// :toc: left
+// :toclevels: 4
+// :toc-title: Table of Contents
+// :source-highlighter: prettify
+//
+//
+// v1.0.0, 2022.10.31
+//
+// ***
+// == MemberController
+// === 회원 등록(Member_Post)
+// .curl-request
+// include::{snippets}/Member_Post/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/Member_Post/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/Member_Post/http-response.adoc[]
+//
+// .httpie-request
+// include::{snippets}/Member_Post/httpie-request.adoc[]
+//
+// .request-body
+// include::{snippets}/Member_Post/request-body.adoc[]
+//
+// .request-fields
+// include::{snippets}/Member_Post/request-body.adoc[]
+//
+// .response-body
+// include::{snippets}/Member_Post/response-body.adoc[]
+//
+// .response-fields
+// include::{snippets}/Member_Post/response-fields.adoc[]
+//
+// === 회원 정보 조회(단일)(Member_Get)
+// .curl-request
+// include::{snippets}/Member_Get/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/Member_Get/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/Member_Get/http-response.adoc[]
+//
+// .httpie-request
+// include::{snippets}/Member_Get/httpie-request.adoc[]
+//
+// .path-parameters
+// include::{snippets}/Member_Get/path-parameters.adoc[]
+//
+// .response-body
+// include::{snippets}/Member_Get/response-body.adoc[]
+//
+// .response-fields
+// include::{snippets}/Member_Get/response-fields.adoc[]
+//
+// === 회원 정보 조회(전체)(Member_Gets)
+// .curl-request
+// include::{snippets}/Member_Gets/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/Member_Gets/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/Member_Gets/http-response.adoc[]
+//
+// .httpie-request
+// include::{snippets}/Member_Gets/httpie-request.adoc[]
+//
+// // .request-body
+// // include::{snippets}/Member_Gets/request-body.adoc[]
+//
+// .request-parameters
+// include::{snippets}/Member_Gets/request-parameters.adoc[]
+//
+// // .response-body
+// // include::{snippets}/Member_Gets/response-body.adoc[]
+//
+// .response-fields
+// include::{snippets}/Member_Gets/response-fields.adoc[]
+//
+// === 회원 정보 수정(Member_Patch)
+// .curl-request
+// include::{snippets}/Member_Patch/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/Member_Patch/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/Member_Patch/http-response.adoc[]
+//
+// .httpie-request
+// include::{snippets}/Member_Patch/httpie-request.adoc[]
+//
+// .path-parameters
+// include::{snippets}/Member_Patch/path-parameters.adoc[]
+//
+// .request-body
+// include::{snippets}/Member_Patch/request-body.adoc[]
+//
+// .request-fields
+// include::{snippets}/Member_Patch/request-fields.adoc[]
+//
+// .response-body
+// include::{snippets}/Member_Patch/response-body.adoc[]
+//
+// .response-fields
+// include::{snippets}/Member_Patch/response-fields.adoc[]
+//
+// === 회원 정보 삭제(Member_Delete)
+// .curl-request
+// include::{snippets}/Member_Delete/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/Member_Delete/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/Member_Delete/http-response.adoc[]
+//
+// .httpie-request
+// include::{snippets}/Member_Delete/httpie-request.adoc[]
+//
+// .path-parameters
+// include::{snippets}/Member_Delete/path-parameters.adoc[]
+//
+//
+// == LuckManGoController
+// === 복망고 등록
+// .curl-request
+// include::{snippets}/post-luckMango/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/post-luckMango/http-request.adoc[]
+//
+// .request-fields
+// include::{snippets}/post-luckMango/request-fields.adoc[]
+//
+// .http-response
+// include::{snippets}/post-luckMango/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/post-luckMango/response-fields.adoc[]
+//
+// === 복망고 불러오기(단일)
+// .curl-request
+// include::{snippets}/get-luckMango/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/get-luckMango/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/get-luckMango/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/get-luckMango/response-fields.adoc[]
+//
+// === 복망고 불러오기(전체/페이지네이션)
+// .curl-request
+// include::{snippets}/get-luckMangos/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/get-luckMangos/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/get-luckMangos/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/get-luckMangos/response-fields.adoc[]
+//
+// === 복망고 불러오기(특정멤버의 전체/페이지네이션)
+// .curl-request
+// include::{snippets}/get-MeberLuckMango/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/get-MeberLuckMango/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/get-MeberLuckMango/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/get-MeberLuckMango/response-fields.adoc[]
+//
+//
+// === 복망고 수정
+// .curl-request
+// include::{snippets}/patch-luckMango/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/patch-luckMango/http-request.adoc[]
+//
+// .request-fields
+// include::{snippets}/patch-luckMango/request-fields.adoc[]
+//
+// .http-response
+// include::{snippets}/patch-luckMango/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/patch-luckMango/response-fields.adoc[]
+//
+// === 복망고 삭제
+// .curl-request
+// include::{snippets}/delete-luckMango/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/delete-luckMango/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/delete-luckMango/http-response.adoc[]
+//
+//
+// == ReviewController
+// === 후기 등록
+// .curl-request
+// include::{snippets}/post-review/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/post-review/http-request.adoc[]
+//
+// .request-fields
+// include::{snippets}/post-review/request-fields.adoc[]
+//
+// .http-response
+// include::{snippets}/post-review/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/post-review/response-fields.adoc[]
+//
+// === 후기 불러오기(단일)
+// .curl-request
+// include::{snippets}/get-review/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/get-review/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/get-review/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/get-review/response-fields.adoc[]
+//
+// === 후기 불러오기(전체/페이지네이션)
+// .curl-request
+// include::{snippets}/get-reviews/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/get-reviews/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/get-reviews/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/get-reviews/response-fields.adoc[]
+//
+// === 후기 수정
+// .curl-request
+// include::{snippets}/patch-review/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/patch-review/http-request.adoc[]
+//
+// .request-fields
+// include::{snippets}/patch-review/request-fields.adoc[]
+//
+// .http-response
+// include::{snippets}/patch-review/http-response.adoc[]
+//
+// .response-fields
+// include::{snippets}/patch-review/response-fields.adoc[]
+//
+// === 후기 삭제
+// .curl-request
+// include::{snippets}/delete-review/curl-request.adoc[]
+//
+// .http-request
+// include::{snippets}/delete-review/http-request.adoc[]
+//
+// .http-response
+// include::{snippets}/delete-review/http-response.adoc[]

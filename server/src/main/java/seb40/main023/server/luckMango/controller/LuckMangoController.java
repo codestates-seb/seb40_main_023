@@ -1,7 +1,6 @@
 package seb40.main023.server.luckMango.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +22,18 @@ import java.util.List;
 @RequestMapping("/luckMango")
 @Validated
 @RequiredArgsConstructor
+@CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class LuckMangoController {
     private final LuckMangoService luckMangoService;
     private final LuckMangoMapper luckMangoMapper;
 
     //복망고 생성
     @PostMapping
-    public ResponseEntity postLuckMango(@Valid @RequestBody LuckMangoPostDto luckMangoPostDto){
+    public ResponseEntity postLuckMango(@Valid @RequestBody LuckMangoPostDto luckMangoPostDto) {
         LuckMango luckMango = luckMangoService.createLuckMango(luckMangoMapper.luckMangoPostDtoToluckMango(luckMangoPostDto));
 
-        return new ResponseEntity<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango),
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)),
                 HttpStatus.CREATED);
     }
 
@@ -51,7 +52,7 @@ public class LuckMangoController {
 
     //복망고번호로 찾기
     @GetMapping("/{luckMango-id}")
-    public ResponseEntity getLuckMango(@PathVariable("luckMango-id") long luckMangoId){
+    public ResponseEntity getLuckMango(@PathVariable("luckMango-id") @Positive long luckMangoId){
         LuckMango luckMango = luckMangoService.findLuckMango(luckMangoId);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)), HttpStatus.OK);
@@ -71,9 +72,19 @@ public class LuckMangoController {
 
     //모든 복망고 가져오기
     @GetMapping
-    public ResponseEntity getLuckMangos(@Positive @RequestParam int page,
-                                      @Positive @RequestParam int size) {
+    public ResponseEntity getLuckMangos(@Positive @RequestParam int page, @Positive @RequestParam int size) {
         Page<LuckMango> pageLuckMangos = luckMangoService.findLuckMangos(page - 1, size);
+        List<LuckMango> luckMangos = pageLuckMangos.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDtos(luckMangos),
+                        pageLuckMangos), HttpStatus.OK);
+    }
+
+    @GetMapping("/public")
+    public ResponseEntity getPublicLuckMangos(@RequestParam("reveal") boolean reveal,@Positive @RequestParam int page,
+                                        @Positive @RequestParam int size, @RequestParam ("sort") String sort) {
+        Page<LuckMango> pageLuckMangos = luckMangoService.publicLuckMango(reveal, page - 1, size,sort);
         List<LuckMango> luckMangos = pageLuckMangos.getContent();
 
         return new ResponseEntity<>(

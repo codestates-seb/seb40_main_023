@@ -6,11 +6,12 @@ const ServiceIntro = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="mb-6 text-xl font-normal text-center whitespace-pre-line">
-        새해 복 망고는 새해 인사를 전하고 덕담을 나눌 수 있는 <br />
+        새해 복망고는 새해 인사를 전하고 덕담을 나눌 수 있는{" "}
+        <br className="hidden mobile:block" />
         <span className="font-semibold text-primary-normal">
           온라인 롤링페이퍼 서비스
         </span>{" "}
-        입니다. 사랑하는 사람들에게 <br />
+        입니다. 사랑하는 사람들에게 <br className="hidden mobile:block" />
         복망고가 대신 따뜻한 메세지를 전달해 드릴게요.
       </div>
       <div className="flex flex-col items-center max-w-[230px]">

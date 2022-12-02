@@ -1,17 +1,23 @@
 package seb40.main023.server.luckMango.dto;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 @Getter
-@Setter
-@Builder
 public class LuckMangoPatchDto {
+    @Positive
     private long luckMangoId;
+
     private String title;
-    private String bgImage;
+    private String mangoBody;
     private String bgVideo;
+    private String bgImage;
+    private boolean reveal;
     private int likeCount;
+
+    public void setLuckMangoId(long luckMangoId) {
+        this.luckMangoId = luckMangoId;
+    }
 }

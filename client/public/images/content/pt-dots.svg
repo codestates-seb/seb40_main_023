@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #dfdfdf;
+        opacity: 0.3;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="4.5" cy="4.5" r="1.5"/>
+</svg>

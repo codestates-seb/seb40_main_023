@@ -10,11 +10,11 @@ export interface TitleProps {
 }
 
 export interface ReviewDataProps {
-  reviewId: number;
+  reviewId?: number;
   reviewBody: string;
   memberId: number;
-  createdAt: string;
-  modifiedAt: string;
+  createdAt?: string;
+  modifiedAt?: string;
 }
 
 export interface UserInfoProps {
@@ -25,6 +25,24 @@ export interface UserInfoProps {
   imgUrl: null;
   nyMoney: number;
   memberStatus: string;
+  createdAt: string;
+  modifiedAt: string;
+}
+
+export interface GalleryDataProps {
+  luckMangoId: number;
+  title: string;
+  mangoBody: null;
+  bgVideo: string;
+  bgImage: string;
+  likeCount: number;
+  reveal: null;
+  member: {
+    memberId: number;
+    name: string;
+    email: string;
+    imgUrl: null;
+  };
   createdAt: string;
   modifiedAt: string;
 }

@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 function MyDocument() {
   return (
-    <Html lang="ko">
+    <Html lang="ko" className="scroll-smooth">
       <Head>
         <meta charSet="utf-8"></meta>
         <meta
@@ -19,6 +19,10 @@ function MyDocument() {
         <noscript>
           <link href="./styles/aos-noscript.css" rel="stylesheet" />
         </noscript>
+        <script
+          defer
+          src="https://developers.kakao.com/sdk/js/kakao.min.js"
+        ></script>
       </Head>
       <body>
         <Main />

@@ -4,13 +4,13 @@ import Image from "next/image";
 
 const ServiceHowto = () => {
   return (
-    <div className="flex flex-col items-center mt-10">
-      <ul className="grid w-full grid-flow-row grid-cols-2 gap-4 tablet:grid-cols-4">
+    <div className="flex flex-col items-center mt-5 mobile:mt-10">
+      <ul className="grid w-full grid-flow-row grid-cols-2 gap-4 mb-5 tablet:grid-cols-4">
         <li className="mg-howto-item">
           <Image
             width={140}
             height={140}
-            src="/dummy/mypage-profile.png"
+            src="/images/char/char-step-1.png"
             alt="복망고 만들기1"
           />
           <p className="my-4 text-center whitespace-pre-line">
@@ -25,7 +25,7 @@ const ServiceHowto = () => {
           <Image
             width={140}
             height={140}
-            src="/dummy/mypage-profile.png"
+            src="/images/char/char-step-2.png"
             alt="복망고 만들기2"
           />
           <p className="my-4 text-center whitespace-pre-line">
@@ -37,7 +37,7 @@ const ServiceHowto = () => {
           <Image
             width={140}
             height={140}
-            src="/dummy/mypage-profile.png"
+            src="/images/char/char-step-3.png"
             alt="복망고 만들기3"
           />
           <p className="my-4 text-center whitespace-pre-line">
@@ -48,7 +48,7 @@ const ServiceHowto = () => {
           <Image
             width={140}
             height={140}
-            src="/dummy/mypage-profile.png"
+            src="/images/char/char-step-4.png"
             alt="복망고 만들기4"
           />
           <p className="my-4 text-center whitespace-pre-line">

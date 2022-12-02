@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CountCharLength from "../../util/CountCharLength";
-import { Toast, notifyInfo, notifyError } from "../../util/Toast";
-import Image from "next/image";
+import { notifyInfo, notifyError } from "../../util/Toast";
+import { createReview } from "../../../fetch/review";
 
-function ReviewWrite() {
+function ReviewWrite({ setUpdated }: any) {
+  const ref = useRef<HTMLTextAreaElement>(null);
   const [reviewSize, setReviewSize] = useState(0);
+  const [reviewInput, setReviewInput] = useState("");
 
-  const checkReviewLength = (e: any) => {
+  const onChangeReview = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
     setReviewSize(e.target.value.length);
+    setReviewInput(e.target.value);
   };
 
   const submitReview = () => {
@@ -22,14 +27,21 @@ function ReviewWrite() {
         icon: "🥹",
       });
     } else {
-      console.log("::TODO:: fetch");
+      createReview("/api/review", {
+        memberId: 1,
+        reviewBody: reviewInput,
+      });
+
+      setUpdated(true);
+      setReviewInput("");
     }
   };
 
   return (
     <div>
       <h3 className="mb-4 text-2xl">
-        새해 복망고 이용해보셨다면 후기를 남겨주세요
+        새해 복망고 이용해보셨다면 <br className="mobile:hidden" />
+        후기를 남겨주세요
       </h3>
       <div className="flex flex-col mb-4">
         <textarea
@@ -37,29 +49,27 @@ function ReviewWrite() {
             reviewSize <= 130
               ? "border-mono-borderNormal"
               : "border-danger-normal"
-          } w-full mb-2 px-8 py-6 border border-mono-borderNormal resize-none rounded-xl focus:outline-none focus-visible:ring`}
+          } mg-default-textarea px-6 py-4 rounded-xl mb-2`}
           cols={30}
           rows={3}
-          onKeyUp={checkReviewLength}
+          onChange={onChangeReview}
+          ref={ref}
+          value={reviewInput}
         ></textarea>
         <div className="flex flex-row justify-between">
-          <div className="flex text-mono-textDisabled">
-            <Image
-              className="mr-2 grayscale"
-              src={"/images/ico/ico-info.svg"}
-              alt="info 아이콘"
-              width={20}
-              height={20}
-            />
-            130자까지 입력할 수 있어요
+          <div className="mg-info-disabled">
+            <i></i>130자까지 입력할 수 있어요.
           </div>
           <CountCharLength current={reviewSize} limit={130} />
         </div>
       </div>
-      <button className="mg-primary-button w-[230px]" onClick={submitReview}>
+      <button
+        className="mg-primary-button w-[230px]"
+        onClick={submitReview}
+        disabled={false}
+      >
         후기 남기기
       </button>
-      <Toast />
     </div>
   );
 }

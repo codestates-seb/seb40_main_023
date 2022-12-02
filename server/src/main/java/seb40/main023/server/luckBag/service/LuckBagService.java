@@ -10,7 +10,9 @@ import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.luckBag.repository.LuckBagRepository;
+import seb40.main023.server.luckMango.service.LuckMangoService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +20,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LuckBagService {
     private final LuckBagRepository luckBagRepository;
+    private final LuckMangoService luckMangoService;
 
     // C 복주머니 생성
     public LuckBag createdLuckBag(LuckBag luckBag){
+        luckBag.setLuckMango(luckMangoService.findVerifiedLuckMango(luckBag.getLuckMango().getLuckMangoId())); // 복밍고 아이디 세팅
+
+        long tot_Money = luckBag.getLuckMango().getTot_Money();
+        tot_Money += luckBag.getNyMoney();
+        luckBag.getLuckMango().setTot_Money(tot_Money);
+
         return luckBagRepository.save(luckBag);
         // 럭백을 세이브 메소드를 이용해서 리파지토리로 넣어주세요 하는 결과가 나온다.
     }
@@ -61,9 +70,13 @@ public class LuckBagService {
         // update전 db에 같은 글이 있나 검증
         LuckBag findLuckBag = findVerifiedLuckBag(luckBag.getLuckBagId());
 
-        Optional.ofNullable(luckBag.getBody()).ifPresent(body -> findLuckBag.setBody(body));
+        Optional.ofNullable(luckBag.getLuckBagBody()).ifPresent(body -> findLuckBag.setLuckBagBody(body));
         Optional.ofNullable(luckBag.getWriter()).ifPresent(writer -> findLuckBag.setWriter(writer));
         Optional.ofNullable(luckBag.getBagStyle()).ifPresent(bagStyle -> findLuckBag.setBagStyle(bagStyle));
+        Optional.ofNullable(luckBag.getBagColor()).ifPresent(bagColor -> findLuckBag.setBagStyle(bagColor));
+
+        findLuckBag.setModifiedAt(LocalDateTime.now());
+
         return luckBagRepository.save(findLuckBag);
     }
 

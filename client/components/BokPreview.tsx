@@ -56,7 +56,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
             className={edit ? "mg-greet-button" : "mg-greet-button invisible"}
             onClick={uploadImageButtonClick}
           >
-            {bgImg === "" ? "이미지 등록하기" : "이미지 수정하기"}
+            {bgImg === "" || edit ? "이미지 등록하기" : "이미지 수정하기"}
           </button>
           <input
             type="file"
@@ -71,6 +71,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
               alt="basket guide"
               width={350}
               height={150}
+              className="mx-auto"
             />
           </div>
         </div>

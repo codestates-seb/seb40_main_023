@@ -150,7 +150,7 @@ button:disabled {
   }
 
   .mg-mypage-overlay {
-    @apply absolute top-0 bottom-0 left-0 right-0 grid items-center grid-cols-2 p-8 text-center transition-all duration-300 rounded-full opacity-0 w-36 h-36 will-change-auto bg-mono-500/90 group-hover:opacity-100;
+    @apply absolute top-0 bottom-0 left-0 right-0 grid items-center grid-cols-2 p-8 text-center transition-all duration-300 rounded-full opacity-0 w-36 h-36 will-change-auto bg-mono-500/40 group-hover:opacity-100;
   }
 
   .mg-card-button {

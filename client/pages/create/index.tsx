@@ -6,17 +6,16 @@ import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast, notifyWarning, notifyError } from "../../components/util/Toast";
 
-const create = () => {
+const Create = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
   const [bgUrl, setBgUrl] = useState("");
+  const [modal, setModal] = useState(false);
   const [reveal, setReveal] = useState(false);
   const [isValid, setIsValid] = useState("no");
-  const [modal, setModal] = useState(false);
 
   const handleCheck = () => {
     setReveal(!reveal);
-    console.log(reveal);
   };
 
   useEffect(() => {
@@ -151,17 +150,17 @@ const create = () => {
           >
             완성!
           </Link>
-
-          {modal && (
-            <EditModal
-              setModal={toggleModal}
-              greeting={greeting}
-              title={title}
-              bgUrl={bgUrl}
-              reveal={reveal}
-            />
-          )}
         </div>
+        {modal && (
+          <EditModal
+            setModal={toggleModal}
+            greeting={greeting}
+            title={title}
+            bgUrl={bgUrl}
+            reveal={reveal}
+          />
+        )}
+
         <Toast />
       </main>
       <Footer />
@@ -169,4 +168,4 @@ const create = () => {
   );
 };
 
-export default create;
+export default Create;

@@ -5,7 +5,7 @@ import { notifySuccess } from "../util/Toast";
 import QrModal from "../modals/QrModal";
 import DeleteMgModal from "../modals/DeleteMgModal";
 
-const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
+const GalleryItem = ({ bgImage, luckMangoId, bagList, userName }: any) => {
   const router = useRouter();
   //모달 관리
   const [deleteModal, setDeleteModal] = useState(false);
@@ -23,7 +23,7 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
   //URL 관리
   const shareUrl = (e: any) => {
     e.stopPropagation();
-    let currentUrl = `http://localhost:3000/lucky/${luckMangoId}`;
+    let currentUrl = `https://seb40-main-023-7vi4.vercel.app/lucky/${luckMangoId}`;
     let t = document.createElement("textarea");
     document.body.appendChild(t);
     t.value = currentUrl;
@@ -48,12 +48,13 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
           }
         ></div>
         <div className="mg-card-desc">
-          <p className="truncate">
-            <span className="font-medium">{title}</span>님의 새해 복망고
-          </p>
-          <div className="truncate">{luckMangoId}개의 덕담을 받았어요!</div>
+          <div className="truncate">
+            <span className="font-medium">{userName}</span>님의 새해 복망고
+          </div>
+          <div className="truncate">{bagList}개의 덕담을 받았어요!</div>
         </div>
       </div>
+
       <div className={`mg-card-overlay`} onClick={onClickLink}>
         {/* 수정페이지 */}
         <Link
@@ -79,16 +80,16 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
           onClick={shareUrl}
         ></button>
       </div>
+      {qrCode && (
+        <QrModal
+          shareQr={shareQr}
+          link={`https://seb40-main-023-7vi4.vercel.app/lucky/${luckMangoId}`}
+        />
+      )}
       {deleteModal && (
         <DeleteMgModal
           setDeleteModal={setDeleteModal}
           luckMangoId={luckMangoId}
-        />
-      )}
-      {qrCode && (
-        <QrModal
-          shareQR={shareQr}
-          link={`http://localhost:3000/lucky/${luckMangoId}`}
         />
       )}
     </div>

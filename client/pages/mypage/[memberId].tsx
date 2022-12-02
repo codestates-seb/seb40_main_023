@@ -12,6 +12,10 @@ import { useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
 import Link from "next/link";
 import Image from "next/image";
+import { useFetch } from "../../fetch/useFetch";
+import { useCookies } from "react-cookie";
+import { userState } from "../../recoil/user";
+import { useRouter } from "next/router";
 
 const Mypage = () => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
@@ -19,9 +23,24 @@ const Mypage = () => {
   const [click, setClick] = useState(false);
   const [LuckMango, setLuckMango]: any = useState([]);
   const [userName, setUserName] = useState<string>("");
-  const [userImg, setUserImg] = useState("");
+  const [userImg, setUserImg] = useState<any>("");
+  const [bgUrl, setBgUrl] = useState("");
   const [modal, setModal] = useState<boolean>(false);
   const [length, setLength] = useState<Number>(0);
+  const [bagList, setBagList] = useState([]);
+  const [cookies] = useCookies(["accessJwtToken"]);
+  const [user, setUser] = useRecoilState(userState);
+  const route = useRouter();
+
+  const checkLogin = () => {
+    const token = cookies.accessJwtToken;
+    if (!token) {
+      setUser({ login: false });
+      setMemberId({ memberId: 0 });
+      localStorage.removeItem("recoil-persist");
+      route.push("/");
+    }
+  };
 
   const userModify = () => {
     setClick(!click);
@@ -59,11 +78,20 @@ const Mypage = () => {
     });
   };
 
+  const getAllLuckyBags = async (userId: number) => {
+    const res = await useFetch(
+      `/api/luckBag/luckMango?luckMangoId=${userId}&page=1&size=7`,
+    );
+    setBagList(res.pageInfo.totalElements);
+  };
+
   useEffect(() => {
     getLuckMango();
     getUserName();
+    checkLogin();
+    getAllLuckyBags(userId);
   }, []);
-
+  console.log(userImg);
   return (
     <div>
       {!modal && (
@@ -74,16 +102,20 @@ const Mypage = () => {
           </aside>
         </div>
       )}
+
       <main className="pt-[58px]">
         <div className="flex flex-col w-full h-full min-h-screen px-4 mobile:px-2 mx-auto max-w-[440px]">
           {modal && <DefaultModal setModal={setModal} />}
           {!modal && (
             <div className="max-w-[400px] w-full relative flex mt-16">
               <div>
-                {userImg === "NONE" || undefined ? (
+                {userImg.length <= 10 ? (
                   <div className="bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
                 ) : (
-                  <div className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"></div>
+                  <div
+                    style={{ backgroundImage: `url("${userImg}")` }}
+                    className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"
+                  ></div>
                 )}
               </div>
               <div className="flex flex-col justify-center pl-5">
@@ -111,6 +143,9 @@ const Mypage = () => {
                 handle={userModify}
                 userName={userName}
                 modal={modal}
+                setBgUrl={setBgUrl}
+                bgUrl={bgUrl}
+                userImg={userImg}
               />
             ) : (
               <div className="flex flex-col w-full mb-5">
@@ -125,6 +160,7 @@ const Mypage = () => {
                         luckMangoId={el.luckMangoId}
                         title={el.title}
                         bgImage={el.bgImage}
+                        bagList={bagList}
                       />
                     ))}
                   </div>

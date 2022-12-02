@@ -24,7 +24,6 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
       },
     });
-    console.log(res);
     setBgUrl(res);
   };
 

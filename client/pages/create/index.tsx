@@ -128,7 +128,12 @@ const Create = () => {
                 </div>
               </div>
             </div>
-            <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
+            <BokPreview
+              greeting={greeting}
+              edit={true}
+              bgUrl={bgUrl}
+              setBgUrl={setBgUrl}
+            />
             <div className="w-full mt-3 mb-2 mg-checkbox-group">
               <input id="checkIsPublic" type="checkbox" className="hidden" />
               <label htmlFor="checkIsPublic" onClick={handleCheck}>
@@ -160,7 +165,6 @@ const Create = () => {
             reveal={reveal}
           />
         )}
-
         <Toast />
       </main>
       <Footer />

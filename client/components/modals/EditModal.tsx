@@ -43,8 +43,7 @@ const EditModal = ({
         {
           title: title,
           mangoBody: greeting,
-          bgImage: "bg.jpg",
-          bgVideo: "bgVideo.mp",
+          bgImage: bgUrl,
           luckMangoId: luckId,
           reveal: reveal,
         },
@@ -64,8 +63,7 @@ const EditModal = ({
           memberId: memberId,
           title: title,
           mangoBody: greeting,
-          bgImage: "bg.jpg",
-          bgVideo: "bgVideo.mp",
+          bgImage: bgUrl,
           reveal: reveal,
         },
         {

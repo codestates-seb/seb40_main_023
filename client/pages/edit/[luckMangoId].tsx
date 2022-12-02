@@ -103,6 +103,7 @@ const Edit = () => {
       setReveal(res.data.reveal);
       setLuckMId(res.data.member?.memberId);
       setLuckMgId(res.data.luckMangoId);
+      setBgUrl(res.data.bgImage);
     }
   };
 
@@ -191,7 +192,12 @@ const Edit = () => {
                   </div>
                 </div>
               </div>
-              <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
+              <BokPreview
+                edit={true}
+                bgUrl={bgUrl}
+                setBgUrl={setBgUrl}
+                greeting={greeting}
+              />
               <div className="w-full mt-3 mb-2 mg-checkbox-group">
                 <input id="checkIsPublic" type="checkbox" className="hidden" />
                 <label htmlFor="checkIsPublic" onClick={handleCheck}>

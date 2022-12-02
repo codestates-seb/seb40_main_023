@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import Greeting from "./Greeting";
+import { uploadMgImg } from "../fetch/create";
+import { getCookie } from "./util/cookie";
 
 const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
-  const [bgImg, setBgImg] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement | null>) => {
@@ -12,9 +13,21 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
     // }
 
     if (e.target.files?.length) {
-      setBgImg(URL.createObjectURL(e.target.files[0]));
-      setBgUrl(URL.createObjectURL(e.target.files[0]));
+      let formData = new FormData();
+      formData.append("images", e.target.files[0]);
+      uploadBgImg(formData);
+      //여기서 업로드 하고 응답으로 주소 받음
     }
+  };
+
+  const uploadBgImg = async (formData: any) => {
+    const res = await uploadMgImg(`/api/s3/luckMango/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+      },
+    });
+    setBgUrl(res);
   };
 
   const uploadImageButtonClick = () => {
@@ -27,13 +40,9 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
   return (
     <>
       <div
-        style={
-          bgUrl
-            ? { backgroundImage: `url(${bgUrl})` }
-            : { backgroundImage: `url(${bgImg})` }
-        }
+        style={{ backgroundImage: `url("${bgUrl}")` }}
         className={
-          bgImg || bgUrl
+          bgUrl
             ? `mg-bok-layout bg-center bg-cover`
             : "mg-bok-layout bg-[url(/images/content/pt-dots.svg)]"
         }
@@ -56,7 +65,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
             className={edit ? "mg-greet-button" : "mg-greet-button invisible"}
             onClick={uploadImageButtonClick}
           >
-            {bgImg === "" || edit ? "이미지 등록하기" : "이미지 수정하기"}
+            {bgUrl === "" || edit ? "이미지 등록하기" : "이미지 수정하기"}
           </button>
           <input
             type="file"

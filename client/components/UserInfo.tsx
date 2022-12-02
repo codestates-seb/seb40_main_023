@@ -1,6 +1,7 @@
 import axios from "axios";
+import e from "express";
 import Image from "next/image";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { memberIdState } from "../recoil/memberId";
@@ -19,9 +20,8 @@ const UserModify = ({
 
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [bgImg, setBgImg] = useState("");
-  const [bgUrl, setBgUrl] = useState("");
-  const [profile, setProfile] = useState(false);
+  const [bgImg, setBgImg] = useState<any>("");
+  const [data, setData] = useState<string>("");
 
   //폼 영역
   const [password, setPassword] = useState<string>("");
@@ -32,21 +32,52 @@ const UserModify = ({
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
 
-  const uploadProfile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
+  const uploadProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      setBgImg(URL.createObjectURL(e.target.files[0]));
-      setProfile(true);
-      setBgUrl(URL.createObjectURL(e.target.files[0]));
+      setBgImg(e.target.files[0]);
+      const formData = new FormData();
+      formData.append("images", bgImg);
+      formData.append("memberId", `${userId}`);
+
+      for (let value of formData.values()) {
+        console.log(value);
+      }
+      axios({
+        method: "post",
+        url: `/api/s3/login`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+        },
+      }).then(el => {
+        setData(el.data);
+        console.log(data);
+      });
     }
   };
-  console.log(bgImg);
+
+  const userImagePatch = async () => {
+    await axios({
+      method: "patch",
+      url: `/api/member/${userId}`,
+      data: {
+        imgUrl: data,
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+      },
+    });
+  };
+
   //정보수정 보내는 함수
   const passwordChange = async () => {
     try {
       await axios({
         method: "patch",
         url: `/api/member/${userId}`,
-        data: { password: password },
+        data: { imgUrl: data, password: password },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getCookie("accessJwtToken")}`,
@@ -55,10 +86,6 @@ const UserModify = ({
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const uploadImageButtonClick = () => {
-    inputRef.current?.click();
   };
 
   const onChangePassword = useCallback(
@@ -97,6 +124,14 @@ const UserModify = ({
     [password],
   );
 
+  const uploadImageButtonClick = () => {
+    inputRef.current?.click();
+  };
+
+  useEffect(() => {
+    userImagePatch();
+  }, [data]);
+
   return (
     <div className="mg-layout min-w-[400px]">
       <div className="flex flex-row w-full pt-4 text-xl text-left">
@@ -108,7 +143,6 @@ const UserModify = ({
         />
         <span className="flex items-center justify-center">회원정보 수정</span>
       </div>
-
       <div className="flex justify-center pt-10">
         {!modal && (
           <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
@@ -120,16 +154,15 @@ const UserModify = ({
                 onChange={uploadProfile}
                 className="hidden"
               />
-              {/* //asdasd */}
               <div
                 style={
-                  profile
-                    ? { backgroundImage: `url(" ${bgImg} ")` }
-                    : { backgroundImage: `url(" ${userImg} ")` }
+                  userImg === "NONE" || ""
+                    ? {}
+                    : { backgroundImage: `url("${userImg}")` }
                 }
                 className={
                   userImg === "NONE" || ""
-                    ? "bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                    ? "bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
                     : `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
                 }
               ></div>
@@ -163,7 +196,7 @@ const UserModify = ({
             <div className="flex flex-col">
               <input
                 id="password"
-                type="passowrd"
+                type="password"
                 placeholder="영문, 숫자, 특수기호를 포함하여 8자 이상"
                 onChange={onChangePassword}
                 className={`mg-default-input ${
@@ -196,7 +229,7 @@ const UserModify = ({
             <div className="flex flex-col">
               <input
                 id="passwordconfirm"
-                type="text"
+                type="password"
                 placeholder="비밀번호 확인"
                 onChange={onChangePasswordConfirm}
                 className={`mg-default-input ${

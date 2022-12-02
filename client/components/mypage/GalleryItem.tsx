@@ -5,13 +5,7 @@ import { notifySuccess } from "../util/Toast";
 import QrModal from "../modals/QrModal";
 import DeleteMgModal from "../modals/DeleteMgModal";
 
-const GalleryItem = ({
-  bgImage,
-  userId,
-  luckMangoId,
-  bagList,
-  userName,
-}: any) => {
+const GalleryItem = ({ bgImage, luckMangoId, bagList, userName }: any) => {
   const router = useRouter();
   //모달 관리
   const [deleteModal, setDeleteModal] = useState(false);

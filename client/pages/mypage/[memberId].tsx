@@ -13,6 +13,9 @@ import { memberIdState } from "../../recoil/memberId";
 import Link from "next/link";
 import Image from "next/image";
 import { useFetch } from "../../fetch/useFetch";
+import { useCookies } from "react-cookie";
+import { userState } from "../../recoil/user";
+import { useRouter } from "next/router";
 
 const Mypage = () => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
@@ -20,10 +23,23 @@ const Mypage = () => {
   const [click, setClick] = useState(false);
   const [LuckMango, setLuckMango]: any = useState([]);
   const [userName, setUserName] = useState<string>("");
-  const [userImg, setUserImg] = useState<string>("");
+  const [userImg, setUserImg] = useState<any>("");
   const [modal, setModal] = useState<boolean>(false);
   const [length, setLength] = useState<Number>(0);
   const [bagList, setBagList] = useState([]);
+  const [cookies] = useCookies(["accessJwtToken"]);
+  const [user, setUser] = useRecoilState(userState);
+  const route = useRouter();
+
+  const checkLogin = () => {
+    const token = cookies.accessJwtToken;
+    if (!token) {
+      setUser({ login: false });
+      setMemberId({ memberId: 0 });
+      localStorage.removeItem("recoil-persist");
+      route.push("/");
+    }
+  };
 
   const userModify = () => {
     setClick(!click);
@@ -46,7 +62,7 @@ const Mypage = () => {
       setUserImg(el.data.data.imgUrl);
     });
   };
-  console.log(userImg);
+
   const getLuckMango = async () => {
     axios({
       method: "get",
@@ -71,12 +87,9 @@ const Mypage = () => {
   useEffect(() => {
     getLuckMango();
     getUserName();
+    checkLogin();
     getAllLuckyBags(userId);
   }, []);
-
-  useEffect(() => {
-    getUserName();
-  }, [userImg, setUserImg]);
 
   return (
     <div>
@@ -95,9 +108,9 @@ const Mypage = () => {
             <div>
               <div
                 style={
-                  userImg === "NONE"
+                  userImg === "NONE" || ""
                     ? {}
-                    : { backgroundImage: `url(" ${userImg} ")` }
+                    : { backgroundImage: `url("${userImg}")` }
                 }
                 className={
                   userImg === "NONE" || ""
@@ -149,6 +162,7 @@ const Mypage = () => {
                       title={el.title}
                       bagList={bagList}
                       bgImage={el.bgImage}
+                      length={length}
                     />
                   ))}
                 </div>
@@ -156,10 +170,10 @@ const Mypage = () => {
             </div>
           )}
         </div>
-        {length === 0 ? (
+        {length === 0 && !click ? (
           <div className="flex flex-col items-center max-w-[230px]">
             <p className="mb-1 text-mono-textDisabled">
-              🥹 아직 만드신 복망고가 없습니다.
+              아직 만드신 복망고가 없습니다.
             </p>
             <Link
               href="/create"

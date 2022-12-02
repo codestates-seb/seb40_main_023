@@ -57,6 +57,7 @@ const Edit = () => {
       setReveal(res.data.reveal);
       setLuckMId(res.data.member?.memberId);
       setLuckMgId(res.data.luckMangoId);
+      setBgUrl(res.data.bgImage);
     }
   };
 
@@ -134,7 +135,12 @@ const Edit = () => {
               }}
               className="py-3 text-sm resize-none h-18 mb-7 mg-input"
             />
-            <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
+            <BokPreview
+              greeting={greeting}
+              edit={true}
+              bgUrl={bgUrl}
+              setBgUrl={setBgUrl}
+            />
           </div>
           <label className="mt-5 mg-flex-center mg-width-size">
             <input

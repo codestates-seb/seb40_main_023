@@ -55,6 +55,7 @@ const index = () => {
   const [luckMg, setLuckMg] = useState<luckMgType>();
   const [money, setMoney] = useState<number>(0);
   const [existPage, setExistPage] = useState(true);
+  const [bgUrl, setBgUrl] = useState("");
 
   //페이지네이션
   const [curPage, setCurPage] = useState(1);
@@ -96,7 +97,7 @@ const index = () => {
   useEffect(() => {
     getUserInfo();
     checkLogin();
-    if (!window.Kakao.isInitialized()) {
+    if (!window.Kakao?.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
   }, []);
@@ -125,6 +126,7 @@ const index = () => {
       setBody(res.data.mangoBody);
       setMoney(res.data.tot_Money);
       setLuckMg(res.data);
+      setBgUrl(res.data.bgImage);
     }
   };
 
@@ -197,8 +199,13 @@ const index = () => {
   return (
     <div ref={downloadRef}>
       {existPage ? (
-        <div className="mg-layout bg-[url(/images/content/pt-dots.svg)]">
-          <div className="mg-width-size h-[600px] mg-border-2 bg-warning-light mg-flex items-center justify-between mb-8">
+        <div className={"mg-layout bg-[url(/images/content/pt-dots.svg)]"}>
+          <div
+            style={{ backgroundImage: `url("${bgUrl}")` }}
+            className={
+              "bg-cover bg-[#EEE] mg-width-size h-[600px] mg-border-2 mg-flex items-center justify-between mb-8"
+            }
+          >
             <div className="w-full">
               <div className="relative mt-5 mg-flex-center mb-7">
                 <div className="ml-6 w-[235px] h-[40px] bg-white rounded-full mg-flex-center justify-end pr-5 truncate font-medium">

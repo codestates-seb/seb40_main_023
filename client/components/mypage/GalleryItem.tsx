@@ -64,7 +64,7 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
         >
           {qrCode && (
             <QrModal
-              shareQR={shareQr}
+              shareQr={shareQr}
               link={`http://localhost:3000/lucky/${luckMangoId}`}
             />
           )}

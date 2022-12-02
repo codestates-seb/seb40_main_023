@@ -13,6 +13,7 @@ const create = () => {
   const [reveal, setReveal] = useState(false);
   const [isValid, setIsValid] = useState("no");
   const [modal, setModal] = useState(false);
+  const [formUrl, setFormUrl] = useState<any>();
 
   const handleCheck = () => {
     setReveal(!reveal);
@@ -129,7 +130,12 @@ const create = () => {
                 </div>
               </div>
             </div>
-            <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
+            <BokPreview
+              greeting={greeting}
+              edit={true}
+              bgUrl={bgUrl}
+              setBgUrl={setBgUrl}
+            />
             <div className="w-full mt-3 mb-2 mg-checkbox-group">
               <input id="checkIsPublic" type="checkbox" className="hidden" />
               <label htmlFor="checkIsPublic" onClick={handleCheck}>
@@ -151,7 +157,6 @@ const create = () => {
           >
             완성!
           </Link>
-
           {modal && (
             <EditModal
               setModal={toggleModal}

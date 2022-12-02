@@ -3,6 +3,9 @@ export interface CreateMangoProps {
   title: string;
   mangoBody: string;
   bgImage: string;
-  bgVideo: string;
   reveal: boolean;
+}
+
+export interface UploadImgProps {
+  images: any;
 }

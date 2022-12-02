@@ -19,7 +19,7 @@ const Mypage = () => {
   const [click, setClick] = useState(false);
   const [LuckMango, setLuckMango]: any = useState([]);
   const [userName, setUserName] = useState<string>("");
-  const [userImg, setUserImg] = useState("");
+  const [userImg, setUserImg] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
   const [length, setLength] = useState<Number>(0);
 
@@ -30,6 +30,8 @@ const Mypage = () => {
   const isModal = () => {
     setModal(!modal);
   };
+
+  console.log(userImg);
 
   const getUserName = async () => {
     axios({
@@ -64,6 +66,10 @@ const Mypage = () => {
     getUserName();
   }, []);
 
+  useEffect(() => {
+    getUserName();
+  }, [userImg, setUserImg]);
+
   return (
     <div>
       {!modal && (
@@ -79,10 +85,18 @@ const Mypage = () => {
         {!modal && (
           <div className="max-w-[400px] w-full relative flex mt-16">
             <div>
-              {userImg === "NONE" || undefined ? (
+              {userImg === "NONE" ? (
                 <div className="bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
               ) : (
-                <div className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"></div>
+                <div className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex">
+                  <Image
+                    src={`https://s3.ap-northeast-2.amazonaws.com/saypart/%2F544f7ddd-b73f-43ab-9382-fa8c26170057-BokMango%20%2811%29.png`}
+                    alt="유저 프로필"
+                    priority
+                    width={140}
+                    height={140}
+                  />
+                </div>
               )}
             </div>
             <div className="flex flex-col justify-center pl-4">
@@ -117,6 +131,7 @@ const Mypage = () => {
                   {LuckMango.map((el: any, index: any) => (
                     <GalleryItem
                       key={index}
+                      userName={userName}
                       luckMangoId={el.luckMangoId}
                       title={el.title}
                       bgImage={el.bgImage}
@@ -134,6 +149,7 @@ const Mypage = () => {
               height={95}
               src="/images/char/char-button1.svg"
               alt="버튼 유도 복망고 캐릭터"
+              priority
             />
             <Link href="/create" className="mg-primary-button">
               복망고 만들러가기!

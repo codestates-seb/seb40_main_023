@@ -37,7 +37,7 @@ const EditModal = ({
       const res = await createMg(
         "/api/luckMango",
         {
-          memberId: 2,
+          memberId: 1,
           title: title,
           mangoBody: greeting,
           bgImage: "bg.jpg",

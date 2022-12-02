@@ -4,7 +4,13 @@ import { notifySuccess, Toast } from "../util/Toast";
 import QrModal from "../modals/QrModal";
 import DeleteMgModal from "../modals/DeleteMgModal";
 
-const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
+const GalleryItem = ({
+  bgImage,
+  userId,
+  luckMangoId,
+  title,
+  userName,
+}: any) => {
   //모달 관리
   const [deleteModal, setDeleteModal] = useState(false);
   const handleModal = () => {
@@ -31,6 +37,7 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
   return (
     <div className={`group gap-2 mg-default-card`}>
       <div className="mg-card-contents">
+        {/* <Link href={}></Link> */}
         <div
           className={
             bgImage === undefined || "NONE" ? `mg-card-image` : `${bgImage}`
@@ -38,7 +45,7 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
         ></div>
         <div className="mg-card-desc">
           <div className="truncate">
-            <span className="font-medium">{title}</span>님의 새해 복망고
+            <span className="font-medium">{userName}</span>님의 새해 복망고
           </div>
           <div className="truncate">{luckMangoId}개의 덕담을 받았어요!</div>
         </div>

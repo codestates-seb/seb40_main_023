@@ -9,6 +9,7 @@ const LongModal = ({
   completeModal,
   setCompleteModal,
   luckMgId,
+  luckMg,
 }: any) => {
   const [luckContent, setLuckContent] = useState("");
   const [writer, setWriter] = useState("");
@@ -62,7 +63,7 @@ const LongModal = ({
         <div className="m-auto">
           <div className="flex-col gap-3 mg-flex-center">
             <div className="mg-modal-title">
-              홍다희님에게 보낼 덕담을 입력해 주세요
+              {luckMg.member.name}님에게 보낼 덕담을 입력해 주세요
             </div>
             <textarea
               className="p-3 mg-modal-input h-[226px] resize-none"

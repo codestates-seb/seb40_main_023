@@ -1,18 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import { LUCKBAG_IMAGE_LIST } from "../constants/luckBagPos";
-
-const LuckBags = ({
-  letterModal,
-  setLetterModal,
-  setLuckyBagId,
-  bagList,
-}: any) => {
-  const handleLetterModal = (id: number) => {
-    setLuckyBagId(id);
-    setLetterModal(!letterModal);
-  };
-
+const LuckBags = ({ handleLetterModal, bagList }: any) => {
   const LUCKBAG_POS = [
     {
       yPos: "top-[-10px]",
@@ -49,6 +36,7 @@ const LuckBags = ({
       {bagList.map((bag: any) => {
         return (
           <div
+            key={bag.luckBagId}
             onClick={() => handleLetterModal(bag.luckBagId)}
             className={`bg-[url(/images/content/img-bok${bag.bagStyle}-${bag.bagColor}.svg)] cursor-pointer absolute top-[-10px] left-12 w-[65px] h-[80px] bg-no-repeat bg-contain`}
           />

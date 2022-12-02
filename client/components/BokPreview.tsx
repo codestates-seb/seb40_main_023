@@ -42,7 +42,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
           이미지가 가려지는 부분입니다.
         </div>
         <div className="relative items-center w-full h-full mg-flex p-15">
-          <div className="absolute flex justify-center top-[90px] w-[90%]">
+          <div className="absolute flex justify-center top-20">
             <Greeting
               content={
                 greeting
@@ -56,7 +56,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
             className={edit ? "mg-greet-button" : "mg-greet-button invisible"}
             onClick={uploadImageButtonClick}
           >
-            이미지 등록하기
+            {bgImg === "" ? "이미지 등록하기" : "이미지 수정하기"}
           </button>
           <input
             type="file"

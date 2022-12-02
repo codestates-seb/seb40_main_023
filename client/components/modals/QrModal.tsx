@@ -5,7 +5,7 @@ import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
 import { notifySuccess, Toast } from "../util/Toast";
 
-const QrModal = ({ qrCode, setQrCode, link }: any) => {
+const QrModal = ({ shareQr, link }: any) => {
   const { Canvas } = useQRCode();
   const downloadRef = useRef<HTMLInputElement | null>(null);
   const downloadBtn = () => {
@@ -19,10 +19,6 @@ const QrModal = ({ qrCode, setQrCode, link }: any) => {
     notifySuccess({ message: "큐알코드 이미지가 저장됐습니다.", icon: "🧑‍💻" });
   };
 
-  const handleModal = () => {
-    setQrCode(!qrCode);
-  };
-
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-50">
       <div className="bg-white w-[356px] h-[356px] absolute top-[50%] left-[50%] rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border">
@@ -32,7 +28,7 @@ const QrModal = ({ qrCode, setQrCode, link }: any) => {
             width={30}
             height={30}
             alt="close button"
-            onClick={handleModal}
+            onClick={shareQr}
           />
         </header>
         <div>

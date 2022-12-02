@@ -21,6 +21,7 @@ const UserModify = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [bgImg, setBgImg] = useState("");
   const [bgUrl, setBgUrl] = useState("");
+  const [profile, setProfile] = useState(false);
 
   //폼 영역
   const [password, setPassword] = useState<string>("");
@@ -34,6 +35,7 @@ const UserModify = ({
   const uploadProfile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
     if (e.target.files?.length) {
       setBgImg(URL.createObjectURL(e.target.files[0]));
+      setProfile(true);
       setBgUrl(URL.createObjectURL(e.target.files[0]));
     }
   };
@@ -106,7 +108,8 @@ const UserModify = ({
         />
         <span className="flex items-center justify-center">회원정보 수정</span>
       </div>
-      <div className="pt-10">
+
+      <div className="flex justify-center pt-10">
         {!modal && (
           <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
             <div>
@@ -117,16 +120,17 @@ const UserModify = ({
                 onChange={uploadProfile}
                 className="hidden"
               />
+              {/* //asdasd */}
               <div
                 style={
-                  bgUrl
-                    ? { backgroundImage: `url(${bgUrl})` }
-                    : { backgroundImage: `url(${bgImg})` }
+                  profile
+                    ? { backgroundImage: `url(" ${bgImg} ")` }
+                    : { backgroundImage: `url(" ${userImg} ")` }
                 }
                 className={
-                  bgImg || bgUrl
-                    ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
-                    : "bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                  userImg === "NONE" || ""
+                    ? "bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                    : `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
                 }
               ></div>
               <div className="flex justify-center mg-mypage-overlay">

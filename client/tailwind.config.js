@@ -31,6 +31,7 @@ module.exports = {
       },
       aspectRatio: {
         "2/3": "2 / 3",
+        card: "1 / 1.045",
       },
     },
     colors: {

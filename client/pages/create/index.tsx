@@ -5,45 +5,42 @@ import Footer from "../../components/Footer";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast, notifyWarning, notifyError } from "../../components/util/Toast";
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { userState } from "../../recoil/user";
 
 const create = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
   const [bgUrl, setBgUrl] = useState("");
   const [reveal, setReveal] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
-  const userlogin = user.login;
-  const router = useRouter();
+  const [isValid, setIsValid] = useState("no");
   const [modal, setModal] = useState(false);
-  const [isValidState, setIsValidState] = useState("no");
 
   const handleCheck = () => {
     setReveal(!reveal);
+    console.log(reveal);
+  };
+
+  useEffect(() => {
+    isFilledUpForm();
+    console.log(title, greeting, bgUrl);
+    console.log(isValid);
+  }, [title, greeting, bgUrl]);
+
+  const isFilledUpForm = () => {
+    if (title === "" || greeting === "" || bgUrl === "") {
+      setIsValid("no");
+    } else if (greeting.length <= 15) {
+      setIsValid("yet");
+    } else {
+      setIsValid("ok");
+    }
   };
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
-    isFilledUpForm();
   };
 
   const onChangeGreeting = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setGreeting(e.target.value);
-    isFilledUpForm();
-  };
-
-  const isFilledUpForm = () => {
-    if (title === "" || greeting === "" || bgUrl === "") {
-      setIsValidState("no");
-    } else {
-      if (greeting.length <= 15) {
-        setIsValidState("yet");
-      } else {
-        setIsValidState("ok");
-      }
-    }
   };
 
   const toggleModal = (flag: boolean) => {
@@ -51,7 +48,7 @@ const create = () => {
   };
 
   const onClickSubmit = () => {
-    if (isValidState === "no") {
+    if (isValid === "no") {
       if (title === "") {
         notifyError({ message: "제목은 필수입니다.", icon: "📍" });
       } else if (greeting === "") {
@@ -65,25 +62,17 @@ const create = () => {
           icon: "🎨",
         });
       }
-    } else if (isValidState === "yet") {
+    } else if (isValid === "yet") {
       notifyWarning({
         message: "에이~ 조금만 더 작성해 주세요~",
         icon: "🙏",
       });
-      setIsValidState("ok");
+      setIsValid("ok");
     } else {
-      console.log(isValidState);
+      console.log(isValid);
       toggleModal(true);
     }
   };
-
-  useEffect(() => {
-    isFilledUpForm();
-  }, [bgUrl]);
-
-  useEffect(() => {
-    if (!userlogin) router.replace("/");
-  }, [userlogin]);
 
   return (
     <div>
@@ -108,9 +97,7 @@ const create = () => {
               placeholder="친구들에게 보내는 카드"
               className="w-full mb-3 mg-default-input"
               value={title}
-              onChange={e => {
-                onChangeTitle(e);
-              }}
+              onChange={e => onChangeTitle(e)}
               maxLength={16}
               size={16}
             />
@@ -128,9 +115,7 @@ const create = () => {
               placeholder="친구들에게 보여질 메세지를 입력해 주세요."
               value={greeting}
               maxLength={626}
-              onChange={e => {
-                onChangeGreeting(e);
-              }}
+              onChange={e => onChangeGreeting(e)}
               rows={3}
               className="mg-default-input mg-default-textarea"
             />
@@ -157,11 +142,11 @@ const create = () => {
             </div>
           </div>
           <Link
-            href={isValidState === "Ok" ? "/create" : "/create#scrollTop"}
+            href={isValid === "ok" ? "/create" : "/create#scrollTop"}
             className={`mg-primary-button w-[230px] mt-6${
-              isValidState === "Ok" ? "" : " disabled"
+              isValid !== "no" ? "" : " disabled"
             }`}
-            scroll={isValidState === "Ok" ? false : true}
+            scroll={isValid === "ok" ? false : true}
             onClick={onClickSubmit}
           >
             완성!

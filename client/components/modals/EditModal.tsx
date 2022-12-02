@@ -17,7 +17,7 @@ const EditModal = ({
   editMode,
   luckId,
 }: any) => {
-  const memberId = useRecoilValue(memberIdState);
+  const memberId = useRecoilValue(memberIdState).memberId;
   const [luckMgId, setLuckMgId] = useRecoilState(luckMgIdState);
 
   const createLuckMg = async () => {

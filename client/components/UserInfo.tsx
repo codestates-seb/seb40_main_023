@@ -1,8 +1,16 @@
+import axios from "axios";
 import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
+import { memberIdState } from "../recoil/memberId";
+import { getCookie } from "./util/cookie";
 
 const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
+  //전역상태
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const userId = memberId.memberId;
+
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [bgImg, setBgImg] = useState("");
@@ -21,6 +29,23 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
     if (e.target.files?.length) {
       setBgImg(URL.createObjectURL(e.target.files[0]));
       setBgUrl(URL.createObjectURL(e.target.files[0]));
+    }
+  };
+
+  //정보수정 보내는 함수
+  const passwordChange = async () => {
+    try {
+      await axios({
+        method: "patch",
+        url: `/api/member/${userId}`,
+        data: { password: password },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+        },
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -108,92 +133,94 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
           </div>
         )}
       </div>
-      <form className="w-[350px]">
-        <div className="pt-5">
-          <label htmlFor="" className="mg-default-label">
-            아이디
-          </label>
-          <input
-            disabled
-            type="text"
-            placeholder={`${userName}`}
-            className="w-full mg-default-input"
-          />
-        </div>
-        <div className="pt-4">
-          <label htmlFor="password" className="text-left mg-default-label">
-            비밀번호
-          </label>
-          <div className="flex flex-col">
+      <form className="w-[350px]" onSubmit={passwordChange}>
+        <div>
+          <div className="pt-5">
+            <label htmlFor="" className="mg-default-label">
+              아이디
+            </label>
             <input
-              id="password"
+              disabled
               type="text"
-              placeholder="영문, 숫자, 특수기호를 포함하여 8자 이상"
-              onChange={onChangePassword}
-              className={`mg-default-input ${
-                isPassword
-                  ? "border-success-normal focus:outline-none"
-                  : password.length === 0
-                  ? "null"
-                  : "border-danger-normal focus:outline-none"
-              } 
-        }`}
+              placeholder={`${userName}`}
+              className="w-full mg-default-input"
             />
-            {password.length > 0 && (
-              <span
-                className={`text-left text-sm ${
-                  isPassword ? "mg-vaild-success" : "mg-vaild-error"
-                }`}
-              >
-                {passwordMessage}
-              </span>
-            )}
           </div>
-        </div>
-        <div className="mt-5">
-          <label
-            htmlFor="passwordconfirm"
-            className="text-left mg-default-label "
-          >
-            비밀번호 확인
-          </label>
-          <div className="flex flex-col">
-            <input
-              id="passwordconfirm"
-              type="text"
-              placeholder="비밀번호 확인"
-              onChange={onChangePasswordConfirm}
-              className={`mg-default-input ${
-                isPasswordConfirm
-                  ? "border-success-normal focus:outline-none"
-                  : passwordConfirm.length === 0
-                  ? "null"
-                  : "border-danger-normal focus:outline-none"
-              } 
+          <div className="pt-4">
+            <label htmlFor="password" className="text-left mg-default-label">
+              비밀번호
+            </label>
+            <div className="flex flex-col">
+              <input
+                id="password"
+                type="passowrd"
+                placeholder="영문, 숫자, 특수기호를 포함하여 8자 이상"
+                onChange={onChangePassword}
+                className={`mg-default-input ${
+                  isPassword
+                    ? "border-success-normal focus:outline-none"
+                    : password.length === 0
+                    ? "null"
+                    : "border-danger-normal focus:outline-none"
+                } 
+        }`}
+              />
+              {password.length > 0 && (
+                <span
+                  className={`text-left text-sm pl-2 pt-1 ${
+                    isPassword ? "mg-vaild-success" : "mg-vaild-error"
                   }`}
-            />
-            {passwordConfirm.length > 0 && (
-              <span
-                className={`text-left text-sm ${
-                  isPasswordConfirm ? "mg-vaild-success" : "mg-vaild-error"
-                }`}
-              >
-                {passwordConfirmMessage}
-              </span>
-            )}
+                >
+                  {passwordMessage}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="mt-5">
+            <label
+              htmlFor="passwordconfirm"
+              className="text-left mg-default-label "
+            >
+              비밀번호 확인
+            </label>
+            <div className="flex flex-col">
+              <input
+                id="passwordconfirm"
+                type="text"
+                placeholder="비밀번호 확인"
+                onChange={onChangePasswordConfirm}
+                className={`mg-default-input ${
+                  isPasswordConfirm
+                    ? "border-success-normal focus:outline-none"
+                    : passwordConfirm.length === 0
+                    ? "null"
+                    : "border-danger-normal focus:outline-none"
+                } 
+                  }`}
+              />
+              {passwordConfirm.length > 0 && (
+                <span
+                  className={`text-left text-sm pl-2 pt-1 ${
+                    isPasswordConfirm ? "mg-vaild-success" : "mg-vaild-error"
+                  }`}
+                >
+                  {passwordConfirmMessage}
+                </span>
+              )}
+            </div>
           </div>
         </div>
+        <button
+          className={`mt-12 w-full ${
+            !(isPassword && isPasswordConfirm)
+              ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"
+              : "mg-primary-button"
+          }`}
+          disabled={!(isPassword && isPasswordConfirm)}
+        >
+          수정 완료
+        </button>
       </form>
-      <button
-        className={`mt-12 ${
-          !(isPassword && isPasswordConfirm)
-            ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"
-            : "mg-primary-button"
-        }`}
-        disabled={!(isPassword && isPasswordConfirm)}
-      >
-        수정 완료
-      </button>
     </div>
   );
 };

@@ -23,19 +23,9 @@ const Signup = () => {
   const [isEmail, setIsEmail] = useState<boolean>(false);
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
-
   const router = useRouter();
-  //폼 만들기
-  // const onSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   let res = await signUp("api/member", {
-  //     name: id,
-  //     email: email,
-  //     password: password,
-  //   });
-  // };
 
-  //화면 전환이 안 됨으로 여기서 try catch문을 사용한다. signup을 tsx로 바꿔도 e인자를 찾거나 경로문제가 발생하기에 이렇게 둔다
+  //폼 만들기
   const signupSubmit = (e: any) => {
     e.preventDefault();
     window.setTimeout("window.location.reload()", 2000);
@@ -53,19 +43,19 @@ const Signup = () => {
         .then(res => {
           router.push("/login");
         });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   //아이디
   const onChangeId = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const idRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,25}$/;
+    const idRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{4,10}$/;
     const idCurrent = e.target.value;
     setId(idCurrent);
 
     if (!idRegex.test(idCurrent)) {
-      setIdMessage("영문, 숫자를 포함하여 4글자 이상으로 입력해주세요!");
+      setIdMessage(
+        "영문, 숫자를 포함하여 4글자 이상 10글자 이하로 입력해주세요!",
+      );
       setIsId(false);
     } else {
       setIdMessage("예쁜 아이디네요.");
@@ -167,7 +157,7 @@ const Signup = () => {
                       id="id"
                       type="text"
                       onChange={onChangeId}
-                      placeholder="영문, 숫자를 포함하여 4글자 이상"
+                      placeholder="영문, 숫자를 포함하여 4글자 이상 10글자 이하"
                       className={`mg-default-input w-full ${
                         isId
                           ? "border-success-normal focus:outline-none"
@@ -179,7 +169,7 @@ const Signup = () => {
                     />
                     {id.length > 0 && (
                       <span
-                        className={`text-left text-sm ${
+                        className={`text-left text-sm pl-2 pt-1 ${
                           isId ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >
@@ -199,9 +189,9 @@ const Signup = () => {
                       placeholder="이메일 형식에 맞게 입력해주세요"
                       onChange={onChangeEmail}
                       className={`mg-default-input w-full ${
-                        isPassword
+                        isEmail
                           ? "border-success-normal focus:outline-none"
-                          : password.length === 0
+                          : email.length === 0
                           ? "null"
                           : "border-danger-normal focus:outline-none"
                       } 
@@ -209,7 +199,7 @@ const Signup = () => {
                     />
                     {email.length > 0 && (
                       <span
-                        className={`text-left text-sm ${
+                        className={`text-left text-sm pl-2 pt-1 ${
                           isEmail ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >
@@ -228,7 +218,7 @@ const Signup = () => {
                   <div className="flex flex-col">
                     <input
                       id="password"
-                      type="text"
+                      type="password"
                       placeholder="영문, 숫자, 특수기호를 포함하여 8자 이상"
                       onChange={onChangePassword}
                       className={`mg-default-input w-full ${
@@ -242,7 +232,7 @@ const Signup = () => {
                     />
                     {password.length > 0 && (
                       <span
-                        className={`text-left text-sm ${
+                        className={`text-left text-sm pl-2 pt-1 ${
                           isPassword ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >
@@ -261,7 +251,7 @@ const Signup = () => {
                   <div className="flex flex-col">
                     <input
                       id="passwordconfirm"
-                      type="text"
+                      type="password"
                       placeholder="비밀번호 확인"
                       onChange={onChangePasswordConfirm}
                       className={`mg-default-input w-full ${
@@ -275,7 +265,7 @@ const Signup = () => {
                     />
                     {passwordConfirm.length > 0 && (
                       <span
-                        className={`text-left text-sm ${
+                        className={`text-left text-sm pl-2 pt-1 ${
                           isPasswordConfirm
                             ? "mg-vaild-success"
                             : "mg-vaild-error"

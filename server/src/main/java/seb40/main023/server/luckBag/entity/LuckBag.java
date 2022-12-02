@@ -2,6 +2,7 @@ package seb40.main023.server.luckBag.entity;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import seb40.main023.server.audit.Auditable;
 import seb40.main023.server.luckMango.entity.LuckMango;
 
@@ -26,14 +27,13 @@ public class LuckBag extends Auditable {
     @Length(max=15)
     private String writer;
 
-    private boolean viewed=false;
+    private boolean viewed;
 
-    @Size(max = 99999999)
-    private long nyMoney=0;
+    private long nyMoney;
 
-    private int bagStyle=1;
+    private int bagStyle;
 
-    private int bagColor=1;
+    private int bagColor;
 
     @ManyToOne
     @JoinColumn(name = "LUCKMANGO_ID")

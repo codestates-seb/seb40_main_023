@@ -2,7 +2,6 @@
  * @type {import('next').NextConfig}
  */
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-const withInterceptStdout = require("next-intercept-stdout");
 
 const nextConfig = {
   reactStrictMode: false,

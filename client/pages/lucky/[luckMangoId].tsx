@@ -63,7 +63,7 @@ const index = () => {
   //로그인 여부
 
   const [isLogin, setIsLogin] = useState(false);
-  const memberId = useRecoilValue(memberIdState);
+  const memberId = useRecoilValue(memberIdState).memberId;
   const [cookies] = useCookies(["accessJwtToken"]);
   const [userInfo, setUserInfo] = useState();
 
@@ -380,7 +380,7 @@ const index = () => {
         <NotFound content="찾으시는 복망고가 없는 것 같아요" />
       )}
 
-      {qrCode && <QrModal shareQr={shareQr} id={luckMgId} />}
+      {qrCode && <QrModal shareQr={shareQr} />}
       <Toast />
       {completeModal && (
         <CheckModal

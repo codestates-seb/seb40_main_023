@@ -4,10 +4,13 @@ import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast } from "../../components/util/Toast";
 import { useFetch } from "../../fetch/useFetch";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
 import { luckMgIdState } from "../../recoil/luckMgId";
 import NotFound from "../404";
+// import { checkServerIdentity } from "tls";
+import { useCookies } from "react-cookie";
+import { userState } from "../../recoil/user";
 
 const Edit = () => {
   const [title, setTitle] = useState("");
@@ -19,8 +22,12 @@ const Edit = () => {
   const [luckMId, setLuckMId] = useState();
   const [existPage, setExistPage] = useState(true);
   const [errorContent, setErrorContent] = useState("");
-  const memberId = useRecoilValue(memberIdState);
   const [luckMgId, setLuckMgId] = useRecoilState<number>(luckMgIdState);
+  const [cookies] = useCookies(["accessJwtToken"]);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const [user, setUser] = useRecoilState(userState);
+  const userlogin = user.login;
+  const router = useRouter();
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -53,7 +60,15 @@ const Edit = () => {
     }
   };
 
-  const router = useRouter();
+  const checkLogin = () => {
+    const token = cookies.accessJwtToken;
+    if (!token) {
+      setUser({ login: false });
+      setMemberId({ memberId: 0 });
+      localStorage.removeItem("recoil-persist");
+      router.push("/");
+    }
+  };
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -68,6 +83,14 @@ const Edit = () => {
       setErrorContent("접근할 수 없는 복망고예요");
     }
   }, [luckMId]);
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
+  useEffect(() => {
+    if (!userlogin) router.replace("/");
+  }, [userlogin]);
 
   return (
     <div className="w-full h-full mg-layout">

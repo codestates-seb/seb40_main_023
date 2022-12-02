@@ -10,16 +10,19 @@ import { getCookie } from "../../components/util/cookie";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
+import Link from "next/link";
+import Image from "next/image";
 
 const Mypage = () => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const userId = memberId.memberId;
   const [click, setClick] = useState(false);
   const [LuckMango, setLuckMango]: any = useState([]);
   const [userName, setUserName] = useState<string>("");
   const [userImg, setUserImg] = useState("");
   const [modal, setModal] = useState<boolean>(false);
+  const [length, setLength] = useState<Number>(0);
 
-  console.log(memberId);
   const userModify = () => {
     setClick(!click);
   };
@@ -31,7 +34,7 @@ const Mypage = () => {
   const getUserName = async () => {
     axios({
       method: "get",
-      url: `/api/member/${memberId}`,
+      url: `/api/member/${userId}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
@@ -45,12 +48,13 @@ const Mypage = () => {
   const getLuckMango = async () => {
     axios({
       method: "get",
-      url: `/api/luckMango/member?memberId=${memberId}&page=1&size=100&sort=desc`,
+      url: `/api/luckMango/member?memberId=${userId}&page=1&size=100&sort=desc`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
       },
     }).then((res): any => {
+      setLength(res.data.data.length);
       setLuckMango(res.data.data);
     });
   };
@@ -71,18 +75,7 @@ const Mypage = () => {
         </div>
       )}
       <div className="flex flex-col items-center w-full h-full min-h-screen pt-10">
-        {modal && (
-          <DefaultModal
-            title={"지금까지 받은 덕담도 모두 삭제됩니다."}
-            contents={
-              "링크를 전달받은 친구들이 더 이상 \n 새해복망고 페이지를 볼 수 없습니다."
-            }
-            confirm={"그래도 탈퇴하시겠어요?"}
-            Nobutton={"아니오"}
-            Yesbutton={"탈퇴할게요"}
-            setModal={setModal}
-          />
-        )}
+        {modal && <DefaultModal setModal={setModal} />}
         {!modal && (
           <div className="max-w-[400px] w-full relative flex mt-16">
             <div>
@@ -124,8 +117,9 @@ const Mypage = () => {
                   {LuckMango.map((el: any, index: any) => (
                     <GalleryItem
                       key={index}
-                      title={el?.title}
-                      bgImage={el?.bgImage}
+                      luckMangoId={el.luckMangoId}
+                      title={el.title}
+                      bgImage={el.bgImage}
                     />
                   ))}
                 </div>
@@ -133,6 +127,19 @@ const Mypage = () => {
             </div>
           )}
         </div>
+        {length === 0 ? (
+          <div className="flex flex-col items-center max-w-[230px]">
+            <Image
+              width={113}
+              height={95}
+              src="/images/char/char-button1.svg"
+              alt="버튼 유도 복망고 캐릭터"
+            />
+            <Link href="/create" className="mg-primary-button">
+              복망고 만들러가기!
+            </Link>
+          </div>
+        ) : null}
         <Toast />
       </div>
       {!modal && <Footer />}

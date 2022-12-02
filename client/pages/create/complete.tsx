@@ -5,18 +5,24 @@ import Footer from "../../components/Footer";
 import ShareBtn from "../../components/ShareBtn";
 import { Toast, notifySuccess } from "../../components/util/Toast";
 import Loading from "../../components/util/Loading";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
 import { luckMgIdState } from "../../recoil/luckMgId";
 import { TEMPLETE_ID } from "../../constants/templeteId";
 import { notifyInfo } from "../../components/util/Toast";
 import QrModal from "../../components/modals/QrModal";
 
+import { userState } from "../../recoil/user";
+import { useRouter } from "next/router";
+
 const Complete = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const memberId = useRecoilValue(memberIdState);
+  const memberId = useRecoilValue(memberIdState).memberId;
   const [qrCode, setQrCode] = useState(false);
   const luckMgId = useRecoilValue(luckMgIdState);
+  const [user, setUser] = useRecoilState(userState);
+  const userlogin = user.login;
+  const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
@@ -59,6 +65,10 @@ const Complete = () => {
     document.body.removeChild(t);
     notifyInfo({ message: "url이 복사됐습니다.", icon: "😎" });
   };
+
+  useEffect(() => {
+    if (!userlogin) router.replace("/");
+  }, [userlogin]);
 
   return (
     <div>
@@ -106,7 +116,12 @@ const Complete = () => {
         <Toast />
       </main>
       <Footer />
-      {qrCode && <QrModal shareQr={shareQr} id={luckMgId} />}
+      {qrCode && (
+        <QrModal
+          shareQr={shareQr}
+          link={`http://localhost:3000/lucky/${luckMgId}`}
+        />
+      )}
     </div>
   );
 };

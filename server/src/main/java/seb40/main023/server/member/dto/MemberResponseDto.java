@@ -16,7 +16,6 @@ public class MemberResponseDto {
     private String email;
 //    private String password;
     private String imgUrl;
-    private long tot_Money;
     private MemberStatus memberStatus;
 
     private LocalDateTime createdAt;

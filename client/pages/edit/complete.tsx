@@ -14,7 +14,7 @@ import QrModal from "../../components/modals/QrModal";
 
 const Complete = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const memberId = useRecoilValue(memberIdState);
+  const memberId = useRecoilValue(memberIdState).memberId;
   const [qrCode, setQrCode] = useState(false);
   const luckMgId = useRecoilValue(luckMgIdState);
 
@@ -106,7 +106,12 @@ const Complete = () => {
         <Toast />
       </main>
       <Footer />
-      {qrCode && <QrModal shareQr={shareQr} id={luckMgId} />}
+      {qrCode && (
+        <QrModal
+          shareQr={shareQr}
+          link={`http://localhost:3000/lucky/${luckMgId}`}
+        />
+      )}
     </div>
   );
 };

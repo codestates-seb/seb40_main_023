@@ -24,6 +24,7 @@ const Mypage = () => {
   const [LuckMango, setLuckMango]: any = useState([]);
   const [userName, setUserName] = useState<string>("");
   const [userImg, setUserImg] = useState<any>("");
+  const [bgUrl, setBgUrl] = useState("");
   const [modal, setModal] = useState<boolean>(false);
   const [length, setLength] = useState<Number>(0);
   const [bagList, setBagList] = useState([]);
@@ -90,7 +91,7 @@ const Mypage = () => {
     checkLogin();
     getAllLuckyBags(userId);
   }, []);
-
+  console.log(userImg);
   return (
     <div>
       {!modal && (
@@ -101,16 +102,20 @@ const Mypage = () => {
           </aside>
         </div>
       )}
+
       <main className="pt-[58px]">
         <div className="flex flex-col w-full h-full min-h-screen px-4 mobile:px-2 mx-auto max-w-[440px]">
           {modal && <DefaultModal setModal={setModal} />}
           {!modal && (
             <div className="max-w-[400px] w-full relative flex mt-16">
               <div>
-                {userImg === "NONE" || undefined ? (
+                {userImg.length <= 10 ? (
                   <div className="bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
                 ) : (
-                  <div className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"></div>
+                  <div
+                    style={{ backgroundImage: `url("${userImg}")` }}
+                    className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"
+                  ></div>
                 )}
               </div>
               <div className="flex flex-col justify-center pl-5">
@@ -138,6 +143,9 @@ const Mypage = () => {
                 handle={userModify}
                 userName={userName}
                 modal={modal}
+                setBgUrl={setBgUrl}
+                bgUrl={bgUrl}
+                userImg={userImg}
               />
             ) : (
               <div className="flex flex-col w-full mb-5">

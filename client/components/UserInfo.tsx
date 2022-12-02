@@ -1,18 +1,19 @@
 import axios from "axios";
-import e from "express";
 import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { memberIdState } from "../recoil/memberId";
 import { getCookie } from "./util/cookie";
+import { uploadMgImg } from "../fetch/create";
 
 const UserModify = ({
   handle,
   userName,
   modal,
   userImg,
-  setUserImg,
+  setBgUrl,
+  bgUrl,
 }: any): React.ReactElement => {
   //전역상태
   const [memberId, setMemberId] = useRecoilState(memberIdState);
@@ -20,8 +21,6 @@ const UserModify = ({
 
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [bgImg, setBgImg] = useState<any>("");
-  const [data, setData] = useState<string>("");
 
   //폼 영역
   const [password, setPassword] = useState<string>("");
@@ -34,50 +33,31 @@ const UserModify = ({
 
   const uploadProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      setBgImg(e.target.files[0]);
       const formData = new FormData();
-      formData.append("images", bgImg);
+      formData.append("images", e.target.files[0]);
       formData.append("memberId", `${userId}`);
-
-      for (let value of formData.values()) {
-        console.log(value);
-      }
-      axios({
-        method: "post",
-        url: `/api/s3/login`,
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
-        },
-      }).then(el => {
-        setData(el.data);
-        console.log(data);
-      });
+      uploadBgImg(formData);
     }
   };
 
-  const userImagePatch = async () => {
-    await axios({
-      method: "patch",
-      url: `/api/member/${userId}`,
-      data: {
-        imgUrl: data,
-      },
+  const uploadBgImg = async (formData: any) => {
+    const res = await uploadMgImg(`/api/s3/login/`, formData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
       },
     });
+    setBgUrl(res);
   };
 
   //정보수정 보내는 함수
-  const passwordChange = async () => {
+  const UserInfoChange = async (e: any) => {
+    e.preventDefault();
     try {
       await axios({
         method: "patch",
         url: `/api/member/${userId}`,
-        data: { imgUrl: data, password: password },
+        data: { imgUrl: bgUrl, password: password },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getCookie("accessJwtToken")}`,
@@ -125,12 +105,13 @@ const UserModify = ({
   );
 
   const uploadImageButtonClick = () => {
-    inputRef.current?.click();
+    if (!inputRef.current) {
+      return;
+    }
+    inputRef.current.click();
   };
 
-  useEffect(() => {
-    userImagePatch();
-  }, [data]);
+  console.log("qweqwe", userImg);
 
   return (
     <div className="mg-layout min-w-[400px]">
@@ -143,40 +124,41 @@ const UserModify = ({
         />
         <span className="flex items-center justify-center">회원정보 수정</span>
       </div>
-      <div className="flex justify-center pt-10">
-        {!modal && (
-          <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                onChange={uploadProfile}
-                className="hidden"
-              />
-              <div
-                style={
-                  userImg === "NONE" || ""
-                    ? {}
-                    : { backgroundImage: `url("${userImg}")` }
-                }
-                className={
-                  userImg === "NONE" || ""
-                    ? "bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
-                    : `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
-                }
-              ></div>
-              <div className="flex justify-center mg-mypage-overlay">
-                <button
-                  className="bg-[url(/images/ico/ico-mypage-edit.svg)] mg-mypage-button"
-                  onClick={uploadImageButtonClick}
-                ></button>
+
+      <form className="w-[350px]" onSubmit={UserInfoChange}>
+        <div className="flex justify-center pt-10">
+          {!modal && (
+            <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
+              <div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={inputRef}
+                  onChange={uploadProfile}
+                  className="hidden"
+                />
+                <div
+                  style={
+                    bgUrl
+                      ? { backgroundImage: `url("${bgUrl}")` }
+                      : { backgroundImage: `url("${userImg}")` }
+                  }
+                  className={
+                    bgUrl
+                      ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
+                      : "w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                  }
+                ></div>
+                <div className="flex justify-center mg-mypage-overlay">
+                  <button
+                    className="bg-[url(/images/ico/ico-mypage-edit.svg)] mg-mypage-button"
+                    onClick={uploadImageButtonClick}
+                  ></button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-      <form className="w-[350px]" onSubmit={passwordChange}>
+          )}
+        </div>
         <div>
           <div className="pt-5">
             <label htmlFor="" className="mg-default-label">
@@ -255,11 +237,11 @@ const UserModify = ({
         </div>
         <button
           className={`mt-12 w-full ${
-            !(isPassword && isPasswordConfirm)
+            !(isPassword && isPasswordConfirm && bgUrl)
               ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"
               : "mg-primary-button"
           }`}
-          disabled={!(isPassword && isPasswordConfirm)}
+          disabled={!(isPassword && isPasswordConfirm && bgUrl)}
         >
           수정 완료
         </button>

@@ -118,7 +118,7 @@ const Mypage = () => {
                   나의 복망고 리스트
                 </div>
                 {!modal && (
-                  <div className="relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-2 gap-6 tablet:grid-cols-3">
+                  <div className="relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-2 gap-6">
                     {LuckMango.map((el: any, index: any) => (
                       <GalleryItem
                         key={index}

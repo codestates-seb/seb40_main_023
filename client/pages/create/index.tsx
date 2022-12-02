@@ -13,7 +13,6 @@ const create = () => {
   const [reveal, setReveal] = useState(false);
   const [isValid, setIsValid] = useState("no");
   const [modal, setModal] = useState(false);
-  const [formUrl, setFormUrl] = useState<any>();
 
   const handleCheck = () => {
     setReveal(!reveal);

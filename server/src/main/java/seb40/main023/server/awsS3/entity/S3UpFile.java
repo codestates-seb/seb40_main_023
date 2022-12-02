@@ -22,14 +22,6 @@ public class S3UpFile {
     private String upFileUrl;
 
     @ManyToOne
-    @JoinColumn(name = "LUCKMANGO_ID")
-    private LuckMango luckMango;
-
-    public void setLuckMango(LuckMango luckMango) {
-        this.luckMango = luckMango;
-    }
-
-    @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 

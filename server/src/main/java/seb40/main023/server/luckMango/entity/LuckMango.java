@@ -64,16 +64,6 @@ public class LuckMango extends Auditable {
         }
     }
 
-    @OneToMany(mappedBy = "luckMango", cascade = CascadeType.ALL)
-    private List<S3UpFile> s3UpFiles = new ArrayList<>();
-
-    public void addS3UpFile(S3UpFile s3UpFile) {
-        s3UpFiles.add(s3UpFile);
-        if (s3UpFile.getLuckMango() != this) {
-            s3UpFile.setLuckMango(this);
-        }
-    }
-
     public LuckMango(String title, String mangoBody) {
         this.title = title;
         this.mangoBody = mangoBody;

@@ -30,9 +30,8 @@ public class S3UpFileController {
     }
 
     @PostMapping("/luckMango")
-    public String upload2File(@Positive @RequestParam("luckMangoId") long luckMangoId, @RequestParam("images") MultipartFile multipartFile) throws IOException {
+    public String upload2File( @RequestParam("images") MultipartFile multipartFile) throws IOException {
         S3UpFile s3Upfile = new S3UpFile();
-        s3Upfile.setLuckMango(luckMangoService.findLuckMango(luckMangoId));
         return s3UpFileService.upload2(multipartFile,s3Upfile);
     }
 }

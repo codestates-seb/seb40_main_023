@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-const NotFound = () => {
+const NotFound = ({ content }: { content: string }) => {
   const [temp, setTemp] = useState(true);
 
   return (
@@ -20,7 +20,9 @@ const NotFound = () => {
       )}
 
       <div className="mt-5 mg-flex-center justify-center w-[400px] h-[200px] bg-[url(/images/char/char-404.svg)] bg-no-repeat bg-center"></div>
-      <div className="mt-5 text-mono-400">찾으시는 페이지가 없는 것 같아요</div>
+      <div className="mt-5 text-mono-400">
+        {content ? content : "찾으시는 페이지가 없는 것 같아요"}
+      </div>
       <button className="mt-9 mg-primary-button">
         <Link href="/">메인으로</Link>
       </button>

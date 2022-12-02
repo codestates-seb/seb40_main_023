@@ -14,6 +14,20 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/create/complete",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/edit/complete",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

@@ -9,8 +9,6 @@ const LetterModal = ({
   bagList,
   luckyBagId,
 }: any) => {
-  console.log(bag.luckBagBody);
-
   useEffect(() => {
     if (bagList) {
       setBag(bagList.filter((el: any) => el.luckBagId === luckyBagId)[0]);

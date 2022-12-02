@@ -73,7 +73,8 @@ public class LuckBagService {
         Optional.ofNullable(luckBag.getLuckBagBody()).ifPresent(body -> findLuckBag.setLuckBagBody(body));
         Optional.ofNullable(luckBag.getWriter()).ifPresent(writer -> findLuckBag.setWriter(writer));
         Optional.ofNullable(luckBag.getBagStyle()).ifPresent(bagStyle -> findLuckBag.setBagStyle(bagStyle));
-        Optional.ofNullable(luckBag.getBagColor()).ifPresent(bagColor -> findLuckBag.setBagStyle(bagColor));
+        Optional.ofNullable(luckBag.getBagColor()).ifPresent(bagColor -> findLuckBag.setBagColor(bagColor));
+        Optional.ofNullable(luckBag.isViewed()).ifPresent(bagColor -> findLuckBag.setViewed(viewed));
 
         findLuckBag.setModifiedAt(LocalDateTime.now());
 

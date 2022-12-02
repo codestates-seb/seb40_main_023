@@ -1,22 +1,19 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import Greeting from "./Greeting";
 import { uploadMgImg } from "../fetch/create";
 import { getCookie } from "./util/cookie";
+import Loading from "./util/Loading";
 
 const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement | null>) => {
-    // if (!e.target.files && bgImg) {
-    //   window.URL.revokeObjectURL(bgImg);
-    // }
-
     if (e.target.files?.length) {
       let formData = new FormData();
       formData.append("images", e.target.files[0]);
       uploadBgImg(formData);
-      //여기서 업로드 하고 응답으로 주소 받음
     }
   };
 
@@ -84,6 +81,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
             />
           </div>
         </div>
+        {loading && <Loading />}
       </div>
     </>
   );

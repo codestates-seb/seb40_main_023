@@ -31,7 +31,7 @@ const Complete = () => {
   const shareKakao = () => {
     const { Kakao } = window;
     Kakao.Link.sendScrap({
-      requestUrl: `http://localhost:3000/lucky/${luckMgId}`,
+      requestUrl: `https://seb40-main-023-7vi4.vercel.app/lucky/${luckMgId}`,
       templateId: TEMPLETE_ID,
       templateArgs: {
         id: `${luckMgId}`,
@@ -40,7 +40,7 @@ const Complete = () => {
   };
 
   const shareUrl = () => {
-    let currentUrl = `http://localhost:3000/lucky/${luckMgId}`;
+    let currentUrl = `https://seb40-main-023-7vi4.vercel.app/lucky/${luckMgId}`;
     let t = document.createElement("textarea");
     document.body.appendChild(t);
     t.value = currentUrl;
@@ -109,7 +109,7 @@ const Complete = () => {
       {qrCode && (
         <QrModal
           shareQr={shareQr}
-          link={`http://localhost:3000/lucky/${luckMgId}`}
+          link={`https://seb40-main-023-7vi4.vercel.app/lucky/${luckMgId}`}
         />
       )}
     </div>

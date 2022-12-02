@@ -23,7 +23,7 @@ const GalleryItem = ({ bgImage, luckMangoId, bagList, userName }: any) => {
   //URL 관리
   const shareUrl = (e: any) => {
     e.stopPropagation();
-    let currentUrl = `http://localhost:3000/lucky/${luckMangoId}`;
+    let currentUrl = `https://seb40-main-023-7vi4.vercel.app/lucky/${luckMangoId}`;
     let t = document.createElement("textarea");
     document.body.appendChild(t);
     t.value = currentUrl;
@@ -83,20 +83,13 @@ const GalleryItem = ({ bgImage, luckMangoId, bagList, userName }: any) => {
       {qrCode && (
         <QrModal
           shareQr={shareQr}
-          link={`http://localhost:3000/lucky/${luckMangoId}`}
+          link={`https://seb40-main-023-7vi4.vercel.app/lucky/${luckMangoId}`}
         />
       )}
-
       {deleteModal && (
         <DeleteMgModal
           setDeleteModal={setDeleteModal}
           luckMangoId={luckMangoId}
-        />
-      )}
-      {qrCode && (
-        <QrModal
-          shareQR={shareQr}
-          link={`http://localhost:3000/lucky/${luckMangoId}`}
         />
       )}
     </div>

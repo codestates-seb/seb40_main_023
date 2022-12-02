@@ -1,94 +1,90 @@
-import React, { useState, useEffect, ComponentElement } from "react";
-import { useInView, InView } from "react-intersection-observer";
-import { GalleryDataProps } from "../../../types/main";
-import GalleryItem from "./GalleryItem";
-import { useFetch } from "../../../fetch/useFetch";
-import FetchError from "../../util/FetchError";
-import Loading from "../../util/Loading";
+import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import Link from "next/link";
+import GalleryItem from "./GalleryItem";
+import Loading from "../../util/Loading";
+import FetchError from "../../util/FetchError";
+import { useFetchInfinite } from "../../../fetch/useGallery";
+import { GalleryDataProps } from "../../../types/main";
 
-const ServiceGallery = () => {
-  const [galleryData, setGalleryData] = useState([]);
-  const [gFetchState, setGFetchState] = useState("loading");
-  const [orderState, setOrderState] = useState("newest");
-  const [pageSize, setPageSize] = useState(1);
-  const [isInfinityEnd, setIsInfinityEnd] = useState(false);
-  const { ref, inView, entry } = useInView({
-    threshold: 0,
+export default function ServiceGallery() {
+  const { ref, inView } = useInView({
+    threshold: 0.5,
   });
 
-  const getGallery = async (sorting: string, page: number | undefined = 1) => {
-    const res = await useFetch(
-      `/api/luckMango/public?reveal=true&page=${page}&size=12${sorting}`,
-    );
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
 
-    if (res && res.status <= 201) {
-      setGalleryData(res.data);
-      setGFetchState("ok");
-    } else {
-      setGFetchState("error");
-    }
-  };
+  const { cards, loading, error, hasMore, isEmpty } = useFetchInfinite(
+    query,
+    page,
+  );
 
   useEffect(() => {
-    console.log(inView);
-    console.log(entry);
+    if (inView && hasMore) {
+      setPage(prevPage => prevPage + 1);
+    }
+  }, [inView]);
 
-    const ordering = orderState === "newest" ? "" : "&sort=likeCount";
-
-    getGallery(ordering, pageSize);
-  }, [orderState, inView]);
+  const toggleOrderHandle = (e: any) => {
+    setQuery(e.target.dataset.type);
+    setPage(1);
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center my-4">
+    <div className="flex flex-col items-center justify-center w-full my-4">
       <ul className="mg-gallery-filter">
-        <li className={`rounded-l-full ${orderState === "newest" && "active"}`}>
+        <li className={`rounded-l-full ${query === "" && "active"}`}>
           <button
             className="min-w-[100px]"
-            onClick={() => setOrderState("newest")}
+            onClick={toggleOrderHandle}
+            data-type=""
           >
             최신순
           </button>
         </li>
-        <li
-          className={`rounded-r-full ${orderState === "likeCount" && "active"}`}
-        >
+        <li className={`rounded-r-full ${query === "likeCount" && "active"}`}>
           <button
             className="min-w-[100px]"
-            onClick={() => setOrderState("likeCount")}
+            onClick={toggleOrderHandle}
+            data-type="likeCount"
           >
             추천순
           </button>
         </li>
       </ul>
-      <div className="relative grid w-full mb-[20px] grid-flow-row grid-cols-2 gap-6 tablet:grid-cols-3 min-h-[140px]">
-        {gFetchState === "ok" ? (
-          galleryData &&
-          galleryData.map((gallery: GalleryDataProps, idx: number) => {
-            return <GalleryItem key={idx} {...gallery} />;
-          })
-        ) : gFetchState === "loading" ? (
-          <Loading />
-        ) : (
-          <FetchError />
-        )}
-        <div className="" ref={ref}></div>
+      <div
+        className={
+          "relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-2 gap-6 tablet:grid-cols-3"
+        }
+      >
+        {cards.map((card: GalleryDataProps) => (
+          <GalleryItem key={card.luckMangoId} {...card} />
+        ))}
       </div>
-      {isInfinityEnd && (
-        <div className="flex flex-col items-center py-4 text-center">
-          <p className="mb-1 text-mono-textDisabled">
-            모든 복망고를 불러왔습니다.
-          </p>
-          <Link
-            href="/create"
-            className="underline text-primary-normal hover:text-primary-hover"
-          >
-            새로운 복망고를 만들어 볼까요?
-          </Link>
-        </div>
-      )}
+      <div className="relative min-h-[100px] text-center my-4">
+        {loading && <Loading />}
+        {error && <FetchError />}
+        {hasMore ? (
+          <div className="opacity-0" ref={ref}>
+            intersection observer marker
+          </div>
+        ) : (
+          <div className="flex flex-col items-center py-4 text-center grid-col-1">
+            <p className="mb-1 text-mono-textDisabled">
+              {isEmpty
+                ? "공개된 복망고가 없습니다. 🥹"
+                : "모든 복망고를 불러왔습니다. 😎"}
+            </p>
+            <Link
+              href="/create"
+              className="underline text-primary-normal hover:text-primary-hover"
+            >
+              새로운 복망고를 만들어 볼까요?
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
-};
-
-export default ServiceGallery;
+}

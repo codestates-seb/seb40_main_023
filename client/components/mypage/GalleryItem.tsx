@@ -33,7 +33,9 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
       <div className="mg-card-contents">
         <div
           className={
-            bgImage === undefined || "NONE" ? `mg-card-image` : `${bgImage}`
+            bgImage === undefined || "NONE"
+              ? `mg-card-image group-hover:blur-sm`
+              : `${bgImage}`
           }
         ></div>
         <div className="mg-card-desc">

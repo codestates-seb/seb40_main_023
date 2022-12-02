@@ -4,8 +4,9 @@ import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast } from "../../components/util/Toast";
 import { useFetch } from "../../fetch/useFetch";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
+import { luckMgIdState } from "../../recoil/luckMgId";
 import NotFound from "../404";
 
 const Edit = () => {
@@ -17,7 +18,9 @@ const Edit = () => {
   const [luckId, setLuckId] = useState(0);
   const [luckMId, setLuckMId] = useState();
   const [existPage, setExistPage] = useState(true);
+  const [errorContent, setErrorContent] = useState("");
   const memberId = useRecoilValue(memberIdState);
+  const [luckMgId, setLuckMgId] = useRecoilState<number>(luckMgIdState);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -33,19 +36,20 @@ const Edit = () => {
 
   const handleCheck = () => {
     setReveal(!reveal);
-    console.log(reveal);
   };
 
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
     if (res.status === 404) {
       setExistPage(false);
+      setErrorContent("찾으시는 복망고가 없는 것 같아요");
     } else if (res.data) {
       setExistPage(true);
       setTitle(res.data.title);
       setGreeting(res.data.mangoBody);
       setReveal(res.data.reveal);
       setLuckMId(res.data.member?.memberId);
+      setLuckMgId(res.data.luckMangoId);
     }
   };
 
@@ -61,6 +65,7 @@ const Edit = () => {
   useEffect(() => {
     if (memberId !== luckMId && luckMId) {
       setExistPage(false);
+      setErrorContent("접근할 수 없는 복망고예요");
     }
   }, [luckMId]);
 
@@ -122,7 +127,7 @@ const Edit = () => {
           </button>
         </>
       ) : (
-        <NotFound />
+        <NotFound content={errorContent} />
       )}
       {modal && (
         <EditModal
@@ -133,6 +138,7 @@ const Edit = () => {
           bgUrl={bgUrl}
           editMode={true}
           luckId={luckId}
+          reveal={reveal}
         />
       )}
       <Toast />

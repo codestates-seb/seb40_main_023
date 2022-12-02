@@ -4,8 +4,9 @@ import Link from "next/link";
 import { createMg } from "../../fetch/create";
 import { editMg } from "../../fetch/edit";
 import { getCookie } from "../util/cookie";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
+import { luckMgIdState } from "../../recoil/luckMgId";
 
 const EditModal = ({
   setModal,
@@ -17,6 +18,8 @@ const EditModal = ({
   luckId,
 }: any) => {
   const memberId = useRecoilValue(memberIdState);
+  const [luckMgId, setLuckMgId] = useRecoilState(luckMgIdState);
+
   const createLuckMg = async () => {
     if (editMode) {
       const res = await editMg(
@@ -54,6 +57,7 @@ const EditModal = ({
           },
         },
       );
+      setLuckMgId(res?.data?.luckMangoId);
     }
   };
 

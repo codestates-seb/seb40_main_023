@@ -19,7 +19,7 @@ import axios from "axios";
 import { getCookie } from "../../components/util/cookie";
 import { memberIdState } from "../../recoil/memberId";
 import { useRecoilValue } from "recoil";
-import { UserInfoType } from "../../types/lucky";
+import { luckMgType, UserInfoType } from "../../types/lucky";
 import CheckModal from "../../components/modals/CheckModal";
 import NotFound from "../404";
 
@@ -52,7 +52,7 @@ const index = () => {
   const [bagList, setBagList] = useState([]);
   const [luckyBagId, setLuckyBagId] = useState(0);
   const [luckMgId, setLuckMgId] = useState(0);
-  const [luckMg, setLuckMg] = useState();
+  const [luckMg, setLuckMg] = useState<luckMgType>();
   const [money, setMoney] = useState<number>(0);
   const [existPage, setExistPage] = useState(true);
 
@@ -66,6 +66,7 @@ const index = () => {
   const memberId = useRecoilValue(memberIdState);
   const [cookies] = useCookies(["accessJwtToken"]);
   const [userInfo, setUserInfo] = useState();
+
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
     if (token) {
@@ -113,18 +114,17 @@ const index = () => {
     if (!router.isReady) return;
     const { luckMangoId } = router.query;
     getAllLuckyBags(Number(luckMangoId), curPage);
-  }, [router.isReady, curPage]);
+  }, [router.isReady, curPage, completeModal]);
 
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
     if (res.status === 404) {
       setExistPage(false);
-      console.log("404", existPage);
     } else {
       setExistPage(true);
       setBody(res.data.mangoBody);
-      setLuckMg(res.data);
       setMoney(res.data.tot_Money);
+      setLuckMg(res.data);
     }
   };
 
@@ -137,10 +137,13 @@ const index = () => {
   };
 
   const shareKakao = () => {
-    const { Kakao, location } = window;
+    const { Kakao } = window;
     Kakao.Link.sendScrap({
-      requestUrl: location.href,
+      requestUrl: `http://localhost:3000/lucky/${luckMgId}`,
       templateId: TEMPLETE_ID,
+      templateArgs: {
+        id: `${luckMgId}`,
+      },
     });
   };
 
@@ -302,6 +305,7 @@ const index = () => {
                       completeModal={completeModal}
                       setCompleteModal={setCompleteModal}
                       luckMgId={luckMgId}
+                      luckMg={luckMg}
                     />
                   )}
                   <div className="transition-all duration-300 mg-flex">
@@ -373,10 +377,10 @@ const index = () => {
           )}
         </div>
       ) : (
-        <NotFound />
+        <NotFound content="찾으시는 복망고가 없는 것 같아요" />
       )}
 
-      {qrCode && <QrModal qrCode={qrCode} setQrCode={setQrCode} />}
+      {qrCode && <QrModal shareQr={shareQr} id={luckMgId} />}
       <Toast />
       {completeModal && (
         <CheckModal

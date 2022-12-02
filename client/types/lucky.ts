@@ -17,3 +17,22 @@ export interface UserInfoType {
   name: string;
   tot_Money: number;
 }
+
+export interface luckMgType {
+  luckMangoId: number;
+  title: string;
+  mangoBody: string;
+  bgVideo: string;
+  bgImage: string;
+  tot_Money: number;
+  likeCount: number;
+  reveal: boolean;
+  member: {
+    memberId: number;
+    name: string;
+    email: string;
+    imgUrl: string;
+  };
+  createdAt: string;
+  modifiedAt: string;
+}

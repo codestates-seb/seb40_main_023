@@ -35,8 +35,8 @@ jwt:
 cloud:
   aws:
     credentials:
-      access-key: {키넣어야함}
-      secret-key: {키넣어야함}
+      access-key: {키값 노출 방지, 서버 올린후 넣어주시길 }
+      secret-key: {키값 노출 방지, 서버 올린후 넣어주시길 }
     s3:
       bucket: saypart/ #버킷 이름
     region:

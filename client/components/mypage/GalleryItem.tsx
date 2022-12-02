@@ -9,7 +9,7 @@ const GalleryItem = ({
   bgImage,
   userId,
   luckMangoId,
-  title,
+  bagList,
   userName,
 }: any) => {
   //모달 관리
@@ -49,15 +49,9 @@ const GalleryItem = ({
           <div className="truncate">
             <span className="font-medium">{userName}</span>님의 새해 복망고
           </div>
-          <div className="truncate">{luckMangoId}개의 덕담을 받았어요!</div>
+          <div className="truncate">{bagList}개의 덕담을 받았어요!</div>
         </div>
       </div>
-      {qrCode && (
-        <QrModal
-          shareQR={shareQr}
-          link={`http://localhost:3000/lucky/${luckMangoId}`}
-        />
-      )}
 
       <div className={`mg-card-overlay`}>
         {/* 수정페이지 */}
@@ -81,6 +75,12 @@ const GalleryItem = ({
           onClick={shareUrl}
         ></div>
       </div>
+      {qrCode && (
+        <QrModal
+          shareQr={shareQr}
+          link={`http://localhost:3000/lucky/${luckMangoId}`}
+        />
+      )}
 
       {deleteModal && (
         <DeleteMgModal

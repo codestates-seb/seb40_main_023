@@ -5,11 +5,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const nextConfig = {
   images: {
-    domains: ["s3.ap-northeast-2.amazonaws.com"],
+    domains: ["saypart.s3.ap-northeast-2.amazonaws.com"],
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "s3.ap-northeast-2.amazonaws.com",
+        hostname: "saypart.s3.ap-northeast-2.amazonaws.com",
         port: "",
         pathname: "/next-s3-uploads/**",
       },

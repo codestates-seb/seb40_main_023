@@ -6,7 +6,13 @@ import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { memberIdState } from "../recoil/memberId";
 import { getCookie } from "./util/cookie";
 
-const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
+const UserModify = ({
+  handle,
+  userName,
+  modal,
+  userImg,
+  setUserImg,
+}: any): React.ReactElement => {
   //전역상태
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;
@@ -31,7 +37,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
       setBgUrl(URL.createObjectURL(e.target.files[0]));
     }
   };
-
+  console.log(bgImg);
   //정보수정 보내는 함수
   const passwordChange = async () => {
     try {

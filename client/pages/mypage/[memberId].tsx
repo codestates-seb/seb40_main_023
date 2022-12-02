@@ -12,6 +12,7 @@ import { useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
 import Link from "next/link";
 import Image from "next/image";
+import { useFetch } from "../../fetch/useFetch";
 
 const Mypage = () => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
@@ -22,6 +23,7 @@ const Mypage = () => {
   const [userImg, setUserImg] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
   const [length, setLength] = useState<Number>(0);
+  const [bagList, setBagList] = useState([]);
 
   const userModify = () => {
     setClick(!click);
@@ -30,8 +32,6 @@ const Mypage = () => {
   const isModal = () => {
     setModal(!modal);
   };
-
-  console.log(userImg);
 
   const getUserName = async () => {
     axios({
@@ -46,7 +46,7 @@ const Mypage = () => {
       setUserImg(el.data.data.imgUrl);
     });
   };
-
+  console.log(userImg);
   const getLuckMango = async () => {
     axios({
       method: "get",
@@ -61,9 +61,17 @@ const Mypage = () => {
     });
   };
 
+  const getAllLuckyBags = async (userId: number) => {
+    const res = await useFetch(
+      `/api/luckBag/luckMango?luckMangoId=${userId}&page=1&size=7`,
+    );
+    setBagList(res.pageInfo.totalElements);
+  };
+
   useEffect(() => {
     getLuckMango();
     getUserName();
+    getAllLuckyBags(userId);
   }, []);
 
   useEffect(() => {
@@ -85,19 +93,18 @@ const Mypage = () => {
         {!modal && (
           <div className="max-w-[400px] w-full relative flex mt-16">
             <div>
-              {userImg === "NONE" ? (
-                <div className="bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
-              ) : (
-                <div className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex">
-                  <Image
-                    src={`https://s3.ap-northeast-2.amazonaws.com/saypart/%2F544f7ddd-b73f-43ab-9382-fa8c26170057-BokMango%20%2811%29.png`}
-                    alt="유저 프로필"
-                    priority
-                    width={140}
-                    height={140}
-                  />
-                </div>
-              )}
+              <div
+                style={
+                  userImg === "NONE"
+                    ? { backgroundColor: "red" }
+                    : { backgroundImage: `url(" ${userImg} ")` }
+                }
+                className={
+                  userImg === "NONE" || ""
+                    ? `bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover`
+                    : `relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex`
+                }
+              ></div>
             </div>
             <div className="flex flex-col justify-center pl-4">
               <div className="text-3xl">{userName}</div>
@@ -120,7 +127,13 @@ const Mypage = () => {
         )}
         <div className="flex flex-row col-span-1">
           {click ? (
-            <UserModify handle={userModify} userName={userName} modal={modal} />
+            <UserModify
+              handle={userModify}
+              userName={userName}
+              modal={modal}
+              userImg={userImg}
+              setUserImg={setUserImg}
+            />
           ) : (
             <div className="flex flex-col min-w-[400px] w-full mb-5">
               <div className="flex mt-[40px] mb-[10px] text-2xl">
@@ -134,6 +147,7 @@ const Mypage = () => {
                       userName={userName}
                       luckMangoId={el.luckMangoId}
                       title={el.title}
+                      bagList={bagList}
                       bgImage={el.bgImage}
                     />
                   ))}

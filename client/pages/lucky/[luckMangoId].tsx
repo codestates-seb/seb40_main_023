@@ -377,7 +377,7 @@ const index = () => {
           )}
         </div>
       ) : (
-        <NotFound content="찾으시는 복망고가 없는 것 같아요" />
+        <NotFound content={"찾으시는 복망고가 없는 것 같아요"} />
       )}
 
       {qrCode && <QrModal shareQr={shareQr} />}

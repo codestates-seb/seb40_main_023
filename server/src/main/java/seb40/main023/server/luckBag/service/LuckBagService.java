@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
 import seb40.main023.server.luckBag.entity.LuckBag;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service @Transactional
 @RequiredArgsConstructor
 public class LuckBagService {
     private final LuckBagRepository luckBagRepository;
@@ -74,7 +75,7 @@ public class LuckBagService {
         Optional.ofNullable(luckBag.getWriter()).ifPresent(writer -> findLuckBag.setWriter(writer));
         Optional.ofNullable(luckBag.getBagStyle()).ifPresent(bagStyle -> findLuckBag.setBagStyle(bagStyle));
         Optional.ofNullable(luckBag.getBagColor()).ifPresent(bagColor -> findLuckBag.setBagColor(bagColor));
-        Optional.ofNullable(luckBag.isViewed()).ifPresent(bagColor -> findLuckBag.setViewed(viewed));
+        Optional.ofNullable(luckBag.isViewed()).ifPresent(viewed -> findLuckBag.setViewed(viewed));
 
         findLuckBag.setModifiedAt(LocalDateTime.now());
 

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -17,6 +16,8 @@ public class LuckBagPatchDto {
     private String writer;
 
     private int bagStyle;
+
     private boolean viewed;
+
     private int bagColor;
 }

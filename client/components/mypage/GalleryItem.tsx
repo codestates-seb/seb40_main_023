@@ -34,7 +34,7 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
   };
 
   const onClickLink = (e: any) => {
-    router.push(`/edit/${luckMangoId}`);
+    router.push(`/lucky/${luckMangoId}`);
   };
 
   return (

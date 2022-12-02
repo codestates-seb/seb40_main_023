@@ -120,7 +120,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
                 className={
                   bgImg || bgUrl
                     ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
-                    : "bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                    : "bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
                 }
               ></div>
               <div className="flex justify-center mg-mypage-overlay">

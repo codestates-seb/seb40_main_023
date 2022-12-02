@@ -1,23 +1,26 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { notifySuccess, Toast } from "../util/Toast";
+import { notifySuccess } from "../util/Toast";
 import QrModal from "../modals/QrModal";
 import DeleteMgModal from "../modals/DeleteMgModal";
 
 const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
   //모달 관리
   const [deleteModal, setDeleteModal] = useState(false);
-  const handleModal = () => {
+  const handleModal = (e: any) => {
+    e.stopPropagation();
     setDeleteModal(!deleteModal);
   };
   //Qr 관리
   const [qrCode, setQrCode] = useState(false);
-  const shareQr = () => {
+  const shareQr = (e: any) => {
+    e.stopPropagation();
     setQrCode(!qrCode);
   };
 
   //URL 관리
-  const shareUrl = () => {
+  const shareUrl = (e: any) => {
+    e.stopPropagation();
     let currentUrl = `http://localhost:3000/lucky/${luckMangoId}`;
     let t = document.createElement("textarea");
     document.body.appendChild(t);
@@ -29,23 +32,23 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
   };
 
   return (
-    <div className={`group gap-2 mg-default-card`}>
+    <div className={`group mg-default-card aspect-card`}>
       <div className="mg-card-contents">
         <div
           className={
             bgImage === undefined || "NONE"
-              ? `mg-card-image group-hover:blur-sm`
+              ? `mg-card-image mobile:group-hover:blur-sm`
               : `${bgImage}`
           }
         ></div>
         <div className="mg-card-desc">
-          <div className="truncate">
+          <p className="truncate">
             <span className="font-medium">{title}</span>님의 새해 복망고
-          </div>
+          </p>
           <div className="truncate">{luckMangoId}개의 덕담을 받았어요!</div>
         </div>
       </div>
-      <div className={`mg-card-overlay`}>
+      <Link href="/" className={`mg-card-overlay`}>
         {/* 수정페이지 */}
         <Link href={`/edit/${luckMangoId}`}>
           <div className="mg-card-button bg-[url(/images/ico/ico-card-edit.svg)]"></div>
@@ -75,15 +78,13 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
           className="mg-card-button bg-[url(/images/ico/ico-card-url.svg)]"
           onClick={shareUrl}
         ></div>
-      </div>
+      </Link>
       {deleteModal && (
         <DeleteMgModal
           setDeleteModal={setDeleteModal}
           luckMangoId={luckMangoId}
         />
       )}
-
-      <Toast />
     </div>
   );
 };

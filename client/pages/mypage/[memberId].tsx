@@ -80,26 +80,26 @@ const Mypage = () => {
           <div className="max-w-[400px] w-full relative flex mt-16">
             <div>
               {userImg === "NONE" || undefined ? (
-                <div className="bg-[url(/images/ico/ico-profile.svg)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
+                <div className="bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
               ) : (
                 <div className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"></div>
               )}
             </div>
-            <div className="flex flex-col justify-center pl-4">
+            <div className="flex flex-col justify-center pl-5">
               <div className="text-3xl">{userName}</div>
-              <div className="flex gap-5 text-xl">
-                <div
+              <div className="flex gap-5 text-base">
+                <button
                   className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
                   onClick={userModify}
                 >
                   정보수정
-                </div>
-                <div
+                </button>
+                <button
                   className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
                   onClick={isModal}
                 >
                   회원탈퇴
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@ const Mypage = () => {
             <UserModify handle={userModify} userName={userName} modal={modal} />
           ) : (
             <div className="flex flex-col min-w-[400px] w-full mb-5">
-              <div className="flex mt-[40px] mb-[10px] text-2xl">
+              <div className="flex mt-[40px] mb-[10px] text-xl">
                 나의 복망고 리스트
               </div>
               {!modal && (
@@ -129,6 +129,15 @@ const Mypage = () => {
         </div>
         {length === 0 ? (
           <div className="flex flex-col items-center max-w-[230px]">
+            <p className="mb-1 text-mono-textDisabled">
+              🥹 아직 만드신 복망고가 없습니다.
+            </p>
+            <Link
+              href="/create"
+              className="mb-4 selection:underline text-primary-normal hover:text-primary-hover"
+            >
+              새로운 복망고를 만들어 볼까요?
+            </Link>
             <Image
               width={113}
               height={95}

@@ -21,7 +21,7 @@ const QrModal = ({ shareQr, link }: any) => {
 
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-50">
-      <div className="bg-white w-[356px] h-[356px] absolute top-[50%] left-[50%] rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border">
+      <div className="bg-white w-[356px] h-[356px] absolute top-[50%] left-[50%] rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border shadow-context">
         <header className="flex justify-end w-full hover:cursor-pointer">
           <Image
             src="/images/ico/ico-modal-close.svg"
@@ -42,8 +42,8 @@ const QrModal = ({ shareQr, link }: any) => {
                   scale: 4,
                   width: 200,
                   color: {
-                    dark: "#010599FF",
-                    light: "#FFBF60FF",
+                    dark: "#111",
+                    light: "#fff",
                   },
                 }}
               />

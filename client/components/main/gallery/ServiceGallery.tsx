@@ -55,7 +55,7 @@ export default function ServiceGallery() {
       </ul>
       <div
         className={
-          "relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-2 gap-6 tablet:grid-cols-3"
+          "relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-2 gap-6"
         }
       >
         {cards.map((card: GalleryDataProps) => (

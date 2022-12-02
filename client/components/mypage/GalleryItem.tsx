@@ -56,39 +56,39 @@ const GalleryItem = ({ bgImage, userId, luckMangoId, title }: any) => {
       </div>
       <div className={`mg-card-overlay`} onClick={onClickLink}>
         {/* 수정페이지 */}
-        <Link href={`/edit/${luckMangoId}`}>
-          <div className="mg-card-button bg-[url(/images/ico/ico-card-edit.svg)]"></div>
-        </Link>
+        <Link
+          href={`/edit/${luckMangoId}`}
+          className="mg-card-button bg-[url(/images/ico/ico-card-edit.svg)]"
+        ></Link>
         {/* 삭제버튼 */}
-        <div
+        <button
           className="mg-card-button bg-[url(/images/ico/ico-card-delete.svg)]"
           onClick={handleModal}
-        ></div>
+        ></button>
 
         {/* onClick={() => DeleteLuckMango()} */}
         {/* qr코드 */}
-        <div
+        <button
           className="mg-card-button bg-[url(/images/ico/ico-card-qr.svg)]"
           onClick={shareQr}
-        >
-          {qrCode && (
-            <QrModal
-              shareQR={shareQr}
-              link={`http://localhost:3000/lucky/${luckMangoId}`}
-            />
-          )}
-        </div>
+        ></button>
 
         {/* link 복사 */}
-        <div
+        <button
           className="mg-card-button bg-[url(/images/ico/ico-card-url.svg)]"
           onClick={shareUrl}
-        ></div>
+        ></button>
       </div>
       {deleteModal && (
         <DeleteMgModal
           setDeleteModal={setDeleteModal}
           luckMangoId={luckMangoId}
+        />
+      )}
+      {qrCode && (
+        <QrModal
+          shareQR={shareQr}
+          link={`http://localhost:3000/lucky/${luckMangoId}`}
         />
       )}
     </div>

@@ -11,6 +11,10 @@ body {
   @apply font-light font-Pretendard;
 }
 
+button:disabled {
+  @apply pointer-events-none opacity-30;
+}
+
 /* For Toast */
 .Toastify__toast-body {
   font-family: "Pretendard";
@@ -122,11 +126,11 @@ body {
   }
 
   .mg-default-card {
-    @apply cursor-pointer relative flex justify-center w-[230px] h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
+    @apply cursor-pointer relative flex justify-center w-full max-w-[230px] max-h-[220px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
   }
 
   .mg-mypage-card {
-    @apply cursor-pointer relative flex justify-center w-[190px] h-[170px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
+    @apply cursor-pointer relative flex justify-center w-full max-w-[190px] max-h-[170px] bg-white rounded-[14px] shadow-card hover:shadow-cardHover transition-all overflow-hidden;
   }
 
   .mg-card-contents {
@@ -138,11 +142,11 @@ body {
   }
 
   .mg-card-image {
-    @apply w-full bg-[url(/dummy/user1.png)] bg-cover h-[150px] bg-center group-hover:blur-sm;
+    @apply w-full bg-[url(/dummy/user1.png)] bg-cover h-[150px] bg-center;
   }
 
   .mg-card-overlay {
-    @apply py-[2rem] px-[2.6rem] duration-300 absolute top-0 bottom-0 left-0 right-0 grid items-center w-full h-full grid-cols-2 p-8 transition-all opacity-0 will-change-auto bg-primary-normal/90 group-hover:opacity-100;
+    @apply py-[1.4rem] px-[1.4rem] mobile:py-[2rem] mobile:px-[2rem] duration-300 absolute top-0 bottom-0 left-0 right-0 grid items-center w-full h-full grid-cols-2 p-8 transition-all opacity-0 will-change-auto bg-primary-normal/90 group-hover:opacity-100;
   }
 
   .mg-mypage-overlay {
@@ -150,7 +154,7 @@ body {
   }
 
   .mg-card-button {
-    @apply m-auto border border-white w-[55px] h-[55px] bg-transparent hover:bg-[rgba(0,0,0,0.15)] rounded-full bg-no-repeat bg-center;
+    @apply border border-white max-w-[55px] h-auto aspect-[1/1] bg-transparent hover:bg-[rgba(0,0,0,0.15)] rounded-full bg-no-repeat m-1 bg-center;
   }
 
   .mg-mypage-button {
@@ -185,6 +189,10 @@ body {
 
   .mg-primary-button-round {
     @apply px-10 py-3 text-white rounded-full bg-primary-normal hover:bg-primary-hover;
+  }
+
+  .mg-secondary-button-round {
+    @apply px-10 py-3 text-white rounded-full bg-secondary-normal hover:bg-secondary-hover;
   }
 
   .mg-negative-button-round {
@@ -225,9 +233,21 @@ body {
   .mg-checkbox-group > input[type="checkbox"] + label > span {
     @apply block border rounded-md border-mono-borderNormal bg-white w-[20px] h-[20px] bg-none;
   }
-
   .mg-checkbox-group > input[type="checkbox"]:checked + label > span {
     @apply border-primary-normal bg-primary-normal bg-[url(/images/ico/ico-checkbox.svg)] bg-center bg-no-repeat;
+  }
+
+  .mg-radio-group {
+    @apply flex justify-center px-4;
+  }
+  .mg-radio-group > input[type="radio"] + label {
+    @apply flex flex-col items-center justify-center;
+  }
+  .mg-radio-group > input[type="radio"] + label > span {
+    @apply relative bg-white w-[20px] h-[20px] rounded-full border-mono-borderNormal border block;
+  }
+  .mg-radio-group > input[type="radio"]:checked + label > span {
+    @apply before:content-[''] before:absolute before:top-[4px] before:left-[4px] before:w-[10px] before:h-[10px] before:bg-primary-normal before:rounded-full;
   }
 
   .mg-info-normal {
@@ -252,7 +272,7 @@ body {
   }
 
   .mg-icon-lucky-money {
-    @apply bg-[url(/images/content/ico-mg-money.svg)] bg-no-repeat bg-center;
+    @apply bg-center bg-no-repeat;
   }
 
   .mg-icon-card-edit {
@@ -285,7 +305,7 @@ body {
   }
 
   .mg-layout {
-    @apply flex flex-col items-center justify-center w-full px-[24px] mobile:px-0 mx-auto py-9 max-w-[400px];
+    @apply flex flex-col items-center justify-center w-full px-4 mobile:px-0 mx-auto py-9 max-w-[440px];
   }
 
   .mg-layout-row {
@@ -326,15 +346,12 @@ body {
     @apply w-12 h-12 rounded-full bg-secondary-normal mg-flex-center;
   }
 
-  .mg-icon-pagination {
-    @apply w-[10.5px] h-[10.5px] z-10 rounded-full mx-1;
-  }
-
   .mg-floating-button {
     @apply z-10 transition-all ease-in bg-[length:25px_25px] my-1 w-12 h-12 bg-center bg-no-repeat mg-share-button;
   }
+
   .mg-floating-button-long {
-    @apply text-white pl-4 h-12 w-[212px] mg-flex-center justify-center bg-[center_left_1rem] rounded-[100px] relative transition-all ease-in bg-[length:25px_25px] my-1 bg-no-repeat;
+    @apply text-white py-3 pl-4 w-[230px] mg-flex-center justify-center bg-[center_left_1rem] rounded-[100px] relative transition-all ease-in bg-[length:25px_25px] my-1 bg-no-repeat;
   }
 
   .mg-arrow-button {
@@ -342,11 +359,15 @@ body {
   }
 
   .mg-modal-input {
-    @apply w-[300px] rounded border border-mono-borderNormal p-3;
+    @apply w-full p-3 border rounded border-mono-borderNormal;
   }
 
   .mg-bok-layout {
-    @apply bg-center relative justify-center w-full max-w-[400px] max-h-[600px] aspect-[2/3] border border-mono-borderNormal mg-flex overflow-hidden rounded-xl;
+    @apply bg-center relative justify-center w-full max-w-[440px] aspect-2/3 border border-mono-borderNormal mg-flex overflow-hidden rounded-xl;
+  }
+
+  .mg-bok-layout-row {
+    @apply absolute flex flex-row items-center justify-center w-full px-1;
   }
 
   .mg-greet-message {
@@ -354,7 +375,7 @@ body {
   }
 
   .mg-greet-message > p {
-    @apply w-full min-h-[2.5rem] text-sm break-words text-mono-textNormal;
+    @apply max-h-[300px] overflow-y-scroll w-full min-h-[2.5rem] text-sm break-words text-mono-textNormal;
   }
 
   .mg-greet-dropdown {
@@ -369,13 +390,139 @@ body {
     @apply absolute min-w-[230px] font-bold mg-white-button top-[40%] bg-[center_left_1rem] mg-background bg-[url(/images/content/ico-upload-image.svg)] pl-14 cursor-pointer z-10;
   }
 
+  .mg-luckybag-wrapper {
+    @apply flex justify-center items-center text-white relative bg-no-repeat bg-[100%_auto] bg-center bg-[url(/images/content/img-basket.svg)] w-[370px] h-[160px] aspect-[2.3/1];
+  }
+
+  .mg-luckybag-wrapper > button {
+    @apply absolute w-[65px] h-[80px] bg-no-repeat bg-contain bg-center;
+  }
+
+  .mg-luckybag-wrapper > button.active {
+    @apply animate-[bounce_1s_1500ms_infinite];
+  }
+
+  .mg-luckybag-wrapper > button.active {
+    @apply before:content-[''] before:w-[10px] before:h-[10px] before:bg-warning-normal before:rounded-full before:absolute before:top-1 before:left-1 before:animate-ping;
+  }
+
+  .mg-luckybag-wrapper > :nth-child(2n).active {
+    @apply animate-[bounce_1.5s_1500ms_infinite];
+  }
+
+  .mg-luckybag-wrapper > :nth-child(3n).active {
+    @apply animate-[bounce_1.2s_1500ms_infinite];
+  }
+
+  .mg-luckybag-wrapper > :nth-child(1) {
+    @apply top-[10px] left-[45px] z-10;
+  }
+  .mg-luckybag-wrapper > :nth-child(2) {
+    @apply top-[-30px] left-[90px];
+  }
+  .mg-luckybag-wrapper > :nth-child(3) {
+    @apply top-[30px] left-[120px] z-10;
+  }
+  .mg-luckybag-wrapper > :nth-child(4) {
+    @apply top-[-30px] left-[160px];
+  }
+  .mg-luckybag-wrapper > :nth-child(5) {
+    @apply top-[30px] left-[190px] z-10;
+  }
+  .mg-luckybag-wrapper > :nth-child(6) {
+    @apply top-[-30px] left-[230px];
+  }
+  .mg-luckybag-wrapper > :nth-child(7) {
+    @apply top-[10px] left-[265px] z-10;
+  }
+
+  .mg-luckybag-wrapper > button[data-type="1"][data-color="1"] {
+    @apply bg-[url(/images/content/img-bok1-1.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="1"][data-color="2"] {
+    @apply bg-[url(/images/content/img-bok1-2.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="1"][data-color="3"] {
+    @apply bg-[url(/images/content/img-bok1-3.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="1"][data-color="4"] {
+    @apply bg-[url(/images/content/img-bok1-4.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="1"][data-color="5"] {
+    @apply bg-[url(/images/content/img-bok1-5.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="2"][data-color="1"] {
+    @apply bg-[url(/images/content/img-bok2-1.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="2"][data-color="2"] {
+    @apply bg-[url(/images/content/img-bok2-2.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="2"][data-color="3"] {
+    @apply bg-[url(/images/content/img-bok2-3.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="2"][data-color="4"] {
+    @apply bg-[url(/images/content/img-bok2-4.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="2"][data-color="5"] {
+    @apply bg-[url(/images/content/img-bok2-5.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="3"][data-color="1"] {
+    @apply bg-[url(/images/content/img-bok3-1.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="3"][data-color="2"] {
+    @apply bg-[url(/images/content/img-bok3-2.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="3"][data-color="3"] {
+    @apply bg-[url(/images/content/img-bok3-3.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="3"][data-color="4"] {
+    @apply bg-[url(/images/content/img-bok3-4.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="3"][data-color="5"] {
+    @apply bg-[url(/images/content/img-bok3-5.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="4"][data-color="1"] {
+    @apply bg-[url(/images/content/img-bok4-1.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="4"][data-color="2"] {
+    @apply bg-[url(/images/content/img-bok4-2.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="4"][data-color="3"] {
+    @apply bg-[url(/images/content/img-bok4-3.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="4"][data-color="4"] {
+    @apply bg-[url(/images/content/img-bok4-4.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="4"][data-color="5"] {
+    @apply bg-[url(/images/content/img-bok4-5.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="5"][data-color="1"] {
+    @apply bg-[url(/images/content/img-bok5-1.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="5"][data-color="2"] {
+    @apply bg-[url(/images/content/img-bok5-2.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="5"][data-color="3"] {
+    @apply bg-[url(/images/content/img-bok5-3.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="5"][data-color="4"] {
+    @apply bg-[url(/images/content/img-bok5-4.svg)];
+  }
+  .mg-luckybag-wrapper > button[data-type="5"][data-color="5"] {
+    @apply bg-[url(/images/content/img-bok5-5.svg)];
+  }
+
+  .mg-luckybag-wrapper .slick-list {
+    @apply w-full;
+  }
+
   /* Modal */
   .mg-modal-container {
     @apply fixed top-0 bottom-0 left-0 right-0 z-50 flex mobile:bg-black/30 mobile:items-center mobile:justify-center;
   }
 
   .mg-modal-panel {
-    @apply relative w-full mobile:max-w-[440px] h-auto bg-white mobile:rounded-[20px] p-5 pt-[40px] mobile:shadow-context;
+    @apply relative flex flex-col items-center w-full mobile:max-w-[440px] h-auto bg-white mobile:rounded-[20px] p-5 pt-[40px] mobile:shadow-context;
   }
 
   .mg-modal-close {
@@ -383,7 +530,7 @@ body {
   }
 
   .mg-modal-title {
-    @apply w-[300px] flex flex-row items-center mb-2 text-base font-medium;
+    @apply flex flex-row items-center mb-2 text-base font-medium;
   }
 
   /* Validation */
@@ -397,6 +544,6 @@ body {
 
   /* Link */
   .mg-link {
-    @apply text-[#599CFF] underline;
+    @apply font-medium underline text-link hover:text-linkHover underline-offset-2;
   }
 }

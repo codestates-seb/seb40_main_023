@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Greeting from "../../components/Greeting";
 import LongModal from "../../components/modals/LongModal";
 import LetterModal from "../../components/modals/LetterModal";
-import { notifyInfo } from "../../components/util/Toast";
+import { Toast, notifyError, notifyInfo } from "../../components/util/Toast";
 import { useFetch } from "../../fetch/useFetch";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
@@ -11,7 +11,6 @@ import Banner from "../../components/Banner";
 import { useRouter } from "next/router";
 import LuckBags from "../../components/LuckBags";
 import QrModal from "../../components/modals/QrModal";
-import { Toast } from "../../components/util/Toast";
 import { TEMPLETE_ID } from "../../constants/templeteId";
 import Player from "../../components/lucky/Player";
 import { useCookies } from "react-cookie";
@@ -63,7 +62,6 @@ const index = () => {
   const [pageInfo, setPageInfo] = useState({});
 
   //로그인 여부
-
   const [isLogin, setIsLogin] = useState(false);
   const memberId = useRecoilValue(memberIdState).memberId;
   const [cookies] = useCookies(["accessJwtToken"]);
@@ -206,6 +204,11 @@ const index = () => {
 
       setLetterModal(!letterModal);
     } else {
+      notifyError({
+        message: "복망고 주인만 볼 수 있어요.",
+        icon: "🥲",
+      });
+
       return;
     }
   };
@@ -237,11 +240,14 @@ const index = () => {
                     onClick={downloadBtn}
                   />
                   <button
-                    className={`flex-none mx-2 mg-icon-button-round ${
-                      bgmOn ? "mg-icon-sound-on" : "mg-icon-sound-off"
-                    }`}
+                    className={
+                      bgmOn
+                        ? "mx-3 mg-icon-button-round mg-icon-sound-on"
+                        : "mx-3 mg-icon-button-round mg-icon-sound-off"
+                    }
                     onClick={handleBgm}
                   />
+                  <Player bgmOn={bgmOn} onClick={handleBgm} />
                 </div>
                 <div className="absolute flex justify-center w-full top-20 mg-bok-layout-row">
                   <Greeting content={body} edit={false} />

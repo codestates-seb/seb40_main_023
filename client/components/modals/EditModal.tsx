@@ -1,9 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 import BokPreview from "../BokPreview";
-import Link from "next/link";
 import { createMg } from "../../fetch/create";
-import { notifyError, notifySuccess } from "../util/Toast";
+import { notifyError } from "../util/Toast";
 import { editMg } from "../../fetch/edit";
 import { getCookie } from "../util/cookie";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -106,7 +105,9 @@ const EditModal = ({
               <i></i>제목은 친구들에게 노출되지 않아요
             </div>
           </div>
-          <BokPreview greeting={greeting} bgUrl={bgUrl} />
+        </div>
+        <div>
+          <BokPreview greeting={greeting} edit={editMode} bgUrl={bgUrl} />
           <div className="flex justify-center mt-5 mb-3">
             <button
               className="mx-2 mg-negative-button-round"

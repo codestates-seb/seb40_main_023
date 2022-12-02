@@ -391,7 +391,7 @@ button:disabled {
   }
 
   .mg-luckybag-wrapper {
-    @apply relative bg-no-repeat bg-[100%_auto] bg-center bg-[url(/images/content/img-basket.svg)] w-[370px] h-[160px] aspect-[2.3/1];
+    @apply flex justify-center items-center text-white relative bg-no-repeat bg-[100%_auto] bg-center bg-[url(/images/content/img-basket.svg)] w-[370px] h-[160px] aspect-[2.3/1];
   }
 
   .mg-luckybag-wrapper > button {

@@ -1,24 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useCookies } from "react-cookie";
+import { usePatchLikes } from "../../../fetch/useGallery";
 import { notifySuccess, notifyError } from "../../util/Toast";
-import { useFetchLikes } from "../../../fetch/useGallery";
 
 const GalleryItem = ({ ...gallery }: any) => {
   const [loading, setLoading] = useState(false);
   const [like, setLike] = useState(gallery.likeCount);
   const [id, setId] = useState(gallery.luckMangoId);
+  const [isLogin, setIsLogin] = useState(false);
+  const [cookies] = useCookies(["accessJwtToken"]);
 
-  let bgImage =
-    gallery.bgImage === "NONE"
-      ? `bg-[url(/dummy/user2.png)`
-      : `bg-[url(/dummy/user2.png)`;
+  const checkLogin = () => {
+    const token = cookies.accessJwtToken;
+    if (token) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   const clickLikeHandle = async (e: any) => {
     e.preventDefault();
-    setLike((prevLikes: number) => prevLikes + 1);
 
-    const res = await useFetchLikes(id, like);
+    if (!isLogin) {
+      notifyError({
+        message: `로그인이 필요한 서비스입니다.`,
+        icon: "🥹",
+      });
+      return;
+    }
+
+    const res = await usePatchLikes(id, like);
     if (res.statusText === "Unauthorized") {
       notifyError({ message: "로그인이 필요한 서비스입니다.", icon: "🥹" });
     } else if (res.status >= 400) {
@@ -27,6 +45,7 @@ const GalleryItem = ({ ...gallery }: any) => {
         icon: "🙏",
       });
     } else {
+      setLike(res.likeCount);
       notifySuccess({ message: "마음을 담아 추천을 보냈어요.", icon: "😀" });
     }
   };
@@ -58,11 +77,13 @@ const GalleryItem = ({ ...gallery }: any) => {
       </button>
       <div className="mg-card-contents">
         <div
-          className={
-            bgImage === undefined || "NONE"
-              ? `mg-card-image mobile:group-hover:blur-sm`
-              : `${bgImage}`
-          }
+          style={{ backgroundImage: `url("${gallery.bgImage}")` }}
+          className={`mg-card-image mobile:group-hover:blur-sm${
+            (gallery.bgImage === null ||
+              gallery.bgImage === "NONE" ||
+              gallery.bgImage === "") &&
+            "bg-[url(/dummy/user1.png)]"
+          }`}
         ></div>
         <div className="mg-card-desc">
           <p className="truncate">
@@ -75,7 +96,7 @@ const GalleryItem = ({ ...gallery }: any) => {
         </div>
       </div>
       <div
-        className={`mg-card-overlay text-white grid-cols-1 text-center pointer-events-none`}
+        className={`hidden mobile:block mg-card-overlay text-white grid-cols-1 text-center pointer-events-none`}
       >
         클릭하시면 {gallery.member.name}님의 {`\n`}복망고로 이동합니다.
       </div>

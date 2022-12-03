@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 const ReviewItem = ({ ...review }: any) => {
   return (
@@ -7,18 +6,15 @@ const ReviewItem = ({ ...review }: any) => {
       <div className="mg-slide-wrapper">
         <div className="mb-4">{review.reviewBody}</div>
         <div className="flex flex-row items-center justify-start ml-[-14px] mb-[-4px]">
-          <Image
-            src={
-              review.member.imgUrl === null ||
-              review.member.imgUrl === "NONE" ||
-              review.member.imgUrl === ""
-                ? "/images/char/profile.webp"
-                : review.member.imgUrl
-            }
-            alt={`${review.member.name}의 프로필 사진`}
-            width={45}
-            height={45}
-          />
+          <div
+            style={{ backgroundImage: `url("${review.member.imgUrl}")` }}
+            className={`w-[45px] h-[45px] border-mono-borderNormal rounded-full overflow-hidden bg-contain ${
+              (review.member.imgUrl === null ||
+                review.member.imgUrl === "NONE" ||
+                review.member.imgUrl === "") &&
+              "bg-[url(/images/char/profile.webp)]"
+            }`}
+          ></div>
           <span className="ml-3">{review.member.name}</span>
         </div>
       </div>

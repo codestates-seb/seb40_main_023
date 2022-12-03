@@ -3,7 +3,7 @@ import { TitleProps } from "../../types/main";
 
 const SectionTitle = ({ title }: TitleProps) => {
   return (
-    <div className="flex justify-center px-5 my-6">
+    <div className="flex justify-center my-6">
       <div className="max-w-[440px] font-normal text-center break-words text-3xl whitespace-pre-line">
         {title}
       </div>

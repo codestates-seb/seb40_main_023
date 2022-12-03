@@ -14,6 +14,17 @@ const ServiceIntro = () => {
         입니다. 사랑하는 사람들에게 <br className="hidden mobile:block" />
         복망고가 대신 따뜻한 메세지를 전달해 드릴게요.
       </div>
+      <div className="inline mb-4 text-center mg-info-normal">
+        <i></i>새해 복망고는 "
+        <span className="text-base text-primary-normal text-medium">
+          새해 복 많
+        </span>
+        이 받
+        <span className="text-base text-primary-normal text-medium">고</span>
+        ~"로 시작하는
+        <br />
+        세상 모든 덕담의 따뜻한 마음을 의미해요!
+      </div>
       <div className="flex flex-col items-center max-w-[230px]">
         <Image
           width={113}

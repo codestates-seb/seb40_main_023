@@ -1,12 +1,32 @@
-import React, { useState, useRef } from "react";
-import CountCharLength from "../../util/CountCharLength";
-import { notifyInfo, notifyError } from "../../util/Toast";
+import { useState, useRef, useEffect } from "react";
 import { createReview } from "../../../fetch/review";
+import { getCookie } from "../../util/cookie";
+import { useCookies } from "react-cookie";
+import { useRecoilValue } from "recoil";
+import { memberIdState } from "../../../recoil/memberId";
+import { notifyInfo, notifyError, notifySuccess } from "../../util/Toast";
+import CountCharLength from "../../util/CountCharLength";
 
 function ReviewWrite({ setUpdated }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [reviewSize, setReviewSize] = useState(0);
   const [reviewInput, setReviewInput] = useState("");
+  const memberId = useRecoilValue(memberIdState).memberId;
+  const [isLogin, setIsLogin] = useState(false);
+  const [cookies] = useCookies(["accessJwtToken"]);
+
+  const checkLogin = () => {
+    const token = cookies.accessJwtToken;
+    if (token) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   const onChangeReview = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.stopPropagation();
@@ -15,7 +35,15 @@ function ReviewWrite({ setUpdated }: any) {
     setReviewInput(e.target.value);
   };
 
-  const submitReview = () => {
+  const submitReview = async () => {
+    if (!isLogin) {
+      notifyError({
+        message: `로그인이 필요한 서비스입니다.`,
+        icon: "🥹",
+      });
+      return;
+    }
+
     if (reviewSize < 10) {
       notifyInfo({
         message: "10자 이상 입력해 주시면\n 더 좋을 것 같아요!",
@@ -27,19 +55,43 @@ function ReviewWrite({ setUpdated }: any) {
         icon: "🥹",
       });
     } else {
-      createReview("/api/review", {
-        memberId: 1,
-        reviewBody: reviewInput,
-      });
+      const res = await createReview(
+        "/api/review",
+        {
+          memberId,
+          reviewBody: reviewInput,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+          },
+        },
+      );
 
-      setUpdated(true);
+      if (res.statusText === "Unauthorized") {
+        notifyError({ message: "로그인이 필요한 서비스입니다.", icon: "🥹" });
+      } else if (res.status >= 400) {
+        notifyError({
+          message: "통신이 원활하지 않습니다. \n 잠시 후에 시도해 주세요.",
+          icon: "🙏",
+        });
+      } else {
+        notifySuccess({
+          message: "정성스러운 후기 감사합니다. 새해 복망고!",
+          icon: "😀",
+        });
+      }
+
       setReviewInput("");
+      setReviewSize(0);
+      setUpdated(true);
     }
   };
 
   return (
     <div>
-      <h3 className="mb-4 text-2xl">
+      <h3 className="mb-5 text-2xl mt-7">
         새해 복망고 이용해보셨다면 <br className="mobile:hidden" />
         후기를 남겨주세요
       </h3>
@@ -49,7 +101,7 @@ function ReviewWrite({ setUpdated }: any) {
             reviewSize <= 130
               ? "border-mono-borderNormal"
               : "border-danger-normal"
-          } mg-default-textarea px-6 py-4 rounded-xl mb-2`}
+          } mg-default-textarea px-6 py-4 border rounded-xl mb-2`}
           cols={30}
           rows={3}
           onChange={onChangeReview}
@@ -66,7 +118,7 @@ function ReviewWrite({ setUpdated }: any) {
       <button
         className="mg-primary-button w-[230px]"
         onClick={submitReview}
-        disabled={false}
+        disabled={reviewSize <= 130 ? false : true}
       >
         후기 남기기
       </button>

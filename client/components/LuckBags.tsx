@@ -37,8 +37,6 @@ const LuckBags = ({
           ))
         )}
       </div>
-      {/* {!(currPage === 1 && pageInfo.size > pageInfo.totalPages) && (
-      )} */}
       <div className="mg-flex-center justify-center bottom-0 z-10 absolute rounded-full min-w-[14px] bg-[#0000004D] px-3 py-1 text-white">
         <div className="text-center">
           {currPage} /{" "}

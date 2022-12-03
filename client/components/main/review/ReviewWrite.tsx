@@ -78,7 +78,7 @@ function ReviewWrite({ setUpdated }: any) {
         });
       } else {
         notifySuccess({
-          message: "정성스러운 후기 감사합니다. 새해 복망고!",
+          message: "정성스러운 후기 감사합니다. \n새해 복망고!",
           icon: "😀",
         });
       }

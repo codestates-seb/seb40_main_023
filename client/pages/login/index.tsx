@@ -20,7 +20,7 @@ const Login = () => {
   const router = useRouter();
 
   const pageChange = () => {
-    setTimeout(() => router.push("/"), 2000);
+    setTimeout(() => router.push("/"), 1500);
   };
 
   const onSubmit2 = async (e: any) => {

@@ -5,6 +5,11 @@ import Footer from "../../components/Footer";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast, notifyWarning, notifyError } from "../../components/util/Toast";
+import { useCookies } from "react-cookie";
+import { userState } from "../../recoil/user";
+import { useRecoilState } from "recoil";
+import { memberIdState } from "../../recoil/memberId";
+import { useRouter } from "next/router";
 
 const Create = () => {
   const [title, setTitle] = useState("");
@@ -13,16 +18,21 @@ const Create = () => {
   const [modal, setModal] = useState(false);
   const [reveal, setReveal] = useState(false);
   const [isValid, setIsValid] = useState("no");
+  const [cookies] = useCookies(["accessJwtToken"]);
+  const [user, setUser] = useRecoilState(userState);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const router = useRouter();
 
   const handleCheck = () => {
     setReveal(!reveal);
   };
 
-  useEffect(() => {
-    isFilledUpForm();
-    console.log(title, greeting, bgUrl);
-    console.log(isValid);
-  }, [title, greeting, bgUrl]);
+  const loginVaild = () => {
+    const token = cookies.accessJwtToken;
+    if (!token || user.login === false || memberId.memberId === 0) {
+      router.push("/");
+    }
+  };
 
   const isFilledUpForm = () => {
     if (title === "" || greeting === "" || bgUrl === "") {
@@ -72,6 +82,16 @@ const Create = () => {
       toggleModal(true);
     }
   };
+
+  useEffect(() => {
+    isFilledUpForm();
+    console.log(title, greeting, bgUrl);
+    console.log(isValid);
+  }, [title, greeting, bgUrl]);
+
+  useEffect(() => {
+    loginVaild();
+  }, []);
 
   return (
     <div>
@@ -123,11 +143,16 @@ const Create = () => {
             <div className="flex flex-row flex-nowrap">
               <div className="flex items-center py-3 mr-4 text-base font-medium">
                 <span className="mr-3">미리보기</span>
-                <div className="mg-info-normal">
-                  <i></i>내 사진을 넣으면 더 멋질 거에요! ✨
-                </div>
               </div>
             </div>
+            <div className="-mt-2 mg-info-normal">
+              <i></i>내 사진을 넣으면 더 멋질 거에요! ✨ <br />
+            </div>
+            <div className="mb-1 mg-info-normal">
+              <i></i>
+              .png 이미지는 캡쳐되지 않아요~ ❌
+            </div>
+            <div className="flex text-sm text-center mg-info-normal item-center"></div>
             <BokPreview
               greeting={greeting}
               edit={true}

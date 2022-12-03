@@ -96,9 +96,9 @@ const GalleryItem = ({ ...gallery }: any) => {
         </div>
       </div>
       <div
-        className={`hidden mobile:block mg-card-overlay text-white grid-cols-1 text-center pointer-events-none`}
+        className={`invisible justify-center mobile:visible mg-card-overlay text-white flex items-center pointer-events-none`}
       >
-        클릭하시면 {gallery.member.name}님의 {`\n`}복망고로 이동합니다.
+        클릭하시면 {gallery.member.name}님의 <br /> 복망고로 이동합니다.
       </div>
     </Link>
   );

@@ -75,7 +75,11 @@ export default function ServiceGallery() {
             intersection observer marker
           </div>
         ) : (
-          <div className="flex flex-col items-center py-4 text-center grid-col-1">
+          <div
+            className={`flex flex-col items-center py-4 text-center grid-col-1 ${
+              loading === false && hasMore === false ? "visible" : "invisible"
+            }`}
+          >
             <p className="mb-1 text-mono-textDisabled">
               모든 복망고를 불러왔습니다. 😎
             </p>

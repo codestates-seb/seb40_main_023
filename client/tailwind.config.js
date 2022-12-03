@@ -18,6 +18,11 @@ module.exports = {
       desktop: "1280px",
     },
     extend: {
+      keyframes: {
+        welcome: {
+          "100%": { "background-position": "-1155px" },
+        },
+      },
       boxShadow: {
         header: "0 4px 15px 0 rgba(0, 0, 0, 0.03)",
         context: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
@@ -30,7 +35,7 @@ module.exports = {
         HSS: ["HSS", ...defaultTheme.fontFamily.sans],
       },
       aspectRatio: {
-        "2/3": "2 / 3",
+        "2/3": "2 / 3.6",
         card: "1 / 1.045",
       },
     },

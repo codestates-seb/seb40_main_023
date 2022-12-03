@@ -12,7 +12,9 @@ public enum ExceptionCode {
     INVALID_MEMBER_STATUS(400, "Invalid member status"),
     LUCKBAG_NOT_FOUND(404,"LuckBag not found" ),
 
-    PASSWORD_NOT_MATCH(400, "Password not match" );
+    PASSWORD_NOT_MATCH(400, "Password not match" ),
+
+    S3_FILE_NOT_FOUND(404, "S3에 저장된 이미지가 없습니다");
 
     @Getter
     private int status;

@@ -9,14 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import seb40.main023.server.awsS3.service.S3UpFileService;
 import seb40.main023.server.exception.BusinessLogicException;
 import seb40.main023.server.exception.ExceptionCode;
 import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.member.repository.MemberRepository;
 import seb40.main023.server.security.utils.CustomAuthorityUtils;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service @Transactional
@@ -25,6 +28,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+//    private final S3UpFileService s3UpFileService;
 
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
@@ -46,6 +50,11 @@ public class MemberService {
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
+        //로그인 이미지가 변화 하였는지 체크
+//        boolean check;
+//        if(Objects.equals(member.getImgUrl(), findMember.getImgUrl())){check = true;}
+//        else {check = false;}
+
         Optional.ofNullable(member.getName())
                 .ifPresent(name -> findMember.setName(name));
         Optional.ofNullable(member.getImgUrl())
@@ -54,6 +63,15 @@ public class MemberService {
                 .ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
 
         findMember.setModifiedAt(LocalDateTime.now());
+
+        //로그인 이미지가 null 아니고  로그인 이미지값이 변화가 있었을시  s3에서 파일 삭제
+//        if (findMember.getImgUrl() != null && !check) {
+//            try {
+//                s3UpFileService.deleteMember(findMember.getImgUrl());
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
         return memberRepository.save(findMember);
     }
@@ -75,6 +93,14 @@ public class MemberService {
 
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
+
+//        if (findMember.getImgUrl() != null ) {
+//            try {
+//                s3UpFileService.deleteMember(findMember.getImgUrl());
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
         memberRepository.delete(findMember);
     }

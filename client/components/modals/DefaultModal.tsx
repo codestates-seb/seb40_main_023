@@ -8,7 +8,6 @@ import { userState } from "../../recoil/user";
 import { getCookie, removeCookies } from "../util/cookie";
 import { useRouter } from "next/router";
 import { notifySuccess } from "../util/Toast";
-
 //마이페이지용 모달로 사용하겠습니다.
 const DefaultModal = ({ setModal }: any) => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);

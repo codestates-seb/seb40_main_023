@@ -19,15 +19,13 @@ const DeleteMgModal = ({ setDeleteModal, luckMangoId }: any) => {
     } catch (error) {}
   };
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-50 bg-mono-400">
-      <div className="absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 box-border z-999 w-[300px] h-[200px]">
-        <header className="flex justify-end w-full hover:cursor-pointer">
-          <Image
-            src={closed}
-            alt="closed button"
-            onClick={() => setDeleteModal(false)}
-          />
-        </header>
+    <div className="fixed top-0 bottom-0 left-0 right-0 z-50 bg-black/20">
+      <div className="absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 box-border z-[9999] w-[300px]">
+        <button
+          className="mg-modal-close"
+          onClick={() => setDeleteModal(false)}
+          aria-label="모달 닫기"
+        ></button>
         <div>
           <main className="flex flex-col gap-1 text-center">
             <div className="mt-5 font-bold text-mono-800">

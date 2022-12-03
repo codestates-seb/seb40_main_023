@@ -129,37 +129,35 @@ const UserModify = ({
 
       <form className="w-[350px]" onSubmit={UserInfoChange}>
         <div className="flex justify-center pt-10">
-          {!modal && (
-            <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
-              <div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  ref={inputRef}
-                  onChange={uploadProfile}
-                  className="hidden"
-                />
-                <div
-                  style={
-                    bgUrl
-                      ? { backgroundImage: `url("${bgUrl}")` }
-                      : { backgroundImage: `url("${userImg}")` }
-                  }
-                  className={
-                    bgUrl
-                      ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
-                      : "w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
-                  }
-                ></div>
-                <div className="flex justify-center mg-mypage-overlay">
-                  <button
-                    className="bg-[url(/images/ico/ico-mypage-edit.svg)] mg-mypage-button"
-                    onClick={uploadImageButtonClick}
-                  ></button>
-                </div>
+          <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
+            <div>
+              <input
+                type="file"
+                accept="image/*"
+                ref={inputRef}
+                onChange={uploadProfile}
+                className="hidden"
+              />
+              <div
+                style={
+                  bgUrl
+                    ? { backgroundImage: `url("${bgUrl}")` }
+                    : { backgroundImage: `url("${userImg}")` }
+                }
+                className={
+                  bgUrl
+                    ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
+                    : "w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                }
+              ></div>
+              <div className="flex justify-center mg-mypage-overlay">
+                <button
+                  className="bg-[url(/images/ico/ico-mypage-edit.svg)] mg-mypage-button"
+                  onClick={uploadImageButtonClick}
+                ></button>
               </div>
             </div>
-          )}
+          </div>
         </div>
         <div>
           <div className="pt-5">

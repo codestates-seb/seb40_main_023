@@ -522,7 +522,7 @@ button:disabled {
 
   /* Modal */
   .mg-modal-container {
-    @apply fixed top-0 bottom-0 left-0 right-0 z-50 flex mobile:bg-black/30 mobile:items-center mobile:justify-center;
+    @apply fixed top-0 bottom-0 left-0 right-0 flex mobile:bg-black/20 mobile:items-center mobile:justify-center z-[9999];
   }
 
   .mg-modal-panel {
@@ -535,6 +535,10 @@ button:disabled {
 
   .mg-modal-title {
     @apply flex flex-row items-center mb-2 text-base font-medium;
+  }
+
+  .mg-modal-confirm {
+    @apply relative flex flex-col items-center max-w-[400px] h-auto bg-white rounded-[20px] p-5 pt-[40px] shadow-context;
   }
 
   /* Validation */

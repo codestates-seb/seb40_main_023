@@ -8,6 +8,7 @@ import { userState } from "../../recoil/user";
 import { getCookie, removeCookies } from "../util/cookie";
 import { useRouter } from "next/router";
 import { notifySuccess } from "../util/Toast";
+
 //마이페이지용 모달로 사용하겠습니다.
 const DefaultModal = ({ setModal }: any) => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
@@ -39,37 +40,31 @@ const DefaultModal = ({ setModal }: any) => {
   };
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-50 bg-mono-400">
-      <div className="absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 box-border z-999 w-[300px] h-[200px]">
-        <header className="flex justify-end w-full hover:cursor-pointer">
-          <Image
-            src={closed}
-            alt="closed button"
+    <div className="flex items-center justify-center mg-modal-container">
+      <div className="mg-modal-confirm">
+        <button
+          className="mg-modal-close"
+          onClick={() => setModal(false)}
+          aria-label="모달 닫기"
+        ></button>
+        <div className="text-center">
+          <div className="mb-2 font-bold text-mono-800">{`모든 새해복망고와 덕담이 삭제됩니다.`}</div>
+          <div className="mb-2 font-bold whitespace-pre-line text-danger-normal">
+            {`링크를 전달받은 친구들이 더 이상 \n 새해복망고 페이지를 볼 수 없습니다.`}
+          </div>
+          <div className="mb-4 text-mono-600">그래도 탈퇴하시겠어요?</div>
+          <button
+            className="mx-2 mg-negative-button-round"
             onClick={() => setModal(false)}
-          />
-        </header>
-        <div>
-          <main className="flex flex-col gap-1 text-center">
-            <div className="font-bold text-mono-800">{`모든 새해복망고와 덕담이 삭제됩니다.`}</div>
-            <div className="font-bold whitespace-pre-line text-mono-700">
-              {`링크를 전달받은 친구들이 더 이상 \n 새해복망고 페이지를 볼 수 없습니다.`}
-            </div>
-            <div className=" text-mono-600">그래도 탈퇴하시겠어요?</div>
-            <footer className="flex justify-center gap-5 p-3">
-              <button
-                className="mg-negative-button-round"
-                onClick={() => setModal(false)}
-              >
-                아니오
-              </button>
-              <button
-                className="rounded-full mg-primary-button"
-                onClick={() => DeleteUser()}
-              >
-                탈퇴할게요
-              </button>
-            </footer>
-          </main>
+          >
+            아니오
+          </button>
+          <button
+            className="mx-2 rounded-full mg-primary-button"
+            onClick={() => DeleteUser()}
+          >
+            탈퇴할게요
+          </button>
         </div>
       </div>
     </div>

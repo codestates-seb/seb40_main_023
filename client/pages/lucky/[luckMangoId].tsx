@@ -117,10 +117,6 @@ const index = () => {
   }, [router.isReady, currPage, completeModal]);
 
   useEffect(() => {
-    console.log("out");
-    if (!luckMgId) return;
-    if (!isUpdate) return;
-    console.log("in");
     getAllLuckyBags(luckMgId, currPage);
     setIsUpdate(false);
   }, [currPage, isUpdate]);
@@ -197,8 +193,8 @@ const index = () => {
     setLuckyBagId(id);
 
     if (isLogin && luckMg && (luckMg as any).member.memberId === memberId) {
-      const res = await patchViewBag(
-        `/api/luckBag/${luckyBagId}`,
+      await patchViewBag(
+        `/api/luckBag/${id}`,
         {
           bagColor: color,
           bagStyle: style,
@@ -210,9 +206,7 @@ const index = () => {
             Authorization: `Bearer ${getCookie("accessJwtToken")}`,
           },
         },
-      );
-
-      console.log(res);
+      ).then(() => setIsUpdate(true));
 
       setIsUpdate(true);
       console.log(isUpdate);

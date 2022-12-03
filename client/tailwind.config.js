@@ -35,7 +35,7 @@ module.exports = {
         HSS: ["HSS", ...defaultTheme.fontFamily.sans],
       },
       aspectRatio: {
-        "2/3": "2 / 3.6",
+        "2/3": "2 / 3.4",
         card: "1 / 1.045",
       },
     },

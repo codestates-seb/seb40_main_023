@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import UserModify from "../../components/UserInfo";
 import DefaultModal from "../../components/modals/DefaultModal";
 import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
 import GalleryItem from "../../components/mypage/GalleryItem";
 import { Toast } from "../../components/util/Toast";
@@ -16,6 +15,7 @@ import Image from "next/image";
 import { useCookies } from "react-cookie";
 import { userState } from "../../recoil/user";
 import { useRouter } from "next/router";
+import { notifyError } from "../../components/util/Toast";
 
 const Mypage = () => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
@@ -51,16 +51,26 @@ const Mypage = () => {
   };
 
   const getUserName = async () => {
-    axios({
+    await axios({
       method: "get",
       url: `/api/member/${userId}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
       },
-    }).then((el: any) => {
-      setUserName(el.data.data.name);
-      setUserImg(el.data.data.imgUrl);
+    }).then((res: any) => {
+      if (res.statusText === "Unauthorized") {
+        notifyError({ message: "로그인이 필요한 서비스입니다.", icon: "🥹" });
+        route.push("/login");
+      } else if (res.status >= 400) {
+        notifyError({
+          message: "통신이 원활하지 않습니다. \n 잠시 후에 시도해 주세요.",
+          icon: "🙏",
+        });
+      }
+
+      setUserName(res.data.data.name);
+      setUserImg(res.data.data.imgUrl);
     });
   };
 
@@ -86,49 +96,38 @@ const Mypage = () => {
 
   return (
     <div>
-      {!modal && (
-        <div>
-          <Header />
-          <aside>
-            <Sidebar />
-          </aside>
-        </div>
-      )}
-
+      <Header />
       <main className="pt-[58px]">
         <div className="flex flex-col w-full h-full min-h-screen px-6 mobile:px-4 mx-auto max-w-[440px]">
-          {modal && <DefaultModal setModal={setModal} />}
-          {!modal && (
-            <div className="max-w-[400px] w-full relative flex mt-10">
-              <div>
-                {userImg.length <= 10 ? (
-                  <div className="bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
-                ) : (
-                  <div
-                    style={{ backgroundImage: `url("${userImg}")` }}
-                    className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"
-                  ></div>
-                )}
-              </div>
-              <div className="flex flex-col justify-center pl-5">
-                <div className="text-3xl">{userName}</div>
-                <div className="flex gap-5 text-base">
-                  <button
-                    className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
-                    onClick={userModify}
-                  >
-                    회원수정
-                  </button>
-                  <button
-                    className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
-                    onClick={isModal}
-                  >
-                    회원탈퇴
-                  </button>
-                </div>
+          <div className="max-w-[400px] w-full relative flex mt-10">
+            <div>
+              {userImg.length <= 10 ? (
+                <div className="bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
+              ) : (
+                <div
+                  style={{ backgroundImage: `url("${userImg}")` }}
+                  className="relative justify-center bg-center bg-cover rounded-full w-36 h-36 mg-border-2 mg-flex"
+                ></div>
+              )}
+            </div>
+            <div className="flex flex-col justify-center pl-5">
+              <div className="text-3xl">{userName}</div>
+              <div className="flex gap-5 text-base">
+                <button
+                  className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
+                  onClick={userModify}
+                >
+                  회원수정
+                </button>
+                <button
+                  className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
+                  onClick={isModal}
+                >
+                  회원탈퇴
+                </button>
               </div>
             </div>
-          )}
+          </div>
           <div className="flex flex-row col-span-1">
             {click ? (
               <UserModify
@@ -145,19 +144,16 @@ const Mypage = () => {
                 <div className="flex mt-[40px] mb-[10px] text-xl pl-2">
                   나의 새해 복망고
                 </div>
-                {!modal && (
-                  <div className="relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-1 mobile:gap-4 gap-6">
-                    {LuckMango.map((el: any, index: any) => (
-                      <GalleryItem
-                        key={index}
-                        luckMangoId={el.luckMangoId}
-                        title={el.title}
-                        bgImage={el.bgImage}
-                        {...el}
-                      />
-                    ))}
-                  </div>
-                )}
+                <div className="relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-1 mobile:gap-4 gap-6">
+                  {LuckMango.map((el: any, index: any) => (
+                    <GalleryItem
+                      key={index}
+                      luckMangoId={el.luckMangoId}
+                      bgImage={el.bgImage}
+                      {...el}
+                    />
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -186,7 +182,8 @@ const Mypage = () => {
         </div>
         <Toast />
       </main>
-      {!modal && <Footer />}
+      <Footer />
+      {modal && <DefaultModal setModal={setModal} />}
     </div>
   );
 };

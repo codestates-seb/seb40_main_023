@@ -5,13 +5,13 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import GalleryItem from "../../components/mypage/GalleryItem";
 import { Toast } from "../../components/util/Toast";
-import { getCookie } from "../../components/util/cookie";
+import { getCookie, removeCookies } from "../../components/util/cookie";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
 import Link from "next/link";
 import Image from "next/image";
-import { useFetch } from "../../fetch/useFetch";
+
 import { useCookies } from "react-cookie";
 import { userState } from "../../recoil/user";
 import { useRouter } from "next/router";
@@ -27,7 +27,6 @@ const Mypage = () => {
   const [bgUrl, setBgUrl] = useState("");
   const [modal, setModal] = useState<boolean>(false);
   const [length, setLength] = useState<Number>(0);
-  const [bagList, setBagList] = useState([]);
   const [cookies] = useCookies(["accessJwtToken"]);
   const [user, setUser] = useRecoilState(userState);
   const route = useRouter();
@@ -38,7 +37,8 @@ const Mypage = () => {
       setUser({ login: false });
       setMemberId({ memberId: 0 });
       localStorage.removeItem("recoil-persist");
-      route.push("/");
+      removeCookies("accessJwtToken");
+      route.push("/login");
     }
   };
 
@@ -88,20 +88,12 @@ const Mypage = () => {
     });
   };
 
-  const getAllLuckyBags = async (userId: number) => {
-    const res = await useFetch(
-      `/api/luckBag/luckMango?luckMangoId=${userId}&page=1&size=7`,
-    );
-    setBagList(res.pageInfo.totalElements);
-  };
-
   useEffect(() => {
     getLuckMango();
     getUserName();
     checkLogin();
-    getAllLuckyBags(userId);
   }, []);
-  console.log(userImg);
+
   return (
     <div>
       <Header />
@@ -145,6 +137,7 @@ const Mypage = () => {
                 setBgUrl={setBgUrl}
                 bgUrl={bgUrl}
                 userImg={userImg}
+                setUserImg={setUserImg}
               />
             ) : (
               <div className="flex flex-col w-full mb-5">
@@ -156,10 +149,7 @@ const Mypage = () => {
                     <GalleryItem
                       key={index}
                       luckMangoId={el.luckMangoId}
-                      title={el.title}
                       bgImage={el.bgImage}
-                      bagList={bagList}
-                      userName={userName}
                       {...el}
                     />
                   ))}
@@ -167,7 +157,7 @@ const Mypage = () => {
               </div>
             )}
           </div>
-          {length === 0 ? (
+          {length === 0 && !click ? (
             <div className="flex flex-col items-center w-full">
               <p className="mb-1 text-mono-textDisabled">
                 🥹 아직 만드신 복망고가 없습니다.
@@ -189,8 +179,8 @@ const Mypage = () => {
               </Link>
             </div>
           ) : null}
-          <Toast />
         </div>
+        <Toast />
       </main>
       <Footer />
       {modal && <DefaultModal setModal={setModal} />}

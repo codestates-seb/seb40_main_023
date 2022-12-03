@@ -38,8 +38,7 @@ const index = () => {
   };
 
   //bgm 구역
-  const [bgmOn, setBgmOn] = useState(false);
-
+  const [bgmOn, setBgmOn] = useState<boolean>(false);
   const [shareBtn, setShareBtn] = useState(false);
   const [modal, setModal] = useState(false);
   const [letterModal, setLetterModal] = useState(false);
@@ -207,6 +206,8 @@ const index = () => {
         },
       ).then(() => setIsUpdate(true));
 
+      setIsUpdate(true);
+      console.log(isUpdate);
       setLetterModal(!letterModal);
     } else {
       notifyError({
@@ -251,7 +252,7 @@ const index = () => {
                     }
                     onClick={handleBgm}
                   />
-                  <Player bgmOn={bgmOn} onClick={handleBgm} />
+                  <Player bgmOn={bgmOn} />
                 </div>
                 <div className="absolute flex justify-center w-full top-20 mg-bok-layout-row">
                   <Greeting content={body} edit={false} />

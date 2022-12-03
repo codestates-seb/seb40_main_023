@@ -32,13 +32,13 @@ const LuckBags = ({
               data-index={luckyBag.luckBagId}
               data-type={luckyBag.bagStyle}
               data-color={luckyBag.bagColor}
-              onClick={e => {
+              onClick={e =>
                 handleLetterModal(
                   luckyBag.luckBagId,
                   luckyBag.bagStyle,
                   luckyBag.bagColor,
-                );
-              }}
+                )
+              }
               className={`${luckyBag.viewed ? "" : "active"}`}
             />
           ))

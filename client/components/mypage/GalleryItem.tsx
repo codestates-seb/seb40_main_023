@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { notifySuccess } from "../util/Toast";
 import QrModal from "../modals/QrModal";
 import DeleteMgModal from "../modals/DeleteMgModal";
+import { useFetch } from "../../fetch/useFetch";
 
-const GalleryItem = ({
-  bgImage,
-  luckMangoId,
-  bagList,
-  userName,
-  ...el
-}: any) => {
+const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
+  console.log(el);
+  const [bagList, setBagList] = useState([]);
   //모달 관리
   const [deleteModal, setDeleteModal] = useState(false);
   const handleModal = (e: any) => {
@@ -38,6 +35,17 @@ const GalleryItem = ({
     notifySuccess({ message: "url이 복사됐습니다.", icon: "😎" });
   };
 
+  const getAllLuckyBags = async (userId: number) => {
+    const res = await useFetch(
+      `/api/luckBag/luckMango?luckMangoId=${luckMangoId}&page=1&size=7`,
+    );
+    setBagList(res.data.length);
+  };
+  console.log(bagList);
+  useEffect(() => {
+    getAllLuckyBags(luckMangoId);
+  }, []);
+
   return (
     <div
       className={`group mg-default-card aspect-[2/1.3] max-w-none max-h-none shadow-none border border-mono-100`}
@@ -59,9 +67,15 @@ const GalleryItem = ({
               <Link href={`/lucky/${luckMangoId}`}>{el.title}</Link>
             </p>
             <div className="truncate">{bagList}개의 덕담을 받았어요!</div>
-            <p className="truncate relative text-right pl-[30px] before:content-[''] before:w-[20px] before:h-[20px] before:bg-[url(/images/ico/ico-like-active.svg)] before:bg-contain bg-no-repeat before:absolute before:left-0 before:top-0 text-primary-light font-medium">
-              {Number(el.likeCount).toLocaleString()}
-            </p>
+            {el.reveal ? (
+              <p className="truncate relative text-right pl-[30px] before:content-[''] before:w-[20px] before:h-[20px] before:bg-[url(/images/ico/ico-like-active.svg)] before:bg-contain bg-no-repeat before:absolute before:left-0 before:top-0 text-primary-light font-medium">
+                {Number(el.likeCount).toLocaleString()}
+              </p>
+            ) : (
+              <p className="truncate relative text-right pl-[30px] before:content-[''] before:w-[20px] before:h-[20px] before:absolute before:left-0 before:top-0 text-primary-light font-medium">
+                비공개 복망고
+              </p>
+            )}
           </div>
         </div>
         <div className="h-[25%] flex flex-row flex-nowrap items-center justify-evenly bg-white text-mono-textNormal p-2 rounded-[14px] rounded-tl-none rounded-tr-none border-dashed border-spacing-3 border-t border-mono-200">

@@ -6,6 +6,8 @@ import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { memberIdState } from "../recoil/memberId";
 import { getCookie } from "./util/cookie";
 import { uploadMgImg } from "../fetch/create";
+import { useRouter } from "next/router";
+import { notifySuccess } from "./util/Toast";
 
 const UserModify = ({
   handle,
@@ -14,10 +16,12 @@ const UserModify = ({
   userImg,
   setBgUrl,
   bgUrl,
+  setUserImg,
 }: any): React.ReactElement => {
   //전역상태
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;
+  const router = useRouter();
 
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -40,6 +44,10 @@ const UserModify = ({
     }
   };
 
+  const pageChange = () => {
+    setTimeout(() => window.location.reload(), 1500);
+  };
+
   const uploadBgImg = async (formData: any) => {
     const res = await uploadMgImg(`/api/s3/login/`, formData, {
       headers: {
@@ -48,6 +56,7 @@ const UserModify = ({
       },
     });
     setBgUrl(res);
+    setUserImg(res);
   };
 
   //정보수정 보내는 함수
@@ -57,12 +66,21 @@ const UserModify = ({
       await axios({
         method: "patch",
         url: `/api/member/${userId}`,
-        data: { imgUrl: bgUrl, password: password },
+        data: { password: password },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getCookie("accessJwtToken")}`,
         },
       });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      notifySuccess({
+        message: "비밀번호를 변경했어요!",
+        icon: "😎",
+      });
+      pageChange();
     } catch (error) {
       console.log(error);
     }
@@ -111,8 +129,6 @@ const UserModify = ({
     inputRef.current.click();
   };
 
-  console.log("userImg", userImg);
-
   return (
     <div className="mg-layout min-w-[400px]">
       <div className="flex flex-row w-full pt-4 text-xl text-left">
@@ -148,7 +164,11 @@ const UserModify = ({
                   className={
                     bgUrl
                       ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
-                      : "w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                      : `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover ${
+                          userImg.length <= 10
+                            ? "bg-[url(/images/char/profile.webp)]"
+                            : ""
+                        }`
                   }
                 ></div>
                 <div className="flex justify-center mg-mypage-overlay">
@@ -239,13 +259,13 @@ const UserModify = ({
         </div>
         <button
           className={`mt-12 w-full ${
-            !(isPassword && isPasswordConfirm && bgUrl)
+            !(isPassword && isPasswordConfirm)
               ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"
               : "mg-primary-button"
           }`}
-          disabled={!(isPassword && isPasswordConfirm && bgUrl)}
+          disabled={!(isPassword && isPasswordConfirm)}
         >
-          수정 완료
+          비밀번호 변경!
         </button>
       </form>
     </div>

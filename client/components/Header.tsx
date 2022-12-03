@@ -1,13 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Link from "next/link";
 import Image from "next/image";
+import { useCookies } from "react-cookie";
+import { useRecoilState } from "recoil";
+import { userState } from "../recoil/user";
+import { memberIdState } from "../recoil/memberId";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [cookies] = useCookies(["accessJwtToken"]);
+  const [user, setUser] = useRecoilState(userState);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
+
   const toggleSidebarHandle = (): void => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  const tokenValid = () => {
+    const token = cookies.accessJwtToken;
+    if (!token) {
+      setUser({ login: false });
+      setMemberId({ memberId: 0 });
+      localStorage.removeItem("recoil-persist");
+    }
+  };
+
+  useEffect(() => {
+    tokenValid();
+  }, [isSidebarOpen]);
 
   return (
     <>
@@ -29,6 +50,7 @@ const Header = () => {
               width={20}
               height={16}
               alt="사이드 메뉴 열기"
+              onClick={tokenValid}
             />
           ) : (
             <Image
@@ -36,6 +58,7 @@ const Header = () => {
               width={12}
               height={19}
               alt="사이드 메뉴 닫기"
+              onClick={tokenValid}
             />
           )}
         </button>

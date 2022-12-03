@@ -20,7 +20,7 @@ const Login = () => {
   const router = useRouter();
 
   const pageChange = () => {
-    setTimeout(() => router.push("/"), 2000);
+    setTimeout(() => router.push("/"), 1500);
   };
 
   const onSubmit2 = async (e: any) => {
@@ -96,15 +96,6 @@ const Login = () => {
         <div className="flex flex-col max-w-[360px] justify-center text-center mb-10">
           <div className="mt-[100px] mb-[20px] text-4xl">로그인</div>
           <div className="px-[20px]">
-            <button className="w-[230px] py-3 mt-5 text-black rounded bg-social-kakaoNormal hover:bg-social-kakaoHover">
-              카카오톡 회원가입
-            </button>
-            <button className="w-[230px] py-3 mt-3 text-white rounded bg-social-githubNormal hover:bg-social-githubHover">
-              깃허브 회원가입
-            </button>
-            <button className="w-[230px] py-3 mt-3 text-white rounded bg-social-naverNormal hover:bg-social-naverHover">
-              네이버 회원가입
-            </button>
             <form onSubmit={onSubmit2}>
               <div className="mt-10">
                 <label htmlFor="email" className="text-left mg-default-label">

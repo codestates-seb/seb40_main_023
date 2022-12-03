@@ -151,6 +151,8 @@ const index = () => {
       templateId: TEMPLETE_ID,
       templateArgs: {
         id: `${luckMgId}`,
+        img: `${bgUrl}`,
+        username: `${luckMg?.member.name}`,
       },
     });
   };

@@ -11,12 +11,16 @@ import { TEMPLETE_ID } from "../../constants/templeteId";
 import { notifyInfo } from "../../components/util/Toast";
 import { luckMgIdState } from "../../recoil/luckMgId";
 import QrModal from "../../components/modals/QrModal";
+import { memberNameState } from "../../recoil/memberName";
+import { luckImgState } from "../../recoil/luckImg";
 
 const Complete = () => {
   const [isLoading, setIsLoading] = useState(true);
   const memberId = useRecoilValue(memberIdState).memberId;
   const [qrCode, setQrCode] = useState(false);
   const luckMgId = useRecoilValue(luckMgIdState);
+  const userName = useRecoilValue(memberNameState);
+  const luckImg = useRecoilValue(luckImgState);
 
   useEffect(() => {
     if (!window.Kakao.isInitialized()) {
@@ -35,6 +39,8 @@ const Complete = () => {
       templateId: TEMPLETE_ID,
       templateArgs: {
         id: `${luckMgId}`,
+        username: `${userName}`,
+        img: `${luckImg}`,
       },
     });
   };

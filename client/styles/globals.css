@@ -114,7 +114,7 @@ button:disabled {
 
   /* Sidebar */
   .mg-sidebar {
-    @apply fixed min-w-[150px] top-0 bottom-0 right-0 h-screen pt-[80px] px-6 text-right bg-white border-l shadow-context border-mono-borderLight z-[999];
+    @apply fixed min-w-[150px] top-0 bottom-0 right-0 h-screen pt-[80px] px-6 text-right bg-white border-l shadow-context border-mono-borderLight z-[99];
   }
 
   .mg-sidebar-show {
@@ -130,11 +130,11 @@ button:disabled {
   }
 
   .mg-default-card {
-    @apply cursor-pointer relative flex justify-center w-full max-w-[230px] max-h-[220px] bg-white rounded-[14px] shadow-card mobile:hover:shadow-cardHover transition-all overflow-hidden;
+    @apply relative flex justify-center w-full max-w-[230px] max-h-[220px] bg-white rounded-[14px] shadow-card mobile:hover:shadow-cardHover transition-all overflow-hidden;
   }
 
   .mg-mypage-card {
-    @apply cursor-pointer relative flex justify-center w-full max-w-[190px] max-h-[170px] bg-white rounded-[14px] shadow-card mobile:hover:shadow-cardHover transition-all overflow-hidden;
+    @apply relative flex justify-center w-full max-w-[190px] max-h-[170px] bg-white rounded-[14px] shadow-card mobile:hover:shadow-cardHover transition-all overflow-hidden;
   }
 
   .mg-card-contents {
@@ -154,7 +154,7 @@ button:disabled {
   }
 
   .mg-mypage-overlay {
-    @apply absolute top-0 bottom-0 left-0 right-0 grid items-center grid-cols-2 p-8 text-center transition-all duration-300 rounded-full opacity-0 w-36 h-36 will-change-auto bg-mono-500/40 group-hover:opacity-100;
+    @apply absolute top-0 bottom-0 left-0 right-0 grid items-center grid-cols-2 p-8 text-center transition-all duration-300 rounded-full w-36 h-36 will-change-auto bg-mono-500/20;
   }
 
   .mg-card-button {
@@ -162,7 +162,7 @@ button:disabled {
   }
 
   .mg-mypage-button {
-    @apply border border-white w-[40px] h-[40px] bg-transparent hover:bg-[rgba(252,0,0,.02)] rounded-full bg-no-repeat bg-center;
+    @apply w-[50px] h-[50px] bg-black/40 rounded-full bg-no-repeat bg-center;
   }
 
   /* Footer */

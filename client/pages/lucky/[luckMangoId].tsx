@@ -56,9 +56,10 @@ const index = () => {
   const [existPage, setExistPage] = useState(true);
   const [bgUrl, setBgUrl] = useState("");
 
-  //페이지네이션
+  //복주머니
   const [currPage, setCurrPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
+  const [isUpdate, setIsUpdate] = useState(true);
 
   //로그인 여부
   const [isLogin, setIsLogin] = useState(false);
@@ -116,9 +117,13 @@ const index = () => {
   }, [router.isReady, currPage, completeModal]);
 
   useEffect(() => {
+    console.log("out");
     if (!luckMgId) return;
+    if (!isUpdate) return;
+    console.log("in");
     getAllLuckyBags(luckMgId, currPage);
-  }, [currPage]);
+    setIsUpdate(false);
+  }, [currPage, isUpdate]);
 
   const getLuckyMango = async (luckMangoId: number) => {
     const res = await useFetch(`/api/luckMango/${luckMangoId}`);
@@ -182,13 +187,19 @@ const index = () => {
     setModal(!modal);
   };
 
-  const handleLetterModal = async (id: number) => {
+  const handleLetterModal = async (
+    id: number,
+    style: number,
+    color: number,
+  ) => {
     setLuckyBagId(id);
 
     if (isLogin && luckMg && (luckMg as any).member.memberId === memberId) {
       const res = await patchViewBag(
         `/api/luckBag/${luckyBagId}`,
         {
+          bagColor: color,
+          bagStyle: style,
           viewed: true,
         },
         {
@@ -201,6 +212,8 @@ const index = () => {
 
       console.log(res);
 
+      setIsUpdate(true);
+      console.log(isUpdate);
       setLetterModal(!letterModal);
     } else {
       notifyError({
@@ -262,6 +275,7 @@ const index = () => {
                       pageInfo={pageInfo}
                       setCurrPage={setCurrPage}
                       currPage={currPage}
+                      setIsUpdate={setIsUpdate}
                     />
                   )}
                 </div>

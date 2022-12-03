@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="border-b border-mono-borderLight bg-white z-[9999] fixed h-[58px] px-3 shadow-header flex items-center w-full justify-between">
+      <header className="border-b border-mono-borderLight bg-white z-[999] fixed h-[58px] px-3 shadow-header flex items-center w-full justify-between">
         <div className="ml-[40px] flex justify-center w-full">
           <h1 className="mg-logo">
             <Link href="/">새해복망고 로고</Link>

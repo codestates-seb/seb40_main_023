@@ -63,8 +63,8 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
             <div className="text-sm text-mono-500">
               <span className="">{el.member.name}</span>님의 새해 복망고
             </div>
-            <p className="text-xl text-black truncate text-medium">
-              {el.title}
+            <p className="text-xl text-black underline truncate underline-offset-4 text-medium">
+              <Link href={`/lucky/${luckMangoId}`}>{el.title}</Link>
             </p>
             <div className="truncate">{bagList}개의 덕담을 받았어요!</div>
             {el.reveal ? (

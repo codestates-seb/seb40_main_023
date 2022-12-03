@@ -55,8 +55,8 @@ const GalleryItem = ({
             <div className="text-sm text-mono-500">
               <span className="">{el.member.name}</span>님의 새해 복망고
             </div>
-            <p className="text-xl text-black truncate text-medium">
-              {el.title}
+            <p className="text-xl text-black underline truncate underline-offset-4 text-medium">
+              <Link href={`/lucky/${luckMangoId}`}>{el.title}</Link>
             </p>
             <div className="truncate">{bagList}개의 덕담을 받았어요!</div>
             <p className="truncate relative text-right pl-[30px] before:content-[''] before:w-[20px] before:h-[20px] before:bg-[url(/images/ico/ico-like-active.svg)] before:bg-contain bg-no-repeat before:absolute before:left-0 before:top-0 text-primary-light font-medium">

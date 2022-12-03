@@ -108,7 +108,7 @@ const index = () => {
     const { luckMangoId } = router.query;
     getLuckyMango(Number(luckMangoId));
     setLuckMgId(Number(luckMangoId));
-  }, [router.isReady]);
+  }, [router.isReady, completeModal]);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -151,6 +151,8 @@ const index = () => {
       templateId: TEMPLETE_ID,
       templateArgs: {
         id: `${luckMgId}`,
+        img: `${bgUrl}`,
+        username: `${luckMg?.member.name}`,
       },
     });
   };
@@ -274,7 +276,9 @@ const index = () => {
                   )}
                 </div>
                 <div className="absolute bottom-[5%] w-full px-4 mg-bok-layout-row">
-                  {isLogin ? (
+                  {isLogin &&
+                  luckMg &&
+                  (luckMg as any)?.member?.memberId === memberId ? (
                     <div className="flex-col-reverse items-end justify-center mg-flex-center">
                       <button
                         className="mg-icon-share my-1 w-[230px] bg-[left_1rem_center] mg-secondary-button-round"

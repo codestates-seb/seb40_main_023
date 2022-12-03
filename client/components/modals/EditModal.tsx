@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import BokPreview from "../BokPreview";
 import { createMg } from "../../fetch/create";
@@ -8,6 +8,8 @@ import { getCookie } from "../util/cookie";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
 import { luckMgIdState } from "../../recoil/luckMgId";
+import { memberNameState } from "../../recoil/memberName";
+import { luckImgState } from "../../recoil/luckImg";
 
 const EditModal = ({
   setModal,
@@ -20,7 +22,13 @@ const EditModal = ({
 }: any) => {
   const memberId = useRecoilValue(memberIdState).memberId;
   const [luckMgId, setLuckMgId] = useRecoilState(luckMgIdState);
+  const [userName, setUserName] = useRecoilState(memberNameState);
+  const [luckImg, setLuckImg] = useRecoilState(luckImgState);
   const router = useRouter();
+
+  useEffect(() => {
+    setLuckImg(bgUrl);
+  }, []);
 
   const checkIfResOK = (res: any, mode: string) => {
     if (res.statusText === "Unauthorized") {
@@ -54,7 +62,7 @@ const EditModal = ({
           },
         },
       );
-
+      setUserName(res.data.member.name);
       checkIfResOK(res, "edit");
     } else {
       const res = await createMg(
@@ -73,7 +81,7 @@ const EditModal = ({
           },
         },
       );
-
+      setUserName(res.data.member.name);
       checkIfResOK(res, "create");
     }
   };

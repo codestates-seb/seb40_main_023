@@ -14,6 +14,8 @@ import QrModal from "../../components/modals/QrModal";
 
 import { userState } from "../../recoil/user";
 import { useRouter } from "next/router";
+import { memberNameState } from "../../recoil/memberName";
+import { luckImgState } from "../../recoil/luckImg";
 
 const Complete = () => {
   const [isValidPage, setIsValidPage] = useState(false);
@@ -22,9 +24,12 @@ const Complete = () => {
   const [qrCode, setQrCode] = useState(false);
   const luckMgId = useRecoilValue(luckMgIdState);
   const [user, setUser] = useRecoilState(userState);
+  const userName = useRecoilValue(memberNameState);
+  const luckImg = useRecoilValue(luckImgState);
+
   const userlogin = user.login;
   const router = useRouter();
-
+  console.log(user);
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -52,6 +57,8 @@ const Complete = () => {
       templateId: TEMPLETE_ID,
       templateArgs: {
         id: `${luckMgId}`,
+        username: `${userName}`,
+        img: `${luckImg}`,
       },
     });
   };

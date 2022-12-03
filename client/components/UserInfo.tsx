@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { memberIdState } from "../recoil/memberId";
 import { getCookie } from "./util/cookie";
-import { uploadMgImg } from "../fetch/create";
+import { uploadUserImg } from "../fetch/userImg";
 import { useRouter } from "next/router";
 import { notifySuccess } from "./util/Toast";
 
@@ -49,7 +49,7 @@ const UserModify = ({
   };
 
   const uploadBgImg = async (formData: any) => {
-    const res = await uploadMgImg(`/api/s3/login/`, formData, {
+    const res = await uploadUserImg(`/api/s3/login/`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,

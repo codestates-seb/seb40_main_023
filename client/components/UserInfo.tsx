@@ -111,7 +111,7 @@ const UserModify = ({
     inputRef.current.click();
   };
 
-  console.log("qweqwe", userImg);
+  console.log("userImg", userImg);
 
   return (
     <div className="mg-layout min-w-[400px]">

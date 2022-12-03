@@ -216,7 +216,7 @@ const index = () => {
   return (
     <div className="pt-4 bg-[url(/images/content/pt-dots.svg)]">
       <h1 className="mx-auto mb-1 mg-logo">
-        <Link href="/">Logo</Link>
+        <Link href="/">새해복망고 로고</Link>
       </h1>
       <main>
         <div ref={downloadRef}>
@@ -400,7 +400,7 @@ const index = () => {
               )}
             </div>
           ) : (
-            <NotFound content="찾으시는 복망고가 없는 것 같아요" />
+            <NotFound message="찾으시는 복망고가 없는 것 같아요" />
           )}
           {qrCode && <QrModal shareQr={shareQr} />}
           {completeModal && (

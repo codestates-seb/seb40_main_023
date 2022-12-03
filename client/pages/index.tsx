@@ -50,17 +50,17 @@ export default function Home() {
           <ServiceIntro />
         </Section>
         <Section color={true}>
-          <SectionTitle title={`새해 복망고 어떻게 만드나요?`} />
+          <SectionTitle title={`새해 복망고 이렇게 만들어요!`} />
           <ServiceHowto />
         </Section>
         <Section>
           <SectionTitle
-            title={`이렇게 많은 분들이 복망고에서\n덕담을 나누고 있어요`}
+            title={`이렇게 많은 분들이 새해 복망고에서\n덕담을 나누고 있어요`}
           />
           <ServiceChart />
         </Section>
         <Section color={true}>
-          <SectionTitle title={`새해 복망고 찐후기`} />
+          <SectionTitle title={`새해 복망고 찐 후기`} />
           <ServiceReview />
         </Section>
         <Section>

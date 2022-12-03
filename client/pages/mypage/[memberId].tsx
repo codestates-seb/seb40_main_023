@@ -104,10 +104,10 @@ const Mypage = () => {
       )}
 
       <main className="pt-[58px]">
-        <div className="flex flex-col w-full h-full min-h-screen px-4 mobile:px-2 mx-auto max-w-[440px]">
+        <div className="flex flex-col w-full h-full min-h-screen px-6 mobile:px-4 mx-auto max-w-[440px]">
           {modal && <DefaultModal setModal={setModal} />}
           {!modal && (
-            <div className="max-w-[400px] w-full relative flex mt-16">
+            <div className="max-w-[400px] w-full relative flex mt-10">
               <div>
                 {userImg.length <= 10 ? (
                   <div className="bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"></div>
@@ -125,7 +125,7 @@ const Mypage = () => {
                     className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
                     onClick={userModify}
                   >
-                    정보수정
+                    회원수정
                   </button>
                   <button
                     className="underline text-mono-400 hover:cursor-pointer hover:text-mono-300"
@@ -149,11 +149,11 @@ const Mypage = () => {
               />
             ) : (
               <div className="flex flex-col w-full mb-5">
-                <div className="flex mt-[40px] mb-[10px] text-xl">
-                  나의 복망고 리스트
+                <div className="flex mt-[40px] mb-[10px] text-xl pl-2">
+                  나의 새해 복망고
                 </div>
                 {!modal && (
-                  <div className="relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-2 gap-6">
+                  <div className="relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-1 mobile:gap-4 gap-6">
                     {LuckMango.map((el: any, index: any) => (
                       <GalleryItem
                         key={index}
@@ -161,6 +161,8 @@ const Mypage = () => {
                         title={el.title}
                         bgImage={el.bgImage}
                         bagList={bagList}
+                        userName={userName}
+                        {...el}
                       />
                     ))}
                   </div>

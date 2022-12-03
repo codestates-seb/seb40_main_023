@@ -65,16 +65,23 @@ export default function ServiceGallery() {
       <div className="relative min-h-[100px] text-center my-4">
         {loading && <Loading />}
         {error && <FetchError />}
+        {isEmpty && (
+          <p className="mb-1 text-mono-textDisabled">
+            공개된 복망고가 없습니다. 🥹
+          </p>
+        )}
         {hasMore ? (
           <div className="opacity-0" ref={ref}>
             intersection observer marker
           </div>
         ) : (
-          <div className="flex flex-col items-center py-4 text-center grid-col-1">
+          <div
+            className={`flex flex-col items-center py-4 text-center grid-col-1 ${
+              loading === false && hasMore === false ? "visible" : "invisible"
+            }`}
+          >
             <p className="mb-1 text-mono-textDisabled">
-              {isEmpty
-                ? "공개된 복망고가 없습니다. 🥹"
-                : "모든 복망고를 불러왔습니다. 😎"}
+              모든 복망고를 불러왔습니다. 😎
             </p>
             <Link
               href="/create"

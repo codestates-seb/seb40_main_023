@@ -29,16 +29,21 @@ const LuckBags = ({
           luckyBagList.map((luckyBag: any, idx: number) => (
             <button
               key={luckyBag.luckBagId}
+              data-index={luckyBag.luckBagId}
               data-type={luckyBag.bagStyle}
               data-color={luckyBag.bagColor}
-              onClick={e => handleLetterModal(luckyBag.luckBagId)}
+              onClick={e =>
+                handleLetterModal(
+                  luckyBag.luckBagId,
+                  luckyBag.bagStyle,
+                  luckyBag.bagColor,
+                )
+              }
               className={`${luckyBag.viewed ? "" : "active"}`}
             />
           ))
         )}
       </div>
-      {/* {!(currPage === 1 && pageInfo.size > pageInfo.totalPages) && (
-      )} */}
       <div className="mg-flex-center justify-center bottom-0 z-10 absolute rounded-full min-w-[14px] bg-[#0000004D] px-3 py-1 text-white">
         <div className="text-center">
           {currPage} /{" "}

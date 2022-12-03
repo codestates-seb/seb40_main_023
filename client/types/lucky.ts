@@ -39,4 +39,6 @@ export interface luckMgType {
 
 export interface PatchbagProps {
   viewed: boolean;
+  bagColor: number;
+  bagStyle: number;
 }

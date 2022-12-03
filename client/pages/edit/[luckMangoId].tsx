@@ -199,7 +199,12 @@ const Edit = () => {
                 greeting={greeting}
               />
               <div className="w-full mt-3 mb-2 mg-checkbox-group">
-                <input id="checkIsPublic" type="checkbox" className="hidden" />
+                <input
+                  id="checkIsPublic"
+                  type="checkbox"
+                  className="hidden"
+                  checked={reveal}
+                />
                 <label htmlFor="checkIsPublic" onClick={handleCheck}>
                   <span className="mr-2"></span>내가 만든 복망고를 모두에게
                   자랑하기
@@ -211,7 +216,7 @@ const Edit = () => {
               </div>
             </div>
             <Link
-              href={isValid === "ok" ? "/create" : "/create#scrollTop"}
+              href={isValid === "ok" ? "#" : "/create#scrollTop"}
               className={`mg-primary-button w-[230px] mt-6${
                 isValid !== "no" ? "" : " disabled"
               }`}
@@ -222,7 +227,7 @@ const Edit = () => {
             </Link>
           </div>
         ) : (
-          <NotFound content={errorContent} />
+          <NotFound message={errorContent} />
         )}
 
         {modal && (

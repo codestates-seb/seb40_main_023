@@ -53,9 +53,7 @@ const Signup = () => {
     setId(idCurrent);
 
     if (!idRegex.test(idCurrent)) {
-      setIdMessage(
-        "영문, 숫자를 포함하여 4글자 이상 10글자 이하로 입력해주세요!",
-      );
+      setIdMessage("아이디를 다시 작성해주세요!");
       setIsId(false);
     } else {
       setIdMessage("예쁜 아이디네요.");
@@ -72,7 +70,7 @@ const Signup = () => {
       setEmail(emailCurrent);
 
       if (!emailRegex.test(emailCurrent)) {
-        setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ");
+        setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요~");
         setIsEmail(false);
       } else {
         setEmailMessage("올바른 이메일 형식이에요 : )");
@@ -91,9 +89,7 @@ const Signup = () => {
       setPassword(passwordCurrent);
 
       if (!passwordRegex.test(passwordCurrent)) {
-        setPasswordMessage(
-          "영문, 숫자, 특수기호를 포함하여 8자 이상 입력해주세요!",
-        );
+        setPasswordMessage("비밀번호를 다시 작성해주세요!!");
         setIsPassword(false);
       } else {
         setPasswordMessage("사용 가능한 비밀번호에요 :)");
@@ -137,15 +133,6 @@ const Signup = () => {
             1분 안에 나만의 복망고 페이지를 생성해 보세요!
           </div>
           <div className="px-[20px]">
-            <button className="w-[230px] py-3 mt-6 text-black rounded bg-social-kakaoNormal hover:bg-social-kakaoHover">
-              카카오톡 회원가입
-            </button>
-            <button className="w-[230px] py-3 mt-4 text-white rounded bg-social-githubNormal hover:bg-social-githubHover">
-              깃허브 회원가입
-            </button>
-            <button className="w-[230px] py-3 mt-4 text-white rounded bg-social-naverNormal hover:bg-social-naverHover">
-              네이버 회원가입
-            </button>
             <form onSubmit={signupSubmit}>
               <div className="mt-11">
                 <div className="mt-11">
@@ -199,7 +186,7 @@ const Signup = () => {
                     />
                     {email.length > 0 && (
                       <span
-                        className={`text-left text-sm pl-2 pt-1 ${
+                        className={`text-left text-sm pl-2 pt-1 w-full ${
                           isEmail ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >

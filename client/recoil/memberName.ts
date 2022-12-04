@@ -1,7 +1,13 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-const { persistAtom } = recoilPersist();
+const sessionStorage =
+  typeof window !== "undefined" ? window.sessionStorage : undefined;
+
+const { persistAtom } = recoilPersist({
+  key: "memberName",
+  storage: sessionStorage,
+});
 
 export const memberNameState = atom<string>({
   key: `memberNameState`,

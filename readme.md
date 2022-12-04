@@ -1,4 +1,5 @@
 # 애플망고 팀
+![cover2](https://user-images.githubusercontent.com/96723716/205483190-75531730-1456-481e-a6bc-2203c188c437.jpg)
 
 ### 팀원을 소개합니다!
 
@@ -11,4 +12,4 @@
 ![스크린샷 2022-11-12 오전 9 36 20](https://user-images.githubusercontent.com/96723716/201447902-bd310989-2a5d-4d47-bfec-15a7f87e92d1.png)
 
 ### 스택
-![image](https://user-images.githubusercontent.com/96723716/205422383-b9fb10e7-43dc-48b4-a595-11c644e9817b.png)
+![image](https://user-images.githubusercontent.com/96723716/205453058-d4650fb6-ffbb-47c2-aa85-95dfa3d205bb.png)

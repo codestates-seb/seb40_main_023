@@ -58,6 +58,17 @@ public class LuckMangoService {
         return luckMangos;
     }
 
+    public Page<LuckMango> publicLuckMangoLike(boolean reveal,int page, int size, String sort) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sort).descending());
+        List<LuckMango> Result = luckMangoRepository.searchLuckMangoByReveal2(reveal);
+
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), Result.size());
+        Page<LuckMango> luckMangos = new PageImpl<>(Result.subList(start, end), pageRequest, Result.size());
+
+        return luckMangos;
+    }
+
     public Page<LuckMango> publicLuckMango(boolean reveal,int page, int size, String sort) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sort).descending());
         List<LuckMango> Result = luckMangoRepository.searchLuckMangoByReveal(reveal);
@@ -68,6 +79,7 @@ public class LuckMangoService {
 
         return luckMangos;
     }
+
 
     //복망고 수정하기
     public LuckMango updateLuckMango(LuckMango luckMango) {

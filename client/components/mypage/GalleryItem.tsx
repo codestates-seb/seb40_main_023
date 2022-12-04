@@ -7,7 +7,6 @@ import DeleteMgModal from "../modals/DeleteMgModal";
 import { useFetch } from "../../fetch/useFetch";
 
 const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
-  console.log(el);
   const [bagList, setBagList] = useState([]);
   //모달 관리
   const [deleteModal, setDeleteModal] = useState(false);
@@ -41,7 +40,7 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
     );
     setBagList(res.data.length);
   };
-  console.log(bagList);
+
   useEffect(() => {
     getAllLuckyBags(luckMangoId);
   }, []);

@@ -1,11 +1,9 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
 import { getCookie, setCookie } from "../../components/util/cookie";
 import { notifyError, notifySuccess, Toast } from "../../components/util/Toast";
 import { useRecoilState } from "recoil";
@@ -89,9 +87,6 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <aside>
-        <Sidebar />
-      </aside>
       <div className="flex flex-col items-center w-full h-full min-h-screen">
         <div className="flex flex-col max-w-[360px] justify-center text-center mb-10">
           <div className="mt-[100px] mb-[10px] text-4xl">로그인</div>
@@ -99,7 +94,7 @@ const Login = () => {
             <div className="flex flex-col items-center">
               <p className="mb-4 w-[165px] h-[209px] animate-[welcome_2.5s_steps(7)_infinite] bg-[url(/images/char/sprite.png)]"></p>
               <p className="mb-2 text-xl text-center text-medium">
-                다시 만나 반가워요!
+                다시 만나게 되어 반가워요!
               </p>
               <p className="text-base text-center text-medium">
                 따뜻한 덕담을 주고받는{" "}

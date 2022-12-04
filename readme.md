@@ -8,7 +8,7 @@
 
 |[김민아](https://github.com/rmaomina)|[노종열](https://github.com/Exist95)|[홍다희](https://github.com/hongdahee)|[신현상](https://github.com/Dev-Sam32)|[유정현](https://github.com/yoojunghyen)|[한상현](https://github.com/saypart)
 |:---:|:---:|:---:|:---:|:---:|:---:|
-|FE|👑FE|FE|BE|BE|BE|
+|FE|🌟FE|FE|BE|BE|BE|
 |[🙋issue](https://github.com/codestates-seb/seb40_main_023/issues?q=is%3Aissue+assignee%3Armaomina)|[🙋issue](https://github.com/codestates-seb/seb40_main_023/issues?q=assignee%3AExist95)|[🙋issue](https://github.com/codestates-seb/seb40_main_023/issues?q=assignee%3Ahongdahee)|[🙋issue](https://github.com/codestates-seb/seb40_main_023/issues?q=assignee%3ADev-Sam32)|[🙋issue](https://github.com/codestates-seb/seb40_main_023/issues?q=assignee%3Ayoojunghyen)|[🙋issue](https://github.com/codestates-seb/seb40_main_023/issues?q=assignee%3Asaypart)|
 |<img src="https://avatars.githubusercontent.com/u/36831218?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/96723716?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/107875003?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/90596545?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/107785861?v=4" width="100">|<img src="https://avatars.githubusercontent.com/u/54827741?v=4" width="100">
 
@@ -35,7 +35,7 @@ git commit -m "feat/갤러리 무한스크롤 기능 구현"
 |  | 유형 | 설명 |
 | ------ | ------ | ------ |
 | 🚀 | feat | 새로운 기능 추가, 수정 |
-| 🛑 | fix | 버그 픽스, 에러 핸들링 |
+| 🐞 | fix | 버그 픽스, 에러 핸들링 |
 | 🎉 | build | 빌드 & 배포 |
 | 🔨 | chore | 패키지 외 기타 수정 |
 | 📝 | docs | 문서 수정 |

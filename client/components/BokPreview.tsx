@@ -18,13 +18,19 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
   };
 
   const uploadBgImg = async (formData: any) => {
-    const res = await uploadMgImg(`/api/s3/luckMango/`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+    const res = await uploadMgImg(
+      `/api/s3/luckMango/`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+        },
       },
-    });
-    setBgUrl(res);
+      setLoading,
+    );
+    setLoading(false);
+    setBgUrl(res.data);
   };
 
   const uploadImageButtonClick = () => {

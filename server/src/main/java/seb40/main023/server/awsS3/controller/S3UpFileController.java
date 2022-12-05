@@ -24,19 +24,18 @@ public class S3UpFileController {
     private final MemberService memberService;
     private final LuckMangoService luckMangoService;
 
-//    @PostMapping("/login")
-//    public String uploadFile(@Positive @RequestParam("memberId") long memberId, @RequestParam("images") MultipartFile multipartFile) throws IOException {
-//        S3UpFile s3Upfile = new S3UpFile();
-//        s3Upfile.setMember(memberService.findVerifiedMember(memberId));
-//        return s3UpFileService.upload(multipartFile,s3Upfile);
-//    }
-
     @PostMapping("/login")
-    public String uploadFile(@RequestParam("images") MultipartFile multipartFile) throws IOException {
+    public String uploadFile(@Positive @RequestParam("memberId") long memberId, @RequestParam("images") MultipartFile multipartFile) throws IOException {
         S3UpFile s3Upfile = new S3UpFile();
+        s3Upfile.setMember(memberService.findVerifiedMember(memberId));
         return s3UpFileService.upload(multipartFile,s3Upfile);
     }
 
+//    @PostMapping("/login")
+//    public String uploadFile(@RequestParam("images") MultipartFile multipartFile) throws IOException {
+//        S3UpFile s3Upfile = new S3UpFile();
+//        return s3UpFileService.upload(multipartFile,s3Upfile);
+//    }
 
     @PostMapping("/luckMango")
     public String upload2File( @RequestParam("images") MultipartFile multipartFile) throws IOException {

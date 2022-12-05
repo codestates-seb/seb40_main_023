@@ -1,6 +1,6 @@
 import axios from "axios";
 import Image from "next/image";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { memberIdState } from "../recoil/memberId";

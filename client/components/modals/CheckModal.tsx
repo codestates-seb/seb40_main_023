@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import closed from "../../public/images/ico/ico-modal-close.svg";
 import { createBag } from "../../fetch/lucky";

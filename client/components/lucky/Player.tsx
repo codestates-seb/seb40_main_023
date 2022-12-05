@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import AudioPlayer from "react-h5-audio-player";
 
 const Player = ({ bgmOn }: any) => {

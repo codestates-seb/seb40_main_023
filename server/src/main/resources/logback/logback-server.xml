@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 로그파일 저장 경로 -->
+    <property name="LOG_DIR" value="home/ubuntu/logback" />
+
+<!--     CONSOLE -->
+<!--    ch.qos.logback.core.ConsoleAppender: console에 로그를 찍기위해 사용-->
+<!--     ch.qos.logback.core.rolling.RollingFileAppender: 여러개의 파일을 순회하면서 로그를 찍기 위하여 사용-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} : %30logger{5} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+<!--     // CONSOLE -->
+
+    <!-- SYSLOG -->
+    <appender name="SYSLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/syslog/syslog.log</file> <!-- 파일 생성시 나타낼 이름의 패턴을 지정한다. -->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern> <!-- pattern 태그 로그를 출력하는 공간 -->
+                [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} : %30logger{5} - %msg%n
+            </Pattern>
+        </layout>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/syslog/syslog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    <!-- // SYSLOG -->
+
+<!--    &lt;!&ndash; ACCESSLOG &ndash;&gt;-->
+<!--    <appender name="ACCESSLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <file>${LOG_DIR}/accesslog/accesslog.log</file> &lt;!&ndash; 파일 생성시 나타낼 이름의 패턴을 지정한다. &ndash;&gt;-->
+<!--        <layout class="ch.qos.logback.classic.PatternLayout">-->
+<!--            <Pattern> &lt;!&ndash; pattern 태그 로그를 출력하는 공간 &ndash;&gt;-->
+<!--                &lt;!&ndash;%msg%n &ndash;&gt;-->
+<!--                [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} : %30logger{5} - %msg%n-->
+<!--            </Pattern>-->
+<!--        </layout>-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${LOG_DIR}/accesslog/accesslog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+<!--            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+<!--                <maxFileSize>10MB</maxFileSize>-->
+<!--            </timeBasedFileNamingAndTriggeringPolicy>-->
+<!--        </rollingPolicy>-->
+<!--    </appender>-->
+<!--    &lt;!&ndash; // ACCESSLOG &ndash;&gt;-->
+
+    <!-- WARNING -->
+    <appender name="WARNLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/warnlog/warnlog.log</file> <!-- 파일 생성시 나타낼 이름의 패턴을 지정한다. -->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern> <!-- pattern 태그 로그를 출력하는 공간 -->
+                [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} : %30logger{5} - %msg%n
+            </Pattern>
+        </layout>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/warnlog/warnlog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+<!--     /WARNING -->
+
+
+
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="SYSLOG" />
+    </root>
+
+    <logger name="console-log" level="debug" additivity="false">
+        <appender-ref ref="CONSOLE" />
+    </logger>
+<!--    <logger name="access-log" level="info" additivity="false">-->
+<!--        <appender-ref ref="ACCESSLOG" />-->
+<!--    </logger>-->
+<!--    <logger name="WARN-LOG" level="warn" additivity="false">-->
+<!--        <appender-ref ref="WARNLOG" />-->
+<!--    </logger>-->
+    <logger name="WARN-LOG">
+        <level value="WARN"/>
+        <appender-ref ref="WARNLOG"/>
+    </logger>
+
+
+</configuration>

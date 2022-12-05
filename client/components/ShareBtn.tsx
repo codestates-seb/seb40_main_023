@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const ShareBtn = ({ shareQr, shareKakao, shareUrl }: any) => {
   return (

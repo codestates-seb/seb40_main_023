@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
 import { Toast, notifyError } from "../../components/util/Toast";
 
 const Signup = () => {

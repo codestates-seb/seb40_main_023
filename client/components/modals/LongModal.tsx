@@ -16,6 +16,7 @@ const LongModal = ({
   const [money, setMoney] = useState(0);
   const [bagType, setBagType] = useState(1);
   const [confirmModal, setConfirmModal] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   const data = {
     luckContent: luckContent,
@@ -34,6 +35,11 @@ const LongModal = ({
 
   const handleMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMoney(Number(e.target.value));
+    if (Number(e.target.value) <= 10000000 && Number(e.target.value) >= 1) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
   };
 
   const handleLuckContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -152,6 +158,7 @@ const LongModal = ({
             <button
               className="rounded-full mg-primary-button"
               onClick={handleConModal}
+              disabled={isValid ? false : true}
             >
               덕담 보내기
             </button>

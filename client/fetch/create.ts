@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CreateMangoProps } from "../types/create";
+import { CreateMangoProps, UploadImgProps } from "../types/create";
 
 export const createMg = async (
   url: string,
@@ -8,10 +8,25 @@ export const createMg = async (
 ) => {
   try {
     const response = await axios.post(url, body, header);
-    console.log(response);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.warn(error);
+    return error;
+  }
+};
+
+export const uploadMgImg = async (
+  url: string,
+  body: UploadImgProps,
+  header: {},
+  setLoading: any,
+) => {
+  try {
+    setLoading(true);
+    const response: any = await axios.post(url, body, header);
+    return response;
+  } catch (error) {
+    console.warn(error);
     return error;
   }
 };

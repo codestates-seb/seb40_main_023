@@ -4,10 +4,9 @@ import { EditMangoProps } from "../types/edit";
 export const editMg = async (url: string, body: EditMangoProps, header: {}) => {
   try {
     const response = await axios.patch(url, body, header);
-    console.log(response);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.warn(error);
     return error;
   }
 };

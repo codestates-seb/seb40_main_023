@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ReviewDataProps } from "../../../types/main";
+import FetchEmpty from "../../util/FetchEmpty";
 
 function ReviewSlide({ reviewData }: any) {
   const NextArrow = ({ onClick }: any) => {
@@ -30,6 +31,7 @@ function ReviewSlide({ reviewData }: any) {
     dots: true,
     speed: 300,
     slidesToShow: 3,
+    initialSlide: 0,
     centerPadding: "0",
     swipeToSlide: true,
     focusOnSelect: true,
@@ -55,13 +57,14 @@ function ReviewSlide({ reviewData }: any) {
     ],
   };
 
-  return (
+  return reviewData.length ? (
     <Slider {...settings} className="flex flex-col items-center justify-center">
-      {reviewData &&
-        reviewData.map((review: ReviewDataProps, idx: number) => (
-          <ReviewItem key={idx} {...review} />
-        ))}
+      {reviewData.map((review: ReviewDataProps, idx: number) => (
+        <ReviewItem key={idx} {...review} />
+      ))}
     </Slider>
+  ) : (
+    <FetchEmpty />
   );
 }
 

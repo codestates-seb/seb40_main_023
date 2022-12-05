@@ -48,7 +48,7 @@ const CheckModal = ({
 
   return (
     <div className="absolute top-0 bottom-0 left-0 right-0 z-999">
-      <div className="z-20 w-[356px] h-[238px] absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 box-border">
+      <div className="z-20 w-[356px] h-[238px] absolute top-[50%] left-[50%] bg-white border shadow-context rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 box-border">
         <header className="flex justify-end w-full hover:cursor-pointer">
           <Image
             src={closed}

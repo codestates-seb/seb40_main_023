@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
 import CheckModal from "./CheckModal";
@@ -49,28 +49,34 @@ const LongModal = ({
   };
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-50 bg-mono-400 ">
-      <div className="w-[356px] h-[756px] absolute top-[50%] left-[50%] bg-white border rounded-xl -translate-x-2/4 -translate-y-2/4 p-2 z-999 box-border">
-        <header className="flex justify-end w-full hover:cursor-pointer">
-          <Image
-            src="/images/ico/ico-modal-close.svg"
-            width={30}
-            height={30}
-            alt="close button"
-            onClick={handleModal}
-          />
-        </header>
-        <div className="m-auto">
-          <div className="flex-col gap-3 mg-flex-center">
-            <div className="mg-modal-title">
+    <div className="mg-modal-container">
+      <div className="overflow-y-auto mg-modal-panel">
+        <button
+          className="mg-modal-close"
+          onClick={handleModal}
+          aria-label="모달 닫기"
+        ></button>
+        <div className="max-w-[440px] mobile:max-w-none w-full">
+          <div className="px-2">
+            <div className="justify-center mb-6 text-xl mg-modal-title">
               {luckMg.member.name}님에게 보낼 덕담을 입력해 주세요
             </div>
+          </div>
+          <div className="px-2 mb-4">
             <textarea
-              className="p-3 mg-modal-input h-[226px] resize-none"
+              className="p-3 w-full mg-modal-input h-[220px] resize-none"
               maxLength={188}
               onChange={e => handleLuckContent(e)}
             />
-            <div className="mg-modal-title">보내는 사람</div>
+          </div>
+          <div className="px-2">
+            <div className="w-full mg-flex-center">
+              <div className="mg-modal-title">
+                <p className="mr-3">보내는 사람</p>
+              </div>
+            </div>
+          </div>
+          <div className="px-2 mb-4">
             <input
               maxLength={15}
               size={15}
@@ -79,50 +85,65 @@ const LongModal = ({
               value={writer}
               onChange={e => handleWriter(e)}
             />
-            <div className="mg-flex-center w-[300px] mb-[0.5rem]">
-              <div className="flex-1 mb-0 mg-modal-title">세뱃돈</div>
-              <div className="text-xs pr-14 flex-2 text-secondary-hover">
-                실제 금액이 아닌 마음만 전달해요
+          </div>
+          <div className="px-2">
+            <div className="flex-row items-center mg-flex-center">
+              <div className="mg-modal-title">
+                <p className="mr-3">세뱃돈</p>
+              </div>
+              <div className="mb-2 mg-info-normal">
+                <i></i>실제 금액이 아닌 마음만 전달해요
               </div>
             </div>
+          </div>
+          <div className="px-2 mb-4">
             <input
-              className=" mg-modal-input"
-              placeholder="1원 ~ 100,000원"
+              className="w-full mg-modal-input"
+              placeholder="1원 ~ 10,000,000원"
               type="number"
               min={1}
-              max={100000}
+              max={10000000}
               maxLength={6}
               size={6}
               onChange={e => handleMoney(e)}
             />
-            <div className="mg-flex-center w-[300px] mb-[0.5rem]">
-              <div className="flex-1 mb-0 mg-modal-title">주머니 선택</div>
-              <div className="pr-20 text-xs text-danger-normal flex-2">
-                * 색상은 랜덤으로 적용돼요
+          </div>
+          <div className="px-2">
+            <div className="flex-row items-center mg-flex-center">
+              <div className="mg-modal-title">
+                <p className="mr-3">주머니 선택</p>
+              </div>
+              <div className="mb-2 mg-info-normal">
+                <i></i>색상은 랜덤으로 적용됩니다.
               </div>
             </div>
+          </div>
+
+          <div className="flex-col gap-3 mg-flex-center">
             <form className="w-full gap-6 justify-evenly mg-flex-center">
-              {LUCKBAG_OPTION.map(el => {
+              {LUCKBAG_OPTION.map(idx => {
                 return (
-                  <label
-                    key={el}
-                    className="flex-col justify-center gap-2 mg-flex-center"
-                  >
-                    <Image
-                      priority={true}
-                      src={`/images/content/img-bok${el}-1.svg`}
-                      alt="luckbag"
-                      width={65}
-                      height={79}
-                      className="cursor-pointer h-[74px]"
-                    />
+                  <div key={idx} className="w-full mt-3 mb-2 mg-radio-group">
                     <input
-                      name="luckbag"
+                      id={`radioIsPublic${idx}`}
                       type="radio"
-                      value={el}
+                      className="hidden"
                       onChange={e => handleLuckBag(e)}
+                      name="radioIsPublic"
+                      value={idx}
                     />
-                  </label>
+                    <label htmlFor={`radioIsPublic${idx}`}>
+                      <Image
+                        priority={true}
+                        src={`/images/content/img-bok${idx}-1.svg`}
+                        alt={`luckbag${idx}`}
+                        width={65}
+                        height={79}
+                        className="cursor-pointer h-[74px] mb-4"
+                      />
+                      <span></span>
+                    </label>
+                  </div>
                 );
               })}
             </form>

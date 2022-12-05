@@ -36,7 +36,7 @@ const ServiceChart = () => {
               {countUp ? (
                 <CountUp
                   start={0}
-                  end={12587890}
+                  end={187892}
                   separator={","}
                   duration={1}
                   delay={0}
@@ -52,7 +52,7 @@ const ServiceChart = () => {
               {countUp ? (
                 <CountUp
                   start={0}
-                  end={1234567890}
+                  end={267890}
                   separator={","}
                   duration={1}
                   delay={0}

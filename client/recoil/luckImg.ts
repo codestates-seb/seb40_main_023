@@ -5,12 +5,12 @@ const sessionStorage =
   typeof window !== "undefined" ? window.sessionStorage : undefined;
 
 const { persistAtom } = recoilPersist({
-  key: "luckMgIdState",
+  key: "luckImgState",
   storage: sessionStorage,
 });
 
-export const luckMgIdState = atom<number>({
-  key: `luckMgIdState`,
-  default: 0,
+export const luckImgState = atom<string>({
+  key: `luckImgState`,
+  default: "",
   effects_UNSTABLE: [persistAtom],
 });

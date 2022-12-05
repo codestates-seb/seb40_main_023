@@ -1,20 +1,30 @@
 import axios from "axios";
 import Image from "next/image";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { memberIdState } from "../recoil/memberId";
 import { getCookie } from "./util/cookie";
+import { uploadUserImg } from "../fetch/userImg";
+import { useRouter } from "next/router";
+import { notifySuccess } from "./util/Toast";
 
-const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
+const UserModify = ({
+  handle,
+  userName,
+  modal,
+  userImg,
+  setBgUrl,
+  bgUrl,
+  setUserImg,
+}: any): React.ReactElement => {
   //전역상태
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;
+  const router = useRouter();
 
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [bgImg, setBgImg] = useState("");
-  const [bgUrl, setBgUrl] = useState("");
 
   //폼 영역
   const [password, setPassword] = useState<string>("");
@@ -25,15 +35,33 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
 
-  const uploadProfile = (e: React.ChangeEvent<HTMLInputElement | null>) => {
+  const uploadProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      setBgImg(URL.createObjectURL(e.target.files[0]));
-      setBgUrl(URL.createObjectURL(e.target.files[0]));
+      const formData = new FormData();
+      formData.append("images", e.target.files[0]);
+      formData.append("memberId", `${userId}`);
+      uploadBgImg(formData);
     }
   };
 
+  const pageChange = () => {
+    setTimeout(() => window.location.reload(), 1500);
+  };
+
+  const uploadBgImg = async (formData: any) => {
+    const res = await uploadUserImg(`/api/s3/login/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+      },
+    });
+    setBgUrl(res);
+    setUserImg(res);
+  };
+
   //정보수정 보내는 함수
-  const passwordChange = async () => {
+  const UserInfoChange = async (e: any) => {
+    e.preventDefault();
     try {
       await axios({
         method: "patch",
@@ -44,13 +72,18 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
           Authorization: `Bearer ${getCookie("accessJwtToken")}`,
         },
       });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      notifySuccess({
+        message: "비밀번호를 변경했어요!",
+        icon: "😎",
+      });
+      pageChange();
     } catch (error) {
-      console.log(error);
+      console.warn(error);
     }
-  };
-
-  const uploadImageButtonClick = () => {
-    inputRef.current?.click();
   };
 
   const onChangePassword = useCallback(
@@ -89,19 +122,29 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
     [password],
   );
 
+  const uploadImageButtonClick = () => {
+    if (!inputRef.current) {
+      return;
+    }
+    inputRef.current.click();
+  };
+
   return (
     <div className="mg-layout min-w-[400px]">
       <div className="flex flex-row w-full pt-4 text-xl text-left">
         <Image
           src={previous}
           alt="뒤로가기 버튼"
-          className="cursor-pointer"
+          width={30}
+          height={30}
+          className="m-0 mr-2 cursor-pointer"
           onClick={() => handle(false)}
         />
         <span className="flex items-center justify-center">회원정보 수정</span>
       </div>
-      <div className="pt-10">
-        {!modal && (
+
+      <form className="w-[350px]" onSubmit={UserInfoChange}>
+        <div className="flex justify-center pt-10">
           <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
             <div>
               <input
@@ -114,13 +157,17 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
               <div
                 style={
                   bgUrl
-                    ? { backgroundImage: `url(${bgUrl})` }
-                    : { backgroundImage: `url(${bgImg})` }
+                    ? { backgroundImage: `url("${bgUrl}")` }
+                    : { backgroundImage: `url("${userImg}")` }
                 }
                 className={
-                  bgImg || bgUrl
+                  bgUrl
                     ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
-                    : "bg-[url(/images/char/profile.webp)] w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover"
+                    : `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover ${
+                        userImg.length <= 10
+                          ? "bg-[url(/images/char/profile.webp)]"
+                          : ""
+                      }`
                 }
               ></div>
               <div className="flex justify-center mg-mypage-overlay">
@@ -131,9 +178,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
               </div>
             </div>
           </div>
-        )}
-      </div>
-      <form className="w-[350px]" onSubmit={passwordChange}>
+        </div>
         <div>
           <div className="pt-5">
             <label htmlFor="" className="mg-default-label">
@@ -153,7 +198,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
             <div className="flex flex-col">
               <input
                 id="password"
-                type="passowrd"
+                type="password"
                 placeholder="영문, 숫자, 특수기호를 포함하여 8자 이상"
                 onChange={onChangePassword}
                 className={`mg-default-input ${
@@ -186,7 +231,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
             <div className="flex flex-col">
               <input
                 id="passwordconfirm"
-                type="text"
+                type="password"
                 placeholder="비밀번호 확인"
                 onChange={onChangePasswordConfirm}
                 className={`mg-default-input ${
@@ -218,7 +263,7 @@ const UserModify = ({ handle, userName, modal }: any): React.ReactElement => {
           }`}
           disabled={!(isPassword && isPasswordConfirm)}
         >
-          수정 완료
+          비밀번호 변경!
         </button>
       </form>
     </div>

@@ -43,4 +43,3 @@ git commit -m "feat/갤러리 무한스크롤 기능 구현"
 | 😎 | refactor | 리팩토링, 코드 개선 |
 | 🚪 | release | 버전 릴리즈 |
 | 🥪 | merge | 파일 병합 |
-

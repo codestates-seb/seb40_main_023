@@ -27,7 +27,8 @@ export default function ServiceGallery() {
   }, [inView]);
 
   const toggleOrderHandle = (e: any) => {
-    setQuery(e.target.dataset.type);
+    if (`${e.target.dataset.type}` === query) return;
+    setQuery(`${e.target.dataset.type}`);
     setPage(1);
   };
 
@@ -43,11 +44,11 @@ export default function ServiceGallery() {
             최신순
           </button>
         </li>
-        <li className={`rounded-r-full ${query === "likeCount" && "active"}`}>
+        <li className={`rounded-r-full ${query === "/like" && "active"}`}>
           <button
             className="min-w-[100px]"
             onClick={toggleOrderHandle}
-            data-type="likeCount"
+            data-type="/like"
           >
             추천순
           </button>
@@ -63,14 +64,12 @@ export default function ServiceGallery() {
         ))}
       </div>
       <div className="relative min-h-[100px] text-center my-4">
-        {loading && <Loading />}
-        {error && <FetchError />}
-        {isEmpty && (
+        {loading ? <Loading /> : error && <FetchError />}
+        {isEmpty ? (
           <p className="mb-1 text-mono-textDisabled">
             공개된 복망고가 없습니다. 🥹
           </p>
-        )}
-        {hasMore ? (
+        ) : hasMore ? (
           <div className="opacity-0" ref={ref}>
             intersection observer marker
           </div>

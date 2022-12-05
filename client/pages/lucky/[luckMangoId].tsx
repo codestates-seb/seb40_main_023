@@ -89,7 +89,7 @@ const index = () => {
         setUserInfo(el.data.data);
       });
     } catch (error) {
-      console.log(error);
+      console.warn(error);
     }
   };
 
@@ -147,7 +147,7 @@ const index = () => {
   const shareKakao = () => {
     const { Kakao } = window;
     Kakao.Link.sendScrap({
-      requestUrl: `https://seb40-main-023-7vi4.vercel.app/lucky/${luckMgId}`,
+      requestUrl: `https://seb40-main-023.vercel.app/lucky/${luckMgId}`,
       templateId: TEMPLETE_ID,
       templateArgs: {
         id: `${luckMgId}`,
@@ -209,7 +209,6 @@ const index = () => {
       ).then(() => setIsUpdate(true));
 
       setIsUpdate(true);
-      console.log(isUpdate);
       setLetterModal(!letterModal);
     } else {
       notifyError({

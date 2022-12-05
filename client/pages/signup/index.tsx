@@ -121,9 +121,6 @@ const Signup = () => {
   return (
     <div>
       <Header />
-      <aside>
-        <Sidebar />
-      </aside>
       <div className="flex flex-col items-center w-full h-full min-h-screen">
         <div className="flex flex-col max-w-[360px] justify-center text-center mb-10">
           <div className="mt-[100px] text-4xl whitespace-pre-line">

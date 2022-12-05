@@ -108,7 +108,7 @@ button:disabled {
     @apply flex justify-center w-[50%] py-1 mobile:py-2 border-2 border-primary-normal bg-white text-primary-normal items-center max-w-[220px] text-center;
   }
 
-  .mg-gallery-filter > .active {
+  .mg-gallery-filter .active {
     @apply font-semibold text-white bg-primary-normal;
   }
 

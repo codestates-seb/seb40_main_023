@@ -5,9 +5,6 @@ import Image from "next/image";
 const NotFound = (props: any) => {
   return (
     <div className="pt-4 bg-[url(/images/content/pt-dots.svg)]">
-      {/* <h1 className="mx-auto mb-1 mg-logo">
-        <Link href="/">새해복망고 로고</Link>
-      </h1> */}
       <main className="py-[58px]">
         <div className="h-full mg-layout">
           <div className="flex justify-center my-8 text-center text-9xl text-mono-textLight font-HSS opacity-60">

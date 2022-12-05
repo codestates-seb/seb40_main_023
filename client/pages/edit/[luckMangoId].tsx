@@ -38,8 +38,6 @@ const Edit = () => {
 
   useEffect(() => {
     isFilledUpForm();
-    console.log(title, greeting, bgUrl);
-    console.log(isValid);
   }, [title, greeting, bgUrl]);
 
   const isFilledUpForm = () => {
@@ -86,7 +84,6 @@ const Edit = () => {
       });
       setIsValid("ok");
     } else {
-      console.log(isValid);
       toggleModal(true);
     }
   };

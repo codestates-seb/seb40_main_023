@@ -7,7 +7,6 @@ import DeleteMgModal from "../modals/DeleteMgModal";
 import { useFetch } from "../../fetch/useFetch";
 
 const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
-  console.log(el);
   const [bagList, setBagList] = useState([]);
   //모달 관리
   const [deleteModal, setDeleteModal] = useState(false);
@@ -25,7 +24,7 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
   //URL 관리
   const shareUrl = (e: any) => {
     e.stopPropagation();
-    let currentUrl = `https://seb40-main-023-7vi4.vercel.app/lucky/${luckMangoId}`;
+    let currentUrl = `https://seb40-main-023.vercel.app/lucky/${luckMangoId}`;
     let t = document.createElement("textarea");
     document.body.appendChild(t);
     t.value = currentUrl;
@@ -41,7 +40,7 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
     );
     setBagList(res.data.length);
   };
-  console.log(bagList);
+
   useEffect(() => {
     getAllLuckyBags(luckMangoId);
   }, []);
@@ -59,20 +58,20 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
               "bg-[url(/dummy/user1.png)]"
             }`}
           ></div>
-          <div className="mg-card-desc py-3 px-5 grow shrink basis-[60%] flex flex-col justify-evenly items-end text-base">
-            <div className="text-sm text-mono-500">
+          <div className="mg-card-desc py-3 px-5 grow shrink basis-[60%] w-[60%] flex flex-col justify-evenly items-end text-base">
+            <div className="w-full text-sm text-mono-500 line-clamp-2">
               <span className="">{el.member.name}</span>님의 새해 복망고
             </div>
-            <p className="text-xl text-black underline truncate underline-offset-4 text-medium">
+            <p className="w-full text-xl text-black underline line-clamp-2 underline-offset-4 text-medium">
               <Link href={`/lucky/${luckMangoId}`}>{el.title}</Link>
             </p>
-            <div className="truncate">{bagList}개의 덕담을 받았어요!</div>
+            <div className="line-clamp-2">{bagList}개의 덕담을 받았어요!</div>
             {el.reveal ? (
-              <p className="truncate relative text-right pl-[30px] before:content-[''] before:w-[20px] before:h-[20px] before:bg-[url(/images/ico/ico-like-active.svg)] before:bg-contain bg-no-repeat before:absolute before:left-0 before:top-0 text-primary-light font-medium">
+              <p className="relative text-right pl-[30px] before:content-[''] before:w-[20px] before:h-[20px] before:bg-[url(/images/ico/ico-like-active.svg)] before:bg-contain bg-no-repeat before:absolute before:left-0 before:top-0 text-primary-light font-medium">
                 {Number(el.likeCount).toLocaleString()}
               </p>
             ) : (
-              <p className="truncate relative text-right pl-[30px] before:content-[''] before:w-[20px] before:h-[20px] before:absolute before:left-0 before:top-0 text-primary-light font-medium">
+              <p className="relative text-right pl-[30px] before:content-[''] before:w-[20px] before:h-[20px] before:absolute before:left-0 before:top-0 text-primary-light font-medium">
                 비공개 복망고
               </p>
             )}
@@ -105,7 +104,7 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
       {qrCode && (
         <QrModal
           shareQr={shareQr}
-          link={`https://seb40-main-023-7vi4.vercel.app/lucky/${luckMangoId}`}
+          link={`https://seb40-main-023.vercel.app/lucky/${luckMangoId}`}
         />
       )}
       {deleteModal && (

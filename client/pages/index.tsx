@@ -20,11 +20,10 @@ export default function Home() {
   const [cookies] = useCookies(["accessJwtToken"]);
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
-  const router = useRouter();
 
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
-    if (!token) {
+    if (token === undefined || "") {
       setUser({ login: false });
       setMemberId({ memberId: 0 });
       localStorage.removeItem("recoil-persist");

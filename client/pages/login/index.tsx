@@ -11,10 +11,10 @@ import { userState } from "../../recoil/user";
 import { memberIdState } from "../../recoil/memberId";
 
 const Login = () => {
-  const [user, setUser] = useRecoilState(userState);
-  const [memberId, setMemberId] = useRecoilState(memberIdState);
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [user, setUser] = useRecoilState(userState);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
   const router = useRouter();
 
   const pageChange = () => {

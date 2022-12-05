@@ -10,14 +10,17 @@ module.exports = {
   important: true,
   theme: {
     screens: {
-      // 기본적으로 640미만의 모바일이 우선 작업됩니다.
-      // 아래 기준 px은 min-width를 의미합니다.
       mobile: "640px",
       tablet: "768px",
       laptop: "1024px",
       desktop: "1280px",
     },
     extend: {
+      keyframes: {
+        welcome: {
+          "100%": { "background-position": "-1155px" },
+        },
+      },
       boxShadow: {
         header: "0 4px 15px 0 rgba(0, 0, 0, 0.03)",
         context: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
@@ -30,7 +33,7 @@ module.exports = {
         HSS: ["HSS", ...defaultTheme.fontFamily.sans],
       },
       aspectRatio: {
-        "2/3": "2 / 3",
+        "2/3": "2 / 3.4",
         card: "1 / 1.045",
       },
     },

@@ -3,9 +3,8 @@ import { signupBody } from "../types/signup";
 export const signUp = async (url: string, body: signupBody) => {
   try {
     const response = await axios.post(url, body);
-    console.log(response);
   } catch (error) {
-    console.log(error);
+    console.warn(error);
     return error;
   }
 };

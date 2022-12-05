@@ -27,7 +27,8 @@ export default function ServiceGallery() {
   }, [inView]);
 
   const toggleOrderHandle = (e: any) => {
-    setQuery(e.target.dataset.type);
+    if (`${e.target.dataset.type}` === query) return;
+    setQuery(`${e.target.dataset.type}`);
     setPage(1);
   };
 
@@ -43,11 +44,11 @@ export default function ServiceGallery() {
             최신순
           </button>
         </li>
-        <li className={`rounded-r-full ${query === "likeCount" && "active"}`}>
+        <li className={`rounded-r-full ${query === "/like" && "active"}`}>
           <button
             className="min-w-[100px]"
             onClick={toggleOrderHandle}
-            data-type="likeCount"
+            data-type="/like"
           >
             추천순
           </button>
@@ -55,7 +56,7 @@ export default function ServiceGallery() {
       </ul>
       <div
         className={
-          "relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-2 gap-6 tablet:grid-cols-3"
+          "relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-2 max-w-[500px] gap-6"
         }
       >
         {cards.map((card: GalleryDataProps) => (
@@ -63,18 +64,23 @@ export default function ServiceGallery() {
         ))}
       </div>
       <div className="relative min-h-[100px] text-center my-4">
-        {loading && <Loading />}
-        {error && <FetchError />}
-        {hasMore ? (
+        {loading ? <Loading /> : error && <FetchError />}
+        {isEmpty ? (
+          <p className="mb-1 text-mono-textDisabled">
+            공개된 복망고가 없습니다. 🥹
+          </p>
+        ) : hasMore ? (
           <div className="opacity-0" ref={ref}>
             intersection observer marker
           </div>
         ) : (
-          <div className="flex flex-col items-center py-4 text-center grid-col-1">
+          <div
+            className={`flex flex-col items-center py-4 text-center grid-col-1 ${
+              loading === false && hasMore === false ? "visible" : "invisible"
+            }`}
+          >
             <p className="mb-1 text-mono-textDisabled">
-              {isEmpty
-                ? "공개된 복망고가 없습니다. 🥹"
-                : "모든 복망고를 불러왔습니다. 😎"}
+              모든 복망고를 불러왔습니다. 😎
             </p>
             <Link
               href="/create"

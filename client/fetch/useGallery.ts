@@ -1,6 +1,7 @@
-import { ReviewDataProps } from "./../types/main";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { getCookie } from "../components/util/cookie";
+import { ReviewDataProps } from "./../types/main";
 
 export const useFetchInfinite = (query: string, page: number) => {
   const [cards, setCards] = useState<any[]>([]);
@@ -16,25 +17,18 @@ export const useFetchInfinite = (query: string, page: number) => {
   useEffect(() => {
     setLoading(true);
     setError(false);
-
     let cancel: any;
     axios({
       method: "GET",
-      url: `/api/luckMango/public?reveal=true&page=${page}&size=9&sort=${query}`,
+      url: `/api/luckMango/public${query}?reveal=true&page=${page}&size=12&sort=likeCount`,
       cancelToken: new axios.CancelToken(c => (cancel = c)),
     })
       .then(res => {
+        setLoading(false);
+
         setCards(prevCards => {
           return [...prevCards, ...res.data.data];
         });
-
-        console.log(
-          "currentPage/totalPage: ",
-          res.data.pageInfo.page,
-          res.data.pageInfo.totalPages,
-        );
-
-        console.log("totalElement: ", res.data.pageInfo.totalElements);
 
         if (res.data.pageInfo.totalElements === 0) {
           setIsEmpty(true);
@@ -47,11 +41,10 @@ export const useFetchInfinite = (query: string, page: number) => {
         } else {
           setHasMore(false);
         }
-
-        setLoading(false);
       })
       .catch(e => {
         if (axios.isCancel(e)) return;
+        setLoading(false);
         setError(true);
       });
     return () => cancel();
@@ -60,19 +53,17 @@ export const useFetchInfinite = (query: string, page: number) => {
   return { loading, error, cards, hasMore, isEmpty };
 };
 
-export const useFetchLikes = (luckMangoId: number, likeCount: number) => {
-  const token = process.env.NEXT_PUBLIC_TOKEN;
-
+export const usePatchLikes = (luckMangoId: number, likeCount: number) => {
   const res = axios({
     method: "PATCH",
     url: `/api/luckMango/${luckMangoId}`,
     data: {
       luckMangoId,
-      likeCount,
+      likeCount: likeCount + 1,
       reveal: true,
     },
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getCookie("accessJwtToken")}`,
     },
   })
     .then(res => {

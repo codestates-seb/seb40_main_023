@@ -73,6 +73,7 @@ public class LuckBagService {
 
         Optional.ofNullable(luckBag.getLuckBagBody()).ifPresent(body -> findLuckBag.setLuckBagBody(body));
         Optional.ofNullable(luckBag.getWriter()).ifPresent(writer -> findLuckBag.setWriter(writer));
+
         Optional.ofNullable(luckBag.isViewed()).ifPresent(viewed -> findLuckBag.setViewed(viewed));
 
         findLuckBag.setModifiedAt(LocalDateTime.now());

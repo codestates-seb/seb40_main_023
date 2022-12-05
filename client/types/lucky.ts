@@ -36,3 +36,9 @@ export interface luckMgType {
   createdAt: string;
   modifiedAt: string;
 }
+
+export interface PatchbagProps {
+  viewed: boolean;
+  bagColor: number;
+  bagStyle: number;
+}

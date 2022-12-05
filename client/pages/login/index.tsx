@@ -1,11 +1,9 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
 import { getCookie, setCookie } from "../../components/util/cookie";
 import { notifyError, notifySuccess, Toast } from "../../components/util/Toast";
 import { useRecoilState } from "recoil";
@@ -20,7 +18,7 @@ const Login = () => {
   const router = useRouter();
 
   const pageChange = () => {
-    setTimeout(() => router.push("/"), 2000);
+    setTimeout(() => router.push("/"), 1500);
   };
 
   const onSubmit2 = async (e: any) => {
@@ -63,14 +61,14 @@ const Login = () => {
           );
           setUser({ login: true });
           notifySuccess({
-            message: "로그인에 성공했어요. 자동으로 화면 이동 됩니다!",
+            message: "로그인에 성공했어요. \n자동으로 화면 이동 됩니다!",
             icon: "😎",
           });
           pageChange();
         });
     } catch (error) {
       notifyError({
-        message: "로그인에 실패했어요. 정보를 다시 확인해주세요!",
+        message: "로그인에 실패했어요. \n정보를 다시 확인해주세요!",
         icon: "😭",
       });
     }
@@ -89,22 +87,20 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <aside>
-        <Sidebar />
-      </aside>
       <div className="flex flex-col items-center w-full h-full min-h-screen">
         <div className="flex flex-col max-w-[360px] justify-center text-center mb-10">
-          <div className="mt-[100px] mb-[20px] text-4xl">로그인</div>
+          <div className="mt-[100px] mb-[10px] text-4xl">로그인</div>
           <div className="px-[20px]">
-            <button className="w-[230px] py-3 mt-5 text-black rounded bg-social-kakaoNormal hover:bg-social-kakaoHover">
-              카카오톡 회원가입
-            </button>
-            <button className="w-[230px] py-3 mt-3 text-white rounded bg-social-githubNormal hover:bg-social-githubHover">
-              깃허브 회원가입
-            </button>
-            <button className="w-[230px] py-3 mt-3 text-white rounded bg-social-naverNormal hover:bg-social-naverHover">
-              네이버 회원가입
-            </button>
+            <div className="flex flex-col items-center">
+              <p className="mb-4 w-[165px] h-[209px] animate-[welcome_2.5s_steps(7)_infinite] bg-[url(/images/char/sprite.png)]"></p>
+              <p className="mb-2 text-xl text-center text-medium">
+                다시 만나게 되어 반가워요!
+              </p>
+              <p className="text-base text-center text-medium">
+                따뜻한 덕담을 주고받는{" "}
+                <span className="text-primary-normal">새해 복망고</span>입니다
+              </p>
+            </div>
             <form onSubmit={onSubmit2}>
               <div className="mt-10">
                 <label htmlFor="email" className="text-left mg-default-label">

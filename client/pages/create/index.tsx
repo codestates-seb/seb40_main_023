@@ -5,25 +5,34 @@ import Footer from "../../components/Footer";
 import BokPreview from "../../components/BokPreview";
 import EditModal from "../../components/modals/EditModal";
 import { Toast, notifyWarning, notifyError } from "../../components/util/Toast";
+import { useCookies } from "react-cookie";
+import { userState } from "../../recoil/user";
+import { useRecoilState } from "recoil";
+import { memberIdState } from "../../recoil/memberId";
+import { useRouter } from "next/router";
 
-const create = () => {
+const Create = () => {
   const [title, setTitle] = useState("");
   const [greeting, setGreeting] = useState("");
   const [bgUrl, setBgUrl] = useState("");
+  const [modal, setModal] = useState(false);
   const [reveal, setReveal] = useState(false);
   const [isValid, setIsValid] = useState("no");
-  const [modal, setModal] = useState(false);
+  const [cookies] = useCookies(["accessJwtToken"]);
+  const [user, setUser] = useRecoilState(userState);
+  const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const router = useRouter();
 
   const handleCheck = () => {
     setReveal(!reveal);
-    console.log(reveal);
   };
 
-  useEffect(() => {
-    isFilledUpForm();
-    console.log(title, greeting, bgUrl);
-    console.log(isValid);
-  }, [title, greeting, bgUrl]);
+  const loginVaild = () => {
+    const token = cookies.accessJwtToken;
+    if (!token || user.login === false || memberId.memberId === 0) {
+      router.push("/");
+    }
+  };
 
   const isFilledUpForm = () => {
     if (title === "" || greeting === "" || bgUrl === "") {
@@ -69,10 +78,17 @@ const create = () => {
       });
       setIsValid("ok");
     } else {
-      console.log(isValid);
       toggleModal(true);
     }
   };
+
+  useEffect(() => {
+    isFilledUpForm();
+  }, [title, greeting, bgUrl]);
+
+  useEffect(() => {
+    loginVaild();
+  }, []);
 
   return (
     <div>
@@ -124,12 +140,22 @@ const create = () => {
             <div className="flex flex-row flex-nowrap">
               <div className="flex items-center py-3 mr-4 text-base font-medium">
                 <span className="mr-3">미리보기</span>
-                <div className="mg-info-normal">
-                  <i></i>내 사진을 넣으면 더 멋질 거에요! ✨
-                </div>
               </div>
             </div>
-            <BokPreview greeting={greeting} edit={true} setBgUrl={setBgUrl} />
+            <div className="-mt-2 mg-info-normal">
+              <i></i>내 사진을 넣으면 더 멋질 거에요! ✨ <br />
+            </div>
+            <div className="mb-1 mg-info-normal">
+              <i></i>
+              .png 이미지는 캡쳐되지 않아요~ ❌
+            </div>
+            <div className="flex text-sm text-center mg-info-normal item-center"></div>
+            <BokPreview
+              greeting={greeting}
+              edit={true}
+              bgUrl={bgUrl}
+              setBgUrl={setBgUrl}
+            />
             <div className="w-full mt-3 mb-2 mg-checkbox-group">
               <input id="checkIsPublic" type="checkbox" className="hidden" />
               <label htmlFor="checkIsPublic" onClick={handleCheck}>
@@ -151,17 +177,16 @@ const create = () => {
           >
             완성!
           </Link>
-
-          {modal && (
-            <EditModal
-              setModal={toggleModal}
-              greeting={greeting}
-              title={title}
-              bgUrl={bgUrl}
-              reveal={reveal}
-            />
-          )}
         </div>
+        {modal && (
+          <EditModal
+            setModal={toggleModal}
+            greeting={greeting}
+            title={title}
+            bgUrl={bgUrl}
+            reveal={reveal}
+          />
+        )}
         <Toast />
       </main>
       <Footer />
@@ -169,4 +194,4 @@ const create = () => {
   );
 };
 
-export default create;
+export default Create;

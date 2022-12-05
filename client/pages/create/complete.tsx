@@ -14,16 +14,22 @@ import QrModal from "../../components/modals/QrModal";
 
 import { userState } from "../../recoil/user";
 import { useRouter } from "next/router";
+import { memberNameState } from "../../recoil/memberName";
+import { luckImgState } from "../../recoil/luckImg";
 
 const Complete = () => {
+  const [isValidPage, setIsValidPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const memberId = useRecoilValue(memberIdState).memberId;
   const [qrCode, setQrCode] = useState(false);
   const luckMgId = useRecoilValue(luckMgIdState);
   const [user, setUser] = useRecoilState(userState);
+  const userName = useRecoilValue(memberNameState);
+  const luckImg = useRecoilValue(luckImgState);
+
   const userlogin = user.login;
   const router = useRouter();
-
+  console.log(user);
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -47,16 +53,18 @@ const Complete = () => {
   const shareKakao = () => {
     const { Kakao } = window;
     Kakao.Link.sendScrap({
-      requestUrl: `http://localhost:3000/lucky/${luckMgId}`,
+      requestUrl: `https://seb40-main-023.vercel.app/lucky/${luckMgId}`,
       templateId: TEMPLETE_ID,
       templateArgs: {
         id: `${luckMgId}`,
+        username: `${userName}`,
+        img: `${luckImg}`,
       },
     });
   };
 
   const shareUrl = () => {
-    let currentUrl = `http://localhost:3000/lucky/${luckMgId}`;
+    let currentUrl = `https://seb40-main-023.vercel.app/lucky/${luckMgId}`;
     let t = document.createElement("textarea");
     document.body.appendChild(t);
     t.value = currentUrl;
@@ -76,11 +84,11 @@ const Complete = () => {
       <main className="pt-[58px] mg-screenY-full">
         <div className="w-full mg-layout">
           <div className="mb-6 text-center mg-layout-row">
-            <h1 className="my-6 text-5xl font-HSS">
+            <h1 className="my-8 text-5xl font-HSS">
               새해 <span className="text-primary-normal">복망고</span>{" "}
               {isLoading ? "제작중.." : "완성!"}
             </h1>
-            <div className="mb-2 text-xl">
+            <div className="mb-4 text-xl">
               친구들에게 링크를 공유해서 <br className="mobile:hidden" />
               덕담을 나눠 보세요!
             </div>
@@ -97,7 +105,7 @@ const Complete = () => {
             </div>
           </div>
           <div className="mg-layout-row">
-            <div className="relative w-full my-10 min-h-[150px] flex items-center justify-center ">
+            <div className="relative w-full my-3 mobile:my-10 min-h-[150px] flex items-center justify-center">
               {isLoading ? (
                 <Loading />
               ) : (
@@ -119,7 +127,7 @@ const Complete = () => {
       {qrCode && (
         <QrModal
           shareQr={shareQr}
-          link={`http://localhost:3000/lucky/${luckMgId}`}
+          link={`https://seb40-main-023.vercel.app/lucky/${luckMgId}`}
         />
       )}
     </div>

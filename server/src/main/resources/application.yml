@@ -1,3 +1,4 @@
+
 spring:
   h2:
     console:
@@ -32,6 +33,7 @@ jwt:
   secret-key: TestTestTestTestTestTestTestTestTestTestTestTestTestTestTest
   access-token-expiration-minutes: 40
   refresh-token-expiration-minutes: 420
+
 cloud:
   aws:
     credentials:
@@ -42,6 +44,8 @@ cloud:
     region:
       static: ap-northeast-2 # 리전 정보
     stack:
+
       auto: false
 
 logging.config: classpath:logback/logback-server.xml
+

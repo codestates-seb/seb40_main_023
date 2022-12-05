@@ -2,7 +2,7 @@
 <configuration>
 
     <!-- 로그파일 저장 경로 -->
-    <property name="LOG_DIR" value="/home/ubuntu/logback" />
+    <property name="LOG_DIR" value="home/ubuntu/logback" />
 
 <!--     CONSOLE -->
 <!--    ch.qos.logback.core.ConsoleAppender: console에 로그를 찍기위해 사용-->
@@ -89,8 +89,6 @@
         <level value="WARN"/>
         <appender-ref ref="WARNLOG"/>
     </logger>
-
-
 
 
 </configuration>

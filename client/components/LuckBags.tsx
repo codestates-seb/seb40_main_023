@@ -1,82 +1,79 @@
 import React from "react";
-const LuckBags = ({ handleLetterModal, bagList }: any) => {
-  const LUCKBAG_POS = [
-    {
-      yPos: "top-[-10px]",
-      xPos: "left-12",
-    },
-    {
-      yPos: "top-[-30px]",
-      xPos: "left-32",
-    },
-    {
-      yPos: "top-6",
-      xPos: "left-24",
-    },
-    {
-      yPos: "top-[-25px]",
-      xPos: "right-28",
-    },
-    {
-      yPos: "top-[16px]",
-      xPos: "right-40",
-    },
-    {
-      yPos: "top-[-20px]",
-      xPos: "right-12",
-    },
-    {
-      yPos: "top-5",
-      xPos: "right-20",
-    },
-  ];
+
+const LuckBags = ({
+  luckMangoId,
+  currPage,
+  setCurrPage,
+  pageInfo,
+  luckyBagList,
+  handleLetterModal,
+}: any) => {
+  const onClickPage = (e: any) => {
+    const role = e.target.dataset.role;
+    if (role === "prev") {
+      setCurrPage((prevPage: number) => prevPage - 1);
+    } else if (role === "next") {
+      setCurrPage((prevPage: number) => prevPage + 1);
+    }
+  };
 
   return (
-    <>
-      {bagList.map((bag: any) => {
-        return (
-          <div
-            key={bag.luckBagId}
-            onClick={() => handleLetterModal(bag.luckBagId)}
-            className={`bg-[url(/images/content/img-bok${bag.bagStyle}-${bag.bagColor}.svg)] cursor-pointer absolute top-[-10px] left-12 w-[65px] h-[80px] bg-no-repeat bg-contain`}
-          />
-        );
-      })}
-    </>
+    <div className="relative flex flex-col items-center justify-center w-full">
+      <div className="mg-luckybag-wrapper">
+        {!luckyBagList.length ? (
+          <div className="mb-4 text-center">
+            <p>받으신 덕담이 없습니다. 😔</p>
+            <p>친구들에게 공유해 볼까요?</p>
+          </div>
+        ) : (
+          luckyBagList.map((luckyBag: any, idx: number) => (
+            <button
+              key={luckyBag.luckBagId}
+              data-index={luckyBag.luckBagId}
+              data-type={luckyBag.bagStyle}
+              data-color={luckyBag.bagColor}
+              onClick={e =>
+                handleLetterModal(
+                  luckyBag.luckBagId,
+                  luckyBag.bagStyle,
+                  luckyBag.bagColor,
+                )
+              }
+              className={`${luckyBag.viewed ? "" : "active"}`}
+            />
+          ))
+        )}
+      </div>
+      <div className="mg-flex-center justify-center bottom-0 z-10 absolute rounded-full min-w-[14px] bg-[#0000004D] px-3 py-1 text-white">
+        <div className="text-center">
+          {currPage} /{" "}
+          {pageInfo.totalElements === 0
+            ? pageInfo.totalPages + 1
+            : pageInfo.totalPages}
+        </div>
+      </div>
+      {pageInfo.totalElements !== 0 && (
+        <div className="absolute w-full h-full">
+          <>
+            <button
+              className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
+              onClick={onClickPage}
+              data-role="prev"
+              disabled={currPage === 1 || currPage === 0 ? true : false}
+            ></button>
+            <button
+              className={
+                "right-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
+              }
+              onClick={onClickPage}
+              data-role="next"
+              disabled={currPage === pageInfo.totalPages ? true : false}
+            ></button>
+          </>
+        </div>
+      )}
+    </div>
   );
 };
 
 export default LuckBags;
-
-{
-  /* <>
-<div
-  onClick={() => handleLetterModal(bagList[0].luckBagId)}
-  className={`bg-[url(/images/content/img-bok2-4.svg)] cursor-pointer absolute top-[-10px] left-12 w-[65px] h-[80px] bg-no-repeat bg-contain`}
-/>
-<div
-  onClick={() => handleLetterModal(bagList[1].luckBagId)}
-  className={`bg-[url(/images/content/img-bok2-3.svg)] cursor-pointer absolute top-[-30px] left-32 w-[65px] h-[80px] bg-no-repeat bg-contain`}
-/>
-<div
-  onClick={() => handleLetterModal(bagList[2].luckBagId)}
-  className={`bg-[url(/images/content/img-bok2-2.svg)] cursor-pointer absolute top-6 left-24 w-[65px] h-[80px] bg-no-repeat bg-contain`}
-/>
-<div
-  onClick={() => handleLetterModal(bagList[3].luckBagId)}
-  className={`bg-[url(/images/content/img-bok2-1.svg)] cursor-pointer absolute top-[-25px] right-28 w-[65px] h-[80px] bg-no-repeat bg-contain`}
-/>
-<div
-  onClick={() => handleLetterModal(bagList[4].luckBagId)}
-  className={`bg-[url(/images/content/img-bok1-3.svg)] cursor-pointer absolute top-[16px] right-40 w-[65px] h-[80px] bg-no-repeat bg-contain`}
-/>
-<div
-  onClick={() => handleLetterModal(bagList[4].luckBagId)}
-  className={`bg-[url(/images/content/img-bok1-2.svg)] cursor-pointer absolute top-[-20px] right-12 w-[65px] h-[80px] bg-no-repeat bg-contain`}
-/>
-<div
-  onClick={() => handleLetterModal(bagList[4].luckBagId)}
-  className={`bg-[url(/images/content/img-bok3-1.svg)] cursor-pointer absolute top-5 right-20 w-[65px] h-[80px] bg-no-repeat bg-contain`}
-/>
-</> */
-}

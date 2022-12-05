@@ -1,20 +1,36 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import Greeting from "./Greeting";
+import { uploadMgImg } from "../fetch/create";
+import { getCookie } from "./util/cookie";
+import Loading from "./util/Loading";
 
 const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
-  const [bgImg, setBgImg] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement | null>) => {
-    // if (!e.target.files && bgImg) {
-    //   window.URL.revokeObjectURL(bgImg);
-    // }
-
     if (e.target.files?.length) {
-      setBgImg(URL.createObjectURL(e.target.files[0]));
-      setBgUrl(URL.createObjectURL(e.target.files[0]));
+      let formData = new FormData();
+      formData.append("images", e.target.files[0]);
+      uploadBgImg(formData);
     }
+  };
+
+  const uploadBgImg = async (formData: any) => {
+    const res = await uploadMgImg(
+      `/api/s3/luckMango/`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+        },
+      },
+      setLoading,
+    );
+    setLoading(false);
+    setBgUrl(res.data);
   };
 
   const uploadImageButtonClick = () => {
@@ -27,13 +43,9 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
   return (
     <>
       <div
-        style={
-          bgUrl
-            ? { backgroundImage: `url(${bgUrl})` }
-            : { backgroundImage: `url(${bgImg})` }
-        }
+        style={{ backgroundImage: `url("${bgUrl}")` }}
         className={
-          bgImg || bgUrl
+          bgUrl
             ? `mg-bok-layout bg-center bg-cover`
             : "mg-bok-layout bg-[url(/images/content/pt-dots.svg)]"
         }
@@ -42,7 +54,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
           이미지가 가려지는 부분입니다.
         </div>
         <div className="relative items-center w-full h-full mg-flex p-15">
-          <div className="absolute flex justify-center top-20">
+          <div className="absolute flex justify-center w-full top-20">
             <Greeting
               content={
                 greeting
@@ -56,7 +68,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
             className={edit ? "mg-greet-button" : "mg-greet-button invisible"}
             onClick={uploadImageButtonClick}
           >
-            {bgImg === "" ? "이미지 등록하기" : "이미지 수정하기"}
+            {bgUrl !== "" || edit ? "이미지 수정하기" : "이미지 등록하기"}
           </button>
           <input
             type="file"
@@ -71,9 +83,11 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
               alt="basket guide"
               width={350}
               height={150}
+              className="mx-auto"
             />
           </div>
         </div>
+        {loading && <Loading />}
       </div>
     </>
   );

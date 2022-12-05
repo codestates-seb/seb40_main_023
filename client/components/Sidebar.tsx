@@ -1,15 +1,12 @@
 import Link from "next/link";
 import { removeCookies } from "./util/cookie";
-import { notifySuccess } from "../components/util/Toast";
 import { userState } from "../recoil/user";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../recoil/memberId";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 
 const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
-  //로그인 영역
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const router = useRouter();
@@ -20,20 +17,14 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
     setUserId(memberId.memberId);
     setLogin(user.login);
   };
-  console.log(login);
-  console.log("유저정보 확인 콘솔", user.login, memberId.memberId);
-
-  const pageChange = () => {
-    setTimeout(() => router.push("/"));
-  };
 
   const handleLogout = () => {
     removeCookies("accessJwtToken");
     setUser({ login: false });
     setMemberId({ memberId: 0 });
     setIsSidebarOpen(false);
-    pageChange();
     setLogin(false);
+    router.push("/");
   };
 
   useEffect(() => {

@@ -43,3 +43,5 @@ cloud:
       static: ap-northeast-2 # 리전 정보
     stack:
       auto: false
+
+logging.config: classpath:logback/logback-server.xml

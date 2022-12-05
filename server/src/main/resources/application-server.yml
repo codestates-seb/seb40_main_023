@@ -50,3 +50,5 @@ jwt:
   secret-key: EFWHKQDDNMQU2YLOIBTW6IKUMVAHG5BB # 추후에 EC2 환경변수에 설정 필요
   access-token-expiration-minutes: 60     # 1시간
   refresh-token-expiration-minutes: 360   # 6시간gi
+
+logging.config: classpath:logback/logback-server.xml

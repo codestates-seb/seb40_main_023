@@ -41,7 +41,6 @@ const UserModify = ({
       formData.append("images", e.target.files[0]);
       formData.append("memberId", `${userId}`);
       uploadBgImg(formData);
-      console.log(formData);
     }
   };
 
@@ -59,7 +58,6 @@ const UserModify = ({
     setBgUrl(res);
     setUserImg(res);
   };
-  console.log(bgUrl);
 
   //정보수정 보내는 함수
   const UserInfoChange = async (e: any) => {

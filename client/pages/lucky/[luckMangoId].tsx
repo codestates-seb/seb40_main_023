@@ -207,7 +207,6 @@ const index = () => {
           },
         },
       ).then(() => setIsUpdate(true));
-
       setIsUpdate(true);
       setLetterModal(!letterModal);
     } else {

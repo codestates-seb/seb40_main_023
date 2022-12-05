@@ -39,3 +39,5 @@ jwt:
   secret-key: EFWHKQDDNMQU2YLOIBTW6IKUMVAHG5BB
   access-token-expiration-minutes: 5
   refresh-token-expiration-minutes: 60
+
+logging.config: classpath:logback/logback-server.xml

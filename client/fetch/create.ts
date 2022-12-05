@@ -8,10 +8,9 @@ export const createMg = async (
 ) => {
   try {
     const response = await axios.post(url, body, header);
-    console.log(response);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.warn(error);
     return error;
   }
 };
@@ -25,10 +24,9 @@ export const uploadMgImg = async (
   try {
     setLoading(true);
     const response: any = await axios.post(url, body, header);
-    console.log(response);
     return response;
   } catch (error) {
-    console.log(error);
+    console.warn(error);
     return error;
   }
 };

@@ -82,7 +82,7 @@ const UserModify = ({
       });
       pageChange();
     } catch (error) {
-      console.log(error);
+      console.warn(error);
     }
   };
 
@@ -142,43 +142,42 @@ const UserModify = ({
         />
         <span className="flex items-center justify-center">회원정보 수정</span>
       </div>
-
-      <form className="w-[350px]" onSubmit={UserInfoChange}>
-        <div className="flex justify-center pt-10">
-          <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                onChange={uploadProfile}
-                className="hidden"
-              />
-              <div
-                style={
-                  bgUrl
-                    ? { backgroundImage: `url("${bgUrl}")` }
-                    : { backgroundImage: `url("${userImg}")` }
-                }
-                className={
-                  bgUrl
-                    ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
-                    : `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover ${
-                        userImg.length <= 10
-                          ? "bg-[url(/images/char/profile.webp)]"
-                          : ""
-                      }`
-                }
-              ></div>
-              <div className="flex justify-center mg-mypage-overlay">
-                <button
-                  className="bg-[url(/images/ico/ico-mypage-edit.svg)] mg-mypage-button"
-                  onClick={uploadImageButtonClick}
-                ></button>
-              </div>
+      <div className="flex justify-center pt-10">
+        <div className="relative flex items-center justify-center rounded-full cursor-pointer w-36 h-36 bg-primary-400 group">
+          <div>
+            <input
+              type="file"
+              accept="image/*"
+              ref={inputRef}
+              onChange={uploadProfile}
+              className="hidden"
+            />
+            <div
+              style={
+                bgUrl
+                  ? { backgroundImage: `url("${bgUrl}")` }
+                  : { backgroundImage: `url("${userImg}")` }
+              }
+              className={
+                bgUrl
+                  ? `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center bg-cover rounded-full`
+                  : `w-36 h-36 relative justify-center mg-border-2 mg-flex bg-center rounded-full bg-cover ${
+                      userImg.length <= 10
+                        ? "bg-[url(/images/char/profile.webp)]"
+                        : ""
+                    }`
+              }
+            ></div>
+            <div className="flex justify-center mg-mypage-overlay">
+              <button
+                className="bg-[url(/images/ico/ico-mypage-edit.svg)] mg-mypage-button"
+                onClick={uploadImageButtonClick}
+              ></button>
             </div>
           </div>
         </div>
+      </div>
+      <form className="w-[350px]">
         <div>
           <div className="pt-5">
             <label htmlFor="" className="mg-default-label">
@@ -256,6 +255,7 @@ const UserModify = ({
           </div>
         </div>
         <button
+          onSubmit={UserInfoChange}
           className={`mt-12 w-full ${
             !(isPassword && isPasswordConfirm)
               ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"

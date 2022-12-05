@@ -89,7 +89,7 @@ const index = () => {
         setUserInfo(el.data.data);
       });
     } catch (error) {
-      console.log(error);
+      console.warn(error);
     }
   };
 
@@ -207,9 +207,7 @@ const index = () => {
           },
         },
       ).then(() => setIsUpdate(true));
-
       setIsUpdate(true);
-      console.log(isUpdate);
       setLetterModal(!letterModal);
     } else {
       notifyError({

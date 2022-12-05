@@ -7,7 +7,10 @@ spring:
   devtools:
     livereload:
       enabled: true
-
+  servlet:  #업로드 제한
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
   # 정현님 서버
   #    url: jdbc:mysql:ec2-43-201-150-208.ap-northeast-2.compute.amazonaws.com:3306/LuckMango   # 주소 / db이름  # 추후에 EC2 환경변수에 설정 필요
   #    username: root            # mysql 이름 설정   # 추후에 EC2 환경변수에 설정 필요
@@ -46,4 +49,8 @@ mail:
 jwt:
   secret-key: EFWHKQDDNMQU2YLOIBTW6IKUMVAHG5BB # 추후에 EC2 환경변수에 설정 필요
   access-token-expiration-minutes: 60     # 1시간
+
   refresh-token-expiration-minutes: 360   # 6시간
+
+logging.config: classpath:logback/logback-server.xml
+

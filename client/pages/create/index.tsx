@@ -78,15 +78,12 @@ const Create = () => {
       });
       setIsValid("ok");
     } else {
-      console.log(isValid);
       toggleModal(true);
     }
   };
 
   useEffect(() => {
     isFilledUpForm();
-    console.log(title, greeting, bgUrl);
-    console.log(isValid);
   }, [title, greeting, bgUrl]);
 
   useEffect(() => {

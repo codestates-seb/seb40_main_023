@@ -7,7 +7,6 @@ import { ReviewDataProps } from "../../../types/main";
 import FetchEmpty from "../../util/FetchEmpty";
 
 function ReviewSlide({ reviewData }: any) {
-  console.log(reviewData);
   const NextArrow = ({ onClick }: any) => {
     return (
       <div

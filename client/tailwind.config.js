@@ -10,8 +10,6 @@ module.exports = {
   important: true,
   theme: {
     screens: {
-      // 기본적으로 640미만의 모바일이 우선 작업됩니다.
-      // 아래 기준 px은 min-width를 의미합니다.
       mobile: "640px",
       tablet: "768px",
       laptop: "1024px",

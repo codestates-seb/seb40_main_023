@@ -82,7 +82,7 @@ const UserModify = ({
       });
       pageChange();
     } catch (error) {
-      console.log(error);
+      console.warn(error);
     }
   };
 

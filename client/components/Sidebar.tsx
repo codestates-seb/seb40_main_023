@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
-  //로그인 영역
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const router = useRouter();
@@ -18,7 +17,6 @@ const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
     setUserId(memberId.memberId);
     setLogin(user.login);
   };
-  console.log("유저정보 확인 콘솔", user.login, memberId.memberId);
 
   const handleLogout = () => {
     removeCookies("accessJwtToken");

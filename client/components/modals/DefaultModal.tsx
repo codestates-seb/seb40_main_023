@@ -1,15 +1,12 @@
 import axios from "axios";
-import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useRecoilState } from "recoil";
-import closed from "../../public/images/ico/ico-modal-close.svg";
 import { memberIdState } from "../../recoil/memberId";
 import { userState } from "../../recoil/user";
 import { getCookie, removeCookies } from "../util/cookie";
 import { useRouter } from "next/router";
 import { notifySuccess } from "../util/Toast";
 
-//마이페이지용 모달로 사용하겠습니다.
 const DefaultModal = ({ setModal }: any) => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;

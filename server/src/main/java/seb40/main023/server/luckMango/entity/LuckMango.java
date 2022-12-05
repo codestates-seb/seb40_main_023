@@ -3,6 +3,7 @@ package seb40.main023.server.luckMango.entity;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import seb40.main023.server.audit.Auditable;
+import seb40.main023.server.awsS3.entity.S3UpFile;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.member.entity.Member;
 

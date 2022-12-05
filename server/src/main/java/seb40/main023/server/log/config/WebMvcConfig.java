@@ -43,6 +43,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         filterRegistrationBean.addUrlPatterns("/luckBag");
         filterRegistrationBean.addUrlPatterns("/luckBag/*");
         filterRegistrationBean.addUrlPatterns("/luckMango");
+        filterRegistrationBean.addUrlPatterns("/member/*");
+
         filterRegistrationBean.addUrlPatterns("/luckMango/*");
         return filterRegistrationBean;
     }

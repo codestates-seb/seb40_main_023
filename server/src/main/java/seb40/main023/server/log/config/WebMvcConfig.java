@@ -42,7 +42,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // 어떤 url 경로가 filter 를 거칠지 작성
         filterRegistrationBean.addUrlPatterns("/luckBag");
         filterRegistrationBean.addUrlPatterns("/luckBag/*");
-        filterRegistrationBean.addUrlPatterns("/member/*");
         filterRegistrationBean.addUrlPatterns("/luckMango");
         filterRegistrationBean.addUrlPatterns("/luckMango/*");
         return filterRegistrationBean;

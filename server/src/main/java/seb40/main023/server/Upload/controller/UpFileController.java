@@ -2,39 +2,25 @@ package seb40.main023.server.Upload.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import seb40.main023.server.Upload.dto.UpFilePostDto;
-import seb40.main023.server.Upload.dto.UpFileResponse;
 import seb40.main023.server.Upload.mapper.UpFileMapper;
-import seb40.main023.server.Upload.service.FilesService;
+import seb40.main023.server.Upload.service.UpFileService;
 import seb40.main023.server.Upload.entity.UpFile;
 import seb40.main023.server.member.service.MemberService;
-import seb40.main023.server.response.SingleResponseDto;
 
-import javax.annotation.Resource;
 import javax.validation.constraints.Positive;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/Files")
 @Validated
 @RequiredArgsConstructor
 @CrossOrigin
-public class FilesController {
-    private final FilesService filesService;
+public class UpFileController {
+    private final UpFileService upFileService;
     private final UpFileMapper upFileMapper;
     private final MemberService memberService;
 
@@ -66,7 +52,7 @@ public class FilesController {
         upfile.setUpFileOriName(sourceFileName);
         upfile.setUpFileUrl(fileUrl);
         upfile.setSubMemberId(memberId);
-        filesService.save(upfile);
+        upFileService.save(upfile);
 
 //        UpFile upFile = filesService.createUpFile(upFileMapper.upFilePostDtoToupFile(upFilePostDto));
 
@@ -100,7 +86,7 @@ public class FilesController {
     public @ResponseBody byte[] getImage(@PathVariable("upFile-id") long upFileId) throws IOException{
         FileInputStream fis = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        UpFile upFile = filesService.findUpfile(upFileId);
+        UpFile upFile = upFileService.findUpfile(upFileId);
         String filename = upFile.getUpFilename();
         String path = "C:/Users/saypart/Repository/seb40_main_023/server/src/main/resources/login/";
         String fileDir = path+filename;

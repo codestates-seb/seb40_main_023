@@ -70,8 +70,9 @@
 //                .bgVideo("bgVideo.mp4")
 //                .mangoBody("내용")
 //                .title("제목")
-//                .reveal("공개여부 값 :'true'인 경우만 공개됨 ")
+//                .reveal(true)
 //                .build();
+//
 //
 //        LuckMangoResponseDto luckMangoResponseDto =
 //                LuckMangoResponseDto.builder()
@@ -81,7 +82,7 @@
 //                        .title("제목")
 //                        .mangoBody("내용")
 //                        .likeCount(0)
-//                        .reveal("공개여부 값 :'true'인 경우만 공개됨 ")
+//                        .reveal(true)
 //                        .member(new MemberResponseDto_Mango(1L,"유저아이디","test@gmail.com","http://aa.aa.com"))
 //                        .createdAt(LocalDateTime.of(2022, 10, 31, 10, 0, 0))
 //                        .modifiedAt(LocalDateTime.of(2022, 10, 31, 10, 0, 0))
@@ -108,7 +109,7 @@
 //                .andExpect(jsonPath("$.data.bgImage").value(post.getBgImage()))
 //                .andExpect(jsonPath("$.data.bgVideo").value(post.getBgVideo()))
 //                .andExpect(jsonPath("$.data.mangoBody").value(post.getMangoBody()))
-//                .andExpect(jsonPath("$.data.reveal").value(post.getReveal()))
+//                .andExpect(jsonPath("$.data.reveal").value(true))
 //                .andDo(document("post-luckMango",
 //                        getRequestPreProcessor(),
 //                        getResponsePreProcessor(),
@@ -119,7 +120,7 @@
 //                                        fieldWithPath("mangoBody").type(JsonFieldType.STRING).description("내용"),
 //                                        fieldWithPath("bgImage").type(JsonFieldType.STRING).description("배경이미지"),
 //                                        fieldWithPath("bgVideo").type(JsonFieldType.STRING).description("동영상"),
-//                                        fieldWithPath("reveal").type(JsonFieldType.STRING).description("공개여부 값 :'true'인 경우만 공개됨")
+//                                        fieldWithPath("reveal").type(JsonFieldType.BOOLEAN).description("true")
 //                                )
 //                        ),
 //                        responseFields(

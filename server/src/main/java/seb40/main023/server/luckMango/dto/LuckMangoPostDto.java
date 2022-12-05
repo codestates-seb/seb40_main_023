@@ -7,6 +7,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 @Getter
+@NoArgsConstructor // 레스트독스를 위해 필요
+@AllArgsConstructor // 레스트독스를 위해 필요
+@Builder  // 레스트독스를 위해 필요
 public class LuckMangoPostDto {
     @NotBlank(message = "제목을 적어주세요!")
     private String title;

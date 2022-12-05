@@ -2,7 +2,7 @@ cloud:
   aws:
     credentials:
       access-key: {보안을 위해 업로드 추가 수정}
-      secret-key: {보안을 위해 업로드 추가 수정}
+      secret-key: {보안을 위해 업로드 추가 수정1}
     s3:
       bucket: saypart/ #버킷 이름
     region:

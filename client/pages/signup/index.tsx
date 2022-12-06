@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
+import { icons } from "react-icons";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Toast, notifyError } from "../../components/util/Toast";
@@ -25,26 +26,23 @@ const Signup = () => {
   const router = useRouter();
 
   //폼 만들기
-  const signupSubmit = (e: any) => {
+  const signupSubmit = async (e: any) => {
     e.preventDefault();
-    window.setTimeout("window.location.reload()", 2000);
-    notifyError({
-      message: "이미 존재하는 닉네임이거나 이메일입니다.",
-      icon: "😎",
+    await axios({
+      method: "post",
+      url: `/api/member`,
+      data: {
+        name: id,
+        email: email,
+        password: password,
+      },
+    }).catch(function (error) {
+      if (error.response.data.message === "Member exists") {
+        notifyError({ message: "이메일이 중복되었습니다.", icon: "🥭" });
+        setEmail("");
+        setIsEmail(false);
+      }
     });
-    try {
-      axios
-        .post("api/member", {
-          name: id,
-          email: email,
-          password: password,
-        })
-        .then(res => {
-          router.push("/login");
-        });
-    } catch (error) {
-      console.warn(error);
-    }
   };
 
   //아이디
@@ -169,6 +167,7 @@ const Signup = () => {
                     <input
                       id="email"
                       type="text"
+                      value={email}
                       placeholder="이메일 형식에 맞게 입력해주세요"
                       onChange={onChangeEmail}
                       className={`mg-default-input w-full ${

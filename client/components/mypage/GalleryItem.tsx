@@ -7,21 +7,20 @@ import DeleteMgModal from "../modals/DeleteMgModal";
 import { useFetch } from "../../fetch/useFetch";
 
 const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
-  const [bagList, setBagList] = useState([]);
-  //모달 관리
-  const [deleteModal, setDeleteModal] = useState(false);
+  const [bagList, setBagList] = useState<[]>([]);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [qrCode, setQrCode] = useState<boolean>(false);
+
   const handleModal = (e: any) => {
     e.stopPropagation();
     setDeleteModal(!deleteModal);
   };
-  //Qr 관리
-  const [qrCode, setQrCode] = useState(false);
+
   const shareQr = (e: any) => {
     e.stopPropagation();
     setQrCode(!qrCode);
   };
 
-  //URL 관리
   const shareUrl = (e: any) => {
     e.stopPropagation();
     let currentUrl = `https://seb40-main-023.vercel.app/lucky/${luckMangoId}`;

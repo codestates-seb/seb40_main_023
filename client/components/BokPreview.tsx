@@ -4,10 +4,11 @@ import Greeting from "./Greeting";
 import { uploadMgImg } from "../fetch/create";
 import { getCookie } from "./util/cookie";
 import Loading from "./util/Loading";
+import { previewProps } from "../types/create";
 
 const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: any) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement | null>) => {
     if (e.target.files?.length) {

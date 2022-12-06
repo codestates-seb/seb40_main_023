@@ -9,3 +9,10 @@ export interface CreateMangoProps {
 export interface UploadImgProps {
   images: any;
 }
+
+export interface previewProps {
+  greeting: string;
+  edit: boolean;
+  setBgUrl: string;
+  bgUrl: string;
+}

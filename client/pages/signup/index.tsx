@@ -42,7 +42,9 @@ const Signup = () => {
         .then(res => {
           router.push("/login");
         });
-    } catch (error) {}
+    } catch (error) {
+      console.warn(error);
+    }
   };
 
   //아이디
@@ -114,8 +116,6 @@ const Signup = () => {
     },
     [password],
   );
-
-  // 회원가입 post
 
   return (
     <div>

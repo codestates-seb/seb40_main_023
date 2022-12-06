@@ -6,18 +6,18 @@ import { usePatchLikes } from "../../../fetch/useGallery";
 import { notifySuccess, notifyError } from "../../util/Toast";
 
 const GalleryItem = ({ ...gallery }: any) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [like, setLike] = useState(gallery.likeCount);
   const [id, setId] = useState(gallery.luckMangoId);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
   const [cookies] = useCookies(["accessJwtToken"]);
 
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
-    if (token) {
-      setIsLogin(true);
-    } else {
+    if (token === undefined || token === "") {
       setIsLogin(false);
+    } else {
+      setIsLogin(true);
     }
   };
 

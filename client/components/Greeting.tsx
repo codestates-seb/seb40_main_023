@@ -6,7 +6,7 @@ type GreetingProps = {
 };
 
 const Greeting = ({ content, edit }: GreetingProps) => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState<boolean>(false);
 
   const handleGreeting = () => {
     setActive(!active);

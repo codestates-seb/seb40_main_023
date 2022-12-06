@@ -3,7 +3,6 @@
 
     <!-- 로그파일 저장 경로 -->
 
-<!--    <property name="LOG_DIR" value="C:/logback" />-->
         <property name="LOG_DIR" value="/home/ubuntu/logback" />
 
 

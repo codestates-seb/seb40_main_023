@@ -28,6 +28,7 @@ public class RequestFilter implements Filter {
         ContentCachingRequestWrapper httpServletRequest = new ContentCachingRequestWrapper((HttpServletRequest) request);
         ContentCachingResponseWrapper httpServletResponse = new ContentCachingResponseWrapper((HttpServletResponse) response);
 
+
         String postMember = ((HttpServletRequest) request).getMethod();
         String memberUri = httpServletRequest.getRequestURI();
 
@@ -72,5 +73,4 @@ public class RequestFilter implements Filter {
     public void destroy() {
         Filter.super.destroy();
     }
-
 }

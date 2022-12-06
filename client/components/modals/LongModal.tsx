@@ -190,6 +190,7 @@ const LongModal = ({
                       className="hidden"
                       onChange={e => onChangeLuckBag(e)}
                       name="radioIsPublic"
+                      defaultChecked={idx === 1 ? true : false}
                       value={idx}
                     />
                     <label htmlFor={`radioIsPublic${idx}`}>

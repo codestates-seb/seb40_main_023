@@ -41,7 +41,7 @@ export default function ServiceGallery() {
             onClick={toggleOrderHandle}
             data-type=""
           >
-            추천순
+            최신순
           </button>
         </li>
         <li className={`rounded-r-full ${query === "/like" && "active"}`}>

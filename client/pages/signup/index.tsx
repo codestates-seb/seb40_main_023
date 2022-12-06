@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
-import { icons } from "react-icons";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { Toast, notifyError } from "../../components/util/Toast";

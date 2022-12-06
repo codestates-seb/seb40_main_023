@@ -41,7 +41,7 @@ const LongModal = ({
     if (
       luckContent === "" ||
       moneyNum > 10000000 ||
-      moneyNum < 0 ||
+      moneyNum <= 0 ||
       writer === ""
     ) {
       setIsValid(false);
@@ -55,20 +55,7 @@ const LongModal = ({
   };
 
   const onClickSubmit = () => {
-    if (!isValid) {
-      if (luckContent === "") {
-        notifyInfo({ message: "덕담을 입력해 주세요.", icon: "🥹" });
-      } else if (writer === "") {
-        notifyInfo({ message: "정말 익명으로 보내시겠어요?", icon: "🥹" });
-      } else if (+money < 0) {
-        notifyInfo({ message: "조금만 더 보내주세요~", icon: "🙏" });
-      } else if (+money > 10000000) {
-        notifyInfo({
-          message: "너무 큰 금액입니다. \n 마음은 충분히 전달될 거예요.",
-          icon: "😱",
-        });
-      }
-    } else {
+    if (isValid) {
       setConfirmModal(!confirmModal);
     }
   };
@@ -128,17 +115,25 @@ const LongModal = ({
               {luckMg.member.name}님에게 보낼 덕담을 입력해 주세요
             </div>
           </div>
+          <div className="px-2">
+            <div className="w-full mg-flex-center">
+              <div className="mg-modal-title">
+                <p className="mr-3 mg-required-input">보내실 덕담</p>
+              </div>
+            </div>
+          </div>
           <div className="px-2 mb-4">
             <textarea
               className="p-3 w-full mg-modal-input h-[220px] resize-none"
               maxLength={188}
               onChange={e => onChangeContent(e)}
+              placeholder="덕담을 입력해 주세요. (필수)"
             />
           </div>
           <div className="px-2">
             <div className="w-full mg-flex-center">
               <div className="mg-modal-title">
-                <p className="mr-3">보내는 사람</p>
+                <p className="mr-3 mg-required-input">보내는 사람</p>
               </div>
             </div>
           </div>
@@ -155,7 +150,7 @@ const LongModal = ({
           <div className="px-2">
             <div className="flex-row items-center mg-flex-center">
               <div className="mg-modal-title">
-                <p className="mr-3">세뱃돈</p>
+                <p className="mr-3 mg-required-input">세뱃돈</p>
               </div>
               <div className="mb-2 mg-info-normal">
                 <i></i>실제 금액이 아닌 마음만 전달해요

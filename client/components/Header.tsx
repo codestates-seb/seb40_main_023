@@ -19,7 +19,7 @@ const Header = () => {
 
   const tokenValid = () => {
     const token = cookies.accessJwtToken;
-    if (!token) {
+    if (token === undefined || "") {
       setUser({ login: false });
       setMemberId({ memberId: 0 });
       localStorage.removeItem("recoil-persist");

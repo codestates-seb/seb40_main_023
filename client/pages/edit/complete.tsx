@@ -15,9 +15,9 @@ import { memberNameState } from "../../recoil/memberName";
 import { luckImgState } from "../../recoil/luckImg";
 
 const Complete = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const memberId = useRecoilValue(memberIdState).memberId;
-  const [qrCode, setQrCode] = useState(false);
+  const [qrCode, setQrCode] = useState<boolean>(false);
   const luckMgId = useRecoilValue(luckMgIdState);
   const userName = useRecoilValue(memberNameState);
   const luckImg = useRecoilValue(luckImgState);
@@ -28,7 +28,7 @@ const Complete = () => {
     }
   }, []);
 
-  const shareQr = () => {
+  const shareQr = (qrCode: boolean) => {
     setQrCode(!qrCode);
   };
 

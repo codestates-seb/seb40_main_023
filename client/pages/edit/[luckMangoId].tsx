@@ -15,16 +15,16 @@ import { userState } from "../../recoil/user";
 import NotFound from "../404";
 
 const Edit = () => {
-  const [title, setTitle] = useState("");
-  const [greeting, setGreeting] = useState("");
-  const [bgUrl, setBgUrl] = useState("");
-  const [modal, setModal] = useState(false);
-  const [reveal, setReveal] = useState(false);
+  const [title, setTitle] = useState<string>("");
+  const [greeting, setGreeting] = useState<string>("");
+  const [bgUrl, setBgUrl] = useState<string>("");
+  const [modal, setModal] = useState<boolean>(false);
+  const [reveal, setReveal] = useState<boolean>(false);
   const [isValid, setIsValid] = useState("no");
-  const [luckId, setLuckId] = useState(0);
+  const [luckId, setLuckId] = useState<number>(0);
   const [luckMId, setLuckMId] = useState();
-  const [existPage, setExistPage] = useState(true);
-  const [errorContent, setErrorContent] = useState("");
+  const [existPage, setExistPage] = useState<boolean>(true);
+  const [errorContent, setErrorContent] = useState<string>("");
   const [luckMgId, setLuckMgId] = useRecoilState<number>(luckMgIdState);
   const [cookies] = useCookies(["accessJwtToken"]);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
@@ -106,7 +106,7 @@ const Edit = () => {
 
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
-    if (!token) {
+    if (token === undefined || token === "") {
       setUser({ login: false });
       setMemberId({ memberId: 0 });
       localStorage.removeItem("recoil-persist");

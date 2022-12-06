@@ -9,18 +9,18 @@ import CountCharLength from "../../util/CountCharLength";
 
 function ReviewWrite({ setUpdated }: any) {
   const ref = useRef<HTMLTextAreaElement>(null);
-  const [reviewSize, setReviewSize] = useState(0);
-  const [reviewInput, setReviewInput] = useState("");
+  const [reviewSize, setReviewSize] = useState<number>(0);
+  const [reviewInput, setReviewInput] = useState<string>("");
   const memberId = useRecoilValue(memberIdState).memberId;
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
   const [cookies] = useCookies(["accessJwtToken"]);
 
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
-    if (token) {
-      setIsLogin(true);
-    } else {
+    if (token === undefined || token === "") {
       setIsLogin(false);
+    } else {
+      setIsLogin(true);
     }
   };
 

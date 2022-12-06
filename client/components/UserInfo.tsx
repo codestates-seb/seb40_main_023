@@ -6,13 +6,11 @@ import previous from "../public/images/ico/ico-mypage-previous.svg";
 import { memberIdState } from "../recoil/memberId";
 import { getCookie } from "./util/cookie";
 import { uploadUserImg } from "../fetch/userImg";
-import { useRouter } from "next/router";
 import { notifySuccess } from "./util/Toast";
 
 const UserModify = ({
   handle,
   userName,
-  modal,
   userImg,
   setBgUrl,
   bgUrl,
@@ -21,7 +19,6 @@ const UserModify = ({
   //전역상태
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;
-  const router = useRouter();
 
   //프로필 사진 영역
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -35,6 +32,11 @@ const UserModify = ({
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
 
+  const pageChange = () => {
+    setTimeout(() => window.location.reload(), 1500);
+  };
+
+  //유저 이미지 업로드 구역
   const uploadProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       const formData = new FormData();
@@ -42,10 +44,6 @@ const UserModify = ({
       formData.append("memberId", `${userId}`);
       uploadBgImg(formData);
     }
-  };
-
-  const pageChange = () => {
-    setTimeout(() => window.location.reload(), 1500);
   };
 
   const uploadBgImg = async (formData: any) => {
@@ -59,7 +57,14 @@ const UserModify = ({
     setUserImg(res);
   };
 
-  //정보수정 보내는 함수
+  const uploadImageButtonClick = () => {
+    if (!inputRef.current) {
+      return;
+    }
+    inputRef.current.click();
+  };
+
+  //유저 정보수정 보내는 함수
   const UserInfoChange = async (e: any) => {
     e.preventDefault();
     try {
@@ -86,6 +91,7 @@ const UserModify = ({
     }
   };
 
+  //패스워드 유효성 검사
   const onChangePassword = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const passwordRegex =
@@ -106,6 +112,7 @@ const UserModify = ({
     [],
   );
 
+  //패스워드 확인 유효성 검사
   const onChangePasswordConfirm = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const passwordConfirmCurrent = e.target.value;
@@ -121,13 +128,6 @@ const UserModify = ({
     },
     [password],
   );
-
-  const uploadImageButtonClick = () => {
-    if (!inputRef.current) {
-      return;
-    }
-    inputRef.current.click();
-  };
 
   return (
     <div className="mg-layout min-w-[400px]">

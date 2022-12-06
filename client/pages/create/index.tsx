@@ -12,11 +12,11 @@ import { memberIdState } from "../../recoil/memberId";
 import { useRouter } from "next/router";
 
 const Create = () => {
-  const [title, setTitle] = useState("");
-  const [greeting, setGreeting] = useState("");
-  const [bgUrl, setBgUrl] = useState("");
-  const [modal, setModal] = useState(false);
-  const [reveal, setReveal] = useState(false);
+  const [title, setTitle] = useState<string>("");
+  const [greeting, setGreeting] = useState<string>("");
+  const [bgUrl, setBgUrl] = useState<string>("");
+  const [modal, setModal] = useState<boolean>(false);
+  const [reveal, setReveal] = useState<boolean>(false);
   const [isValid, setIsValid] = useState("no");
   const [cookies] = useCookies(["accessJwtToken"]);
   const [user, setUser] = useRecoilState(userState);
@@ -29,7 +29,12 @@ const Create = () => {
 
   const loginVaild = () => {
     const token = cookies.accessJwtToken;
-    if (!token || user.login === false || memberId.memberId === 0) {
+    if (
+      token === undefined ||
+      token === "" ||
+      user.login === false ||
+      memberId.memberId === 0
+    ) {
       router.push("/");
     }
   };

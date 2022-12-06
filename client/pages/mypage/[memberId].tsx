@@ -16,15 +16,16 @@ import { useCookies } from "react-cookie";
 import { userState } from "../../recoil/user";
 import { useRouter } from "next/router";
 import { notifyError } from "../../components/util/Toast";
+import { getUserInfoFetch } from "../../fetch/userInfo";
 
 const Mypage = () => {
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;
-  const [click, setClick] = useState(false);
-  const [LuckMango, setLuckMango]: any = useState([]);
+  const [click, setClick] = useState<boolean>(false);
+  const [LuckMango, setLuckMango] = useState<object[]>([]);
   const [userName, setUserName] = useState<string>("");
   const [userImg, setUserImg] = useState<any>("");
-  const [bgUrl, setBgUrl] = useState("");
+  const [bgUrl, setBgUrl] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
   const [length, setLength] = useState<Number>(0);
   const [cookies] = useCookies(["accessJwtToken"]);
@@ -33,7 +34,7 @@ const Mypage = () => {
 
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
-    if (!token) {
+    if (token === undefined || token === "") {
       setUser({ login: false });
       setMemberId({ memberId: 0 });
       localStorage.removeItem("recoil-persist");
@@ -48,6 +49,20 @@ const Mypage = () => {
 
   const isModal = () => {
     setModal(!modal);
+  };
+
+  const getLuckMango = async () => {
+    const res = await getUserInfoFetch(
+      `/api/luckMango/member?memberId=${userId}&page=1&size=100&sort=desc`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+        },
+      },
+    );
+    setLength(res.data.length);
+    setLuckMango(res.data);
   };
 
   const getUserName = async () => {
@@ -68,23 +83,8 @@ const Mypage = () => {
           icon: "🙏",
         });
       }
-
       setUserName(res.data.data.name);
       setUserImg(res.data.data.imgUrl);
-    });
-  };
-
-  const getLuckMango = async () => {
-    axios({
-      method: "get",
-      url: `/api/luckMango/member?memberId=${userId}&page=1&size=100&sort=desc`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
-      },
-    }).then((res): any => {
-      setLength(res.data.data.length);
-      setLuckMango(res.data.data);
     });
   };
 

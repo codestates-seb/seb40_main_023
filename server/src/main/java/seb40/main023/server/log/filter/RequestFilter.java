@@ -29,7 +29,6 @@ public class RequestFilter implements Filter {
         ContentCachingResponseWrapper httpServletResponse = new ContentCachingResponseWrapper((HttpServletResponse) response);
 
         String postMember = ((HttpServletRequest) request).getMethod();
-
         String memberUri = httpServletRequest.getRequestURI();
 
         //전, 후 처리의 기준이되는 메소드 (chain.dofilter 기준으로 전에 적은 코드는 request // 후에 적은 코드는 response 이다)
@@ -38,9 +37,9 @@ public class RequestFilter implements Filter {
         chain.doFilter(httpServletRequest, httpServletResponse);
 
         //후 처리 과정 ( response )
-
         //request 요청으로 어떤 uri가 들어왔는지 확인
         String uri = httpServletRequest.getRequestURI();
+
 
         // member create는 비밀번호가 보임으로 member post 가 들어오면 안보이게 해야한다
         // indexOf : 매개변수로 들어간 문자열이 포함되어 있는 경우 0 이상의 값을 반환, 그렇지 않으면 -1 을 반환
@@ -68,8 +67,7 @@ public class RequestFilter implements Filter {
         //주의 : response를 클라이언트에서 볼 수 있도록 하려면 response를 복사해야 한다. response를 콘솔에 보여주면 내용이 사라진다.
         httpServletResponse.copyBodyToResponse();
     }
-    
-        
+
     @Override
     public void destroy() {
         Filter.super.destroy();

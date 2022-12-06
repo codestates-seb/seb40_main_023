@@ -18,7 +18,6 @@ import { memberNameState } from "../../recoil/memberName";
 import { luckImgState } from "../../recoil/luckImg";
 
 const Complete = () => {
-  const [isValidPage, setIsValidPage] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const memberId = useRecoilValue(memberIdState).memberId;
   const [qrCode, setQrCode] = useState(false);

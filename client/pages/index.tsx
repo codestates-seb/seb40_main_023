@@ -7,10 +7,8 @@ import ServiceHowto from "../components/main/howto/ServiceHowto";
 import ServiceChart from "../components/main/chart/ServiceChart";
 import ServiceReview from "../components/main/review/ServiceReview";
 import ServiceGallery from "../components/main/gallery/ServiceGallery";
-import { Toast, notifyError } from "../components/util/Toast";
+import { Toast } from "../components/util/Toast";
 import Footer from "../components/Footer";
-import axios from "axios";
-import { getCookie, removeCookies } from "../components/util/cookie";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { userState } from "../recoil/user";
@@ -22,7 +20,6 @@ export default function Home() {
   const [cookies] = useCookies(["accessJwtToken"]);
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
-  const [userId, setUserId] = useState<Number>(0);
   const router = useRouter();
 
   const checkLogin = () => {

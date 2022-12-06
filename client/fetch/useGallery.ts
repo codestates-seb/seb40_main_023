@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getCookie } from "../components/util/cookie";
-import { ReviewDataProps } from "./../types/main";
 
 export const useFetchInfinite = (query: string, page: number) => {
   const [cards, setCards] = useState<any[]>([]);

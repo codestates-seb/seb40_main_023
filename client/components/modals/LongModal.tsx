@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
+import { notifyInfo } from "../util/Toast";
 import CheckModal from "./CheckModal";
 
 const LongModal = ({
@@ -13,7 +14,8 @@ const LongModal = ({
 }: any) => {
   const [luckContent, setLuckContent] = useState("");
   const [writer, setWriter] = useState("");
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState("");
+  const [moneyNum, setMoneyNum] = useState(0);
   const [bagType, setBagType] = useState(1);
   const [confirmModal, setConfirmModal] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -21,37 +23,95 @@ const LongModal = ({
   const data = {
     luckContent: luckContent,
     writer: writer,
-    money: money,
+    money: moneyNum,
     bagType: bagType,
+  };
+
+  useEffect(() => {
+    isFilledUpForm();
+  }, [luckContent, writer, money]);
+
+  useEffect(() => {
+    if (money) {
+      setMoneyNum(+money.split(",").join(""));
+    }
+  }, [money]);
+
+  const isFilledUpForm = () => {
+    if (
+      luckContent === "" ||
+      moneyNum > 10000000 ||
+      moneyNum < 0 ||
+      writer === ""
+    ) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
   };
 
   const handleModal = () => {
     setModal(!modal);
   };
 
-  const handleConModal = () => {
-    setConfirmModal(!confirmModal);
-  };
-
-  const handleMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMoney(Number(e.target.value));
-    if (Number(e.target.value) <= 10000000 && Number(e.target.value) >= 1) {
-      setIsValid(true);
+  const onClickSubmit = () => {
+    if (!isValid) {
+      if (luckContent === "") {
+        notifyInfo({ message: "덕담을 입력해 주세요.", icon: "🥹" });
+      } else if (writer === "") {
+        notifyInfo({ message: "정말 익명으로 보내시겠어요?", icon: "🥹" });
+      } else if (+money < 0) {
+        notifyInfo({ message: "조금만 더 보내주세요~", icon: "🙏" });
+      } else if (+money > 10000000) {
+        notifyInfo({
+          message: "너무 큰 금액입니다. \n 마음은 충분히 전달될 거예요.",
+          icon: "😱",
+        });
+      }
     } else {
-      setIsValid(false);
+      setConfirmModal(!confirmModal);
     }
   };
 
-  const handleLuckContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setLuckContent(e.target.value);
   };
 
-  const handleLuckBag = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNaN(+e.target.value)) {
+      notifyInfo({ message: "숫자만 입력할 수 있어요", icon: "💵" });
+      setMoney("");
+    } else if (+e.target.value > 10000000) {
+      notifyInfo({
+        message: "마음은 감사하지만,\n 최대 금액입니다.",
+        icon: "💵",
+      });
+      setMoney("10000000");
+    } else {
+      setMoney(e.target.value);
+    }
+  };
+
+  const onBlurMoeny = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNaN(+e.target.value)) {
+      notifyInfo({ message: "숫자만 입력할 수 있어요", icon: "💵" });
+      setMoney("");
+    } else {
+      setMoney(Number(money).toLocaleString());
+    }
+  };
+
+  const onFocusMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMoney(e.currentTarget.value.split(",").join(""));
+  };
+
+  const onChangeLuckBag = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBagType(Number(e.target.value));
   };
 
   const handleWriter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWriter(e.target.value);
+    isFilledUpForm();
   };
 
   return (
@@ -72,7 +132,7 @@ const LongModal = ({
             <textarea
               className="p-3 w-full mg-modal-input h-[220px] resize-none"
               maxLength={188}
-              onChange={e => handleLuckContent(e)}
+              onChange={e => onChangeContent(e)}
             />
           </div>
           <div className="px-2">
@@ -105,13 +165,12 @@ const LongModal = ({
           <div className="px-2 mb-4">
             <input
               className="w-full mg-modal-input"
-              placeholder="1원 ~ 10,000,000원"
-              type="number"
-              min={1}
-              max={10000000}
-              maxLength={6}
-              size={6}
-              onChange={e => handleMoney(e)}
+              placeholder="1 ~ 10,000,000 숫자만 입력해 주세요."
+              type="text"
+              value={money}
+              onChange={e => onChangeMoney(e)}
+              onFocus={e => onFocusMoney(e)}
+              onBlur={e => onBlurMoeny(e)}
             />
           </div>
           <div className="px-2">
@@ -134,7 +193,7 @@ const LongModal = ({
                       id={`radioIsPublic${idx}`}
                       type="radio"
                       className="hidden"
-                      onChange={e => handleLuckBag(e)}
+                      onChange={e => onChangeLuckBag(e)}
                       name="radioIsPublic"
                       value={idx}
                     />
@@ -157,7 +216,7 @@ const LongModal = ({
           <div className="flex justify-around p-2 mt-3">
             <button
               className="rounded-full mg-primary-button"
-              onClick={handleConModal}
+              onClick={onClickSubmit}
               disabled={isValid ? false : true}
             >
               덕담 보내기

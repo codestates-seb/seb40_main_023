@@ -9,9 +9,9 @@ import { useEffect, useState } from "react";
 const Sidebar = ({ toggleHandler, toggleState, setIsSidebarOpen }: any) => {
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
-  const router = useRouter();
   const [userId, setUserId] = useState<Number>(0);
   const [login, setLogin] = useState<boolean>(false);
+  const router = useRouter();
 
   const getUserId = () => {
     setUserId(memberId.memberId);

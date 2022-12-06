@@ -14,7 +14,6 @@ import QrModal from "../../components/modals/QrModal";
 import { TEMPLETE_ID } from "../../constants/templeteId";
 import Player from "../../components/lucky/Player";
 import { useCookies } from "react-cookie";
-import axios from "axios";
 import { getCookie } from "../../components/util/cookie";
 import { memberIdState } from "../../recoil/memberId";
 import { useRecoilValue } from "recoil";
@@ -22,6 +21,7 @@ import { luckMgType, UserInfoType } from "../../types/lucky";
 import CheckModal from "../../components/modals/CheckModal";
 import NotFound from "../404";
 import { patchViewBag } from "../../fetch/lucky";
+import { getUserInfoFetch } from "../../fetch/userInfo";
 
 const index = () => {
   //스크린샷 구역
@@ -39,69 +39,61 @@ const index = () => {
 
   //bgm 구역
   const [bgmOn, setBgmOn] = useState<boolean>(false);
-  const [shareBtn, setShareBtn] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [letterModal, setLetterModal] = useState(false);
-  const [qrCode, setQrCode] = useState(false);
-  const [completeModal, setCompleteModal] = useState(false);
+  const [shareBtn, setShareBtn] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
+  const [letterModal, setLetterModal] = useState<boolean>(false);
+  const [qrCode, setQrCode] = useState<boolean>(false);
+  const [completeModal, setCompleteModal] = useState<boolean>(false);
 
   //패치 구역
   const [body, setBody] = useState<string>("");
   const [bag, setBag] = useState([]);
   const [bagList, setBagList] = useState([]);
-  const [luckyBagId, setLuckyBagId] = useState(0);
-  const [luckMgId, setLuckMgId] = useState(0);
+  const [luckyBagId, setLuckyBagId] = useState<number>(0);
+  const [luckMgId, setLuckMgId] = useState<number>(0);
   const [luckMg, setLuckMg] = useState<luckMgType>();
   const [money, setMoney] = useState<number>(0);
-  const [existPage, setExistPage] = useState(true);
-  const [bgUrl, setBgUrl] = useState("");
+  const [existPage, setExistPage] = useState<boolean>(true);
+  const [bgUrl, setBgUrl] = useState<string>("");
 
   //복주머니
   const [currPage, setCurrPage] = useState(1);
   const [pageInfo, setPageInfo] = useState({});
-  const [isUpdate, setIsUpdate] = useState(true);
+  const [isUpdate, setIsUpdate] = useState<boolean>(true);
 
   //로그인 여부
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
   const memberId = useRecoilValue(memberIdState).memberId;
   const [cookies] = useCookies(["accessJwtToken"]);
   const [userInfo, setUserInfo] = useState();
+  const router = useRouter();
 
   const checkLogin = () => {
     const token = cookies.accessJwtToken;
-    if (token) {
-      setIsLogin(true);
-    } else {
+    if (token === undefined || token === "") {
       setIsLogin(false);
+    } else {
+      setIsLogin(true);
     }
   };
 
-  const getUserInfo = async () => {
-    try {
-      await axios({
-        method: "get",
-        url: `/api/member/${memberId}`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
-        },
-      }).then(el => {
-        setUserInfo(el.data.data);
-      });
-    } catch (error) {
-      console.warn(error);
-    }
+  const getUserInfomation = async () => {
+    const res = await getUserInfoFetch(`/api/member/${memberId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+      },
+    });
+    setUserInfo(res.data);
   };
 
   useEffect(() => {
-    getUserInfo();
     checkLogin();
+    getUserInfomation();
     if (!window.Kakao?.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
     }
   }, []);
-
-  const router = useRouter();
 
   useEffect(() => {
     if (!router.isReady) return;

@@ -18,17 +18,17 @@ import { memberNameState } from "../../recoil/memberName";
 import { luckImgState } from "../../recoil/luckImg";
 
 const Complete = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [qrCode, setQrCode] = useState<boolean>(false);
+
   const memberId = useRecoilValue(memberIdState).memberId;
-  const [qrCode, setQrCode] = useState(false);
   const luckMgId = useRecoilValue(luckMgIdState);
   const [user, setUser] = useRecoilState(userState);
   const userName = useRecoilValue(memberNameState);
   const luckImg = useRecoilValue(luckImgState);
-
   const userlogin = user.login;
   const router = useRouter();
-  console.log(user);
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -36,7 +36,7 @@ const Complete = () => {
         message: "새해 복망고가 완성되었습니다!",
         icon: "🥳",
       });
-    }, 2000);
+    }, 500);
   }, []);
 
   useEffect(() => {

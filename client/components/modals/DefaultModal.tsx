@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
@@ -6,34 +5,33 @@ import { userState } from "../../recoil/user";
 import { getCookie, removeCookies } from "../util/cookie";
 import { useRouter } from "next/router";
 import { notifySuccess } from "../util/Toast";
+import { DeleteUserInfo } from "../../fetch/deleteUser";
 
 const DefaultModal = ({ setModal }: any) => {
+  const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;
-  const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
+
   const pageChange = () => {
     setTimeout(() => router.push("/"), 2000);
   };
+
   const DeleteUser = async () => {
-    try {
-      await axios({
-        method: "DELETE",
-        url: `/api/member/${userId}`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getCookie("accessJwtToken")}`,
-        },
-      });
-      removeCookies("accessJwtToken");
-      setUser({ login: false });
-      setMemberId({ memberId: 0 });
-      notifySuccess({
-        message: "성공적으로 탈퇴되었습니다. 다음에 또 봐요!!",
-        icon: "😭",
-      });
-      pageChange();
-    } catch (error) {}
+    let res = await DeleteUserInfo(`/api/member/${userId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie("accessJwtToken")}`,
+      },
+    });
+    removeCookies("accessJwtToken");
+    setUser({ login: false });
+    setMemberId({ memberId: 0 });
+    notifySuccess({
+      message: "성공적으로 탈퇴되었습니다. 다음에 또 봐요!!",
+      icon: "😭",
+    });
+    pageChange();
   };
 
   return (

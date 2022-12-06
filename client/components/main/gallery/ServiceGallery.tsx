@@ -50,7 +50,7 @@ export default function ServiceGallery() {
             onClick={toggleOrderHandle}
             data-type="/like"
           >
-            최신순
+            추천순
           </button>
         </li>
       </ul>

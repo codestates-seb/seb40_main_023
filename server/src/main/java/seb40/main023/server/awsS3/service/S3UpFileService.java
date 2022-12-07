@@ -30,6 +30,13 @@ public class S3UpFileService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    @Value("${cloud.aws.s3.login}")
+    private String urlLoginImage;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String urlLuckMangoImage;
+
+
     private final AmazonS3 amazonS3;
     private final MemberService memberService;
     private final S3UpFileRepository s3UpFileRepository;
@@ -46,7 +53,7 @@ public class S3UpFileService {
 
         S3UpFile s3UpFiles = new S3UpFile();
         s3UpFiles.setUpFileName(s3FileName);
-        s3UpFiles.setUpFileUrl("https://saypart.s3.ap-northeast-2.amazonaws.com/login/"+s3FileName);
+        s3UpFiles.setUpFileUrl(urlLoginImage+s3FileName);
         s3UpFiles.setMember(memberService.findVerifiedMember(s3UpFile.getMember().getMemberId())); // 멤버 세팅
         s3UpFiles.getMember().setImgUrl(s3UpFiles.getUpFileUrl());
         s3UpFileRepository.save(s3UpFiles);
@@ -66,7 +73,7 @@ public class S3UpFileService {
 
         S3UpFile s3UpFiles = new S3UpFile();
         s3UpFiles.setUpFileName(s3FileName);
-        s3UpFiles.setUpFileUrl("https://saypart.s3.ap-northeast-2.amazonaws.com/luckMango/"+s3FileName);
+        s3UpFiles.setUpFileUrl(urlLuckMangoImage+s3FileName);
         s3UpFileRepository.save(s3UpFiles);
 
 

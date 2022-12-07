@@ -94,7 +94,7 @@ const Login = () => {
             <div className="flex flex-col items-center">
               <p className="mb-4 w-[165px] h-[209px] animate-[welcome_2.5s_steps(7)_infinite] bg-[url(/images/char/sprite.png)]"></p>
               <p className="mb-2 text-xl text-center text-medium">
-                다시 만나게 되어 반가워요!
+                다시 만나게 되어 반가워요! 여기에
               </p>
               <p className="text-base text-center text-medium">
                 따뜻한 덕담을 주고받는{" "}

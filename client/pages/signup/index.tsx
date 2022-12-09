@@ -22,6 +22,7 @@ const Signup = () => {
   const [isEmail, setIsEmail] = useState<boolean>(false);
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
+  const [isVerification, setIsVerification] = useState<boolean>(false);
   const router = useRouter();
 
   //폼 만들기
@@ -58,7 +59,7 @@ const Signup = () => {
       setIdMessage("아이디를 다시 작성해주세요!");
       setIsId(false);
     } else {
-      setIdMessage("올바른 형식의 아이디입니다.");
+      setIdMessage("✔");
       setIsId(true);
     }
   }, []);
@@ -75,7 +76,7 @@ const Signup = () => {
         setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요~");
         setIsEmail(false);
       } else {
-        setEmailMessage("올바른 이메일 형식이에요 :)");
+        setEmailMessage("");
         setIsEmail(true);
       }
     },
@@ -118,6 +119,11 @@ const Signup = () => {
     [password],
   );
 
+  const handleVerification = () => {
+    if (isEmail) {
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -135,6 +141,15 @@ const Signup = () => {
                 <div className="mt-11">
                   <label htmlFor="id" className="text-left mg-default-label">
                     닉네임
+                    {id.length > 0 && (
+                      <span
+                        className={`text-left text-sm pl-2  ${
+                          isId ? "mg-vaild-success" : "mg-vaild-error"
+                        }`}
+                      >
+                        {idMessage}
+                      </span>
+                    )}
                   </label>
                   <div className="flex flex-col ">
                     <input
@@ -151,30 +166,39 @@ const Signup = () => {
                       } 
                 }`}
                     />
-                    {id.length > 0 && (
-                      <span
-                        className={`text-left text-sm pl-2 pt-1 ${
-                          isId ? "mg-vaild-success" : "mg-vaild-error"
-                        }`}
-                      >
-                        {idMessage}
-                      </span>
-                    )}
                   </div>
                 </div>
-                <div className="mt-5">
+                <div className="mt-6">
                   <label htmlFor="email" className="text-left mg-default-label">
                     이메일
+                    {email.length > 0 && (
+                      <span
+                        className={`text-left text-sm pl-2 w-full ${
+                          isEmail ? "mg-vaild-error" : "mg-vaild-error"
+                        }`}
+                      >
+                        {emailMessage}
+                      </span>
+                    )}
+                    {isEmail && (
+                      <button
+                        className="mg-primary-button-small"
+                        onClick={handleVerification}
+                      >
+                        중복확인
+                      </button>
+                    )}
                   </label>
+
                   <div className="flex flex-col">
                     <input
                       id="email"
                       type="text"
                       value={email}
-                      placeholder="이메일 형식에 맞게 입력해주세요"
+                      placeholder="이메일 형식에 맞게 입력하고 중복 확인 해주세요!"
                       onChange={onChangeEmail}
                       className={`mg-default-input w-full ${
-                        isEmail
+                        isEmail && isVerification
                           ? "border-success-normal focus:outline-none"
                           : email.length === 0
                           ? "null"
@@ -182,15 +206,6 @@ const Signup = () => {
                       } 
                   }`}
                     />
-                    {email.length > 0 && (
-                      <span
-                        className={`text-left text-sm pl-2 pt-1 w-full ${
-                          isEmail ? "mg-vaild-success" : "mg-vaild-error"
-                        }`}
-                      >
-                        {emailMessage}
-                      </span>
-                    )}
                   </div>
                 </div>
                 <div className="mt-5">
@@ -199,6 +214,15 @@ const Signup = () => {
                     className="text-left mg-default-label"
                   >
                     비밀번호
+                    {password.length > 0 && (
+                      <span
+                        className={`text-left text-sm pl-2 ${
+                          isPassword ? "mg-vaild-success" : "mg-vaild-error"
+                        }`}
+                      >
+                        {passwordMessage}
+                      </span>
+                    )}
                   </label>
                   <div className="flex flex-col">
                     <input
@@ -215,15 +239,6 @@ const Signup = () => {
                       } 
                   }`}
                     />
-                    {password.length > 0 && (
-                      <span
-                        className={`text-left text-sm pl-2 pt-1 ${
-                          isPassword ? "mg-vaild-success" : "mg-vaild-error"
-                        }`}
-                      >
-                        {passwordMessage}
-                      </span>
-                    )}
                   </div>
                 </div>
                 <div className="mt-5">
@@ -232,6 +247,17 @@ const Signup = () => {
                     className="text-left mg-default-label "
                   >
                     비밀번호 확인
+                    {passwordConfirm.length > 0 && (
+                      <span
+                        className={`text-left text-sm pl-2 ${
+                          isPasswordConfirm
+                            ? "mg-vaild-success"
+                            : "mg-vaild-error"
+                        }`}
+                      >
+                        {passwordConfirmMessage}
+                      </span>
+                    )}
                   </label>
                   <div className="flex flex-col">
                     <input
@@ -248,17 +274,6 @@ const Signup = () => {
                       } 
                   }`}
                     />
-                    {passwordConfirm.length > 0 && (
-                      <span
-                        className={`text-left text-sm pl-2 pt-1 ${
-                          isPasswordConfirm
-                            ? "mg-vaild-success"
-                            : "mg-vaild-error"
-                        }`}
-                      >
-                        {passwordConfirmMessage}
-                      </span>
-                    )}
                   </div>
                 </div>
               </div>

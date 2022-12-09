@@ -61,7 +61,7 @@ const Mypage = () => {
         },
       },
     );
-    setLength(res.data.length);
+    setLength(res.length);
     setLuckMango(res.data);
   };
 

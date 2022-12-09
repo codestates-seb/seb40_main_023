@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface CreateMangoProps {
   memberId: number;
   title: string;
@@ -13,6 +15,6 @@ export interface UploadImgProps {
 export interface previewProps {
   greeting: string;
   edit: boolean;
-  setBgUrl: string;
+  setBgUrl: Dispatch<SetStateAction<string>>;
   bgUrl: string;
 }

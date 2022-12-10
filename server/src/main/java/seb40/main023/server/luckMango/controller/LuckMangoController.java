@@ -82,7 +82,7 @@ public class LuckMangoController {
     //공개복망고 가져오기
     @GetMapping("/public")
     public ResponseEntity getPublicLuckMangos(@Positive @RequestParam int page, @Positive @RequestParam int size) {
-        Page<LuckMango> pageLuckMangos = luckMangoService.publicLuckMango(page, size);
+        Page<LuckMango> pageLuckMangos = luckMangoService.publicLuckMango(page - 1, size);
         List<LuckMango> luckMangos = pageLuckMangos.getContent();
 
         return new ResponseEntity<>(

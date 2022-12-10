@@ -7,6 +7,7 @@ export interface EditMangoProps {
 }
 
 export interface EditModalProps {
+  modal?:boolean;
   setModal: (flag: boolean) => void;
   greeting: string;
   title: string;

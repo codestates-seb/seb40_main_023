@@ -46,6 +46,9 @@ public class LuckMango extends Auditable {
     @Column
     private boolean reveal;    // public, private는 예약어라 설장 안됨
 
+    @Column
+    private int newLuckBag;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;

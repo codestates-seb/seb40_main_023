@@ -28,7 +28,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
-//    private final S3UpFileService s3UpFileService;
+    private final S3UpFileService s3UpFileService;
 
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
@@ -51,9 +51,18 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         //로그인 이미지가 변화 하였는지 체크
-//        boolean check;
-//        if(Objects.equals(member.getImgUrl(), findMember.getImgUrl())){check = true;}
-//        else {check = false;}
+        boolean check;
+        if(Objects.equals(member.getImgUrl(), findMember.getImgUrl())){check = true;}
+        else {check = false;}
+
+        //        로그인 이미지가 null 아니고  로그인 이미지값이 변화가 있었을시  s3에서 파일 삭제
+        if (!findMember.getImgUrl().equals("NONE") && !check) {
+            try {
+                s3UpFileService.deleteMember(findMember.getImgUrl());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         Optional.ofNullable(member.getName())
                 .ifPresent(name -> findMember.setName(name));
@@ -66,14 +75,6 @@ public class MemberService {
 
         findMember.setModifiedAt(LocalDateTime.now());
 
-        //로그인 이미지가 null 아니고  로그인 이미지값이 변화가 있었을시  s3에서 파일 삭제
-//        if (findMember.getImgUrl() != null && !check) {
-//            try {
-//                s3UpFileService.deleteMember(findMember.getImgUrl());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
 
         return memberRepository.save(findMember);
     }
@@ -96,13 +97,13 @@ public class MemberService {
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
 
-//        if (findMember.getImgUrl() != null ) {
-//            try {
-//                s3UpFileService.deleteMember(findMember.getImgUrl());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+        if (!findMember.getImgUrl().equals("NONE")) {
+            try {
+                s3UpFileService.deleteMember(findMember.getImgUrl());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         memberRepository.delete(findMember);
     }

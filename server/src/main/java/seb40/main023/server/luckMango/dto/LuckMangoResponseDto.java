@@ -22,6 +22,7 @@ public class LuckMangoResponseDto {
 
     private int likeCount;
     private boolean reveal;
+    private int newLuckBag;
 
     private MemberResponseDto_Mango member;
 

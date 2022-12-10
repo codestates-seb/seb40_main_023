@@ -1,8 +1,8 @@
 cloud:
   aws:
     credentials:
-      access-key: # s3 엑세스 키
-      secret-key: # s3 시크릿 키
+      access-key:  # s3 엑세스 키
+      secret-key:  # s3 시크릿 키
     s3:
       bucket: saypart/ #버킷 이름
       login: https://saypart.s3.ap-northeast-2.amazonaws.com/login/      # 로그인 이미지 저장 주소

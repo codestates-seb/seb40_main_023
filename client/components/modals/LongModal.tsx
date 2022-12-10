@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
+import { notifyInfo } from "../util/Toast";
 import CheckModal from "./CheckModal";
+import { LongModalProps } from "../../types/lucky";
 
 const LongModal = ({
   modal,
@@ -10,10 +12,11 @@ const LongModal = ({
   setCompleteModal,
   luckMgId,
   luckMg,
-}: any) => {
+}: LongModalProps) => {
   const [luckContent, setLuckContent] = useState("");
   const [writer, setWriter] = useState("");
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState("");
+  const [moneyNum, setMoneyNum] = useState(0);
   const [bagType, setBagType] = useState(1);
   const [confirmModal, setConfirmModal] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -21,37 +24,82 @@ const LongModal = ({
   const data = {
     luckContent: luckContent,
     writer: writer,
-    money: money,
+    money: moneyNum,
     bagType: bagType,
+  };
+
+  useEffect(() => {
+    isFilledUpForm();
+  }, [luckContent, writer, money]);
+
+  useEffect(() => {
+    if (money) {
+      setMoneyNum(+money.split(",").join(""));
+    }
+  }, [money]);
+
+  const isFilledUpForm = () => {
+    if (
+      luckContent === "" ||
+      moneyNum > 10000000 ||
+      moneyNum <= 0 ||
+      writer === ""
+    ) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
   };
 
   const handleModal = () => {
     setModal(!modal);
   };
 
-  const handleConModal = () => {
-    setConfirmModal(!confirmModal);
-  };
-
-  const handleMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMoney(Number(e.target.value));
-    if (Number(e.target.value) <= 10000000 && Number(e.target.value) >= 1) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
+  const onClickSubmit = () => {
+    if (isValid) {
+      setConfirmModal(!confirmModal);
     }
   };
 
-  const handleLuckContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setLuckContent(e.target.value);
   };
 
-  const handleLuckBag = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNaN(+e.target.value)) {
+      notifyInfo({ message: "숫자만 입력할 수 있어요", icon: "💵" });
+      setMoney("");
+    } else if (+e.target.value > 10000000) {
+      notifyInfo({
+        message: "마음은 감사하지만,\n 최대 금액입니다.",
+        icon: "💵",
+      });
+      setMoney("10000000");
+    } else {
+      setMoney(e.target.value);
+    }
+  };
+
+  const onBlurMoeny = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNaN(+e.target.value)) {
+      notifyInfo({ message: "숫자만 입력할 수 있어요", icon: "💵" });
+      setMoney("");
+    } else {
+      setMoney(Number(money).toLocaleString());
+    }
+  };
+
+  const onFocusMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMoney(e.currentTarget.value.split(",").join(""));
+  };
+
+  const onChangeLuckBag = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBagType(Number(e.target.value));
   };
 
   const handleWriter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWriter(e.target.value);
+    isFilledUpForm();
   };
 
   return (
@@ -65,20 +113,28 @@ const LongModal = ({
         <div className="max-w-[440px] mobile:max-w-none w-full">
           <div className="px-2">
             <div className="justify-center mb-6 text-xl mg-modal-title">
-              {luckMg.member.name}님에게 보낼 덕담을 입력해 주세요
+              {luckMg?.member.name}님에게 보낼 덕담을 입력해 주세요
+            </div>
+          </div>
+          <div className="px-2">
+            <div className="w-full mg-flex-center">
+              <div className="mg-modal-title">
+                <p className="mr-3 mg-required-input">보내실 덕담</p>
+              </div>
             </div>
           </div>
           <div className="px-2 mb-4">
             <textarea
               className="p-3 w-full mg-modal-input h-[220px] resize-none"
               maxLength={188}
-              onChange={e => handleLuckContent(e)}
+              onChange={e => onChangeContent(e)}
+              placeholder="덕담을 입력해 주세요. (필수)"
             />
           </div>
           <div className="px-2">
             <div className="w-full mg-flex-center">
               <div className="mg-modal-title">
-                <p className="mr-3">보내는 사람</p>
+                <p className="mr-3 mg-required-input">보내는 사람</p>
               </div>
             </div>
           </div>
@@ -95,7 +151,7 @@ const LongModal = ({
           <div className="px-2">
             <div className="flex-row items-center mg-flex-center">
               <div className="mg-modal-title">
-                <p className="mr-3">세뱃돈</p>
+                <p className="mr-3 mg-required-input">세뱃돈</p>
               </div>
               <div className="mb-2 mg-info-normal">
                 <i></i>실제 금액이 아닌 마음만 전달해요
@@ -105,13 +161,12 @@ const LongModal = ({
           <div className="px-2 mb-4">
             <input
               className="w-full mg-modal-input"
-              placeholder="1원 ~ 10,000,000원"
-              type="number"
-              min={1}
-              max={10000000}
-              maxLength={6}
-              size={6}
-              onChange={e => handleMoney(e)}
+              placeholder="1 ~ 10,000,000 숫자만 입력해 주세요."
+              type="text"
+              value={money}
+              onChange={e => onChangeMoney(e)}
+              onFocus={e => onFocusMoney(e)}
+              onBlur={e => onBlurMoeny(e)}
             />
           </div>
           <div className="px-2">
@@ -134,8 +189,9 @@ const LongModal = ({
                       id={`radioIsPublic${idx}`}
                       type="radio"
                       className="hidden"
-                      onChange={e => handleLuckBag(e)}
+                      onChange={e => onChangeLuckBag(e)}
                       name="radioIsPublic"
+                      defaultChecked={idx === 1 ? true : false}
                       value={idx}
                     />
                     <label htmlFor={`radioIsPublic${idx}`}>
@@ -157,7 +213,7 @@ const LongModal = ({
           <div className="flex justify-around p-2 mt-3">
             <button
               className="rounded-full mg-primary-button"
-              onClick={handleConModal}
+              onClick={onClickSubmit}
               disabled={isValid ? false : true}
             >
               덕담 보내기

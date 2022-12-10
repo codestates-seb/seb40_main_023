@@ -1,4 +1,5 @@
 import React from "react";
+import { LuckBagProps } from "../types/lucky";
 
 const LuckBags = ({
   currPage,
@@ -6,7 +7,7 @@ const LuckBags = ({
   pageInfo,
   luckyBagList,
   handleLetterModal,
-}: any) => {
+}: LuckBagProps) => {
   const onClickPage = (e: React.MouseEvent) => {
     if (!(e.target instanceof HTMLButtonElement)) {
       return;

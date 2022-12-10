@@ -4,14 +4,11 @@ import Greeting from "./Greeting";
 import { uploadMgImg } from "../fetch/create";
 import { getCookie } from "./util/cookie";
 import Loading from "./util/Loading";
-import { previewProps } from "../types/create";
+import { formDataType, previewProps } from "../types/create";
 
 const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: previewProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  interface formDataType {
-    images: FileList;
-  }
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement | null>) => {
     if (e.target.files?.length) {
@@ -22,7 +19,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: previewProps) => {
   };
 
   const uploadBgImg = async (formData: formDataType) => {
-    const res = await uploadMgImg(
+    const res: any = await uploadMgImg(
       `/api/s3/luckMango/`,
       formData,
       {
@@ -34,7 +31,7 @@ const BokPreview = ({ greeting, edit, setBgUrl, bgUrl }: previewProps) => {
       setLoading,
     );
     setLoading(false);
-    setBgUrl(res.data);
+    setBgUrl!(res.data);
   };
 
   const uploadImageButtonClick = () => {

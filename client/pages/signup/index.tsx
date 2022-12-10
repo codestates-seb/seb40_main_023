@@ -25,26 +25,27 @@ const Signup = () => {
   const router = useRouter();
 
   //폼 만들기
-  const signupSubmit = (e: any) => {
+  const signupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    window.setTimeout("window.location.reload()", 2000);
-    notifyError({
-      message: "이미 존재하는 닉네임이거나 이메일입니다.",
-      icon: "😎",
-    });
-    try {
-      axios
-        .post("api/member", {
-          name: id,
-          email: email,
-          password: password,
-        })
-        .then(res => {
-          router.push("/login");
-        });
-    } catch (error) {
-      console.warn(error);
-    }
+    await axios({
+      method: "post",
+      url: `/api/member`,
+      data: {
+        name: id,
+        email: email,
+        password: password,
+      },
+    })
+      .then(res => {
+        router.push("/login");
+      })
+      .catch(function (error) {
+        if (error.response.data.message === "Member exists") {
+          notifyError({ message: "이메일이 중복되었습니다.", icon: "🥭" });
+          setEmail("");
+          setIsEmail(false);
+        }
+      });
   };
 
   //아이디
@@ -57,7 +58,7 @@ const Signup = () => {
       setIdMessage("아이디를 다시 작성해주세요!");
       setIsId(false);
     } else {
-      setIdMessage("예쁜 아이디네요.");
+      setIdMessage("올바른 형식의 아이디입니다.");
       setIsId(true);
     }
   }, []);
@@ -74,7 +75,7 @@ const Signup = () => {
         setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요~");
         setIsEmail(false);
       } else {
-        setEmailMessage("올바른 이메일 형식이에요 : )");
+        setEmailMessage("올바른 이메일 형식이에요 :)");
         setIsEmail(true);
       }
     },
@@ -121,13 +122,13 @@ const Signup = () => {
     <div>
       <Header />
       <div className="flex flex-col items-center w-full h-full min-h-screen">
-        <div className="flex flex-col max-w-[360px] justify-center text-center mb-10">
-          <div className="mt-[100px] text-4xl whitespace-pre-line">
-            {"10초 안에 가입하고 \n 복망고 만들러 가기!"}
+        <div className="flex flex-col max-w-[400px] justify-center w-full mb-10 text-center">
+          <div className="mt-[100px] text-4xl">
+            10초 안에 가입하고
+            <br />
+            복망고 만들러 가기!
           </div>
-          <div className="mt-4 text-lg">
-            1분 안에 나만의 복망고 페이지를 생성해 보세요!
-          </div>
+          <div className="mt-4 text-lg">만나서 반갑습니다!</div>
           <div className="px-[20px]">
             <form onSubmit={signupSubmit}>
               <div className="mt-11">
@@ -169,6 +170,7 @@ const Signup = () => {
                     <input
                       id="email"
                       type="text"
+                      value={email}
                       placeholder="이메일 형식에 맞게 입력해주세요"
                       onChange={onChangeEmail}
                       className={`mg-default-input w-full ${

@@ -30,7 +30,7 @@ const index = () => {
     if (!downloadRef.current) {
       return;
     }
-    let btn: any = downloadRef.current;
+    let btn: HTMLInputElement = downloadRef.current;
     domtoimage.toPng(btn).then(blob => {
       saveAs(blob, "BokMango.png");
     });
@@ -268,7 +268,7 @@ const index = () => {
                 <div className="absolute bottom-[5%] w-full px-4 mg-bok-layout-row">
                   {isLogin &&
                   luckMg &&
-                  (luckMg as any)?.member?.memberId === memberId ? (
+                  (luckMg as luckMgType)?.member?.memberId === memberId ? (
                     <div className="flex-col-reverse items-end justify-center mg-flex-center">
                       <button
                         className="mg-icon-share my-1 w-[230px] bg-[left_1rem_center] mg-secondary-button-round"

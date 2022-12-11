@@ -3,6 +3,7 @@ import Image from "next/image";
 import closed from "../../public/images/ico/ico-modal-close.svg";
 import { createBag } from "../../fetch/lucky";
 import Router from "next/router";
+import { CheckModalProps } from "../../types/lucky";
 
 const CheckModal = ({
   confirmModal,
@@ -18,19 +19,19 @@ const CheckModal = ({
   completeModal,
   setCompleteModal,
   luckMgId,
-}: any) => {
+}: CheckModalProps) => {
   const createLuckBag = async () => {
     const colorNum = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
     const res = await createBag("/api/luckBag", {
-      luckMangoId: luckMgId,
-      luckBagBody: data.luckContent,
-      writer: data.writer,
-      bagStyle: data.bagType,
+      luckMangoId: luckMgId!,
+      luckBagBody: data!.luckContent,
+      writer: data!.writer,
+      bagStyle: data!.bagType,
       bagColor: colorNum,
-      nyMoney: data.money,
+      nyMoney: data!.money,
     });
-    setModal(false);
-    setConfirmModal(false);
+    setModal!(false);
+    setConfirmModal!(false);
     setCompleteModal(!completeModal);
   };
 
@@ -39,7 +40,7 @@ const CheckModal = ({
   };
 
   const handleConfirm = () => {
-    setConfirmModal(!confirmModal);
+    setConfirmModal!(!confirmModal);
   };
 
   const handleComplete = () => {

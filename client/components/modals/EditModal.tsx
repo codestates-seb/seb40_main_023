@@ -10,6 +10,8 @@ import { memberIdState } from "../../recoil/memberId";
 import { luckMgIdState } from "../../recoil/luckMgId";
 import { memberNameState } from "../../recoil/memberName";
 import { luckImgState } from "../../recoil/luckImg";
+import { EditModalProps } from "../../types/edit";
+import { AxiosResponse } from "axios";
 
 const EditModal = ({
   setModal,
@@ -19,7 +21,7 @@ const EditModal = ({
   reveal,
   editMode,
   luckId,
-}: any) => {
+}: EditModalProps) => {
   const memberId = useRecoilValue(memberIdState).memberId;
   const [luckMgId, setLuckMgId] = useRecoilState(luckMgIdState);
   const [userName, setUserName] = useRecoilState(memberNameState);
@@ -30,7 +32,7 @@ const EditModal = ({
     setLuckImg(bgUrl);
   }, []);
 
-  const checkIfResOK = (res: any, mode: string) => {
+  const checkIfResOK = (res: AxiosResponse, mode: string) => {
     if (res.statusText === "Unauthorized") {
       notifyError({ message: "로그인이 필요한 서비스입니다.", icon: "🥹" });
     } else if (res.status >= 400) {
@@ -52,7 +54,7 @@ const EditModal = ({
           title: title,
           mangoBody: greeting,
           bgImage: bgUrl,
-          luckMangoId: luckId,
+          luckMangoId: luckId!,
           reveal: reveal,
         },
         {
@@ -115,7 +117,7 @@ const EditModal = ({
           </div>
         </div>
         <div>
-          <BokPreview greeting={greeting} edit={editMode} bgUrl={bgUrl} />
+          <BokPreview greeting={greeting} edit={editMode!} bgUrl={bgUrl} />
           <div className="flex justify-center mt-5 mb-3">
             <button
               className="mx-2 mg-negative-button-round"

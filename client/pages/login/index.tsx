@@ -21,7 +21,7 @@ const Login = () => {
     setTimeout(() => router.push("/"), 1500);
   };
 
-  const onSubmit2 = async (e: any) => {
+  const onSubmit2 = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await axios
@@ -74,12 +74,12 @@ const Login = () => {
     }
   };
 
-  const onChangeEmail = (e: any) => {
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
   };
 
-  const onChangePassword = (e: any) => {
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const passwordCurrent = e.target.value;
     setPassword(passwordCurrent);
   };

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { notifySuccess } from "../util/Toast";
 import QrModal from "../modals/QrModal";
 import DeleteMgModal from "../modals/DeleteMgModal";
@@ -11,17 +10,17 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [qrCode, setQrCode] = useState<boolean>(false);
 
-  const handleModal = (e: any) => {
+  const handleModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setDeleteModal(!deleteModal);
   };
 
-  const shareQr = (e: any) => {
+  const shareQr = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setQrCode(!qrCode);
   };
 
-  const shareUrl = (e: any) => {
+  const shareUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     let currentUrl = `https://seb40-main-023.vercel.app/lucky/${luckMangoId}`;
     let t = document.createElement("textarea");

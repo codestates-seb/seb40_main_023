@@ -3,6 +3,7 @@ import Image from "next/image";
 import { LUCKBAG_OPTION } from "../../constants/luckBagOpt";
 import { notifyInfo } from "../util/Toast";
 import CheckModal from "./CheckModal";
+import { LongModalProps } from "../../types/lucky";
 
 const LongModal = ({
   modal,
@@ -11,7 +12,7 @@ const LongModal = ({
   setCompleteModal,
   luckMgId,
   luckMg,
-}: any) => {
+}: LongModalProps) => {
   const [luckContent, setLuckContent] = useState("");
   const [writer, setWriter] = useState("");
   const [money, setMoney] = useState("");
@@ -112,7 +113,7 @@ const LongModal = ({
         <div className="max-w-[440px] mobile:max-w-none w-full">
           <div className="px-2">
             <div className="justify-center mb-6 text-xl mg-modal-title">
-              {luckMg.member.name}님에게 보낼 덕담을 입력해 주세요
+              {luckMg?.member.name}님에게 보낼 덕담을 입력해 주세요
             </div>
           </div>
           <div className="px-2">

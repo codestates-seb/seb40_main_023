@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
+import { LetterModalProps } from "../../types/lucky";
 
 const LetterModal = ({
   letterModal,
@@ -8,7 +9,7 @@ const LetterModal = ({
   setBag,
   bagList,
   luckyBagId,
-}: any) => {
+}: LetterModalProps) => {
   useEffect(() => {
     if (bagList) {
       setBag(bagList.filter((el: any) => el.luckBagId === luckyBagId)[0]);

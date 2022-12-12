@@ -1,7 +1,7 @@
 import React from "react";
 import AudioPlayer from "react-h5-audio-player";
 
-const Player = ({bgmOn}: any) => {
+const Player = ({ bgmOn }: { bgmOn: boolean }) => {
   return (
     <>
       {bgmOn ? (

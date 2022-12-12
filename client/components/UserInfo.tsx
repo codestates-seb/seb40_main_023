@@ -7,6 +7,7 @@ import { memberIdState } from "../recoil/memberId";
 import { getCookie } from "./util/cookie";
 import { uploadUserImg } from "../fetch/userImg";
 import { notifySuccess } from "./util/Toast";
+import { UserModifyProps } from "../types/mypage";
 
 const UserModify = ({
   handle,
@@ -15,7 +16,7 @@ const UserModify = ({
   setBgUrl,
   bgUrl,
   setUserImg,
-}: any): React.ReactElement => {
+}: UserModifyProps): React.ReactElement => {
   //전역상태
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;
@@ -65,7 +66,7 @@ const UserModify = ({
   };
 
   //유저 정보수정 보내는 함수
-  const UserInfoChange = async (e: any) => {
+  const UserInfoChange = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       await axios({
@@ -138,7 +139,7 @@ const UserModify = ({
           width={30}
           height={30}
           className="m-0 mr-2 cursor-pointer"
-          onClick={() => handle(false)}
+          onClick={() => handle()}
         />
         <span className="flex items-center justify-center">회원정보 수정</span>
       </div>

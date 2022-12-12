@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 import GalleryItem from "../../components/mypage/GalleryItem";
 import { Toast } from "../../components/util/Toast";
 import { getCookie, removeCookies } from "../../components/util/cookie";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../../recoil/memberId";
 import Link from "next/link";
@@ -73,7 +73,7 @@ const Mypage = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,
       },
-    }).then((res: any) => {
+    }).then((res: AxiosResponse) => {
       if (res.statusText === "Unauthorized") {
         notifyError({ message: "로그인이 필요한 서비스입니다.", icon: "🥹" });
         route.push("/login");
@@ -145,7 +145,7 @@ const Mypage = () => {
                   나의 새해 복망고
                 </div>
                 <div className="relative grid w-full justify-items-center mb-[20px] grid-flow-row grid-cols-1 mobile:gap-4 gap-6">
-                  {LuckMango.map((el: any, index: any) => (
+                  {LuckMango.map((el: any, index: number) => (
                     <GalleryItem
                       key={index}
                       luckMangoId={el.luckMangoId}

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface CreateMangoProps {
   memberId: number;
   title: string;
@@ -7,5 +9,22 @@ export interface CreateMangoProps {
 }
 
 export interface UploadImgProps {
-  images: any;
+  images: FileList;
+}
+
+export interface previewProps {
+  greeting: string;
+  edit: boolean;
+  setBgUrl?: Dispatch<SetStateAction<string>>;
+  bgUrl: string;
+}
+
+export interface formDataType {
+  images: FileList;
+}
+
+export interface shareBtnProps {
+  shareQr: any;
+  shareKakao: React.MouseEventHandler<HTMLButtonElement>;
+  shareUrl: React.MouseEventHandler<HTMLButtonElement>;
 }

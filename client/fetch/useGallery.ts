@@ -19,7 +19,7 @@ export const useFetchInfinite = (query: string, page: number) => {
     let cancel: any;
     axios({
       method: "GET",
-      url: `/api/luckMango/public${query}?reveal=true&page=${page}&size=12&sort=likeCount`,
+      url: `/api/luckMango/public${query}?reveal=true&page=${page}&size=9`,
       cancelToken: new axios.CancelToken(c => (cancel = c)),
     })
       .then(res => {

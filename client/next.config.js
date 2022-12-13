@@ -36,6 +36,17 @@ const nextConfig = {
         destination: "/",
         permanent: true,
       },
+      {
+        source: "/lucky/:path*",
+        has: [
+          {
+            type: "host",
+            value: "https://seb40-main-023.vercel.app",
+          },
+        ],
+        destination: "https://applemango.vercel.app/lucky/:path*",
+        permanent: false,
+      },
     ];
   },
 };

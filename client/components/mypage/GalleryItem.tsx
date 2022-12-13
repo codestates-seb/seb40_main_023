@@ -22,7 +22,7 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
 
   const shareUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    let currentUrl = `https://seb40-main-023.vercel.app/lucky/${luckMangoId}`;
+    let currentUrl = `${process.env.NEXT_PUBLIC_URL}/lucky/${luckMangoId}`;
     let t = document.createElement("textarea");
     document.body.appendChild(t);
     t.value = currentUrl;
@@ -79,22 +79,27 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
           <Link
             href={`/lucky/${luckMangoId}`}
             className="flex items-center mg-card-button bg-[url(/images/ico/ico-mypage-link.svg)] bg-[center] bg-no-repeat"
+            title="이동하기"
           ></Link>
           <button
             className="flex items-center mg-card-button bg-[url(/images/ico/ico-mypage-qr.svg)] bg-[center] bg-no-repeat"
             onClick={shareQr}
+            title="QR코드 보기"
           ></button>
           <button
             className="flex items-center mg-card-button bg-[url(/images/ico/ico-mypage-url.svg)] bg-[center] bg-no-repeat"
             onClick={shareUrl}
+            title="URL 복사하기"
           ></button>
           <Link
             href={`/edit/${luckMangoId}`}
             className="flex items-center mg-card-button bg-[url(/images/ico/ico-mypage-edit2.svg)] bg-[center] bg-no-repeat"
+            title="편집하기"
           ></Link>
           <button
             className="flex items-center mg-card-button bg-[url(/images/ico/ico-mypage-delete.svg)] bg-[center] bg-no-repeat"
             onClick={handleModal}
+            title="삭제하기"
           ></button>
         </div>
       </div>
@@ -102,7 +107,7 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
       {qrCode && (
         <QrModal
           shareQr={shareQr}
-          link={`https://seb40-main-023.vercel.app/lucky/${luckMangoId}`}
+          link={`${process.env.NEXT_PUBLIC_URL}/lucky/${luckMangoId}`}
         />
       )}
       {deleteModal && (

@@ -139,7 +139,7 @@ const index = () => {
   const shareKakao = () => {
     const { Kakao } = window;
     Kakao.Link.sendScrap({
-      requestUrl: `https://seb40-main-023.vercel.app/lucky/${luckMgId}`,
+      requestUrl: `${process.env.NEXT_PUBLIC_URL}/lucky/${luckMgId}`,
       templateId: TEMPLETE_ID,
       templateArgs: {
         id: `${luckMgId}`,

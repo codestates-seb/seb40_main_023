@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReviewItem from "./ReviewItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -48,7 +48,7 @@ function ReviewSlide({ reviewData }: any) {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 640,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,

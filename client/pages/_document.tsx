@@ -24,7 +24,7 @@ function MyDocument() {
           src="https://developers.kakao.com/sdk/js/kakao.min.js"
         ></script>
       </Head>
-      <body>
+      <body className="selection:bg-[#FEE31D]">
         <Main />
         <NextScript />
       </body>

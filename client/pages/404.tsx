@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { notFoundProps } from "../types/basic";
 
-const NotFound = (props: any) => {
+const NotFound = (props: notFoundProps) => {
   return (
     <div className="pt-4 bg-[url(/images/content/pt-dots.svg)]">
       <main className="py-[58px]">

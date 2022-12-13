@@ -7,7 +7,11 @@ import { useRouter } from "next/router";
 import { notifySuccess } from "../util/Toast";
 import { DeleteUserInfo } from "../../fetch/deleteUser";
 
-const DefaultModal = ({ setModal }: any) => {
+const DefaultModal = ({
+  setModal,
+}: {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
   const userId = memberId.memberId;

@@ -25,7 +25,7 @@ const Signup = () => {
   const router = useRouter();
 
   //폼 만들기
-  const signupSubmit = async (e: any) => {
+  const signupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await axios({
       method: "post",

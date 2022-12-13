@@ -50,7 +50,9 @@ const GalleryItem = ({ bgImage, luckMangoId, ...el }: any) => {
       <div className="flex-col mg-card-contents">
         <div className="flex flex-row h-[75%] rounded-[14px] overflow-hidden rounded-bl-none rounded-br-none">
           <div
-            style={{ backgroundImage: `url("${bgImage}")` }}
+            style={{
+              backgroundImage: `url("${bgImage}")`,
+            }}
             className={`mg-card-image h-full grow shrink basis-[40%] ${
               (bgImage === null || bgImage === "NONE" || bgImage === "") &&
               "bg-[url(/dummy/user1.png)]"

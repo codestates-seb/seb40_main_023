@@ -1,23 +1,59 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { NewMessageType } from "../types/main";
 
-const AlertMessage = () => {
+const AlertMessage = ({
+  messages,
+  memberId,
+  isLoading,
+}: {
+  messages: NewMessageType[];
+  memberId: number;
+  isLoading: boolean;
+}) => {
   return (
-    <ul className="px-5 py-4 rounded-xl bg-white shadow-context w-[calc(100%-40px)] max-h-[400px] overflow-y-auto min-h-[40px] absolute top-[calc(100%+14px)] left-[20px]">
-      {/* {data.map(el => {
-        return (
-          <li className="my-1 text-base text-mono-600">
-            <Link
-              href="www.naver.com"
-              className="underline underline-offset-4 decoration-mono-100"
-            >
-              <span className="text-primary-normal">00</span>의 복망고에{" "}
-              <span className="text-primary-normal">N</span>개의 덕담이
-              도착했습니다!
-            </Link>
-          </li>
-        );
-      })} */}
+    <ul className="px-5 py-4 rounded-xl bg-white shadow-context w-[calc(100%-40px)] mobile:min-w-[400px] mobile:w-auto max-h-[400px] overflow-y-auto min-h-[40px] absolute top-[calc(100%+14px)] left-[20px]">
+      {isLoading ? (
+        "받은 덕담 불러오는중..."
+      ) : messages?.length ? (
+        messages.map(el => {
+          return (
+            <li key={el.mgId} className="my-1 text-base text-mono-600">
+              <Link
+                href={`/lucky/${el.mgId}`}
+                className="underline underline-offset-4 decoration-mono-100"
+              >
+                <span className="font-medium text-primary-normal">
+                  {el.mgTitle}
+                </span>
+                의 복망고에 읽지 않은{" "}
+                <span className="font-medium text-primary-normal">
+                  {el.mgCount}
+                </span>
+                개의 덕담이 있습니다!
+                <Image
+                  src="/images/ico/ico-mypage-link.svg"
+                  width={14}
+                  height={14}
+                  className="inline-block mb-1 ml-2"
+                  alt="마이페이지 바로가기"
+                />
+              </Link>
+            </li>
+          );
+        })
+      ) : (
+        <div className="text-center text-mono-400">
+          <p>받은 메시지가 없습니다! </p>
+          <Link
+            href={`/mypage/${memberId}`}
+            className="underline text-primary-normal decoration-primary-normal"
+          >
+            복망고를 공유하고 덕담을 받아보세요!
+          </Link>
+        </div>
+      )}
     </ul>
   );
 };

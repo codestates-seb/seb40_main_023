@@ -30,6 +30,7 @@ public class LuckBagService {
         long tot_Money = luckBag.getLuckMango().getTot_Money();
         tot_Money += luckBag.getNyMoney();
         luckBag.getLuckMango().setTot_Money(tot_Money);
+        luckBag.getLuckMango().setNewLuckBagTime(LocalDateTime.now());
 
         return luckBagRepository.save(luckBag);
         // 럭백을 세이브 메소드를 이용해서 리파지토리로 넣어주세요 하는 결과가 나온다.
@@ -96,5 +97,11 @@ public class LuckBagService {
                 optionalLuckBag.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.LUCKBAG_NOT_FOUND));
         return findLuckBag;
+    }
+
+    public int searchDayLuckBagsCount(String time1,String time2){
+
+
+        return luckBagRepository.searchDayLuckBag(time1,time2);
     }
 }

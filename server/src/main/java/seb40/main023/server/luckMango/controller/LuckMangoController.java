@@ -16,6 +16,7 @@ import seb40.main023.server.response.SingleResponseDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -98,6 +99,18 @@ public class LuckMangoController {
         return new ResponseEntity<>(
                 new MultiResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDtos(luckMangos),
                         pageLuckMangos), HttpStatus.OK);
+    }
+
+    @GetMapping("/ago")
+    public int getAgoLuckMangos(@Positive @RequestParam int ago) {
+
+        return luckMangoService.searchLuckMangosCount(ago);
+    }
+
+    @GetMapping("/day")
+    public int getDayLuckMangos(@RequestParam String time1, @RequestParam String time2) {
+
+        return luckMangoService.searchDayLuckMangosCount(time1,time2);
     }
 
 

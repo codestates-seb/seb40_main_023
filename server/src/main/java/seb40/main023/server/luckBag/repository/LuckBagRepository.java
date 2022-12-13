@@ -23,6 +23,8 @@ public interface LuckBagRepository extends JpaRepository<LuckBag , Long> {
     @Query(value = "SELECT COUNT(*) FROM luckbags WHERE luckmango_Id = :luckMangoId AND viewed = False",nativeQuery = true)
     int searchNewLuckbag(@Param("luckMangoId") long luckMangoId);
 
+    @Query(value = "SELECT COUNT(*) FROM luckbags WHERE created_at >= :time1 AND created_at <= :time2",nativeQuery = true)
+    int searchDayLuckBag(@Param("time1") String time1, @Param("time2") String time2);
 //    List<LuckBag> findByLuckMangoId(Long luckMangoId);
 
 //    @Query(value = "SELECT * FROM LuckMango WHERE member_Id = :memberId",nativeQuery = true)

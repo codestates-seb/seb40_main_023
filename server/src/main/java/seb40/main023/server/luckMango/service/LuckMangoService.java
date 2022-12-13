@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb40.main023.server.awsS3.dto.S3UpFileResponse;
@@ -161,5 +162,18 @@ public class LuckMangoService {
 
         return luckMangoRepository.save(luckMango);
     }
+
+    public int searchLuckMangosCount(int ago){
+
+       return luckMangoRepository.searchAgoDayLuckMango(ago);
+    }
+
+    public int searchDayLuckMangosCount(String time1,String time2){
+
+
+        return luckMangoRepository.searchDayLuckMango(time1,time2);
+    }
+
+
 
 }

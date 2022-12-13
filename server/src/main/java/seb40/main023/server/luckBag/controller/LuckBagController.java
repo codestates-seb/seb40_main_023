@@ -105,6 +105,13 @@ public class LuckBagController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(luckBag)), HttpStatus.OK);
     }
+
+    @GetMapping("/day")
+    public int getDayLuckBags(@RequestParam String time1, @RequestParam String time2) {
+
+        return luckBagService.searchDayLuckBagsCount(time1,time2);
+    }
+
     // 복주머니 삭제
     @DeleteMapping("/{luckBag-id}")
     public ResponseEntity deleteLuckBag(@PathVariable("luckBag-id") @Positive long luckBagId){

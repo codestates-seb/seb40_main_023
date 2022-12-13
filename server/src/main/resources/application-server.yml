@@ -26,7 +26,7 @@ spring:
     database: mysql   # 추가 해준 부분
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create # (1) 스키마 자동 생성 //create-drop,update
+      ddl-auto: update # (1) 스키마 자동 생성 //create-drop,update
     show-sql: true      # (2) SQL 쿼리 출력
     properties:
       hibernate:

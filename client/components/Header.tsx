@@ -7,6 +7,7 @@ import { userState } from "../recoil/user";
 import { useCookies } from "react-cookie";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../recoil/memberId";
+import { useAlert } from "../fetch/useAlert";
 
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,6 +15,7 @@ const Header = () => {
   const [cookies] = useCookies(["accessJwtToken"]);
   const [user, setUser] = useRecoilState(userState);
   const [memberId, setMemberId] = useRecoilState(memberIdState);
+  const { data, loading, error, hasMango } = useAlert(memberId);
 
   const toggleSidebarHandle = (): void => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -34,12 +36,7 @@ const Header = () => {
 
   useEffect(() => {
     tokenValid();
-    console.log(user);
-    console.log(user.login);
-    console.log(memberId);
   }, [isSidebarOpen]);
-
-  useEffect(() => {}, []);
 
   return (
     <>
@@ -54,13 +51,21 @@ const Header = () => {
                 alt="받은 덕담 알림"
                 onClick={toggleAlertHandle}
               />
-              <span className="absolute top-0 right-0 z-10 flex w-2 h-2">
-                <span className="absolute inline-flex w-full h-full rounded-full opacity-30 animate-ping bg-danger-normal"></span>
-                <span className="relative inline-flex w-2 h-2 rounded-full bg-danger-normal"></span>
-              </span>
+              {data?.length !== 0 && (
+                <span className="absolute top-0 right-0 z-10 flex w-2 h-2 pointer-events-none">
+                  <span className="absolute inline-flex w-full h-full rounded-full opacity-30 animate-ping bg-danger-normal"></span>
+                  <span className="relative inline-flex w-2 h-2 rounded-full bg-danger-normal"></span>
+                </span>
+              )}
             </button>
           }
-          {isAlertOpen && !isSidebarOpen && <AlertMessage />}
+          {hasMango && isAlertOpen && !isSidebarOpen && (
+            <AlertMessage
+              messages={data}
+              memberId={memberId}
+              isLoading={loading}
+            />
+          )}
         </div>
         <div className="flex justify-center w-full">
           <h1 className="mg-logo">

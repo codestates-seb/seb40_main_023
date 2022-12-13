@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Head from "next/head";
-import { CookiesProvider } from "react-cookie";
 import { RecoilRoot } from "recoil";
+import { CookiesProvider } from "react-cookie";
+import { Analytics } from "@vercel/analytics/react";
 
 declare global {
   interface Window {
@@ -34,6 +35,7 @@ function App({ Component, pageProps }: AppProps) {
     <CookiesProvider>
       <RecoilRoot>
         <Component {...pageProps} />
+        <Analytics />
       </RecoilRoot>
     </CookiesProvider>
   );

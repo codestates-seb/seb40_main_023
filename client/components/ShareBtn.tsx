@@ -1,6 +1,7 @@
 import React from "react";
+import { shareBtnProps } from "../types/create";
 
-const ShareBtn = ({ shareQr, shareKakao, shareUrl }: any) => {
+const ShareBtn = ({ shareQr, shareKakao, shareUrl }: shareBtnProps) => {
   return (
     <>
       <button

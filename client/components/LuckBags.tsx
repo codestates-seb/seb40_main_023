@@ -1,4 +1,5 @@
 import React from "react";
+import { LuckBagProps } from "../types/lucky";
 
 const LuckBags = ({
   currPage,
@@ -6,8 +7,11 @@ const LuckBags = ({
   pageInfo,
   luckyBagList,
   handleLetterModal,
-}: any) => {
-  const onClickPage = (e: any) => {
+}: LuckBagProps) => {
+  const onClickPage = (e: React.MouseEvent) => {
+    if (!(e.target instanceof HTMLButtonElement)) {
+      return;
+    }
     const role = e.target.dataset.role;
     if (role === "prev") {
       setCurrPage((prevPage: number) => prevPage - 1);
@@ -56,7 +60,7 @@ const LuckBags = ({
           <>
             <button
               className="scale-[-1] left-3 top-16 z-10 absolute mg-background bg-[url(/images/ico/ico-banner-arrow.svg)] rounded-full bg-[#0000004D] w-[34px] h-[34px]"
-              onClick={onClickPage}
+              onClick={e => onClickPage(e)}
               data-role="prev"
               disabled={currPage === 1 || currPage === 0 ? true : false}
             ></button>

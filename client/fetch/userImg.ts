@@ -1,8 +1,12 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
-export const uploadUserImg = async (url: string, body: any, header: {}) => {
+export const uploadUserImg = async (
+  url: string,
+  body: { images: FileList },
+  header: {},
+) => {
   try {
-    const response: any = await axios.post(url, body, header);
+    const response: AxiosResponse = await axios.post(url, body, header);
     console.log(response);
     return response.data;
   } catch (error) {

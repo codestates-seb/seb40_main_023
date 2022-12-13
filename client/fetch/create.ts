@@ -19,11 +19,11 @@ export const uploadMgImg = async (
   url: string,
   body: UploadImgProps,
   header: {},
-  setLoading: any,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   try {
     setLoading(true);
-    const response: any = await axios.post(url, body, header);
+    const response = await axios.post(url, body, header);
     return response;
   } catch (error) {
     console.warn(error);

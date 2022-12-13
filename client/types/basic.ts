@@ -1,4 +1,8 @@
 export interface NotifyProps {
   message: string;
-  icon?: any;
+  icon?: string;
+}
+
+export interface notFoundProps {
+  message: string;
 }

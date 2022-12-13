@@ -1,8 +1,9 @@
 import axios from "axios";
 import React from "react";
+import { DeleteMgModalProps } from "../../types/mypage";
 import { getCookie } from "../util/cookie";
 
-const DeleteMgModal = ({ setDeleteModal, luckMangoId }: any) => {
+const DeleteMgModal = ({ setDeleteModal, luckMangoId }: DeleteMgModalProps) => {
   const DeleteLuckMango = async () => {
     try {
       await axios({

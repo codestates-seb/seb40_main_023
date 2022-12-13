@@ -44,7 +44,7 @@ const nextConfig = {
             value: "https://seb40-main-023.vercel.app",
           },
         ],
-        destination: "https://applemango.vercel.app/lucky/:path*",
+        destination: "/lucky/:path*",
         permanent: false,
       },
     ];

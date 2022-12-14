@@ -35,6 +35,7 @@ export interface luckMgType {
     email: string;
     imgUrl: string;
   };
+  newLuckBag: number;
   createdAt: string;
   modifiedAt: string;
 }

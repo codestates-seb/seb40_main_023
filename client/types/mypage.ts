@@ -11,6 +11,6 @@ export interface UserModifyProps {
   modal: boolean;
   setBgUrl: React.Dispatch<React.SetStateAction<string>>;
   bgUrl: string;
-  userImg: any;
+  userImg: FileList;
   setUserImg: React.Dispatch<any>;
 }

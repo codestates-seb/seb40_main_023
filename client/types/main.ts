@@ -46,3 +46,9 @@ export interface GalleryDataProps {
   createdAt: string;
   modifiedAt: string;
 }
+
+export interface NewMessageType {
+  mgId: number;
+  mgTitle: string;
+  mgCount: number;
+}

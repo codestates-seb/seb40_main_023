@@ -7,15 +7,30 @@ const AlertMessage = ({
   messages,
   memberId,
   isLoading,
+  isError,
 }: {
   messages: NewMessageType[];
   memberId: number;
   isLoading: boolean;
+  isError: boolean;
 }) => {
   return (
     <ul className="px-5 py-4 rounded-xl bg-white shadow-context w-[calc(100%-40px)] mobile:min-w-[400px] mobile:w-auto max-h-[400px] overflow-y-auto min-h-[40px] absolute top-[calc(100%+14px)] left-[20px]">
-      {isLoading ? (
-        "받은 덕담 불러오는중..."
+      {isError ? (
+        <div className="text-center text-mono-400">
+          <p>
+            {" "}
+            <Link
+              href={`/mypage/${memberId}`}
+              className="underline text-primary-normal decoration-primary-normal"
+            >
+              로그인
+            </Link>
+            이 필요한 정보입니다.{" "}
+          </p>
+        </div>
+      ) : isLoading ? (
+        <div>덕담을 불러오는 중...</div>
       ) : messages?.length ? (
         messages.map(el => {
           return (

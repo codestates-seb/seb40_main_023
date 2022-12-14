@@ -64,6 +64,7 @@ const Header = () => {
               messages={data}
               memberId={memberId}
               isLoading={loading}
+              isError={error}
             />
           )}
         </div>

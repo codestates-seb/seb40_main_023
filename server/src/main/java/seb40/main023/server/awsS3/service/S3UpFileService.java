@@ -36,7 +36,7 @@ public class S3UpFileService {
     @Value("${cloud.aws.s3.login}")
     private String urlLoginImage;
 
-    @Value("${cloud.aws.s3.bucket}")
+    @Value("${cloud.aws.s3.luckMango}")
     private String urlLuckMangoImage;
 
 

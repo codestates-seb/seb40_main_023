@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 
 export const uploadUserImg = async (
   url: string,
-  body: { images: FileList },
+  body: FormData,
   header: {},
 ) => {
   try {

@@ -1,15 +1,46 @@
-import React from "react";
+import axios from "axios";
+import React, { useCallback, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { Toast } from "../components/util/Toast";
 
 const PwFind = () => {
-  const onSubmit2 = () => {
-    console.log("a");
+  const [email, setEmail] = useState<string>("");
+  const [emailMessage, setEmailMessage] = useState<string>("");
+  const [isEmail, setIsEmail] = useState<boolean>(false);
+
+  const onSubmit2 = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await axios({
+      method: "get",
+      url: `/api/member/mail?mail=${email}`,
+      data: {
+        email: email,
+      },
+    }).then(el => {
+      if (el.data === "이미 가입된 이메일 입니다.") {
+        //아직 미완성
+      }
+    });
   };
-  const onChangeEmail = () => {
-    console.log("b");
-  };
+
+  const onChangeEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const emailRegex =
+        /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+      const emailCurrent = e.target.value;
+      setEmail(emailCurrent);
+
+      if (!emailRegex.test(emailCurrent)) {
+        setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요~");
+        setIsEmail(false);
+      } else {
+        setEmailMessage("✔");
+        setIsEmail(true);
+      }
+    },
+    [],
+  );
   return (
     <div>
       <Header />
@@ -32,6 +63,15 @@ const PwFind = () => {
               <div className="mt-10">
                 <label htmlFor="email" className="text-left mg-default-label">
                   이메일
+                  {email.length > 0 && (
+                    <span
+                      className={`text-left text-sm pl-2 w-full ${
+                        isEmail ? "mg-vaild-error" : "mg-vaild-error"
+                      }`}
+                    >
+                      {emailMessage}
+                    </span>
+                  )}
                 </label>
                 <input
                   id="email"
@@ -41,7 +81,13 @@ const PwFind = () => {
                   onChange={onChangeEmail}
                 />
               </div>
-              <button className="mg-primary-button mt-8 w-[320px]">
+              <button
+                className={`mt-8 w-[320px] ${
+                  !isEmail
+                    ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"
+                    : "mg-primary-button"
+                }`}
+              >
                 비밀번호 찾기!
               </button>
             </form>

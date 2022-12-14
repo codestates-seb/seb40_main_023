@@ -1,9 +1,10 @@
 import axios from "axios";
+import e from "express";
 import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import { Toast, notifyError } from "../../components/util/Toast";
+import { Toast, notifyError, notifySuccess } from "../../components/util/Toast";
 
 const Signup = () => {
   //이름, 이메일, 비밀번호, 비밀번호 확인 상태
@@ -23,10 +24,11 @@ const Signup = () => {
   const [isPassword, setIsPassword] = useState<boolean>(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState<boolean>(false);
   const [isVerification, setIsVerification] = useState<boolean>(false);
+  const [emailLength, setEmailLength] = useState<number>(0);
   const router = useRouter();
 
   //폼 만들기
-  const signupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const signupSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await axios({
       method: "post",
@@ -119,10 +121,45 @@ const Signup = () => {
     [password],
   );
 
-  const handleVerification = () => {
-    if (isEmail) {
-    }
+  const handleVerification = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await axios({
+      method: "get",
+      url: `/api/member/mail?mail=${email}`,
+      data: {
+        email: email,
+      },
+    })
+      .then(el => {
+        if (el.data === "이미 가입된 이메일 입니다.") {
+          setIsVerification(false);
+          notifyError({ message: "이메일이 중복되었습니다.", icon: "🥭" });
+          setEmail("");
+          setIsEmail(false);
+        } else {
+          console.error();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (error.response.status === 404) {
+          setIsVerification(true);
+          notifySuccess({
+            message: "이메일을 사용할 수 있습니다.",
+            icon: "🥭",
+          });
+          setEmailLength(email.length);
+          setEmailMessage("사용 가능한 이메일입니다");
+          setIsEmail(true);
+        }
+      });
   };
+
+  useEffect(() => {
+    if (emailLength !== email.length) {
+      setIsVerification(false);
+    }
+  }, [emailLength, email]);
 
   return (
     <div>
@@ -136,7 +173,7 @@ const Signup = () => {
           </div>
           <div className="mt-4 text-lg">만나서 반갑습니다!</div>
           <div className="px-[20px]">
-            <form onSubmit={signupSubmit}>
+            <form>
               <div className="mt-11">
                 <div className="mt-11">
                   <label htmlFor="id" className="text-left mg-default-label">
@@ -174,13 +211,13 @@ const Signup = () => {
                     {email.length > 0 && (
                       <span
                         className={`text-left text-sm pl-2 w-full ${
-                          isEmail ? "mg-vaild-error" : "mg-vaild-error"
+                          isEmail ? "mg-vaild-success" : "mg-vaild-error"
                         }`}
                       >
                         {emailMessage}
                       </span>
                     )}
-                    {isEmail && (
+                    {isEmail && !isVerification && (
                       <button
                         className="mg-primary-button-small"
                         onClick={handleVerification}
@@ -189,7 +226,6 @@ const Signup = () => {
                       </button>
                     )}
                   </label>
-
                   <div className="flex flex-col">
                     <input
                       id="email"
@@ -278,6 +314,7 @@ const Signup = () => {
                 </div>
               </div>
               <button
+                onSubmit={signupSubmit}
                 className={`mt-10 w-full ${
                   !(isId && isPassword && isPasswordConfirm && isEmail)
                     ? "px-12 py-3 text-white rounded cursor-not-allowed bg-negative-normal"

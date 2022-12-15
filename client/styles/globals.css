@@ -183,6 +183,10 @@ button:disabled {
     @apply px-12 py-3 text-center text-white rounded bg-primary-normal hover:bg-primary-hover;
   }
 
+  .mg-primary-button-small {
+    @apply px-5 py-[2px] text-center text-white rounded bg-primary-normal hover:bg-primary-hover;
+  }
+
   .mg-primary-button.disabled {
     @apply border rounded text-mono-textDisabled bg-mono-bgDisabled hover:bg-mono-bgDisabled border-mono-borderDisabled;
   }

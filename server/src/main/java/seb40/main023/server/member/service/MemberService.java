@@ -16,6 +16,7 @@ import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.member.repository.MemberRepository;
 import seb40.main023.server.security.utils.CustomAuthorityUtils;
 
+import javax.validation.constraints.Email;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -132,5 +133,13 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+    }
+
+    public void changePassWord(@Email String mail, String name) {
+        Member member = findMember(mail);
+        if (Objects.equals(name, member.getName())) {
+            member.setPassword(passwordEncoder.encode("test1111!"));
+        }
+        else {throw new BusinessLogicException(ExceptionCode.NAME_NOT_MATCH);}
     }
 }

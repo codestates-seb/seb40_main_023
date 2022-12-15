@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/member")
@@ -80,6 +81,14 @@ public class MemberController {
         memberService.deleteMember(memberId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/findPassword")
+    public ResponseEntity patchPassWord(@Email @RequestParam String mail, @RequestParam String name) {
+
+        memberService.changePassWord(mail,name);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

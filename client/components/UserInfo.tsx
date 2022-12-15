@@ -47,8 +47,8 @@ const UserModify = ({
     }
   };
 
-  const uploadBgImg = async (formData: any) => {
-    const res = await uploadUserImg(`/api/s3/login/`, formData, {
+  const uploadBgImg = async (formData: FormData) => {
+    const res = await uploadUserImg(`/api/s3/login`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${getCookie("accessJwtToken")}`,

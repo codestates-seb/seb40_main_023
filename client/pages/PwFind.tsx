@@ -1,27 +1,54 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { Toast } from "../components/util/Toast";
+import { notifyError, notifySuccess, Toast } from "../components/util/Toast";
 
 const PwFind = () => {
   const [email, setEmail] = useState<string>("");
   const [emailMessage, setEmailMessage] = useState<string>("");
   const [isEmail, setIsEmail] = useState<boolean>(false);
+  const [id, setId] = useState<string>("");
+  const router = useRouter();
+  const pageChange = () => {
+    setTimeout(() => router.push("/"), 1500);
+  };
 
   const onSubmit2 = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await axios({
-      method: "get",
-      url: `/api/member/mail?mail=${email}`,
+      method: "patch",
+      url: `/api/member/findPassword?mail=${email}&name=${id}`,
       data: {
         email: email,
+        name: id,
       },
-    }).then(el => {
-      if (el.data === "이미 가입된 이메일 입니다.") {
-        //아직 미완성
-      }
-    });
+    })
+      .then(el => {
+        if (el) {
+          notifySuccess({
+            message: "test1111로 비밀번호가 바뀌었어요.",
+            icon: "🥭",
+          });
+          setEmail("");
+          setId("");
+          pageChange();
+        } else {
+          console.error();
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+        notifyError({
+          message: "이메일이나 닉네임이 올바르지 않아요!",
+          icon: "🥭",
+        });
+      });
+  };
+
+  const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setId(e.target.value);
   };
 
   const onChangeEmail = useCallback(
@@ -53,9 +80,9 @@ const PwFind = () => {
               <p className="mb-2 text-xl text-center text-medium">
                 비밀번호 찾기를 도와드릴게요!
               </p>
-              <p className="text-base text-center text-medium">
-                이메일을 입력하시면 임시번호{" "}
-                <span className="text-primary-normal">test1111!</span>으로
+              <p className="text-base text-center whitespace-pre-line text-medium">
+                이메일과 닉네임을 정확하게 입력하시면 {"\n"} 임시번호
+                <span className="text-primary-normal"> test1111!</span>으로
                 발급됩니다!
               </p>
             </div>
@@ -79,6 +106,18 @@ const PwFind = () => {
                   placeholder="이메일을 입력해 주세요"
                   className="w-full mg-default-input"
                   onChange={onChangeEmail}
+                />
+              </div>
+              <div className="mt-2">
+                <label htmlFor="name" className="text-left mg-default-label">
+                  닉네임
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="닉네임을 입력해 주세요"
+                  className="w-full mg-default-input"
+                  onChange={onChangeId}
                 />
               </div>
               <button

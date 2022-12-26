@@ -21,14 +21,11 @@ import java.io.IOException;
 @CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class S3UpFileController {
     private final S3UpFileService s3UpFileService;
-    private final MemberService memberService;
-    private final LuckMangoService luckMangoService;
 
     @PostMapping("/login")
-    public String uploadFile(@Positive @RequestParam("memberId") long memberId, @RequestParam("images") MultipartFile multipartFile) throws IOException {
-        S3UpFile s3Upfile = new S3UpFile();
-        s3Upfile.setMember(memberService.findVerifiedMember(memberId));
-        return s3UpFileService.upload(multipartFile,s3Upfile);
+    public String uploadFile(@RequestParam("images") MultipartFile multipartFile) throws IOException {
+
+        return s3UpFileService.uploadLogin(multipartFile);
     }
 
 //    @PostMapping("/login")
@@ -39,8 +36,8 @@ public class S3UpFileController {
 
     @PostMapping("/luckMango")
     public String upload2File( @RequestParam("images") MultipartFile multipartFile) throws IOException {
-        S3UpFile s3Upfile = new S3UpFile();
-        return s3UpFileService.upload2(multipartFile,s3Upfile);
+
+        return s3UpFileService.uploadLuckMango(multipartFile);
     }
 
     @DeleteMapping

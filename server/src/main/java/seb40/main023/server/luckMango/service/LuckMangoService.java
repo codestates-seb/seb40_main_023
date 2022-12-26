@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb40.main023.server.awsS3.dto.S3UpFileResponse;
@@ -47,8 +48,8 @@ public class LuckMangoService {
     }
 
     // 입력한 멤버 아이디를 가진 복망고 가져오기
-    public Page<LuckMango> searchLuckMango(long memberId, int page, int size, String sort){
-        PageRequest pageRequest = PageRequest.of(page,size,Sort.by(sort).descending());
+    public Page<LuckMango> searchLuckMango(long memberId, int page, int size){
+        PageRequest pageRequest = PageRequest.of(page,size);
         List<LuckMango> Result = luckMangoRepository.searchLuckMangoByMemberId(memberId);
 
         int start = (int)pageRequest.getOffset();
@@ -58,9 +59,9 @@ public class LuckMangoService {
         return luckMangos;
     }
 
-    public Page<LuckMango> publicLuckMangoLike(boolean reveal,int page, int size, String sort) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sort).descending());
-        List<LuckMango> Result = luckMangoRepository.searchLuckMangoByReveal2(reveal);
+    public Page<LuckMango> publicLuckMangoLike(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        List<LuckMango> Result = luckMangoRepository.searchLuckMangoByReveal2();
 
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), Result.size());
@@ -69,9 +70,19 @@ public class LuckMangoService {
         return luckMangos;
     }
 
-    public Page<LuckMango> publicLuckMango(boolean reveal,int page, int size, String sort) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sort).descending());
-        List<LuckMango> Result = luckMangoRepository.searchLuckMangoByReveal(reveal);
+//    public Page<LuckMango> publicLuckMango(boolean reveal,int page, int size, String sort) {
+//        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sort).descending());
+//        List<LuckMango> Result = luckMangoRepository.searchLuckMangoByReveal(reveal);
+//
+//        int start = (int) pageRequest.getOffset();
+//        int end = Math.min((start + pageRequest.getPageSize()), Result.size());
+//        Page<LuckMango> luckMangos = new PageImpl<>(Result.subList(start, end), pageRequest, Result.size());
+//
+//        return luckMangos;
+//    }
+    public Page<LuckMango> publicLuckMango(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        List<LuckMango> Result = luckMangoRepository.searchLuckMangoByReveal();
 
         int start = (int) pageRequest.getOffset();
         int end = Math.min((start + pageRequest.getPageSize()), Result.size());
@@ -79,7 +90,6 @@ public class LuckMangoService {
 
         return luckMangos;
     }
-
 
     //복망고 수정하기
     public LuckMango updateLuckMango(LuckMango luckMango) {
@@ -89,6 +99,15 @@ public class LuckMangoService {
         boolean check;
         if(Objects.equals(luckMango.getBgImage(), findLuckMango.getBgImage())){check = true;}
         else {check = false;}
+
+        //         배경 이미지가 null 아니고  배경 이미지 값이 동일하지않으면  s3에 서장된 파일 삭제
+        if (luckMango.getBgImage() != null && !check) {
+            try {
+                s3UpFileService.deleteLuckMango(luckMango.getBgImage());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         Optional.ofNullable(luckMango.getTitle())
                 .ifPresent(title -> findLuckMango.setTitle(title));
@@ -105,14 +124,6 @@ public class LuckMangoService {
 
         findLuckMango.setModifiedAt(LocalDateTime.now());
 
-//         배경 이미지가 null 아니고  배경 이미지 값이 동일하지않으면  s3에 서장된 파일 삭제
-        if (luckMango.getBgImage() != null && !check) {
-            try {
-                s3UpFileService.deleteLuckMango(luckMango.getBgImage());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
         return luckMangoRepository.save(findLuckMango);
     }
 
@@ -136,4 +147,33 @@ public class LuckMangoService {
                         new BusinessLogicException(ExceptionCode.LUCKMANGO_NOT_FOUND));
         return findLuckMango;
     }
+
+    //새로운 복주머니 값 세팅
+    public LuckMango searchNewLuckbag (long luckMangoId){
+        LuckMango luckMango = findVerifiedLuckMango(luckMangoId);
+        luckMango.setNewLuckBag(luckMango.getNewLuckBag()+1);
+
+        return luckMangoRepository.save(luckMango);
+    }
+
+    public LuckMango searchViewLuckbag (long luckMangoId){
+        LuckMango luckMango = findVerifiedLuckMango(luckMangoId);
+        luckMango.setNewLuckBag(luckMango.getNewLuckBag()-1);
+
+        return luckMangoRepository.save(luckMango);
+    }
+
+    public int searchLuckMangosCount(int ago){
+
+       return luckMangoRepository.searchAgoDayLuckMango(ago);
+    }
+
+    public int searchDayLuckMangosCount(String time1,String time2){
+
+
+        return luckMangoRepository.searchDayLuckMango(time1,time2);
+    }
+
+
+
 }

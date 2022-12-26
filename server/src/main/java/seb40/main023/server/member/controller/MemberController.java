@@ -16,8 +16,10 @@ import seb40.main023.server.response.MultiResponseDto;
 import seb40.main023.server.response.SingleResponseDto;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/member")
@@ -67,10 +69,27 @@ public class MemberController {
                 HttpStatus.OK);
     }
 
+    //중복된 이메일 체크 확인
+    @GetMapping("/mail")
+    public String getMail(@Email @RequestParam String mail) {
+        Member member = memberService.findMember(mail);
+        return "이미 가입된 이메일 입니다.";
+    }
+
     @DeleteMapping("/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberId) {
         memberService.deleteMember(memberId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PatchMapping("/findPassword")
+    public ResponseEntity patchPassWord(@Email @RequestParam String mail, @RequestParam String name) {
+
+        memberService.changePassWord(mail,name);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }

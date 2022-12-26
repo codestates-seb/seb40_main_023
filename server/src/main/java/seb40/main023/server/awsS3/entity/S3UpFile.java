@@ -21,11 +21,11 @@ public class S3UpFile {
     private String upFileName;
     private String upFileUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member;
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "MEMBER_ID")
+//    private Member member;
+//
+//    public void setMember(Member member) {
+//        this.member = member;
+//    }
 }

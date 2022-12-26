@@ -1,27 +1,20 @@
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/nyLuckMango
-    username: root
-    password:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  devtools:
-    livereload:
+  h2:
+    console:
       enabled: true
-  #create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
-  #create-drop: create와 같으나 종료시점에 테이블 DROP
-  #update: 변경분만 반영(운영DB에서는 사용하면 안됨)
-  #validate: 엔티티와 테이블이 정상 매핑되었는지만 확인
-  #none: 사용하지 않음(사실상 없는 값이지만 관례상 none이라고 한다.)
-
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:test
   jpa:
-    database: mysql   # 추가 해준 부분
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create # (1) 스키마 자동 생성 //create-drop,update
+      ddl-auto: create  # (1) 스키마 자동 생성
     show-sql: true      # (2) SQL 쿼리 출력
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
+  sql:
+    init:
+      data-locations: classpath*:db/h2/data.sql
   server:
     servlet:
       encoding:

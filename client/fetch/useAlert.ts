@@ -51,6 +51,8 @@ export const useAlert = ({ memberId }: { memberId: number }) => {
           setError(true);
         });
       return () => cancel();
+    } else {
+      setError(true);
     }
   }, [memberId]);
 

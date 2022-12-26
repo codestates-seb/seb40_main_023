@@ -16,6 +16,7 @@ import seb40.main023.server.member.entity.Member;
 import seb40.main023.server.member.repository.MemberRepository;
 import seb40.main023.server.security.utils.CustomAuthorityUtils;
 
+import javax.validation.constraints.Email;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +29,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
-//    private final S3UpFileService s3UpFileService;
+    private final S3UpFileService s3UpFileService;
 
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
@@ -51,9 +52,18 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         //로그인 이미지가 변화 하였는지 체크
-//        boolean check;
-//        if(Objects.equals(member.getImgUrl(), findMember.getImgUrl())){check = true;}
-//        else {check = false;}
+        boolean check;
+        if(Objects.equals(member.getImgUrl(), findMember.getImgUrl())){check = true;}
+        else {check = false;}
+
+        //        로그인 이미지가 null 아니고  로그인 이미지값이 변화가 있었을시  s3에서 파일 삭제
+        if (!findMember.getImgUrl().equals("NONE") && !check) {
+            try {
+                s3UpFileService.deleteMember(findMember.getImgUrl());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         Optional.ofNullable(member.getName())
                 .ifPresent(name -> findMember.setName(name));
@@ -61,17 +71,11 @@ public class MemberService {
                 .ifPresent(imgUrl -> findMember.setImgUrl(imgUrl));
         Optional.ofNullable(member.getMemberStatus())
                 .ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
+        Optional.ofNullable(member.getPassword())
+                .ifPresent(password -> findMember.setPassword(passwordEncoder.encode(password)));
 
         findMember.setModifiedAt(LocalDateTime.now());
 
-        //로그인 이미지가 null 아니고  로그인 이미지값이 변화가 있었을시  s3에서 파일 삭제
-//        if (findMember.getImgUrl() != null && !check) {
-//            try {
-//                s3UpFileService.deleteMember(findMember.getImgUrl());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
 
         return memberRepository.save(findMember);
     }
@@ -94,13 +98,13 @@ public class MemberService {
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
 
-//        if (findMember.getImgUrl() != null ) {
-//            try {
-//                s3UpFileService.deleteMember(findMember.getImgUrl());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+        if (!findMember.getImgUrl().equals("NONE")) {
+            try {
+                s3UpFileService.deleteMember(findMember.getImgUrl());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         memberRepository.delete(findMember);
     }
@@ -129,5 +133,13 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+    }
+
+    public void changePassWord(@Email String mail, String name) {
+        Member member = findMember(mail);
+        if (Objects.equals(name, member.getName())) {
+            member.setPassword(passwordEncoder.encode("test1111!"));
+        }
+        else {throw new BusinessLogicException(ExceptionCode.NAME_NOT_MATCH);}
     }
 }

@@ -1,10 +1,12 @@
 cloud:
   aws:
     credentials:
-      access-key: {보안을 위해 업로드 추가 수정}
-      secret-key: {보안을 위해 업로드 추가 수정}
+      access-key:  # s3 엑세스 키
+      secret-key:  # s3 시크릿 키
     s3:
       bucket: saypart/ #버킷 이름
+      login: https://saypart.s3.ap-northeast-2.amazonaws.com/login/      # 로그인 이미지 저장 주소
+      luckMango: https://saypart.s3.ap-northeast-2.amazonaws.com/luckMango/  # 복망고 이미지 저장 주소
     region:
       static: ap-northeast-2 # 리전 정보
     stack:

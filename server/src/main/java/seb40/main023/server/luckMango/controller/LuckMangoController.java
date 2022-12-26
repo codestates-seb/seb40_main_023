@@ -16,6 +16,7 @@ import seb40.main023.server.response.SingleResponseDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -43,8 +44,6 @@ public class LuckMangoController {
                                        @Valid @RequestBody LuckMangoPatchDto luckMangoPatchDto) {
         luckMangoPatchDto.setLuckMangoId(luckMangoId);
         LuckMango luckMango = luckMangoService.updateLuckMango(luckMangoMapper.luckMangoPatchDtoToluckMango(luckMangoPatchDto));
-//        long memberId = content.getMemberId();   // 멤버 아이디가 동일하지 않으면 수정 불가
-//        if(nowMemberId != memberId){return new ResponseEntity(HttpStatus.BAD_REQUEST);}
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDto(luckMango)),HttpStatus.OK);
@@ -61,8 +60,8 @@ public class LuckMangoController {
     //회원이 가진 복망고 출력하기
     @GetMapping("/member")
     public ResponseEntity getMemberLuckMango(@Positive @RequestParam("memberId") long memberId,@Positive @RequestParam("page") int page,
-                                            @Positive @RequestParam("size") int size,@RequestParam ("sort") String sort) {
-        Page<LuckMango> pageLuckMangos = luckMangoService.searchLuckMango(memberId,page - 1, size,sort);
+                                            @Positive @RequestParam("size") int size) {
+        Page<LuckMango> pageLuckMangos = luckMangoService.searchLuckMango(memberId,page - 1, size);
         List<LuckMango> luckMangos = pageLuckMangos.getContent();
 
         return new ResponseEntity<>(
@@ -83,9 +82,8 @@ public class LuckMangoController {
 
     //공개복망고 가져오기
     @GetMapping("/public")
-    public ResponseEntity getPublicLuckMangos(@RequestParam("reveal") boolean reveal,@Positive @RequestParam int page,
-                                        @Positive @RequestParam int size, @RequestParam ("sort") String sort) {
-        Page<LuckMango> pageLuckMangos = luckMangoService.publicLuckMango(reveal, page - 1, size,sort);
+    public ResponseEntity getPublicLuckMangos(@Positive @RequestParam int page, @Positive @RequestParam int size) {
+        Page<LuckMango> pageLuckMangos = luckMangoService.publicLuckMango(page - 1, size);
         List<LuckMango> luckMangos = pageLuckMangos.getContent();
 
         return new ResponseEntity<>(
@@ -94,14 +92,25 @@ public class LuckMangoController {
     }
 
     @GetMapping("/public/like")
-    public ResponseEntity getPublicLuckMangoslike(@RequestParam("reveal") boolean reveal,@Positive @RequestParam int page,
-                                              @Positive @RequestParam int size, @RequestParam ("sort") String sort) {
-        Page<LuckMango> pageLuckMangos = luckMangoService.publicLuckMangoLike(reveal, page - 1, size,sort);
+    public ResponseEntity getPublicLuckMangoslike(@Positive @RequestParam int page, @Positive @RequestParam int size) {
+        Page<LuckMango> pageLuckMangos = luckMangoService.publicLuckMangoLike(page - 1, size);
         List<LuckMango> luckMangos = pageLuckMangos.getContent();
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(luckMangoMapper.luckMangoToLuckMangoResponseDtos(luckMangos),
                         pageLuckMangos), HttpStatus.OK);
+    }
+
+    @GetMapping("/ago")
+    public int getAgoLuckMangos(@Positive @RequestParam int ago) {
+
+        return luckMangoService.searchLuckMangosCount(ago);
+    }
+
+    @GetMapping("/day")
+    public int getDayLuckMangos(@RequestParam String time1, @RequestParam String time2) {
+
+        return luckMangoService.searchDayLuckMangosCount(time1,time2);
     }
 
 

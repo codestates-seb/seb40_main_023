@@ -59,6 +59,8 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/member").permitAll()
+                        .antMatchers(HttpMethod.GET, "/member/mail").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/member/findPassword").permitAll()
                         .antMatchers(HttpMethod.PATCH, "/member/**").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/member/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.GET, "/member").hasAnyRole("USER", "ADMIN")

@@ -11,6 +11,7 @@ import seb40.main023.server.luckBag.dto.LuckBagPostDto;
 import seb40.main023.server.luckBag.entity.LuckBag;
 import seb40.main023.server.luckBag.mapper.LuckBagMapper;
 import seb40.main023.server.luckBag.service.LuckBagService;
+import seb40.main023.server.luckMango.service.LuckMangoService;
 import seb40.main023.server.response.MultiResponseDto;
 import seb40.main023.server.response.SingleResponseDto;
 
@@ -25,6 +26,7 @@ import java.util.List;
 @CrossOrigin // 웹 페이지의 제한된 자원을 외부 도메인에서 접근을 허용
 public class LuckBagController {
     private final LuckBagService luckBagService;
+    private final LuckMangoService luckMangoService;
     private final LuckBagMapper luckBagMapper;
 
     // 복주머니 생성의 경우 public 익명도 작성 가능해야하고, 조회도 가능해야하기 때문에
@@ -38,6 +40,10 @@ public class LuckBagController {
         // 럭백 포스트 DTo 인스턴스를 -> 럭백포스트투럭백 메서드를 이용해서 럭백 인스턴스로 변환해줬다.
         // 변환 시켜주는 역할이 맵퍼
         // dto -> service + mapper + entity -> db -> front
+
+        long luckMangoId = luckBag.getLuckMango().getLuckMangoId();
+        luckMangoService.searchNewLuckbag(luckMangoId);
+
         return new ResponseEntity<>(
                 new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(luckBag)), HttpStatus.CREATED);
                 // singleResponseDTo가 하는 역할이 아직도 모르겠다 , Multi도 마찬가지
@@ -92,9 +98,20 @@ public class LuckBagController {
         luckBagPatchDto.setLuckBagId(luckBagId);
         LuckBag luckBag = luckBagService.updateLuckBag(luckBagMapper.luckBagPatchDtoToLuckBag(luckBagPatchDto));
 
+        long luckMangoId = luckBag.getLuckMango().getLuckMangoId();
+        luckMangoService.searchViewLuckbag(luckMangoId);
+
+
         return new ResponseEntity<>(
                 new SingleResponseDto<>(luckBagMapper.luckBagToLuckBagResponseDto(luckBag)), HttpStatus.OK);
     }
+
+    @GetMapping("/day")
+    public int getDayLuckBags(@RequestParam String time1, @RequestParam String time2) {
+
+        return luckBagService.searchDayLuckBagsCount(time1,time2);
+    }
+
     // 복주머니 삭제
     @DeleteMapping("/{luckBag-id}")
     public ResponseEntity deleteLuckBag(@PathVariable("luckBag-id") @Positive long luckBagId){

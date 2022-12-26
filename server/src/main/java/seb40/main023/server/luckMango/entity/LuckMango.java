@@ -9,6 +9,7 @@ import seb40.main023.server.member.entity.Member;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,12 @@ public class LuckMango extends Auditable {
 
     @Column
     private boolean reveal;    // public, private는 예약어라 설장 안됨
+
+    @Column
+    private int newLuckBag;
+
+    @Column
+    private LocalDateTime newLuckBagTime;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

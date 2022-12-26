@@ -52,15 +52,15 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<UpFile> upFiles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<S3UpFile> s3upFiles = new ArrayList<>();
-
-    public void addS3UpFiles(S3UpFile s3UpFile) {
-        s3upFiles.add(s3UpFile);
-        if(s3UpFile.getMember() != this){
-            s3UpFile.setMember(this);
-        }
-    }
+//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+//    private List<S3UpFile> s3upFiles = new ArrayList<>();
+//
+//    public void addS3UpFiles(S3UpFile s3UpFile) {
+//        s3upFiles.add(s3UpFile);
+//        if(s3UpFile.getMember() != this){
+//            s3UpFile.setMember(this);
+//        }
+//    }
 
     public void addUpFiles(UpFile upFile) {
         upFiles.add(upFile);

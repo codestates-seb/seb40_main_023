@@ -5,6 +5,7 @@ import lombok.Getter;
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
     MEMBER_EXISTS(409, "Member exists"),
+    NAME_NOT_MATCH(403, "유저 네임이 다릅니다"),
     LUCKMANGO_NOT_FOUND(404, "LuckMango not found"),
     LUCKMANGO_BAD_REQUEST(400, "잘못된 요청"),
     REVIEW_NOT_FOUND(404, "Review not found"),
